@@ -338,7 +338,6 @@ class ImportExportTest extends PageTestCase
         );
         $expectedUncoveredHandles = [
             'core_board_slot', // Does it make sense to test it?
-            'feature',
             'feature_link',
             'file',
             'form',
@@ -536,6 +535,8 @@ class ImportExportTest extends PageTestCase
         $importer->importLocalFile(DIR_TESTS . '/assets/Block/cif/file-1.jpg', 'file-1.jpg', $importOptions);
         $importOptions->setCustomPrefix('210987654321');
         $importer->importLocalFile(DIR_TESTS . '/assets/Block/cif/file-2.png', 'file-2.png', $importOptions);
+        $importOptions->setCustomPrefix('123456543210');
+        $importer->importLocalFile(DIR_TESTS . '/assets/Block/cif/file-2.png', 'file-3.png', $importOptions);
         FileSet::create('Test File Set #1');
         FileSet::create('Test File Set #2');
         FileSet::create('Test File Set #3');

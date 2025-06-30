@@ -1,0 +1,13 @@
+{
+    "$schema": "../options-schema.json",
+    "fileUsageCount": 3,
+    "richTextsWithPages": {
+        "SELECT paragraph FROM btFeature WHERE bID = :bID": 1
+    },
+    "richTextsWithFiles": {
+        "SELECT paragraph FROM btFeature WHERE bID = :bID": 1
+    },
+    "richTextsWithImages": {
+        "SELECT paragraph FROM btFeature WHERE bID = :bID": 1
+    }
+}
