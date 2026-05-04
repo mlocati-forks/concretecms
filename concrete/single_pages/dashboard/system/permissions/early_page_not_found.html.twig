@@ -1,44 +1,28 @@
-<?php
-
-declare(strict_types=1);
-
-use Concrete\Core\Utility\RegexParser\ParsedRegex;
-
-defined('C5_EXECUTE') or die('Access Denied.');
-
-/**
- * @var Concrete\Controller\SinglePage\Dashboard\System\Permissions\EarlyPageNotFound $controller
- * @var Concrete\Core\Application\Service\Dashboard $dashboard
- * @var Concrete\Core\Form\Service\Form $form
- * @var Concrete\Core\Html\Service\Html $html
- * @var Concrete\Core\Application\Service\UserInterface $interface
- * @var Concrete\Core\Validation\CSRF\Token $token
- * @var Concrete\Core\Page\View\PageView $view
- *
- * @var string $rootUrl
- * @var bool $early404Enabled
- * @var array[] $early404Rules
- */
-
-?>
+{#
+    @var token Concrete\Core\Validation\CSRF\Token
+    @var view Concrete\Core\Page\View\PageView
+    @var rootUrl string
+    @var early404Enabled bool
+    @var early404Rules array[]
+#}
 <div class="ccm-dashboard-header-buttons">
     <div id="ccm-e404-tools" v-cloak>
         <button class="btn" v-bind:class="rulesEnabled ? 'btn-success' : 'btn-danger'" v-bind:disabled="busy" v-on:click.prevent="toggleRulesEnabled()">
-            <template v-if="rulesEnabled"><?= t('Rules Enabled') ?></template>
-            <template v-else><?= t('Rules Disabled') ?></template>
+            <template v-if="rulesEnabled">{{ t('Rules Enabled') }}</template>
+            <template v-else>{{ t('Rules Disabled') }}</template>
         </button>
     </div>
 </div>
 <div id="ccm-e404-main" v-cloak>
     <fieldset>
-        <legend><?= t('Rules') ?></legend>
+        <legend>{{ t('Rules') }}</legend>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th style="width: 1px"></th>
-                    <th style="width: 1px"><?= t('Type') ?></th>
-                    <th><?= t('Text') ?></th>
-                    <th style="width: 1px"><?= t('Options') ?></th>
+                    <th style="width: 1px">{{ t('Type') }}</th>
+                    <th>{{ t('Text') }}</th>
+                    <th style="width: 1px">{{ t('Options') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,27 +32,27 @@ defined('C5_EXECUTE') or die('Access Denied.');
                     </td>
                     <td>
                         <select class="form-control form-control-sm" v-model="rule.type" style="width: auto; min-width: max-content" v-bind:disabled="busy">
-                            <option v-bind:value="TYPE.EQUALS"><?= t('Equals') ?></option>
-                            <option v-bind:value="TYPE.CONTAINS"><?= t('Contains') ?></option>
-                            <option v-bind:value="TYPE.STARTSWITH"><?= t('Starts With') ?></option>
-                            <option v-bind:value="TYPE.ENDSWITH"><?= t('Ends With') ?></option>
-                            <option v-bind:value="TYPE.REGEX"><?= t('Regular Expression') ?></option>
+                            <option v-bind:value="TYPE.EQUALS">{{ t('Equals') }}</option>
+                            <option v-bind:value="TYPE.CONTAINS">{{ t('Contains') }}</option>
+                            <option v-bind:value="TYPE.STARTSWITH">{{ t('Starts With') }}</option>
+                            <option v-bind:value="TYPE.ENDSWITH">{{ t('Ends With') }}</option>
+                            <option v-bind:value="TYPE.REGEX">{{ t('Regular Expression') }}</option>
                         </select>
                     </td>
                     <td>
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control font-monospace" v-model.trim="rule.text" v-bind:readonly="busy" />
                             <span v-if="rule.type === TYPE.REGEX" class="input-group-text">
-                                <?= t('Delimiter: %s', '&nbsp;<code>{{ rule.delimiter }}</code>') ?>
+                                {{ t('Delimiter: %s', '&nbsp;<code>{{ rule.delimiter }}</code>') | raw }}
                             </span>
                         </div>
-                        <div class="text-danger" style="white-space: pre-wrap" v-if="rule.error">{{ rule.error }}</div>
+                        <div class="text-danger" style="white-space: pre-wrap" v-if="rule.error">{{ '{{ rule.error }}' }}</div>
                     </td>
                     <td class="text-nowrap">
                         <div class="form-check mb-0">
                             <input class="form-check-input" type="checkbox" value="" v-bind:id="`ccm-e404-ci${index}`" v-bind:value="MODIFIER.CASE_INSENSITIVE" v-model="rule.modifiers" v-bind:disabled="busy" />
                             <label class="form-check-label" v-bind:for="`ccm-e404-ci${index}`">
-                                <?= t('Case Insensitive') ?>
+                                {{ t('Case Insensitive') }}
                             </label>
                         </div>
                     </td>
@@ -77,17 +61,17 @@ defined('C5_EXECUTE') or die('Access Denied.');
         </table>
     </fieldset>
     <fieldset>
-        <legend><?= t('Test') ?></legend>
+        <legend>{{ t('Test') }}</legend>
         <div class="input-group input-group-sm">
-            <span class="input-group-text"><?= h($rootUrl) ?></span>
+            <span class="input-group-text">{{ rootUrl }}</span>
             <input type="text" class="form-control font-monospace" v-model.trim="test.url" v-bind:readonly="busy" />
         </div>
-        <div v-bind:class="test.resultClass">{{ test.resultText }}</div>
+        <div v-bind:class="test.resultClass">{{ '{{ test.resultText }}' }}</div>
     </fieldset>
     <div class="ccm-dashboard-form-actions-wrapper">
         <div class="ccm-dashboard-form-actions">
             <div class="float-end">
-                <button class="btn btn-primary" v-bind:disabled="busy" v-on:click.prevent="save()"><?= t('Save Rules') ?></button>
+                <button class="btn btn-primary" v-bind:disabled="busy" v-on:click.prevent="save()">{{ t('Save Rules') }}</button>
             </div>
         </div>
     </div>
@@ -101,15 +85,8 @@ const tools = new Vue({
     data() {
         return {
             busy: false,
-            rulesEnabled: <?= json_encode($early404Enabled) ?>,
-            storedRulesHaveErrors: <?= json_encode(
-                array_filter(
-                    $early404Rules,
-                    static function (array $rule): bool {
-                        return $rule['error'] !== '';
-                    }
-                ) !== []
-            ) ?>,
+            rulesEnabled: {{ early404Enabled | json_encode | raw }},
+            storedRulesHaveErrors: {{ (early404Rules | filter(rule => rule.error != '') is not empty) | json_encode }},
         };
     },
     methods: {
@@ -120,13 +97,13 @@ const tools = new Vue({
             this.busy = true;
             try {
                 if (!this.rulesEnabled && this.storedRulesHaveErrors) {
-                    throw new Error(<?= json_encode(t('Please fix the rule errors and save the rules before activating them')) ?>);
+                    throw new Error({{ t('Please fix the rule errors and save the rules before activating them') | json_encode | raw }});
                 }
                 this.rulesEnabled = await $.ajax({
                     type: 'POST',
-                    url: <?= json_encode($view->action('set_rules_enabled')); ?>,
+                    url: {{ view.action('set_rules_enabled') | json_encode | raw }},
                     data: {
-                        <?= json_encode($token::DEFAULT_TOKEN_NAME); ?>: <?= json_encode($token->generate('e404-e')); ?>,
+                        {{ constant('DEFAULT_TOKEN_NAME', token) | json_encode | raw }}: {{ token.generate('e404-e') | json_encode | raw }},
                         enabled: !this.rulesEnabled
                     },
                     dataType: 'json'
@@ -136,7 +113,7 @@ const tools = new Vue({
                 if (e?.responseJSON?.errors?.length) {
                     error = e?.responseJSON.errors.join('\n');
                 } else {
-                    error = e?.responseText || e?.message || <?= json_encode(t('Unknown error')) ?>;
+                    error = e?.responseText || e?.message || {{ t('Unknown error') | json_encode | raw }};
                 }
                 ConcreteAlert.error({message: error, plainTextMessage: true});
             } finally {
@@ -152,17 +129,18 @@ const main = new Vue({
         return {
             busy: false,
             askBeforeUnload: true,
-            rules: <?= json_encode($early404Rules) ?>.map(rule => this.unserializeRule(rule)),
-            TYPE: <?= json_encode([
-                'REGEX' => ParsedRegex::TYPE_REGEX,
-                'EQUALS' => ParsedRegex::TYPE_EQUALS,
-                'STARTSWITH' => ParsedRegex::TYPE_STARTSWITH,
-                'ENDSWITH' => ParsedRegex::TYPE_ENDSWITH,
-                'CONTAINS' => ParsedRegex::TYPE_CONTAINS,
-            ]) ?>,
-            MODIFIER: <?= json_encode([
-                'CASE_INSENSITIVE' => ParsedRegex::MODIFIER_CASELESS,
-            ]) ?>,
+            rules: {{ early404Rules | json_encode | raw }}.map(rule => this.unserializeRule(rule)),
+            TYPE: {{ {
+                'REGEX': constant('Concrete\\Core\\Utility\\RegexParser\\ParsedRegex::TYPE_REGEX'),
+                'EQUALS': constant('Concrete\\Core\\Utility\\RegexParser\\ParsedRegex::TYPE_EQUALS'),
+                'STARTSWITH': constant('Concrete\\Core\\Utility\\RegexParser\\ParsedRegex::TYPE_STARTSWITH'),
+                'ENDSWITH': constant('Concrete\\Core\\Utility\\RegexParser\\ParsedRegex::TYPE_ENDSWITH'),
+                'CONTAINS': constant('Concrete\\Core\\Utility\\RegexParser\\ParsedRegex::TYPE_CONTAINS')
+            } | json_encode | raw }},
+            MODIFIER: {{ {
+                'CASE_INSENSITIVE': constant('Concrete\\Core\\Utility\\RegexParser\\ParsedRegex::MODIFIER_CASELESS'),
+            } | json_encode | raw }},
+            
             WATCH_DELAY: 250,
             rulesWatchTimer: null,
             testUrlWatchTimer: null,
@@ -229,10 +207,10 @@ const main = new Vue({
             try {
                 await $.ajax({
                     type: 'POST',
-                    url: <?= json_encode($view->action('test_rule')); ?>,
+                    url: {{ view.action('test_rule') | json_encode | raw }},
                     data: $.extend(
                         {
-                            <?= json_encode($token::DEFAULT_TOKEN_NAME); ?>: <?= json_encode($token->generate('e404-tr')); ?>,
+                            {{ constant('DEFAULT_TOKEN_NAME', token) | json_encode | raw }}: {{ token.generate('e404-tr') | json_encode| raw }},
                         },
                         this.serializeRule(rule),
                     ),
@@ -253,7 +231,7 @@ const main = new Vue({
                 if (e?.responseJSON?.errors?.length) {
                     rule.error = e?.responseJSON.errors.join('\n');
                 } else {
-                    rule.error = e?.responseText || e?.message || <?= json_encode(t('Unknown error')) ?>;
+                    rule.error = e?.responseText || e?.message || {{ t('Unknown error') | json_encode | raw}};
                 }
             }
         },
@@ -275,13 +253,13 @@ const main = new Vue({
         async updateTestUrlResult() {
             if (this.test.url === '') {
                 this.test.resultClass = 'text-muted';
-                this.test.resultText = <?= json_encode(t('Specify a URL to check if the rules match')) ?>;
+                this.test.resultText = {{ t('Specify a URL to check if the rules match') | json_encode | raw}};
                 return;
             }
             const rules = this.rules.filter(rule => rule.text !== '');
             if (rules.length === 0) {
                 this.test.resultClass = 'text-muted';
-                this.test.resultText = <?= json_encode(t('Specify at least one rule')) ?>;
+                this.test.resultText = {{ t('Specify at least one rule') | json_encode | raw}};
                 return;
             }
             const checkKey = [this.test.url, ...rules.map(rule => rule._checkKey)].join('\x03');
@@ -293,9 +271,9 @@ const main = new Vue({
             try {
                 const response = await $.ajax({
                     type: 'POST',
-                    url: <?= json_encode($view->action('test_url')); ?>,
+                    url: {{ view.action('test_url') | json_encode | raw }},
                     data: {
-                        <?= json_encode($token::DEFAULT_TOKEN_NAME); ?>: <?= json_encode($token->generate('e404-tu')); ?>,
+                        {{ constant('DEFAULT_TOKEN_NAME', token) | json_encode | raw }}: {{ token.generate('e404-tu') | json_encode| raw }},
                         rules: rules.map(rule => this.serializeRule(rule)),
                         url: this.test.url,
                     },
@@ -309,7 +287,7 @@ const main = new Vue({
                 if (e?.responseJSON?.errors?.length) {
                     this.test.resultText =e?.responseJSON.errors.join('\n');
                 } else {
-                    this.test.resultText =e?.responseText || e?.message || <?= json_encode(t('Unknown error')) ?>;
+                    this.test.resultText =e?.responseText || e?.message || {{ t('Unknown error') | json_encode | raw}};
                 }
             }
         },
@@ -321,7 +299,7 @@ const main = new Vue({
                 if (!rule.error) {
                     return false;
                 }
-                ConcreteAlert.error({message: <?= json_encode(t('Please fix the errors')) ?>});
+                ConcreteAlert.error({message: {{ t('Please fix the errors') | json_encode | raw}}});
                 return true;
             });
             if (someErrors) {
@@ -331,9 +309,9 @@ const main = new Vue({
             try {
                 await $.ajax({
                     type: 'POST',
-                    url: <?= json_encode($view->action('save')); ?>,
+                    url: {{ view.action('save') | json_encode | raw }},
                     data: {
-                        <?= json_encode($token::DEFAULT_TOKEN_NAME); ?>: <?= json_encode($token->generate('e404-s')); ?>,
+                        {{ constant('DEFAULT_TOKEN_NAME', token) | json_encode | raw }}: {{ token.generate('e404-s') | json_encode| raw }},
                         rules: this.rules
                             .filter(rule => rule.text !== '')
                             .map(rule => this.serializeRule(rule))
@@ -349,7 +327,7 @@ const main = new Vue({
                 if (e?.responseJSON?.errors?.length) {
                     error = e?.responseJSON.errors.join('\n');
                 } else {
-                    error = e?.responseText || e?.message || <?= json_encode(t('Unknown error')) ?>;
+                    error = e?.responseText || e?.message || {{ t('Unknown error') | json_encode | raw}};
                 }
                 ConcreteAlert.error({message: error, plainTextMessage: true});
             }
