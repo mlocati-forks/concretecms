@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Concrete\Core\Page\Command;
 
+use Concrete\Core\Block\ExportDeclarations;
 use Concrete\Core\Multilingual\Page\Section\Section;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Page\Stack\Stack;
@@ -51,7 +52,7 @@ class RescanMultilingualPageCommandHandler
         $db = \Database::connection();
         foreach ($c->getBlocks() as $b) {
             $controller = $b->getController();
-            $pageColumns = $controller->getBlockTypeExportPageColumns();
+            $pageColumns = $controller->getExportDeclarations()->getColumns(ExportDeclarations::REFERENCE_PAGE);
             if (count($pageColumns)) {
                 $columns = $db->MetaColumnNames($controller->getBlockTypeDatabaseTable());
                 $data = [];
