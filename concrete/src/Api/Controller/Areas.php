@@ -11,6 +11,7 @@ use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Permission\Checker;
 use Concrete\Core\Api\ApiController;
+use Concrete\Core\Api\Block\ApiValueNormalizer;
 use Concrete\Core\Area\Exception\AreaNotFoundException;
 use Concrete\Core\Block\Exception\BlockNotFoundException;
 use Concrete\Core\Block\Traits\GetBlockToEditTrait;
@@ -105,7 +106,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
 
         $controller = $blockType->getController();
         $controller->setAreaObject($area);
-        $data = $controller->getImportDataFromApiValue($page, $body);
+        $data = $controller->getImportDataFromApiValue($page, $this->normalizeApiValue($body));
         $errors = $controller->validate($data);
         if ($errors instanceof ErrorList && $errors->has()) {
             return $errors->createResponse(JsonResponse::HTTP_BAD_REQUEST);
@@ -381,7 +382,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
             return $this->error(t('You do not have permission to edit this block on this page.', 403));
         }
 
-        $body = $b->getController()->getImportDataFromApiValue($page, (array) $content['value']);
+        $body = $b->getController()->getImportDataFromApiValue($page, $this->normalizeApiValue($content['value']));
         $r = $this->validateBlock($b, $body);
         if ($r instanceof JsonResponse) {
             return $r;
@@ -404,5 +405,15 @@ class Areas extends ApiController implements ApplicationAwareInterface
         return $this->transform($block, $transformer, Resources::RESOURCE_BLOCKS);
     }
 
-
+    /**
+     * Turn the value of a block received via the API into what its block type understands.
+     *
+     * @param mixed $value
+     *
+     * @return array<string,mixed>
+     */
+    protected function normalizeApiValue($value): array
+    {
+        return $this->app->make(ApiValueNormalizer::class)->normalize((array) $value);
+    }
 }
