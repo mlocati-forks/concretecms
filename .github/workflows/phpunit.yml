@@ -11,9 +11,12 @@ on:
 jobs:
   phpunit:
     name: "PHPUnit"
+    outputs:
+      code-coverage: "${{ steps.enable-code-coverage.outputs.enabled }}"
     env:
       LC_ALL: en_US.UTF-8
-      CODE_COVERAGE: none
+      CODE_COVERAGE_TOOL: none
+      PHPUNIT_ARGS: ''
 
     runs-on: ${{ matrix.operating-system }}
     services:
@@ -52,15 +55,19 @@ jobs:
           - php-version: 8.2
             operating-system: "ubuntu-latest"
             dependencies: "locked"
-            # code-coverage: "1"
+            code-coverage: "1"
           - php-version: 8.5
             operating-system: "ubuntu-latest"
             dependencies: "highest"
 
     steps:
       - name: Enable code coverage
-        if: matrix.code-coverage && github.repository_owner == 'concretecms'
-        run: printf 'CODE_COVERAGE=pcov\n' >> "$GITHUB_ENV"
+        id: enable-code-coverage
+        if: matrix.code-coverage && github.repository_owner == 'mlocati-forks'
+        run: |
+          echo "CODE_COVERAGE_TOOL=pcov" >> "$GITHUB_ENV"
+          echo "PHPUNIT_ARGS=--coverage-clover coverage.xml" >> "$GITHUB_ENV"
+          echo "enabled=1" >> "$GITHUB_OUTPUT"
 
       - name: "Checkout"
         uses: actions/checkout@v7
@@ -72,7 +79,7 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, mysql
-          coverage: ${{ env.CODE_COVERAGE }}
+          coverage: ${{ env.CODE_COVERAGE_TOOL }}
           ini-values: memory_limit=-1, pcov.directory=concrete, pcov.exclude="~(vendor|tests|js|css|config)~"
           tools: ${{matrix.composer}}
 
@@ -113,15 +120,23 @@ jobs:
           composer install --no-interaction --no-progress
 
       - name: "Tests"
-        if: env.CODE_COVERAGE == 'none'
-        run: php ./concrete/vendor/phpunit/phpunit/phpunit
+        run: php ./concrete/vendor/phpunit/phpunit/phpunit --colors=always ${{ env.PHPUNIT_ARGS }}
 
-      - name: "Tests with coverage"
-        if: env.CODE_COVERAGE != 'none'
-        run: php ./concrete/vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.clover
+      - name: Send coverage to Coveralls
+        if: env.CODE_COVERAGE_TOOL != 'none'
+        uses: coverallsapp/github-action@v2
+        with:
+          flag-name: run-${{ join(matrix.*, '-') }}
+          file: coverage.xml
+          parallel: true
 
-      - name: "Upload coverage"
-        if: env.CODE_COVERAGE != 'none'
-        run: |
-          wget --tries=5 https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  coveralls-finish:
+    name: Finish Coveralls
+    needs: phpunit
+    if: needs.phpunit.outputs.code-coverage == '1'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel-finished: true
