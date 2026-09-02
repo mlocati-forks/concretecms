@@ -304,6 +304,7 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
         $db = Loader::db();
         $db->Execute('delete from FilePermissionAssignments where fID = ?', [$this->fID]);
         if ($fOverrideSetPermissions) {
+            /** @var \Concrete\Core\Permission\Key\FileKey[] $permissions */
             $permissions = PermissionKey::getList('file');
             foreach ($permissions as $pk) {
                 $pk->setPermissionObject($this);

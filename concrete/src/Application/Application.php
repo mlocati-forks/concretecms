@@ -392,8 +392,6 @@ class Application extends Container
     /**
      * Get or check the current application environment.
      *
-     * @param  mixed
-     *
      * @return string|bool
      */
     public function environment()
@@ -440,7 +438,6 @@ class Application extends Container
      * Instantiate a concrete instance of the given type.
      *
      * @param  string $concrete
-     * @param  array $parameters
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *

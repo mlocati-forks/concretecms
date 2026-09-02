@@ -31,6 +31,7 @@ class TypeParser extends AbstractParser
     public function parseNode(\SimpleXMLElement $element, PresetInterface $preset): StyleInterface
     {
         $collection = $this->webFontCollectionFactory->createFromPreset($preset);
+        /** @var \Concrete\Core\StyleCustomizer\Style\TypeStyle $style */
         $style = parent::parseNode($element, $preset);
         $style->setWebFonts($collection);
         return $style;

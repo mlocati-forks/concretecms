@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="\Concrete\Core\Entity\Express\EntryRepository")
  * @ORM\Table(name="ExpressEntityEntries",
- *  *     indexes={
+ *     indexes={
  *         @ORM\Index(name="resultsNodeID", columns={"resultsNodeID"}),
  *         @ORM\Index(name="createdSort", columns={"exEntryDateCreated"}),
  *         @ORM\Index(name="modifiedSort", columns={"exEntryDateModified"})
@@ -46,7 +46,7 @@ class Entry implements \JsonSerializable, PermissionObjectInterface, AttributeOb
      * @param $nm
      * @param $a
      *
-     * @return $mixed
+     * @return mixed
      */
     public function __call($nm, $a)
     {

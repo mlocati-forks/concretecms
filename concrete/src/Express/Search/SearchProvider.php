@@ -21,6 +21,7 @@ class SearchProvider extends AbstractSearchProvider
 
     public function getFieldManager()
     {
+        /** @var \Concrete\Core\Express\Search\Field\Manager $manager */
         $manager = ManagerFactory::get('express');
         $manager->setExpressCategory($this->category);
         return $manager;

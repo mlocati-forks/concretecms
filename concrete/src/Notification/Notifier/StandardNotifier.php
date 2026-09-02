@@ -30,17 +30,18 @@ class StandardNotifier implements NotifierInterface
             $access = $key->getPermissionAssignmentObject()->getPermissionAccessObject();
             if (is_object($access)) {
                 /**
-                 * @var $access Access
+                 * @var Access $access
                  */
+                /** @var \Concrete\Core\Permission\Access\ListItem\NotifyInNotificationCenterNotificationListItem[] $items */
                 $items = $access->getAccessListItems(Key::ACCESS_TYPE_INCLUDE);
                 /**
-                 * @var $item NotifyInNotificationCenterNotificationListItem
+                 * @var NotifyInNotificationCenterNotificationListItem $item
                  */
                 foreach($items as $item) {
                     if ($item->getSubscriptionsAllowedPermission() == 'A' ||
                         ($item->getSubscriptionsAllowedPermission() == 'C' && in_array($subscription->getSubscriptionIdentifier(), $item->getSubscriptionsAllowedArray()))) {
                         /**
-                         * @var $entity Entity
+                         * @var Entity $entity
                          */
                         $entity = $item->getAccessEntityObject();
                         $users = array_merge($entity->getAccessEntityUsers($access), $users);
@@ -48,9 +49,10 @@ class StandardNotifier implements NotifierInterface
                 }
 
                 // Now we loop through the array and remove
+                /** @var \Concrete\Core\Permission\Access\ListItem\NotifyInNotificationCenterNotificationListItem[] $items */
                 $items = $access->getAccessListItems(Key::ACCESS_TYPE_EXCLUDE);
                 /**
-                 * @var $item NotifyInNotificationCenterNotificationListItem
+                 * @var NotifyInNotificationCenterNotificationListItem $item
                  */
                 $usersToRemove = array();
                 foreach($subject->getUsersToExcludeFromNotification() as $user) {
@@ -60,7 +62,7 @@ class StandardNotifier implements NotifierInterface
                     if ($item->getSubscriptionsAllowedPermission() == 'N' ||
                         ($item->getSubscriptionsAllowedPermission() == 'C' && in_array($subscription->getSubscriptionIdentifier(), $item->getSubscriptionsAllowedArray()))) {
                         /**
-                         * @var $entity Entity
+                         * @var Entity $entity
                          */
                         $entity = $item->getAccessEntityObject();
                         foreach($entity->getAccessEntityUsers($access) as $user) {

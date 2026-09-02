@@ -330,7 +330,6 @@ class Form
      * If the result is a string, it'll be escaped (with htmlspecialchars).
      *
      * @param string $key the name of the field to be checked
-     * @param string $type 'post' to check in POST data, other values to check in GET data
      *
      * @return false|array|string returns an array if $key denotes an array and we received that data, a string if $key is the name of a received data, false if $key is not found in the received data
      */
@@ -458,7 +457,7 @@ class Form
      * @param string|array|int $valueOrMiscFields the value of the field to be selected or an array with additional fields appended to the element (a hash array of attributes name => value), possibly including 'class', 'id', and 'name'
      * @param array $miscFields (used if $valueOrMiscFields is not an array) Additional fields appended to the element (a hash array of attributes name => value), possibly including 'class', 'id', and 'name'
      *
-     * @return $html
+     * @return string
      */
     public function select($key, $optionValues, $valueOrMiscFields = '', $miscFields = [])
     {
@@ -629,7 +628,7 @@ class Form
      * @param array|string $defaultValues Default value(s) which match with the option values; overridden by $_REQUEST
      * @param array $miscFields additional fields appended to the element (a hash array of attributes name => value), possibly including 'class', 'id', and 'name'
      *
-     * @return $html
+     * @return string
      */
     public function selectMultiple($key, $optionValues, $defaultValues = false, $miscFields = [])
     {

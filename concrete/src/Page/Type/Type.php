@@ -846,6 +846,7 @@ class Type extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
 
         // copy permissions from the defaults to the page type
         $cpk = PermissionKey::getByHandle('access_page_type_permissions');
+        /** @var \Concrete\Core\Permission\Key\PageTypeKey[] $permissions */
         $permissions = PermissionKey::getList('page_type');
         foreach ($permissions as $pk) {
             $pk->setPermissionObject($ptt);

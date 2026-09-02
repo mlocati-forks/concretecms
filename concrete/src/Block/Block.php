@@ -1378,6 +1378,7 @@ EOT
         $db->executeStatement('delete from BlockPermissionAssignments where cID = ? and cvID = ? and bID = ?', $v);
 
         // copy permissions from the page to the area
+        /** @var \Concrete\Core\Permission\Key\BlockKey[] $permissions */
         $permissions = PermissionKey::getList('block');
         foreach ($permissions as $pk) {
             $pk->setPermissionObject($this);

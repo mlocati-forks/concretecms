@@ -97,7 +97,8 @@ class AssociationField extends AbstractField
      * {@inheritdoc}
      *
      * @see FieldInterface::filterList()
-     * @var $list EntryList
+     *
+     * @param EntryList $list
      */
     public function filterList(ItemList $list)
     {

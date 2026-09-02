@@ -351,7 +351,7 @@ class Forms extends DashboardPageController
         $form = $this->formRepository->findOneById($id);
         if (is_object($form)) {
             /**
-             * @var $entity Entity
+             * @var Entity $entity
              */
             $entity = $form->getEntity();
             $this->set('entity', $entity);

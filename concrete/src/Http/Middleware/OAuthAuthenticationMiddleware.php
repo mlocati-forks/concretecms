@@ -79,7 +79,7 @@ class OAuthAuthenticationMiddleware implements MiddlewareInterface
 
             if ($userId = $request->attributes->get('oauth_user_id')) {
                 /**
-                 * @var $request \Concrete\Core\Http\Request
+                 * @var \Concrete\Core\Http\Request $request
                  */
                 $request->setCustomRequestUser(
                     $this->userRepository->getByID($userId)

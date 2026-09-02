@@ -131,9 +131,6 @@ class PageList extends DatabaseItemList implements PagerProviderInterface, Pagin
         $this->siteTree = self::SITE_TREE_CURRENT;
     }
 
-    /**
-     * @param bool $includeSystemPages
-     */
     public function includeSystemPages()
     {
         $this->includeSystemPages = true;
@@ -400,7 +397,6 @@ class PageList extends DatabaseItemList implements PagerProviderInterface, Pagin
     /**
      * Filters by page template.
      *
-     * @param mixed $ptHandle
      * @param TemplateEntity $template
      */
     public function filterByPageTemplate(TemplateEntity $template)
