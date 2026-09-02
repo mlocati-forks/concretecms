@@ -51,7 +51,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Group;
 use Imagine\Image\ImageInterface;
 use League\Flysystem\AdapterInterface;
-use League\URL\URLInterface;
+use League\Url\UrlInterface;
 use stdClass;
 use Concrete\Core\Events\EventDispatcher;
 
@@ -833,7 +833,7 @@ class UserInfo extends ConcreteObject implements AttributeObjectInterface, Permi
     }
 
     /**
-     * @return URLInterface|null
+     * @return UrlInterface|null
      */
     public function getUserPublicProfileUrl()
     {

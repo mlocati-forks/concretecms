@@ -198,7 +198,7 @@ class SitemapGenerator
      * Resolve an URL using the custom site canonical URL (if set).
      *
      *
-     * @return \League\URL\URLInterface
+     * @return \League\Url\UrlInterface
      */
     public function resolveUrl(string $sitemapFile)
     {
@@ -268,7 +268,7 @@ class SitemapGenerator
     /**
      * @param \Concrete\Core\Page\Page $page
      *
-     * @return \League\URL\URLInterface
+     * @return \League\Url\UrlInterface
      */
     protected function getPageUrl(Page $page)
     {
