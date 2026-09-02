@@ -260,12 +260,13 @@ class StandardSearchIndexer implements SearchIndexerInterface
         if (count($columnValues)) {
             $primaries = [$primary => $primaryValue];
 
-            $this->connection->update(
-                $category->getIndexedSearchTable(),
-                $columnValues,
-                $primaries
-            );
-        }
+        $this->connection->update(
+            $category->getIndexedSearchTable(),
+            $columnValues,
+            $primaries
+        );
+
+        return true;
     }
 
     /**

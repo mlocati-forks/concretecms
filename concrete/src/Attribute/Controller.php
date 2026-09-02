@@ -128,6 +128,8 @@ class Controller extends AbstractController implements AttributeInterface
         if ($r->exists()) {
             return $r->url;
         }
+
+        return null;
     }
 
     /**

@@ -245,7 +245,7 @@ class Entities extends DashboardPageController
     }
 
     /**
-     * @return \Concrete\Core\Routing\RedirectResponse
+     * @return \Concrete\Core\Routing\RedirectResponse|null
      */
     public function delete_entries()
     {
@@ -282,10 +282,12 @@ class Entities extends DashboardPageController
         // Without this the action falls through to the default view, which renders without the
         // variables view() sets and fatals - so the error above would never reach the user.
         $this->view_entity($this->request->request->get('entity_id'));
+
+        return null;
     }
 
     /**
-     * @return \Concrete\Core\Routing\RedirectResponse
+     * @return \Concrete\Core\Routing\RedirectResponse|null
      */
     public function publish()
     {
@@ -310,6 +312,8 @@ class Entities extends DashboardPageController
         // Without this the action falls through to the default view, which renders without the
         // variables view() sets and fatals - so the error above would never reach the user.
         $this->view_entity($this->request->request->get('entity_id'));
+
+        return null;
     }
 
     public function clear_entries($id = null)

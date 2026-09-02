@@ -505,7 +505,7 @@ class Page extends Collection implements CategoryMemberInterface,
             if ($this->getPageTypeID() > 0) {
                 $pt = $this->getPageTypeObject();
                 if (!$pt) {
-                    return;
+                    return null;
                 }
                 $ptHandle = $pt->getPageTypeHandle();
                 $r = $env->getRecord(DIRNAME_CONTROLLERS . '/' . DIRNAME_PAGE_TYPES . '/' . $ptHandle . '.php', $pt->getPackageHandle());
@@ -1352,6 +1352,8 @@ class Page extends Collection implements CategoryMemberInterface,
 
             return $cIDRedir;
         }
+
+        return null;
     }
 
     /**
@@ -1685,6 +1687,8 @@ class Page extends Collection implements CategoryMemberInterface,
         if (is_object($this->pageType)) {
             return $this->pageType->getPageTypeDisplayName();
         }
+
+        return null;
     }
 
     /**
@@ -1795,6 +1799,8 @@ class Page extends Collection implements CategoryMemberInterface,
         if (is_object($theme)) {
             return $theme->getThemeID();
         }
+
+        return null;
     }
 
     /**
@@ -3043,7 +3049,7 @@ EOT
         if ($this->isAliasPage() && !$this->isExternalLink()) {
             $this->removeThisAlias();
 
-            return;
+            return null;
         }
 
         if ($cID < 1 || $cID == static::getHomePageID()) {
@@ -3118,6 +3124,8 @@ EOT
 
         $cache = PageCache::getLibrary();
         $cache->purge($this);
+
+        return null;
     }
 
     /**
@@ -3853,6 +3861,8 @@ EOT
 
             return $o;
         }
+
+        return null;
     }
 
     /**

@@ -45,6 +45,9 @@ class Key extends Facade implements AttributeKeyInterface
         if (isset($this->legacyAttributeKey)) {
             return $this->legacyAttributeKey->getController();
         }
+
+        // @phpstan-ignore return.type (legacy: NULL if the key has not been loaded, so that old code can check the result of getAttributeKeyID())
+        return null;
     }
 
     public function __toString()
@@ -52,6 +55,8 @@ class Key extends Facade implements AttributeKeyInterface
         if (isset($this->legacyAttributeKey)) {
             return (string) $this->legacyAttributeKey->getAttributeKeyID();
         }
+
+        return '';
     }
 
     /**
@@ -62,6 +67,9 @@ class Key extends Facade implements AttributeKeyInterface
         if (isset($this->legacyAttributeKey)) {
             return $this->legacyAttributeKey->getAttributeKeyID();
         }
+
+        // @phpstan-ignore return.type (legacy: NULL if the key has not been loaded, so that old code can check the result of getAttributeKeyID())
+        return null;
     }
 
     /**
@@ -72,6 +80,8 @@ class Key extends Facade implements AttributeKeyInterface
         if (isset($this->legacyAttributeKey)) {
             return $this->legacyAttributeKey->getAttributeKeyHandle();
         }
+
+        return '';
     }
 
     /**
@@ -82,6 +92,9 @@ class Key extends Facade implements AttributeKeyInterface
         if (isset($this->legacyAttributeKey)) {
             return $this->legacyAttributeKey->getAttributeType();
         }
+
+        // @phpstan-ignore return.type (legacy: NULL if the key has not been loaded, so that old code can check the result of getAttributeKeyID())
+        return null;
     }
 
     /**
@@ -92,6 +105,8 @@ class Key extends Facade implements AttributeKeyInterface
         if (isset($this->legacyAttributeKey)) {
             return $this->legacyAttributeKey->isAttributeKeySearchable();
         }
+
+        return false;
     }
 
     public function getSearchIndexer()
@@ -99,6 +114,9 @@ class Key extends Facade implements AttributeKeyInterface
         if (isset($this->legacyAttributeKey)) {
             return $this->legacyAttributeKey->getSearchIndexer();
         }
+
+        // @phpstan-ignore return.type (legacy: NULL if the key has not been loaded, so that old code can check the result of getAttributeKeyID())
+        return null;
     }
 
     /**

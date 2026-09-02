@@ -191,6 +191,8 @@ class DownloadFile extends PageController
                 }
             }
         }
+
+        return null;
     }
 
     /**

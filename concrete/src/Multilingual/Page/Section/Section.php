@@ -144,6 +144,8 @@ class Section extends Page
         if ($returnID) {
             return static::getByID($returnID);
         }
+
+        return null;
     }
 
 
@@ -649,6 +651,8 @@ class Section extends Page
 
             return $cID;
         }
+
+        return null;
     }
 
     /**

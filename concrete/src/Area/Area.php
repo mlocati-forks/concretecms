@@ -625,7 +625,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * Rescans the current Area's permissions ensuring that it's inheriting permissions properly up the chain.
      *
-     * @return bool
+     * @return bool|null
      */
     public function rescanAreaPermissionsChain()
     {
@@ -692,6 +692,8 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
                 }
             }
         }
+
+        return null;
     }
 
     /**
@@ -734,8 +736,6 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
      * @see Area::rescanSubAreaPermissions()
      *
      * @param Page $masterCollection
-     *
-     * @return bool
      */
     public function rescanSubAreaPermissionsMasterCollection($masterCollection)
     {
@@ -824,8 +824,6 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
      *
      * @param \Concrete\Core\Page\Page|bool $c
      * @param Block[] $alternateBlockArray optional array of blocks to render instead of default behavior
-     *
-     * @return bool
      */
     public function display($c = false, $alternateBlockArray = null)
     {

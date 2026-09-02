@@ -1164,7 +1164,7 @@ abstract class Package implements LocalizablePackageInterface
         $provider = $providerFactory->getEntityManagerProvider();
         $drivers = $provider->getDrivers();
         if (empty($drivers)) {
-            return;
+            return null;
         }
         $config = Setup::createConfiguration(true, $this->app->make('config')->get('database.proxy_classes'));
         $driverImpl = new MappingDriverChain();

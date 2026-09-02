@@ -113,6 +113,6 @@ class Attributes extends DashboardAttributesPageController
      */
     protected function getHeaderMenu(CategoryObjectInterface $category)
     {
-        return false;
+        return null;
     }
 }

@@ -355,6 +355,8 @@ class Version extends ConcreteObject implements PermissionObjectInterface, Attri
 
             return $attributeValue;
         }
+
+        return null;
     }
 
     /**
@@ -529,6 +531,8 @@ class Version extends ConcreteObject implements PermissionObjectInterface, Attri
                 $this->cvAuthorUID,
             ));
         }
+
+        return null;
     }
 
     /**
@@ -546,6 +550,8 @@ class Version extends ConcreteObject implements PermissionObjectInterface, Attri
                 $this->cvApproverUID,
             ));
         }
+
+        return null;
     }
 
     /**

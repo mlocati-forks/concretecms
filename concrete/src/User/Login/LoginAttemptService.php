@@ -80,7 +80,7 @@ class LoginAttemptService
 
         $user = $this->resolveUser($username);
         if (!$user) {
-            return;
+            return $this;
         }
 
         $attempt = new LoginAttempt();

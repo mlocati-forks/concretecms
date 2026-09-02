@@ -635,7 +635,7 @@ EOT
      * @param bool|\Collection $c
      * @param bool|\Area       $a
      * @param string $saveMode
-     * @return bool|\Concrete\Core\Block\Block
+     * @return bool|\Concrete\Core\Block\Block|null
      */
     public function add($data, $c = false, $a = false, ?string $saveMode = SaveMode::SAVE_MODE_REQUEST)
     {
@@ -681,6 +681,8 @@ EOT
 
             return Block::getByID($bIDnew);
         }
+
+        return null;
     }
 
     /**

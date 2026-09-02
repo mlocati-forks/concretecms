@@ -503,6 +503,8 @@ class Collection extends ConcreteObject implements TrackableInterface
         if (is_object($this->vObj)) {
             return $this->vObj->getAttributeValueObject($akHandle, $createIfNotExists);
         }
+
+        return null;
     }
 
     /**
@@ -783,6 +785,8 @@ class Collection extends ConcreteObject implements TrackableInterface
                 $v->addHeaderItem($styleHeader);
             }
         }
+
+        return null;
     }
 
     /**
@@ -822,6 +826,8 @@ class Collection extends ConcreteObject implements TrackableInterface
                 ->setValue('cvRelationID', $oc->getVersionID())
                 ->execute();
         }
+
+        return null;
     }
 
     /**
@@ -1183,7 +1189,9 @@ class Collection extends ConcreteObject implements TrackableInterface
     {
         /** This block doesnt have a display order */
         if ($block->getBlockDisplayOrder() === null) {
-            return $this->rescanDisplayOrder($arHandle);
+            $this->rescanDisplayOrder($arHandle);
+
+            return;
         }
         $fromDisplay = $fromDisplay ?? $block->getBlockDisplayOrder();
         $cID = $this->cID;

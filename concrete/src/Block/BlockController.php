@@ -377,7 +377,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
      *
      * @param int $newBID
      *
-     * @return BlockRecord | null $newInstance
+     * @return BlockRecord|null
      */
     public function duplicate($newBID)
     {
@@ -391,6 +391,8 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
 
             return $newInstance;
         }
+
+        return null;
     }
 
     public function __wakeup()
@@ -789,6 +791,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
         } catch (\Exception $e) {
         }
 
+        return null;
     }
 
     public function isValidControllerTask($method, $parameters = [])

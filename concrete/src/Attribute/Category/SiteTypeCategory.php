@@ -38,7 +38,7 @@ class SiteTypeCategory extends AbstractStandardCategory
 
     public function getSearchIndexer()
     {
-        return false;
+        return null;
     }
 
     public function getIndexedSearchTable()

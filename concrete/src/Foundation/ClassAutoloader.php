@@ -500,9 +500,9 @@ final class ClassAutoloader
     /**
      * @param string $class the FQN name of the class (must not start with '\')
      */
-    public function loadClass(string $class): bool
+    public function loadClass(string $class): void
     {
-        return $this->loadClassFromCore($class)
+        $this->loadClassFromCore($class)
             || $this->loadClassFromPackages($class)
             || $this->loadClassFromApplication($class)
             || $this->loadClassFromAliases($class)
