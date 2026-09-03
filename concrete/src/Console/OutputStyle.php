@@ -38,8 +38,8 @@ class OutputStyle extends SymfonyStyle
      *
      * @param $question
      * @param array $choices
-     * @param null $default
-     * @param null $attempts
+     * @param string|null $default
+     * @param int|null $attempts
      * @param bool $strict
      * @return string
      */
@@ -90,9 +90,9 @@ class OutputStyle extends SymfonyStyle
      *
      * @param string $question
      * @param array $choices
-     * @param null $default
-     * @param null $attempts
-     * @param null $multiple
+     * @param string|int|null $default
+     * @param int|null $attempts
+     * @param bool $multiple
      * @return mixed
      */
     public function choice($question, array $choices, $default = null, $attempts = null, $multiple = null)

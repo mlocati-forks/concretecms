@@ -206,7 +206,7 @@ class Instance implements \JsonSerializable, ObjectInterface
     }
 
     /**
-     * @param mixed $board
+     * @param Board $board
      */
     public function setBoard($board): void
     {

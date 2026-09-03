@@ -9,7 +9,7 @@ use Concrete\Core\Permission\Duration;
 class ListItem extends ConcreteObject
 {
     /**
-     * @var \Concrete\Core\Permission\Duration
+     * @var \Concrete\Core\Permission\Duration|null NULL if the access has no duration
      */
     public $duration;
 
@@ -97,7 +97,7 @@ class ListItem extends ConcreteObject
     }
 
     /**
-     * @return \Concrete\Core\Permission\Duration
+     * @return \Concrete\Core\Permission\Duration|null NULL if the access has no duration
      */
     public function getPermissionDurationObject()
     {
@@ -113,7 +113,7 @@ class ListItem extends ConcreteObject
     }
 
     /**
-     * @param \Concrete\Core\Permission\Duration $duration
+     * @param \Concrete\Core\Permission\Duration|null $duration
      */
     public function setPermissionDurationObject($duration)
     {

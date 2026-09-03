@@ -27,7 +27,7 @@ class CalendarEvent implements ObjectInterface, CategoryMemberInterface
 
     /**
      * This points to the currently selected version in the object.
-     * @var CalendarEventVersion
+     * @var CalendarEventVersion|null
      */
     protected $selectedVersion;
 

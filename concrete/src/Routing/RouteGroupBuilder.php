@@ -197,8 +197,8 @@ class RouteGroupBuilder
     }
 
     /**
-     * @param $routes
-     * @param null $pkgHandle
+     * @param callable|string|mixed $routes
+     * @param string|null $pkgHandle
      * @return $this
      */
     public function routes($routes, $pkgHandle = null)

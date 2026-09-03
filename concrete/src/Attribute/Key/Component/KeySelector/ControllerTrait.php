@@ -42,6 +42,7 @@ trait ControllerTrait
 
             $values = $this->category->getAttributeValues($object);
             foreach ($values as $value) {
+                /** @var \Concrete\Core\Entity\Attribute\Key\Key|null $attributeKey */
                 $attributeKey = $value->getAttributeKey();
                 if ($attributeKey) {
                     if (!in_array($attributeKey->getAttributeKeyID(), $selectedAttributes) &&

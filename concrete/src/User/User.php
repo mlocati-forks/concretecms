@@ -346,7 +346,7 @@ class User extends ConcreteObject
      * $salt is retained for compatibilty with older versions of concerete5, but not used.
      *
      * @param string $uPassword
-     * @param null $salt
+     * @param string|null $salt
      *
      * @return string
      */

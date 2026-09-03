@@ -240,7 +240,7 @@ class ResponseAssetGroup
     }
 
     /**
-     * @param \Concrete\Core\Asset\Asset $asset
+     * @param \Concrete\Core\Asset\AssetPointer $asset
      *
      * @return bool
      */

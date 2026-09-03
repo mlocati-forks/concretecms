@@ -46,7 +46,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     public $maximumBlocks = -1; //
 
     /**
-     * @var bool
+     * @var bool|-1 -1 if not set (in which case the controls are displayed when the page is in edit mode)
      */
     protected $showControls = -1;
 
@@ -80,7 +80,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     protected $arUseGridContainer = false;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $arDisplayName;
 
@@ -315,7 +315,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * Returns the total number of blocks in an area.
      *
-     * @param Page $c must be passed if the display() method has not been run on the area object yet.
+     * @param Page|false|null $c must be passed if the display() method has not been run on the area object yet.
      * @return int
      */
     public function getTotalBlocksInArea($c = false)

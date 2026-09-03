@@ -131,7 +131,7 @@ class Stack extends Page
 
     /**
      * @param string $stackName
-     * @param string $cvID
+     * @param int|string $cvID
      * \Concrete\Core\Site\Tree\TreeInterface|null $site
      * @param int $multilingualContentSource
      *
@@ -191,7 +191,7 @@ class Stack extends Page
 
     /**
      * @param int    $cID
-     * @param string $cvID
+     * @param int|string $cvID
      *
      * @return static|null
      */

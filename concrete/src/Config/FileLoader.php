@@ -60,9 +60,13 @@ class FileLoader implements LoaderInterface
      *   /application/config/namespace/group.php
      *   /application/config/namespace/environment.group.php
      *
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Config\LoaderInterface::load()
+     *
      * @param string $environment
      * @param string $group
-     * @param null   $namespace
+     * @param string|null $namespace
      *
      * @return array
      */

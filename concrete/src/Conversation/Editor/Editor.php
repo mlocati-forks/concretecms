@@ -338,7 +338,7 @@ abstract class Editor extends ConcreteObject
     /**
      * Returns an array of all Editor Objects.
      *
-     * @param null $pkgID An optional filter for Package ID
+     * @param int|null $pkgID An optional filter for Package ID
      *
      * @return Editor[]
      */

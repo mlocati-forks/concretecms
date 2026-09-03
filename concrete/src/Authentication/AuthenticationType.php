@@ -543,7 +543,7 @@ class AuthenticationType extends ConcreteObject
      * Render the matching template for a given handle. The template can be either PHP or Twig
      *
      * @param string $handle
-     * @param array<string, mixed> $data
+     * @param array<string, mixed>|list<mixed> $data the template variables (a list is used as the positional arguments of the controller method)
      * @param bool $viewFallback
      * @return string|null
      */

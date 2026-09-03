@@ -6,9 +6,9 @@ class Number
     /**
      * Rounds the value only out to its most significant digit.
      *
-     * @param string $value
+     * @param float|int|numeric-string|''|null $value
      *
-     * @return float|null
+     * @return float|null NULL if $value is NULL or an empty string
      */
     public function flexround($value)
     {
