@@ -106,10 +106,11 @@ class Set
             $queryBuilder->expr()->eq('fsType', self::TYPE_PUBLIC)
             )->orWhere(
                 $queryBuilder->expr()->andX(
-                    $queryBuilder->expr()->in('fsType',[self::TYPE_PRIVATE, self::TYPE_STARRED, self::TYPE_PUBLIC]),
+                    $queryBuilder->expr()->in('fsType', ':fsTypes'),
                     $queryBuilder->expr()->eq('uID', $user->getUserID())
                 )
-            )->orderBy('fsName', 'ASC')->execute();
+            )->setParameter('fsTypes', [self::TYPE_PRIVATE, self::TYPE_STARRED, self::TYPE_PUBLIC], Connection::PARAM_INT_ARRAY)
+            ->orderBy('fsName', 'ASC')->execute();
 
 
         while ($row = $results->fetch()) {
@@ -143,8 +144,10 @@ class Set
 
         $queryBuilder = $database->createQueryBuilder();
         $results = $queryBuilder->select('*')->from('FileSets')->where(
-            $queryBuilder->expr()->in('fsType',[self::TYPE_PRIVATE, self::TYPE_STARRED, self::TYPE_PUBLIC])
-        )->andWhere($queryBuilder->expr()->eq('uID', $user->getUserID()))->execute();
+            $queryBuilder->expr()->in('fsType', ':fsTypes')
+        )->andWhere($queryBuilder->expr()->eq('uID', $user->getUserID()))
+        ->setParameter('fsTypes', [self::TYPE_PRIVATE, self::TYPE_STARRED, self::TYPE_PUBLIC], Connection::PARAM_INT_ARRAY)
+        ->execute();
 
 
         while ($row = $results->fetch()) {

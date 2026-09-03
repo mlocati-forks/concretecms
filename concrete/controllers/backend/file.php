@@ -433,7 +433,7 @@ class File extends Controller
                 $urls = [];
             }
 
-            $urls = array_values(array_filter(array_map('trim', $urls), 'strlen'));
+            $urls = array_values(array_filter(array_map('trim', $urls), static function (string $url): bool { return $url !== ''; }));
             $replacingFile = $this->getFileToBeReplaced();
             switch (count($urls)) {
                 case 0:

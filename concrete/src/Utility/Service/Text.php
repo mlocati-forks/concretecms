@@ -409,7 +409,7 @@ class Text
                 if (strlen($excludeSeoWords)) {
                     $remove_list = explode(',', $excludeSeoWords);
                     $remove_list = array_map('trim', $remove_list);
-                    $remove_list = array_filter($remove_list, 'strlen');
+                    $remove_list = array_filter($remove_list, static function (string $word): bool { return $word !== ''; });
                 } else {
                     $remove_list = array();
                 }

@@ -526,9 +526,10 @@ class Collection extends ConcreteObject implements TrackableInterface
             $qb->delete('CollectionAttributeValues')
                 ->where('cID = :cID')
                 ->andWhere('cvID = :cvID')
-                ->andWhere($qb->expr()->notIn('akID', $cleanAKIDs))
+                ->andWhere($qb->expr()->notIn('akID', ':akIDs'))
                 ->setParameter('cID', $this->getCollectionID())
                 ->setParameter('cvID', $this->getVersionID())
+                ->setParameter('akIDs', $cleanAKIDs, Connection::PARAM_INT_ARRAY)
                 ->execute();
         } else {
             $qb->delete('CollectionAttributeValues')
@@ -818,10 +819,14 @@ class Collection extends ConcreteObject implements TrackableInterface
         } else {
             $qb2 = $db->createQueryBuilder();
             $qb2->insert('CollectionVersionRelatedEdits')
-                ->setValue('cID', $this->getCollectionID())
-                ->setValue('cvID', $this->getVersionID())
-                ->setValue('cRelationID', $oc->getCollectionID())
-                ->setValue('cvRelationID', $oc->getVersionID())
+                ->setValue('cID', ':cID')
+                ->setValue('cvID', ':cvID')
+                ->setValue('cRelationID', ':cRelationID')
+                ->setValue('cvRelationID', ':cvRelationID')
+                ->setParameter('cID', $this->getCollectionID())
+                ->setParameter('cvID', $this->getVersionID())
+                ->setParameter('cRelationID', $oc->getCollectionID())
+                ->setParameter('cvRelationID', $oc->getVersionID())
                 ->execute();
         }
 
@@ -1053,7 +1058,7 @@ class Collection extends ConcreteObject implements TrackableInterface
             ->setValue('arHandle', ':arHandle')
             ->setValue('cbRelationID', ':cbRelationID')
             ->setValue('cbDisplayOrder', ':cbDisplayOrder')
-            ->setValue('isOriginal', 1)
+            ->setValue('isOriginal', '1')
             ->setValue('cbIncludeAll', ':cbIncludeAll')
             ->setParameter('cID', $cID)
             ->setParameter('cvID', $vObj->getVersionID())

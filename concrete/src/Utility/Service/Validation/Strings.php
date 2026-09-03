@@ -192,7 +192,7 @@ class Strings
         if (!$includesDelimiters) {
             $pattern = "/{$pattern}/";
         }
-        set_error_handler(function () {}, -1);
+        set_error_handler(static function (): bool { return true; }, -1);
         $result = @preg_match($pattern, 'X');
         restore_error_handler();
 

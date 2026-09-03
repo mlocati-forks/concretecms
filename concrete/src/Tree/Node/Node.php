@@ -415,8 +415,9 @@ abstract class Node extends ConcreteObject implements \Concrete\Core\Permission\
         if (count($treeNodes)) {
             $db->createQueryBuilder()
                 ->update('TreeNodes', 't')
-                ->set('inheritPermissionsFromTreeNodeID', $newPermissionsTreeNodeID)
+                ->set('inheritPermissionsFromTreeNodeID', ':newPermissionsTreeNodeID')
                 ->where('t.treeNodeID in (:treeNodes)')
+                ->setParameter('newPermissionsTreeNodeID', $newPermissionsTreeNodeID)
                 ->setParameter('treeNodes', $treeNodes, Connection::PARAM_INT_ARRAY)
                 ->execute();
             $this->updateTreeNodePermissionsID($treeNodes, $newPermissionsTreeNodeID);

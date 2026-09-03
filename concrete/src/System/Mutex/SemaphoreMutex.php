@@ -62,8 +62,10 @@ class SemaphoreMutex implements MutexInterface
                         throw new RuntimeException("ftok() failed for path {$filename}");
                     }
                     $errorDescription = '';
-                    set_error_handler(function ($errno, $errstr) use (&$errorDescription) {
-                        $errorDescription = (string) $errstr;
+                    set_error_handler(static function (int $errno, string $errstr) use (&$errorDescription): bool {
+                        $errorDescription = $errstr;
+
+                        return true;
                     });
                     $sem = sem_get($semKey, 1);
                     restore_error_handler();

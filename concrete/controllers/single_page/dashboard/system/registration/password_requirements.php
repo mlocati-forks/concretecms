@@ -137,10 +137,10 @@ class PasswordRequirements extends DashboardPageController
      */
     protected function validateRegex($regex)
     {
-        set_error_handler(function () {}, -1);
+        set_error_handler(static function (): bool { return true; }, -1);
         try {
             // If this test returns false it means we have invalid regex
-            return @preg_match($regex, null) !== false;
+            return @preg_match($regex, '') !== false;
         } finally {
             restore_error_handler();
         }

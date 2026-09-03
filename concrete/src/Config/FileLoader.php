@@ -291,7 +291,7 @@ class FileLoader implements LoaderInterface
     /**
      * Get the configuration path for a namespace.
      *
-     * @param  string  $namespace
+     * @param  string|null  $namespace
      *
      * @return string
      */

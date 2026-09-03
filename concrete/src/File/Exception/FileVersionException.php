@@ -6,8 +6,8 @@ class FileVersionException extends FileException
     protected $fileVersionObject;
 
     /**
-     * @param \File        $file
-     * @param \FileVersion $fileVersion
+     * @param \Concrete\Core\Entity\File\File $file
+     * @param \Concrete\Core\Entity\File\Version $fileVersion
      * @param string       $message
      * @param int          $code
      * @param \Exception   $previous

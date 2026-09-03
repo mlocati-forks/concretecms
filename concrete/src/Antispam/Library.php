@@ -60,7 +60,7 @@ class Library extends ConcreteObject
     }
 
     /**
-     * @return bool
+     * @return string|false
      */
     public function getPackageHandle()
     {
@@ -172,7 +172,7 @@ class Library extends ConcreteObject
     }
 
     /**
-     * @param \Package $pkg
+     * @param \Concrete\Core\Entity\Package|\Concrete\Core\Package\Package $pkg
      *
      * @return Library[]
      */
@@ -202,7 +202,7 @@ class Library extends ConcreteObject
             $type->addAttribute('handle', $sc->getSystemAntispamLibraryHandle());
             $type->addAttribute('name', $sc->getSystemAntispamLibraryName());
             $type->addAttribute('package', $sc->getPackageHandle());
-            $type->addAttribute('activated', $sc->isSystemAntispamLibraryActive());
+            $type->addAttribute('activated', $sc->isSystemAntispamLibraryActive() ? '1' : '0');
         }
     }
 

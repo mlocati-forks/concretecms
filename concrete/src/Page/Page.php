@@ -1006,7 +1006,7 @@ class Page extends Collection implements CategoryMemberInterface,
         if (isset($px->user)) {
             foreach ($px->user as $u) {
                 $pkHandles = self::translatePermissionsXMLToKeys($px->administrators);
-                $this->assignPermissions(UserInfo::getByID($u['uID']), $pkHandles);
+                $this->assignPermissions(UserInfo::getByID((int) $u['uID']), $pkHandles);
             }
         }
     }
@@ -1184,7 +1184,7 @@ class Page extends Collection implements CategoryMemberInterface,
      * @param string $cLink
      * @param bool $newWindow
      */
-    public function updateCollectionAliasExternal($cName, $cLink, $newWindow = 0)
+    public function updateCollectionAliasExternal($cName, $cLink, $newWindow = false)
     {
         if ($this->isExternalLink()) {
             $db = Database::connection();
@@ -2123,7 +2123,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Set the theme of this page.
      *
-     * @param \Concrete\Core\Page\Theme\Theme $pl
+     * @param \Concrete\Core\Page\Theme\Theme|null $pl
      */
     public function setTheme($pl)
     {
@@ -2340,7 +2340,7 @@ EOT
      *
      * @return int[]
      */
-    public function getCollectionChildrenArray($oneLevelOnly = 0)
+    public function getCollectionChildrenArray($oneLevelOnly = false)
     {
         $this->childrenCIDArray = [];
         $this->_getNumChildren($this->cID, $oneLevelOnly);
@@ -4179,7 +4179,7 @@ EOT
      * @param bool $oneLevelOnly
      * @param string $sortColumn
      */
-    protected function _getNumChildren($cID, $oneLevelOnly = 0, $sortColumn = 'cDisplayOrder asc')
+    protected function _getNumChildren($cID, $oneLevelOnly = false, $sortColumn = 'cDisplayOrder asc')
     {
         $db = Database::connection();
         $q = "select cID from Pages where cParentID = {$cID} and cIsTemplate = 0 order by {$sortColumn}";
