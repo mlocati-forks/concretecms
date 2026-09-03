@@ -334,7 +334,7 @@ class Set
     /**
      * Returns an array of File objects from the current set.
      *
-     * @return ConcreteFile[]
+     * @return \Concrete\Core\Entity\File\File[]
      */
     public function getFiles()
     {

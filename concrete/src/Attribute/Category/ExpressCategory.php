@@ -213,7 +213,7 @@ class ExpressCategory extends AbstractStandardCategory
      *
      * @see \Concrete\Core\Attribute\Category\CategoryInterface::getSetManager()
      *
-     * @return \Concrete\Core\Attribute\ExpressSetManager
+     * @return \Concrete\Core\Attribute\SetManagerInterface
      */
     public function getSetManager()
     {
@@ -335,7 +335,7 @@ class ExpressCategory extends AbstractStandardCategory
      *
      * @param \Concrete\Core\Entity\Attribute\Key\ExpressKey $key
      *
-     * @return \Concrete\Core\Entity\Attribute\Key\UserKey
+     * @return \Concrete\Core\Entity\Attribute\Key\ExpressKey
      */
     public function updateFromRequest(Key $key, Request $request)
     {
