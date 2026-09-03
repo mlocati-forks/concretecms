@@ -90,5 +90,3 @@ class Properties extends BackendInterfaceFileController
         }
     }
 }
-
-

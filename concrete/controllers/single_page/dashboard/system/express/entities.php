@@ -26,6 +26,11 @@ class Entities extends DashboardPageController
         getEntityBreadcrumbActionName as getDefaultEntityBreadcrumbActionName;
     }
 
+    /**
+     * @var \Concrete\Core\Entity\Express\Entity|null
+     */
+    protected $entity;
+
     public function add()
     {
         $this->set('pageTitle', t('Add Data Object'));
@@ -374,7 +379,6 @@ class Entities extends DashboardPageController
             $this->view();
         }
     }
-
 
     public function update($id = null)
     {

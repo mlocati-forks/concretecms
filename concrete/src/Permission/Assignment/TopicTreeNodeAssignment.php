@@ -18,6 +18,11 @@ class TopicTreeNodeAssignment extends TreeNodeAssignment
     );
 
     /**
+     * @var \Concrete\Core\Tree\Node\Node
+     */
+    protected $permissionObjectToCheck;
+
+    /**
      * @param TopicTreeNode $node
      */
     public function setPermissionObject($node)
