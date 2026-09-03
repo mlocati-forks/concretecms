@@ -20,7 +20,6 @@ class IndexedSearch
     public $searchBatchSize;
     public $searchReindexTimeout;
 
-    private $cPathSections = [];
     private $searchableAreaNames;
     private $contentSanitizer;
 
