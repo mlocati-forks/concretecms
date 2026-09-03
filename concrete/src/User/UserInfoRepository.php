@@ -150,7 +150,7 @@ class UserInfoRepository
     /**
      * Resolve the repository instance
      *
-     * @return \Doctrine\Common\Persistence\ObjectRepository
+     * @return \Doctrine\Persistence\ObjectRepository
      */
     protected function getRepository()
     {

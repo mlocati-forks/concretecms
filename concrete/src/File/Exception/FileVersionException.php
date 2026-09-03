@@ -24,7 +24,7 @@ class FileVersionException extends FileException
     }
 
     /**
-     * @return \FileVersion
+     * @return \Concrete\Core\Entity\File\Version
      */
     public function getFileVersionObject()
     {

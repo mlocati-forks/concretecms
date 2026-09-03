@@ -115,7 +115,7 @@ abstract class Progress extends ConcreteObject implements SubjectInterface
     /**
      * Gets the date the WorkflowProgress object was added.
      *
-     * @return datetime
+     * @return string
      */
     public function getWorkflowProgressDateAdded()
     {
@@ -270,7 +270,7 @@ abstract class Progress extends ConcreteObject implements SubjectInterface
      * Attempts to run a workflow task on the bound WorkflowRequest object first, then if that doesn't exist, attempts to run
      * it on the current WorkflowProgress object.
      *
-     * @return WorkflowProgressResponse
+     * @return Response
      */
     public function runTask($task, $args = array())
     {

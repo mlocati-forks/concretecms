@@ -121,7 +121,7 @@ class UserPreset extends ConcreteObject
     }
 
     /**
-     * @return CustomLayout|ThemeGridLayout|null
+     * @return \Concrete\Core\Area\Layout\CustomLayout|\Concrete\Core\Area\Layout\ThemeGridLayout|null
      */
     public function getAreaLayoutObject()
     {
