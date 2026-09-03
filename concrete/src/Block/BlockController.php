@@ -873,7 +873,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
     /**
      * Gets the generic Block object attached to this controller's instance.
      *
-     * @return Block $b
+     * @return \Concrete\Core\Block\Block|false|null
      */
     public function getBlockObject()
     {

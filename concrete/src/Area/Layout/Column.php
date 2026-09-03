@@ -116,7 +116,7 @@ abstract class Column extends ConcreteObject implements ColumnInterface
     /**
      * @param Column $newAreaLayout
      *
-     * @return int
+     * @return int|\Concrete\Core\Area\Layout\Column the ID of the new column (the subclasses may return the new column itself)
      */
     public function duplicate($newAreaLayout)
     {

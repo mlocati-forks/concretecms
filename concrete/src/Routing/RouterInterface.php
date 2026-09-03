@@ -15,7 +15,7 @@ interface RouterInterface
     public function resolveAction(Route $route);
 
     /**
-     * @return \Symfony\Component\Routing\RouteCollection[]
+     * @return \Symfony\Component\Routing\RouteCollection
      */
     public function getRoutes();
 

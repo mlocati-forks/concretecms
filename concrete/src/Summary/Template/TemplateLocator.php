@@ -46,7 +46,7 @@ class TemplateLocator
 
     /**
      * @param Template $template
-     * @return string file
+     * @return string|null file
      */
     public function getFileToRender(Template $template)
     {

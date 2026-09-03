@@ -23,6 +23,8 @@ use Concrete\Core\Entity\Site\Site;
  * Class Stack.
  *
  * \@package Concrete\Core\Page\Stack
+ *
+ * @method \Concrete\Core\Page\Stack\Stack duplicate($nc = null, $preserveUserID = false, ?\Concrete\Core\Site\Tree\TreeInterface $site = null)
  */
 class Stack extends Page
 {
@@ -100,7 +102,7 @@ class Stack extends Page
      * @param string $version
      * \Concrete\Core\Site\Tree\TreeInterface|null $siteTree
      *
-     * @return bool|\Concrete\Core\Page\Page
+     * @return static|false|null
      */
     public static function getByPath($path, $version = 'RECENT', ?TreeInterface $siteTree = null)
     {
@@ -133,7 +135,7 @@ class Stack extends Page
      * \Concrete\Core\Site\Tree\TreeInterface|null $site
      * @param int $multilingualContentSource
      *
-     * @return self|false|null
+     * @return static|null
      */
     public static function getByName($stackName, $cvID = 'RECENT', ?TreeInterface $site = null, $multilingualContentSource = self::MULTILINGUAL_CONTENT_SOURCE_CURRENT)
     {
@@ -191,7 +193,7 @@ class Stack extends Page
      * @param int    $cID
      * @param string $cvID
      *
-     * @return \Concrete\Core\Page\Page|self|false
+     * @return static|null
      */
     public static function getByID($cID, $cvID = 'RECENT')
     {
@@ -219,7 +221,7 @@ class Stack extends Page
      * @param $name
      * @param int $type
      *
-     * @return self|false
+     * @return static|null
      */
     private static function addStackToCategory(\Concrete\Core\Page\Page $parent, $name, $type = 0)
     {
@@ -271,7 +273,7 @@ class Stack extends Page
     /**
      * @param $area
      *
-     * @return self|false
+     * @return static|null
      */
     public static function addGlobalArea($area)
     {
@@ -284,7 +286,7 @@ class Stack extends Page
      * @param $stack
      * @param \Concrete\Core\Page\Stack\Folder\Folder|null $folder
      *
-     * @return self|false
+     * @return static|null
      */
     public static function addStack($stack, ?Folder $folder = null)
     {

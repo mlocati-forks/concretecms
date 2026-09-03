@@ -419,7 +419,7 @@ class Set
     }
 
     /**
-     * @return int
+     * @return int|false
      */
     public function overrideGlobalPermissions()
     {

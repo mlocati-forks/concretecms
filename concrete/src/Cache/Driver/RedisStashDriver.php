@@ -178,7 +178,7 @@ class RedisStashDriver extends AbstractDriver
      * @param array $servers The `concrete.cache.{level}.redis.options.servers` config item
      * @param int $database Which database to use for each connection (only used for predis)
      *
-     * @return \Generator| string[] [ $server, $port, $ttl ]
+     * @return \Generator<int, array{scheme: string, host?: string, path?: string, port?: int, timeout: int|null, password?: string|null, database: int}>
      */
     private function getRedisServers(array $servers, int $database)
     {

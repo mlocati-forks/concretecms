@@ -236,7 +236,7 @@ class SessionFactory implements SessionFactoryInterface
      * @param \Memcached $memcached
      * @param array $servers The servers as described in config
      *
-     * @return \Generator|string[] [ $host, $port, $weight ]
+     * @return \Generator<int, array{host: string, port: int, weight: int}>
      */
     private function newMemcachedServers(Memcached $memcached, array $servers)
     {
@@ -396,7 +396,7 @@ class SessionFactory implements SessionFactoryInterface
      * @param array $servers The `concrete.session.servers` or `concrete.session.redis.servers` config item
      * @param int $database Which database to use for each connection (only used for predis)
      *
-     * @return \Generator| string[] [ $server, $port, $ttl ]
+     * @return \Generator<int, array{scheme: string, host?: string, path?: string, port?: int, timeout: int|null, password?: string|null, database: int}>
      */
     private function getRedisServers(array $servers, int $database)
     {

@@ -21,7 +21,7 @@ class Urls
     /**
      * Gets a full URL to an icon for a particular application.
      *
-     * @param \Package $pkg
+     * @param \Concrete\Core\Package\Package|null $pkg
      *
      * @return string URL to the package's icon
      */

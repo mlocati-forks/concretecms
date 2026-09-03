@@ -314,7 +314,7 @@ class Page extends Collection implements CategoryMemberInterface,
      * @param string $version the page version ('RECENT' for the most recent version, 'ACTIVE' for the currently published version, 'SCHEDULED' for the currently scheduled version, or an integer to retrieve a specific version ID)
      * @param \Concrete\Core\Entity\Site\Site|\Concrete\Core\Site\Tree\TreeInterface|null $tree
      *
-     * @return \Concrete\Core\Page\Page
+     * @return static|null if the page doesn't exist, currently a Page instance in an error state is returned (see isError()), but future versions may return NULL: callers must handle both cases
      */
     public static function getByPath($path, $version = 'RECENT', ?TreeInterface $tree = null)
     {
@@ -382,7 +382,7 @@ class Page extends Collection implements CategoryMemberInterface,
      * @param int $cID the ID of the page
      * @param string $version the page version ('RECENT' for the most recent version, 'ACTIVE' for the currently published version, 'SCHEDULED' for the currently scheduled version, or an integer to retrieve a specific version ID)
      *
-     * @return \Concrete\Core\Page\Page
+     * @return static|null if the page doesn't exist, currently a Page instance in an error state is returned (see isError()), but future versions may return NULL: callers must handle both cases
      */
     public static function getByID($cID, $version = 'RECENT')
     {
@@ -496,7 +496,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the page controller.
      *
-     * @return \Concrete\Core\Page\Controller\PageController
+     * @return \Concrete\Core\Page\Controller\PageController|null returns NULL if the page type doesn't exist anymore
      */
     public function getPageController()
     {
@@ -504,7 +504,6 @@ class Page extends Collection implements CategoryMemberInterface,
             $env = Environment::get();
             if ($this->getPageTypeID() > 0) {
                 $pt = $this->getPageTypeObject();
-                // return null if page type doesn't exist anymore
                 if (!$pt) {
                     return;
                 }
@@ -1475,7 +1474,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the path of this page.
      *
-     * @return string
+     * @return string|null
      */
     public function getCollectionPath()
     {
@@ -1660,7 +1659,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the page handle.
      *
-     * @return string
+     * @return string|null
      */
     public function getCollectionHandle()
     {
@@ -1726,7 +1725,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the Page Template ID.
      *
-     * @return int
+     * @return int|null
      */
     public function getPageTemplateID()
     {
@@ -1840,7 +1839,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the collection's theme object.
      *
-     * @return \Concrete\Core\Page\Theme\Theme
+     * @return \Concrete\Core\Page\Theme\Theme|null
      */
     public function getCollectionThemeObject()
     {
@@ -2003,7 +2002,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the file name of a page (single pages).
      *
-     * @return string
+     * @return string|null
      */
     public function getCollectionFilename()
     {
@@ -2013,7 +2012,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the date/time when the current version was made public (or a falsy value if the current version doesn't have public date).
      *
-     * @return string
+     * @return string|null
      *
      * @example 2009-01-01 00:00:00
      */
@@ -2038,7 +2037,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the description of a page.
      *
-     * @return string
+     * @return string|null
      */
     public function getCollectionDescription()
     {

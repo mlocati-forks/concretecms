@@ -202,9 +202,9 @@ abstract class Command extends SymfonyCommand
     /**
      * Get the value of a command argument.
      *
-     * @param string|null $key
+     * @param string|null $key the argument name (NULL: get all the arguments)
      *
-     * @return string|array
+     * @return string|string[]|null|array<string, string|string[]|null> the value of the argument (NULL if it's optional and it's not specified, an array for the array arguments), or all the arguments (keyed by name) if $key is NULL
      */
     public function argument($key = null)
     {

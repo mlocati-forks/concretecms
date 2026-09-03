@@ -23,7 +23,7 @@ abstract class Type extends ConcreteObject
     }
 
     /** Returns the list of all conversation rating types
-     * @return array[Type]
+     * @return \Concrete\Core\Conversation\Rating\Type[]
      */
     public static function getList()
     {

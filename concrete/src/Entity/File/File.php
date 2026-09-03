@@ -576,7 +576,7 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
     }
 
     /**
-     * @return NodeType
+     * @return NodeType|null
      */
     public function getFileNodeObject()
     {

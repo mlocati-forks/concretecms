@@ -145,7 +145,7 @@ abstract class Node extends ConcreteObject implements \Concrete\Core\Permission\
     /**
      * Return the list of child nodes (call populateDirectChildrenOnly() before calling this method).
      *
-     * @return static[]
+     * @return \Concrete\Core\Tree\Node\Node[] the child nodes, instantiated according to their own node type (which may differ from the one of this node)
      */
     public function getChildNodes()
     {
