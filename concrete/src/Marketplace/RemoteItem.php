@@ -241,7 +241,7 @@ class RemoteItem extends ConcreteObject
         $pkg = $r;
 
         try {
-            $am = new PackageArchive($this->getHandle());
+            $am = new PackageArchive();
             $am->install($file, true);
         } catch (Exception $e) {
             $pkg->restore();
@@ -258,7 +258,7 @@ class RemoteItem extends ConcreteObject
             return $file;
         } else {
             try {
-                $am = new PackageArchive($this->getHandle());
+                $am = new PackageArchive();
                 $am->install($file, true);
             } catch (Exception $e) {
                 $error = \Core::make('error');
