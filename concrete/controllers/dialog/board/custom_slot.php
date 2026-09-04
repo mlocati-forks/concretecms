@@ -43,6 +43,8 @@ protected function validateCustomSlotToken()
                     $canEdit = true;
                 }
             }
+        } else {
+            $instance = null;
         }
         if (!$canEdit) {
             throw new UserMessageException(t('Access Denied'));

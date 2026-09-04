@@ -43,6 +43,8 @@ class SocialLinks extends DashboardSitePageController
         if ($ssHandle) {
             $service = Service::getByHandle($ssHandle);
             $existingLink = Link::getByServiceHandle($ssHandle, $this->getSite());
+        } else {
+            $service = null;
         }
         $sec = Core::make('helper/security');
         $url = $sec->sanitizeURL($this->request->request->get('url'));
@@ -78,10 +80,10 @@ class SocialLinks extends DashboardSitePageController
     public function delete_link()
     {
         $slID = $this->request->request->get('slID');
-        if (Core::make("helper/validation/numbers")->integer($slID)) {
-            if ($slID > 0) {
-                $link = Link::getByID($slID);
-            }
+        if (Core::make("helper/validation/numbers")->integer($slID) && $slID > 0) {
+            $link = Link::getByID($slID);
+        } else {
+            $link = null;
         }
 
         if (!is_object($link)) {
@@ -128,10 +130,10 @@ class SocialLinks extends DashboardSitePageController
 
     public function edit($slID = null)
     {
-        if (Core::make("helper/validation/numbers")->integer($slID)) {
-            if ($slID > 0) {
-                $link = Link::getByID($slID);
-            }
+        if (Core::make("helper/validation/numbers")->integer($slID) && $slID > 0) {
+            $link = Link::getByID($slID);
+        } else {
+            $link = null;
         }
 
         if (!is_object($link)) {

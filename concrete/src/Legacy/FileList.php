@@ -149,6 +149,8 @@ class FileList extends DatabaseItemList
                     $_fsIDs[] = $fsID;
                 }
             }
+        } else {
+            $fsID = null;
         }
 
         if (count($_fsIDs) > 1) {

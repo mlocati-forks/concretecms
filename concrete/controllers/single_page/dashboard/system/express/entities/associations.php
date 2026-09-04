@@ -184,6 +184,8 @@ class Associations extends DashboardPageController
             $this->set('formatter', $association->getFormatter());
             $this->set('pageTitle', t('Association Details'));
             $this->render('/dashboard/system/express/entities/associations/view_association');
+        } else {
+            $entity = null;
         }
         if (is_object($entity)) {
         } else {
