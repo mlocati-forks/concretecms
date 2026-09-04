@@ -300,7 +300,7 @@ abstract class Command extends SymfonyCommand
      *
      * @return string
      */
-    public function askWithCompletion($question, array $choices, $default = null, $attempts = null, $strict = null)
+    public function askWithCompletion($question, array $choices, $default = null, $attempts = null, $strict = false)
     {
         return $this->output->askWithCompletion($question, $choices, $default, $attempts, $strict);
     }
@@ -329,7 +329,7 @@ abstract class Command extends SymfonyCommand
      *
      * @return string
      */
-    public function choice($question, array $choices, $default = null, $attempts = null, $multiple = null)
+    public function choice($question, array $choices, $default = null, $attempts = null, $multiple = false)
     {
         return $this->output->choice($question, $choices, $default, $attempts, $multiple);
     }

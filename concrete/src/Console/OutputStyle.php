@@ -77,7 +77,7 @@ class OutputStyle extends SymfonyStyle
      * @param bool $multiple
      * @return mixed
      */
-    public function choice($question, array $choices, $default = null, $attempts = null, $multiple = null)
+    public function choice($question, array $choices, $default = null, $attempts = null, $multiple = false)
     {
         $question = new ChoiceQuestion($question, $choices, $default);
         $question->setMaxAttempts($attempts)->setMultiselect($multiple);
