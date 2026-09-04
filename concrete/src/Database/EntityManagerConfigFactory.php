@@ -187,6 +187,7 @@ class EntityManagerConfigFactory implements ApplicationAwareInterface, EntityMan
         // ignored names when a class with the same name of the annotation exists (that's the case of "package"):
         // that's why some PHPDoc annotations in the core are still escaped with a backslash.
         foreach ([
+            'mixin', // used by static analyzers
             'package',
             'subpackages',
         ] as $name) {
