@@ -24,7 +24,7 @@ trait SearchContentTrait
      * This object gives us one place to implement new types of filters added to the Report class
      *
      * @param Runner $report
-     * @param OrmBuilder|DbalBuilder $query
+     * @param OrmBuilder|DbalBuilder|mixed $query the query builder (an InvalidArgumentException is thrown for other values)
      * @param bool $having
      * @param string $filterColumn
      *

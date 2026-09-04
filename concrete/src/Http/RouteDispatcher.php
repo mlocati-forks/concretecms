@@ -28,7 +28,7 @@ class RouteDispatcher implements DispatcherInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Concrete\Core\Http\Request $request
      * @return SymfonyResponse
      */
     public function dispatch(SymfonyRequest $request)

@@ -13,6 +13,10 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityNotFoundException;
 use SimpleXMLElement;
 
+/**
+ * @method void on_start(string|null $method = null) Override this method to perform controller initializations: $method is the action being run.
+ * @method void on_before_render(string|string[]|null $method = null) Override this method to do something right before the view is rendered: $method is the action being run.
+ */
 class Controller extends AbstractController implements AttributeInterface
 {
     /**
@@ -129,7 +133,7 @@ class Controller extends AbstractController implements AttributeInterface
     /**
      * @param array|false $data
      *
-     * @return \Concrete\Core\Error\ErrorList\ErrorList
+     * @return \Concrete\Core\Error\ErrorList\ErrorList|mixed an ErrorList instance (attribute controllers of third-party packages may return other values, like booleans or null, which are ignored by the validators)
      */
     public function validateKey($data = false)
     {

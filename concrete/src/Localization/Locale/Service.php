@@ -162,6 +162,11 @@ class Service
         return $home;
     }
 
+    /**
+     * Delete a locale (and its site tree, if any).
+     *
+     * @param \Concrete\Core\Entity\Site\Locale|\Concrete\Core\Entity\Site\SkeletonLocale $locale
+     */
     public function delete(LocaleEntityInterface $locale)
     {
         $tree = $locale->getSiteTree();

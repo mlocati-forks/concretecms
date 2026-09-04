@@ -232,6 +232,7 @@ class PackageService
         $provider = $providerFactory->getEntityManagerProvider();
         $configUpdater->addProvider($provider);
         if ($clearCache) {
+            /** @var \Doctrine\Common\Cache\CacheProvider|null $cache */
             $cache = $this->entityManager->getConfiguration()->getMetadataCacheImpl();
             if ($cache) {
                 $cache->flushAll();
@@ -248,6 +249,7 @@ class PackageService
     {
         $p->uninstall();
         $config = $this->entityManager->getConfiguration();
+        /** @var \Doctrine\Common\Cache\CacheProvider|null $cache */
         $cache = $config->getMetadataCacheImpl();
         if ($cache) {
             $cache->flushAll();

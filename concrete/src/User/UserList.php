@@ -405,7 +405,7 @@ class UserList extends DatabaseItemList implements PagerProviderInterface, Pagin
     /**
      * Filters the user list for only users within at least one of the provided groups.
      *
-     * @param \Concrete\Core\User\Group\Group[]|\Generator $groups
+     * @param iterable<\Concrete\Core\User\Group\Group|mixed> $groups the groups (the items that aren't Group instances are ignored)
      * @param bool $inGroups Set to true to search users that are in at least in one of the specified groups, false to search users that aren't in any of the specified groups
      */
     public function filterByInAnyGroup($groups, $inGroups = true)

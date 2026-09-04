@@ -309,7 +309,7 @@ class Application extends Container
      * Using the configuration value, determines whether we need to redirect to a URL with
      * a trailing slash or not.
      *
-     * @param SymfonyRequest $request
+     * @param \Concrete\Core\Http\Request $request the current request (the signature accepts any Symfony request for backward compatibility, but the redirect response requires a Concrete request)
      * @param Site $site
      *
      * @return \Concrete\Core\Routing\RedirectResponse

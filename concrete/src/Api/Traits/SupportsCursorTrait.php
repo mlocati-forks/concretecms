@@ -16,6 +16,14 @@ trait SupportsCursorTrait
         return $this->request->query->get('after', null);
     }
 
+    /**
+     * Add the pagination cursor to a resource collection.
+     *
+     * @param iterable $results the items of the current page
+     * @param string|callable $getNewCursor the name of the item method returning the cursor of an item, or a callable receiving the item and returning it
+     * @param \League\Fractal\Resource\Collection $resource
+     * @param string|int|null $previousCursor
+     */
     public function addCursorToResource(
         iterable $results,
         Request $request,

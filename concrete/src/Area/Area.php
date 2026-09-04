@@ -477,7 +477,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * Creates an area in the database. I would like to make this static but PHP pre 5.3 sucks at this stuff.
      *
-     * @param Page $c
+     * @param \Concrete\Core\Page\Collection\Collection $c
      * @param string $arHandle
      *
      * @return Area
@@ -757,7 +757,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     }
 
     /**
-     * @param Page $c
+     * @param \Concrete\Core\Page\Collection\Collection $c
      * @param string $arHandle
      *
      * @return Area

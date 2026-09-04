@@ -65,7 +65,13 @@ class DefaultController extends AttributeTypeController implements SimpleTextExp
         echo $f->text($this->field('value'), $this->request('value'));
     }
 
-    // run when we call setAttribute(), instead of saving through the UI
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Attribute\AttributeInterface::createAttributeValue()
+     *
+     * @return \Concrete\Core\Entity\Attribute\Value\Value\TextValue
+     */
     public function createAttributeValue($value)
     {
         $av = new TextValue();
@@ -79,6 +85,13 @@ class DefaultController extends AttributeTypeController implements SimpleTextExp
         return TextSettings::class;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Attribute\AttributeInterface::createAttributeValueFromRequest()
+     *
+     * @return \Concrete\Core\Entity\Attribute\Value\Value\TextValue
+     */
     public function createAttributeValueFromRequest()
     {
         $data = $this->post();

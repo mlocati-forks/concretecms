@@ -240,7 +240,7 @@ abstract class DashboardAttributesPageController extends DashboardPageController
     /**
      * Update an existing attribute key, reading the type-specific data from the current request.
      *
-     * @param \Concrete\Core\Attribute\AttributeKeyInterface $key the attribute key to be updated
+     * @param \Concrete\Core\Entity\Attribute\Key\Key $key the attribute key to be updated
      * @param \League\Url\UrlInterface|string $successURL where to redirect the users when the operation succeedes
      * @param callable|null $onComplete a callback function that's called right after the attribute key is updated
      */

@@ -10,6 +10,20 @@ use Concrete\Core\User\UserInfo;
 use Concrete\Core\Utility\Service\Xml;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * The attribute keys of this category are \Concrete\Core\Entity\Attribute\Key\UserKey instances.
+ *
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey|null getAttributeKeyByID(int $akID)
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey|null getAttributeKeyByHandle(string $akHandle)
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey|null getByID(int $akID)
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey|null getByHandle(string $akHandle)
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey[] getList()
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey[] getSearchableList()
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey[] getSearchableIndexedList()
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey addFromRequest(\Concrete\Core\Entity\Attribute\Type $type, \Symfony\Component\HttpFoundation\Request $request)
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey import(\Concrete\Core\Entity\Attribute\Type $type, \SimpleXMLElement $element, ?\Concrete\Core\Entity\Package $package = null)
+ * @method \Concrete\Core\Entity\Attribute\Key\UserKey updateFromRequest(\Concrete\Core\Entity\Attribute\Key\UserKey $key, \Symfony\Component\HttpFoundation\Request $request)
+ */
 class UserCategory extends AbstractStandardCategory
 {
     /**
@@ -145,6 +159,8 @@ class UserCategory extends AbstractStandardCategory
      */
     public function addFromRequest(Type $type, Request $request)
     {
+        // The key is created by our createAttributeKey() method
+        /** @var \Concrete\Core\Entity\Attribute\Key\UserKey $key */
         $key = parent::addFromRequest($type, $request);
 
         return $this->saveFromRequest($key, $request);
@@ -161,6 +177,8 @@ class UserCategory extends AbstractStandardCategory
      */
     public function updateFromRequest(Key $key, Request $request)
     {
+        // The parent method returns the key it receives
+        /** @var \Concrete\Core\Entity\Attribute\Key\UserKey $key */
         $key = parent::updateFromRequest($key, $request);
 
         return $this->saveFromRequest($key, $request);

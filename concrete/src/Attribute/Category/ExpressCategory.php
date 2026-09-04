@@ -14,6 +14,20 @@ use Concrete\Core\Entity\Package;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * The attribute keys of this category are \Concrete\Core\Entity\Attribute\Key\ExpressKey instances.
+ *
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey|null getAttributeKeyByID(int $akID)
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey|null getAttributeKeyByHandle(string $akHandle)
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey|null getByID(int $akID)
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey|null getByHandle(string $akHandle)
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey[] getList()
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey[] getSearchableList()
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey[] getSearchableIndexedList()
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey addFromRequest(\Concrete\Core\Entity\Attribute\Type $type, \Symfony\Component\HttpFoundation\Request $request)
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey import(\Concrete\Core\Entity\Attribute\Type $type, \SimpleXMLElement $element, ?\Concrete\Core\Entity\Package $package = null)
+ * @method \Concrete\Core\Entity\Attribute\Key\ExpressKey updateFromRequest(\Concrete\Core\Entity\Attribute\Key\ExpressKey $key, \Symfony\Component\HttpFoundation\Request $request)
+ */
 class ExpressCategory extends AbstractStandardCategory
 {
     /**
@@ -305,10 +319,9 @@ class ExpressCategory extends AbstractStandardCategory
      */
     public function addFromRequest(Type $type, Request $request)
     {
+        // The key is created by our createAttributeKey() method
+        /** @var \Concrete\Core\Entity\Attribute\Key\ExpressKey $key */
         $key = parent::addFromRequest($type, $request);
-        /**
-         * @var ExpressKey $key
-         */
         $key->setEntity($this->expressEntity);
         $this->saveFromRequest($key, $request);
 
@@ -320,12 +333,14 @@ class ExpressCategory extends AbstractStandardCategory
      *
      * @see \Concrete\Core\Attribute\Category\AbstractCategory::updateFromRequest()
      *
-     * @param \Concrete\Core\Entity\Attribute\Key\UserKey $key
+     * @param \Concrete\Core\Entity\Attribute\Key\ExpressKey $key
      *
      * @return \Concrete\Core\Entity\Attribute\Key\UserKey
      */
     public function updateFromRequest(Key $key, Request $request)
     {
+        // The parent method returns the key it receives
+        /** @var \Concrete\Core\Entity\Attribute\Key\ExpressKey $key */
         $key = parent::updateFromRequest($key, $request);
 
         return $this->saveFromRequest($key, $request);

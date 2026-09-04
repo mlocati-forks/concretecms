@@ -92,6 +92,8 @@ class DatabaseManager implements ConnectionRegistry
         // provided in the application. Once we've created the connections we will
         // set the "fetch mode" for PDO which determines the query return types.
         if (!isset($this->connections[$name])) {
+            // The default connection is always a Concrete connection: we assume that's the case for all the connections
+            /** @var \Concrete\Core\Database\Connection\Connection $connection */
             $connection = $this->makeConnection($name);
             $this->connections[$name] = $this->prepare($connection);
         }
@@ -159,9 +161,9 @@ class DatabaseManager implements ConnectionRegistry
     /**
      * Make the database connection instance.
      *
-     * @param  string $name
+     * @param string $name
      *
-     * @return Connection
+     * @return \Doctrine\DBAL\Connection the connection created by the registered extensions or by the factory (the default connection is always a \Concrete\Core\Database\Connection\Connection instance)
      */
     protected function makeConnection($name)
     {

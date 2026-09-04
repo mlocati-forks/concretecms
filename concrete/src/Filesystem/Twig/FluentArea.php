@@ -19,7 +19,7 @@ class FluentArea
     private $page;
 
     /**
-     * @param Area|Stack|ContainerArea $parent
+     * @param Area|Stack|ContainerArea|mixed $parent the parent of the area (an InvalidArgumentException is thrown for other values)
      */
     public function __construct($parent, ?Page $page = null)
     {

@@ -86,7 +86,7 @@ class Skeleton implements ObjectInterface
     }
 
     /**
-     * @return mixed
+     * @return \Concrete\Core\Entity\Site\SkeletonLocale[]|\Doctrine\Common\Collections\Collection
      */
     public function getLocales()
     {

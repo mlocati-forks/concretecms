@@ -5,8 +5,29 @@ namespace Concrete\Core\Attribute\Category;
 use Concrete\Core\Entity\Attribute\Key\EventKey;
 use Concrete\Core\Entity\Attribute\Key\Key;
 
+/**
+ * The attribute keys of this category are \Concrete\Core\Entity\Attribute\Key\EventKey instances.
+ *
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey|null getAttributeKeyByID(int $akID)
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey|null getAttributeKeyByHandle(string $akHandle)
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey|null getByID(int $akID)
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey|null getByHandle(string $akHandle)
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey[] getList()
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey[] getSearchableList()
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey[] getSearchableIndexedList()
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey addFromRequest(\Concrete\Core\Entity\Attribute\Type $type, \Symfony\Component\HttpFoundation\Request $request)
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey import(\Concrete\Core\Entity\Attribute\Type $type, \SimpleXMLElement $element, ?\Concrete\Core\Entity\Package $package = null)
+ * @method \Concrete\Core\Entity\Attribute\Key\EventKey updateFromRequest(\Concrete\Core\Entity\Attribute\Key\EventKey $key, \Symfony\Component\HttpFoundation\Request $request)
+ */
 class EventCategory extends AbstractStandardCategory
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Attribute\Category\AbstractCategory::createAttributeKey()
+     *
+     * @return \Concrete\Core\Entity\Attribute\Key\EventKey
+     */
     public function createAttributeKey()
     {
         return new EventKey();

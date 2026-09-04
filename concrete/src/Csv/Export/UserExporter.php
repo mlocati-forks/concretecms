@@ -81,10 +81,11 @@ class UserExporter extends AbstractExporter
      * {@inheritdoc}
      *
      * @see \Concrete\Core\Csv\Export\AbstractExporter::getStaticFieldValues()
+     *
+     * @param \Concrete\Core\User\UserInfo $userInfo
      */
     protected function getStaticFieldValues(ObjectInterface $userInfo)
     {
-        // @var \Concrete\Core\User\UserInfo $userInfo
         if ($this->columns !== null) {
             foreach ($this->columns as $column) {
                 $value = $column instanceof ColumnExportableInterface
