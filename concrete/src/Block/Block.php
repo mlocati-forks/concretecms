@@ -1618,8 +1618,7 @@ EOT
         $v = [$bDateModified, $bID];
         $q = 'update Blocks set bDateModified = ? where bID = ?';
 
-        $r = $db->prepare($q);
-        $r->executeStatement($v);
+        $db->executeStatement($q, $v);
 
         $this->refreshBlockOutputCache();
 
@@ -1680,8 +1679,7 @@ EOT
 
         $v = [$bName, $bFilename, $dt, $this->getBlockID()];
         $q = 'update Blocks set bName = ?, bFilename = ?, bDateModified = ? where bID = ?';
-        $r = $db->prepare($q);
-        $r->executeStatement($v);
+        $db->executeStatement($q, $v);
 
         $this->refreshBlockOutputCache();
     }
