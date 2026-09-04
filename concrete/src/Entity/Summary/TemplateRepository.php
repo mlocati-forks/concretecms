@@ -2,7 +2,7 @@
 
 namespace Concrete\Core\Entity\Summary;
 
-use Concrete\Core\Entity\Express\EntityRepository;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * @extends \Doctrine\ORM\EntityRepository<\Concrete\Core\Entity\Summary\Template>
