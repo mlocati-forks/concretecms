@@ -2587,7 +2587,7 @@ EOT
                             continue;
                         }
                         if ($bt->isCopiedWhenPropagated()) {
-                            $b->duplicate($this, true);
+                            $b->duplicate($this, 'duplicate_master');
                         } else {
                             $b->alias($this);
                         }
