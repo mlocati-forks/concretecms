@@ -78,7 +78,7 @@ class FileFolder extends TreeNode
     }
 
     /**
-     * @return \Concrete\Core\Entity\File\StorageLocation\StorageLocation
+     * @return \Concrete\Core\Entity\File\StorageLocation\StorageLocation|null
      */
     public function getTreeNodeStorageLocationObject()
     {
