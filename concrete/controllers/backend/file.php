@@ -367,7 +367,7 @@ class File extends Controller
             if (!$token->validate()) {
                 throw new UserMessageException($token->getErrorMessage());
             }
-            $filenames = $this->request->request->get('send_file');
+            $filenames = $this->request->request->all()['send_file'] ?? null;
             if (is_string($filenames)) {
                 $filenames = [$filenames];
             } elseif (!is_array($filenames)) {
@@ -424,7 +424,7 @@ class File extends Controller
             if (!$token->validate()) {
                 throw new UserMessageException($token->getErrorMessage());
             }
-            $urls = $this->request->request->get('url_upload');
+            $urls = $this->request->request->all()['url_upload'] ?? null;
             if (is_string($urls)) {
                 $urls = explode("\n", $urls);
             } elseif (!is_array($urls)) {
@@ -563,7 +563,7 @@ class File extends Controller
     protected function getRequestFiles($permissionKey = 'view_file_in_file_manager', $checkUUID = false)
     {
         $files = [];
-        $fID = $this->request->request->get('fID', $this->request->query->get('fID'));
+        $fID = $this->request->request->all()['fID'] ?? $this->request->query->all()['fID'] ?? null;
         if (is_array($fID)) {
             $fileIDs = $fID;
         } else {
@@ -678,7 +678,7 @@ class File extends Controller
     protected function getFileToBeReplaced()
     {
         if ($this->fileToBeReplaced === false) {
-            $fID = $this->request->request->get('fID');
+            $fID = $this->request->request->all()['fID'] ?? null;
             if (!$fID) {
                 $this->fileToBeReplaced = null;
             } else {
@@ -718,7 +718,7 @@ class File extends Controller
                     $folder = $folder->getTreeNodeParentObject();
                 }
             } else {
-                $treeNodeID = $this->request->request->get('currentFolder');
+                $treeNodeID = $this->request->request->all()['currentFolder'] ?? null;
                 if ($treeNodeID) {
                     $treeNodeID = is_scalar($treeNodeID) ? (int)$treeNodeID : 0;
                     $folder = $treeNodeID === 0 ? null : Node::getByID($treeNodeID);
@@ -754,7 +754,7 @@ class File extends Controller
     protected function getImportOriginalPage()
     {
         if ($this->importOriginalPage === false) {
-            $ocID = $this->request->request->get('ocID');
+            $ocID = $this->request->request->all()['ocID'] ?? null;
             if (!$ocID) {
                 $this->importOriginalPage = null;
             } else {

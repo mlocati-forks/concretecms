@@ -290,7 +290,7 @@ class Install extends Controller
                  */
                 $options = $this->app->make(InstallerOptions::class);
                 $config = $this->app->make('config');
-                $configuration = $post->get('SITE_CONFIG');
+                $configuration = $post->all()['SITE_CONFIG'] ?? null;
                 if (!is_array($configuration)) {
                     $configuration = [];
                 }

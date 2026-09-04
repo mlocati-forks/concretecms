@@ -170,7 +170,7 @@ class Versions extends BackendInterfacePageController
             $cp = new Permissions($this->page);
             if ($cp->canDeletePageVersions()) {
                 $r->setPage($c);
-                $cvIDs = $this->request->request->get('cvID');
+                $cvIDs = $this->request->request->all()['cvID'] ?? null;
                 if (is_array($cvIDs)) {
                     foreach ($cvIDs as $cvID) {
                         $v = CollectionVersion::get($c, $cvID);

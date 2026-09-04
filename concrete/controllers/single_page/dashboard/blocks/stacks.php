@@ -489,7 +489,7 @@ class Stacks extends DashboardPageController
             throw new Exception($this->token->getErrorMessage());
         }
 
-        $receivedSourceIDs = $this->request->request->get('sourceIDs');
+        $receivedSourceIDs = $this->request->request->all()['sourceIDs'] ?? null;
         if (!is_array($receivedSourceIDs)) {
             throw new Exception(t('Bad parameter: %s', 'sourceIDs'));
         }

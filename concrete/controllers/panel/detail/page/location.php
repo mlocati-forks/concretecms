@@ -118,7 +118,7 @@ class Location extends BackendInterfacePageController
 
             $canonical = $req->request->get('canonical');
             $generated = $req->request->get('generated');
-            $pathArray = $req->request->get('path');
+            $pathArray = $req->request->all()['path'] ?? null;
 
             // check if path exists, in order to avoid deleting single page path
             if($pathArray){
@@ -165,7 +165,7 @@ class Location extends BackendInterfacePageController
         if ($this->validateAction()) {
             $req = Request::getInstance();
 
-            $pathArray = $req->request->get('path');
+            $pathArray = $req->request->all()['path'] ?? null;
             $paths = [];
 
             if (is_array($pathArray)) {

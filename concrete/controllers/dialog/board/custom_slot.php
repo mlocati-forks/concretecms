@@ -61,7 +61,7 @@ protected function validateCustomSlotToken()
         $instance = $this->getInstanceFromRequest();
         $items = [];
         if (!empty($this->request->request->get('selectedItemIds'))) {
-            foreach ($this->request->request->get('selectedItemIds') as $itemId) {
+            foreach ($this->request->request->all('selectedItemIds') as $itemId) {
                 $item = $entityManager->find(InstanceItem::class, $itemId);
                 // Only accept items that actually belong to the instance this user has been authorized
                 // to edit. Otherwise permission to edit one board would be enough to dereference an
@@ -125,7 +125,7 @@ protected function validateCustomSlotToken()
         $entityManager = $this->app->make(EntityManager::class);
         $serializer = $this->app->make(JsonSerializer::class);
 
-        $data = $this->request->request->get('selectedTemplateOption');
+        $data = $this->request->request->all('selectedTemplateOption');
         $template = $entityManager->find(SlotTemplate::class, $data['template']['id']);
         $collection = $serializer->serialize($data['collection'], 'json');
 

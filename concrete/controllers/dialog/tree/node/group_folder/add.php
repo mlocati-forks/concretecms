@@ -69,8 +69,9 @@ class Add extends Node
 
         $selectedGroupTypes = [];
 
-        if ($request->request->has('groupTypes') && is_array($request->request->get('groupTypes'))) {
-            foreach($request->request->get('groupTypes') as $selectedGroupTypeId) {
+        $groupTypes = $request->request->all()['groupTypes'] ?? null;
+        if (is_array($groupTypes)) {
+            foreach($groupTypes as $selectedGroupTypeId) {
                 $selectedGroupTypes[] = GroupType::getByID($selectedGroupTypeId);
             }
         }

@@ -163,7 +163,7 @@ class Thumbnails extends DashboardPageController
                 } else {
                     $publicFileSets = $this->getPublicFileSets(true);
                     $receivedFileSetIDs = [];
-                    $ids = $post->get('fileSets', []);
+                    $ids = $post->all()['fileSets'] ?? null;
                     if (is_array($ids)) {
                         foreach ($ids as $id) {
                             if ($valNumbers->integer($id, 1)) {

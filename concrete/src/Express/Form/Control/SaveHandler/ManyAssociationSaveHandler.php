@@ -21,7 +21,7 @@ abstract class ManyAssociationSaveHandler implements ManySaveHandlerInterface
     public function getAssociatedEntriesFromRequest(Control $control, Request $request)
     {
         $r = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Entry');
-        $entryIDs = $request->request->get('express_association_' . $control->getId());
+        $entryIDs = $request->request->all()['express_association_' . $control->getId()] ?? null;
         $vals = Application::getFacadeApplication()->make('helper/validation/strings');
         if (!is_array($entryIDs) && $vals->notempty($entryIDs)) {
             $entryIDs = explode(',', $entryIDs);

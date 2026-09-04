@@ -109,7 +109,7 @@ class UpdateMessage extends FrontendController
      */
     protected function getAttachmentIDs(): array
     {
-        $attachmentIDs = $this->request->request->get('attachments');
+        $attachmentIDs = $this->request->request->all()['attachments'] ?? null;
         if (!is_array($attachmentIDs)) {
             return [];
         }

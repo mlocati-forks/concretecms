@@ -81,7 +81,7 @@ class EventRepetitionService
                     } elseif ($r->get($namespace . '_pdRepeatPeriod_' . $repetitionSetID) == 'weekly') {
                         $pd->setRepeatPeriod($pd::REPEAT_WEEKLY);
                         $pd->setRepeatEveryNum($r->get($namespace . '_pdRepeatPeriodWeeksEvery_' . $repetitionSetID));
-                        $pd->setRepeatPeriodWeekDays($r->get($namespace . '_pdRepeatPeriodWeeksDays_' . $repetitionSetID));
+                        $pd->setRepeatPeriodWeekDays($r->all($namespace . '_pdRepeatPeriodWeeksDays_' . $repetitionSetID));
                     } elseif ($r->get($namespace . '_pdRepeatPeriod_' . $repetitionSetID) == 'monthly') {
                         $pd->setRepeatPeriod($pd::REPEAT_MONTHLY);
                         $repeat_by = $r->get($namespace . '_pdRepeatPeriodMonthsRepeatBy_' . $repetitionSetID);

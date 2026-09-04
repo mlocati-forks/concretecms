@@ -103,11 +103,11 @@ class Attributes extends BackendInterfacePageController
             // First, we check out the attributes we need to clear.
             $setAttribs = $nvc->getSetCollectionAttributes();
             $processedAttributes = array();
-            $selectedAKIDs = $post->get('selectedAKIDs');
+            $selectedAKIDs = $post->all()['selectedAKIDs'] ?? null;
             if (!is_array($selectedAKIDs)) {
                 $selectedAKIDs = array();
             }
-            $selected = is_array($post->get('selectedAKIDs')) ? $post->get('selectedAKIDs') : array();
+            $selected = $selectedAKIDs;
 
             foreach ($setAttribs as $ak) {
                 // do I have the ability to edit this attribute?

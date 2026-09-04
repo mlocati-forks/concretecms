@@ -61,7 +61,7 @@ class Appearance extends DashboardSitePageController
                 if ($this->request->request->get('hasCustomSlotTemplates')) {
                     $command = new EnableCustomSlotTemplatesCommand();
                     $command->setBoard($board);
-                    $templateIDs = $this->request->request->get('templateIDs');
+                    $templateIDs = $this->request->request->all('templateIDs');
                     if ($templateIDs) {
                         $command->setTemplateIDs($templateIDs);
                     }

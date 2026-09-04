@@ -198,7 +198,7 @@ class Files extends ApiController
             return $this->error(Importer::getErrorMessage($uploadedFile->getError()), 400);
         }
 
-        $treeNodeID = $this->request->request->get('folder');
+        $treeNodeID = $this->request->request->all()['folder'] ?? null;
         if ($treeNodeID) {
             $treeNodeID = is_scalar($treeNodeID) ? (int) $treeNodeID : 0;
             $folder = $treeNodeID === 0 ? null : Node::getByID($treeNodeID);

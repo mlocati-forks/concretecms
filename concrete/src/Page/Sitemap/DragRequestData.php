@@ -363,7 +363,7 @@ class DragRequestData
      */
     protected function initializeOriginalPages()
     {
-        $origCID = $this->request->request->get('origCID', $this->request->query->get('origCID'));
+        $origCID = $this->request->request->all()['origCID'] ?? $this->request->query->all()['origCID'] ?? null;
         if (is_int($origCID)) {
             $collectionIDs = [$origCID];
         } elseif (is_string($origCID)) {

@@ -85,7 +85,7 @@ class Duration extends AbstractRepetition
                     case 'weekly':
                         $pd->setRepeatPeriod(self::REPEAT_WEEKLY);
                         $pd->setRepeatEveryNum($request->request->get('pdRepeatPeriodWeeksEvery'));
-                        $pd->setRepeatPeriodWeekDays($request->request->get('pdRepeatPeriodWeeksDays'));
+                        $pd->setRepeatPeriodWeekDays($request->request->all('pdRepeatPeriodWeeksDays'));
                         break;
                     case 'monthly':
                         $pd->setRepeatPeriod(self::REPEAT_MONTHLY);
