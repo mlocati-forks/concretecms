@@ -165,11 +165,7 @@ class IdTokenResponse extends BearerTokenResponse
 
         $token = $builder->getToken(new Sha256(), $key);
 
-        if ($token instanceof Token) {
-            return $token->toString();
-        }
-
-        return $token;
+        return $token->toString();
     }
 
     /**

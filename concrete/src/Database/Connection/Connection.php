@@ -538,8 +538,6 @@ class Connection extends \Doctrine\DBAL\Connection
             } catch (Throwable $x) {
             }
         }
-
-        return true;
     }
 
     /**

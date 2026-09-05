@@ -305,11 +305,8 @@ class Localization
     public function getActiveTranslateObject()
     {
         $adapter = $this->getTranslatorAdapter($this->getActiveContext());
-        if (is_object($adapter)) {
-            return $adapter->getTranslator();
-        }
 
-        return null;
+        return $adapter->getTranslator();
     }
 
     /**

@@ -182,8 +182,6 @@ class UpdateFromType extends BackendInterfaceController
 
         if (!$this->validateAction() || !$this->canAccess()) {
             $this->app->shutdown();
-
-            return;
         }
 
         $this->fetchTypeAndTemplate($ptID, $pTemplateID);
@@ -191,8 +189,6 @@ class UpdateFromType extends BackendInterfaceController
 
         if (!$pageTypeDefaultPage->isMasterCollection()) {
             $this->app->shutdown();
-
-            return;
         }
 
         return $this->queueForPageTypeUpdate($pageTypeDefaultPage);
