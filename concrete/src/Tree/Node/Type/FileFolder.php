@@ -86,7 +86,7 @@ class FileFolder extends TreeNode
     }
 
     /**
-     * @param \Concrete\Core\Entity\File\StorageLocation\StorageLocation|int $storageLocation Storage location object or id
+     * @param \Concrete\Core\Entity\File\StorageLocation\StorageLocation|int|mixed $storageLocation Storage location object or id (an exception is thrown for other objects)
      */
     public function setTreeNodeStorageLocation($storageLocation)
     {

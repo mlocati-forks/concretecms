@@ -381,7 +381,7 @@ EOT
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param null $firstKey
+     * @param string|null $firstKey the key of the first question to be asked (NULL: start from the first one)
      *
      * @return \Generator|\Symfony\Component\Console\Question\Question[]
      */

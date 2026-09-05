@@ -126,6 +126,8 @@ EOT
      * {@inheritdoc}
      *
      * @see WebPreconditionInterface::getAjaxAnswer()
+     *
+     * @param string|int $argument
      */
     public function getAjaxAnswer($argument)
     {

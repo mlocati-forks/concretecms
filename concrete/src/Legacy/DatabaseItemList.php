@@ -185,6 +185,13 @@ class DatabaseItemList extends ItemList
         }
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Legacy\ItemList::getSearchResultsClass()
+     *
+     * @param string|AttributeKey $field
+     */
     public function getSearchResultsClass($field)
     {
         if ($field instanceof AttributeKey) {
@@ -194,6 +201,14 @@ class DatabaseItemList extends ItemList
         return parent::getSearchResultsClass($field);
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Legacy\ItemList::sortBy()
+     *
+     * @param string|AttributeKey $key
+     * @param string $dir
+     */
     public function sortBy($key, $dir = 'asc')
     {
         if ($key instanceof AttributeKey) {

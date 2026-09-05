@@ -220,7 +220,7 @@ abstract class AbstractCategory implements CategoryInterface, StandardSearchInde
      *
      * @param \Concrete\Core\Entity\Attribute\Type|string $type the attribute type (or its handle)
      * @param \Concrete\Core\Entity\Attribute\Key\Key|array $key an empty attribute key, or an array with keys 'akHandle' (the attribute key handle), 'akName' (the attribute key name) and optionally 'asID' (the ID of the attribute set)
-     * @param \Concrete\Core\Entity\Attribute\Key\Settings\Settings|null $settings the attribute key settings (if not specified, a new settings instance will be created)
+     * @param \Concrete\Core\Entity\Attribute\Key\Settings\Settings|\Concrete\Core\Entity\Package|\Concrete\Core\Package\Package|null $settings the attribute key settings (if not specified, a new settings instance will be created). For backward compatibility, it can also be the package (see $pkg)
      * @param \Concrete\Core\Entity\Package|null $pkg the entity of the package that's creating the attribute key
      *
      * @return \Concrete\Core\Entity\Attribute\Key\Key

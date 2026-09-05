@@ -244,6 +244,10 @@ class RedisStashDriver extends AbstractDriver
 
     /**
      * {@inheritdoc}
+     *
+     * @see \Stash\Interfaces\DriverInterface::storeData()
+     *
+     * @param int|null $expiration the expiration timestamp (NULL: no expiration)
      */
     public function storeData($key, $data, $expiration)
     {

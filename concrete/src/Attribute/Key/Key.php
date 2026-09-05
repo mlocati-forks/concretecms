@@ -191,7 +191,7 @@ class Key extends Facade implements AttributeKeyInterface
         }
 
         /**
-         * @var AbstractValue $value
+         * @var AbstractValue|EmptyRequestAttributeValue $value
          */
         if (!($value instanceof EmptyRequestAttributeValue)) {
             // This is a new v8 attribute type

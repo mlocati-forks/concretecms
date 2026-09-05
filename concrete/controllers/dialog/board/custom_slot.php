@@ -36,9 +36,6 @@ protected function validateCustomSlotToken()
         $entityManager = $this->app->make(EntityManager::class);
         $canEdit = false;
         if ($this->request->query->has('boardInstanceID')) {
-            /**
-             * @var Instance $instance
-             */
             $instance = $entityManager->find(Instance::class, $this->request->query->get('boardInstanceID'));
             if ($instance) {
                 $permissions = new Checker($instance->getBoard());

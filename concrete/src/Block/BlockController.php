@@ -397,7 +397,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
     /**
      * Instantiates the block controller.
      *
-     * @param BlockType $obj |Block $obj
+     * @param BlockType|Block|null $obj
      */
     public function __construct($obj = null)
     {

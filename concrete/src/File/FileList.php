@@ -175,7 +175,7 @@ class FileList extends DatabaseItemList implements PagerProviderInterface, Pagin
     /**
      * Filter the files by their storage location using a storage location object.
      *
-     * @param \Concrete\Core\Entity\File\StorageLocation\StorageLocation|int $storageLocation storage location object
+     * @param \Concrete\Core\Entity\File\StorageLocation\StorageLocation|int|mixed $storageLocation storage location object or ID (an exception is thrown for other objects)
      */
     public function filterByStorageLocation($storageLocation)
     {

@@ -7,7 +7,7 @@ interface LocaleEntityInterface
 {
 
     /**
-     * @return TreeInterface
+     * @return \Concrete\Core\Site\Tree\TreeInterface|null
      */
     public function getSiteTree();
 

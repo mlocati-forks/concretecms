@@ -17,6 +17,11 @@ class SiteGroupEntity implements EntityInterface
         $this->groupName = $groupName;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Permission\Registry\Entry\Access\Entity\EntityInterface::getAccessEntity()
+     */
     public function getAccessEntity()
     {
         $type = $this->type;

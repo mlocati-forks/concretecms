@@ -30,6 +30,9 @@ use Concrete\Core\Block\BlockController as BlockTypeController;
  */
 class BlockType
 {
+    /**
+     * @var \Concrete\Core\Block\BlockController|null NULL if the block type class doesn't exist (see loadController())
+     */
     public $controller;
 
     /**
@@ -428,7 +431,7 @@ EOT
     /**
      * get's the block type controller.
      *
-     * @return BlockTypeController
+     * @return \Concrete\Core\Block\BlockController|null NULL if the block type class doesn't exist (see loadController())
      */
     public function getController()
     {

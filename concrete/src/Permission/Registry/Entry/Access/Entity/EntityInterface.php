@@ -8,7 +8,7 @@ interface EntityInterface extends EntrySubjectInterface
 {
 
     /**
-     * @return AccessEntity
+     * @return \Concrete\Core\Permission\Access\Entity\Entity|false|null NULL or false if the entity can't be resolved
      */
     function getAccessEntity();
 }

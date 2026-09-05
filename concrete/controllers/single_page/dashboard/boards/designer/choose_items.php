@@ -67,7 +67,7 @@ class ChooseItems extends DashboardSitePageController
 
     /**
      * @param $id
-     * @return CustomElement
+     * @return \Concrete\Core\Entity\Board\Designer\CustomElement|null
      */
     protected function getCustomElement($id)
     {
