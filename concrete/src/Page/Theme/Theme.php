@@ -49,6 +49,9 @@ class Theme extends ConcreteObject implements \JsonSerializable
     const FILENAME_TYPOGRAPHY_CSS = 'typography.css';
 
     protected $pThemeName;
+    /**
+     * @var int|numeric-string
+     */
     protected $pThemeID;
     protected $pThemeDescription;
     protected $pThemeDirectory;
@@ -56,6 +59,9 @@ class Theme extends ConcreteObject implements \JsonSerializable
     protected $pThemeHandle;
     protected $pThemeURL;
     protected $pThemeIsPreview = false;
+    /**
+     * @var int|numeric-string
+     */
     protected $pkgID;
     protected $stylesheetCachePath;
     protected $stylesheetCacheRelativePath = REL_DIR_FILES_CACHE;
