@@ -140,8 +140,8 @@ class RedisStashDriver extends AbstractDriver
                     }
                     // We can only use one ttl for connection timeout so use the last set ttl
                     // isset allows for 0 - unlimited
-                    if (isset($server['ttl'])) {
-                        $ttl = $server['ttl'];
+                    if (isset($server['timeout'])) {
+                        $ttl = $server['timeout'];
                     }
                     if (isset($server['password'])) {
                         $password = $server['password'];
