@@ -305,7 +305,7 @@ EOT
             $selectOptions[$handle] = $this->getPicker($handle)->getDisplayName($options);
         }
         $selectedOption = $this->request->isPost() ? $this->request->request->get("{$key}__which") : null;
-        if (!is_string($selectOptions) || !isset($selectOptions[$selectedOption])) {
+        if (!is_string($selectedOption) || !isset($selectOptions[$selectedOption])) {
             if ((string) $currentHandler !== '' && isset($pickerHandlesWithOptions[$currentHandler])) {
                 $selectedOption = $currentHandler;
             } else {
