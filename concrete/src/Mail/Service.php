@@ -100,6 +100,7 @@ class Service implements LoggerAwareInterface
     {
         try {
             unset($this->mailer);
+            // @phpstan-ignore catch.neverThrown (the destructor of the mailer may throw when unset() releases the last reference to it)
         } catch (Throwable $x) {
             // Ignore error
         }
@@ -393,7 +394,7 @@ class Service implements LoggerAwareInterface
             $importer->setupValidation($address->getAddress(), $data);
         }
         $this->from($importer->getMailImporterEmail());
-        $this->body = $importer->setupBody(($this->getBody() === false) ? '' : $this->getBody());
+        $this->setBody($importer->setupBody(($this->getBody() === false) ? '' : $this->getBody()));
     }
 
     /**
