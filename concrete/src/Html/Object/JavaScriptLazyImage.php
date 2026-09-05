@@ -21,6 +21,11 @@ class JavaScriptLazyImage extends Element
     {
         $this->noscriptFallback($src, $lazyLoadNative);
         $this->img($src, $lazyLoadNative);
+        foreach ($this->getChildren() as $child) {
+            if ($child instanceof Image) {
+                $child->setAttributes($attributes);
+            }
+        }
     }
 
     /**
