@@ -194,9 +194,8 @@ class RedisStashDriver extends AbstractDriver
                         'database' => array_get($server, 'database', $database)
                     ];
                 } else {
-                    $host = array_get($server, 'host', '');
                     // Check for both server/host - fallback due to cache using server
-                    $host = !empty($host) ?: array_get($server, 'server', '127.0.0.1');
+                    $host = array_get($server, 'host', '') ?: array_get($server, 'server', '127.0.0.1');
                     $server = [
                         'scheme' => 'tcp',
                         'host' => $host,
