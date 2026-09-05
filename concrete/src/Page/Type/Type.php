@@ -726,17 +726,18 @@ class Type extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * Add a page type.
      *
-     * @param array $data {
+     * @param array{handle?: string, name?: string, siteType?: \Concrete\Core\Entity\Site\Type|null, defaultTemplate?: \Concrete\Core\Entity\Page\Template|string|null, defaultTheme?: \Concrete\Core\Page\Theme\Theme|null, allowedTemplates?: string|null, templates?: array<\Concrete\Core\Entity\Page\Template|string>|null, internal?: scalar|null, ptLaunchInComposer?: scalar|null, ptIsFrequentlyAdded?: scalar|null, ...} $data
      *
-     *     @var string          $handle              A string which can be used to identify the page type
-     *     @var string          $name                A user friendly display name
-     *     @var \PageTemplate   $defaultTemplate     The default template object or handle
-     *     @var string          $allowedTemplates    (A|C|X) A for all, C for selected only, X for non-selected only
-     *     @var \PageTemplate[] $templates           Array or Iterator of selected templates, see `$allowedTemplates`, or Page Template Handles
-     *     @var bool            $internal            Is this an internal only page type? Default: `false`
-     *     @var bool            $ptLaunchInComposer  Does this launch in composer? Default: `false`
-     *     @var bool            $ptIsFrequentlyAdded Should this always be displayed in the pages panel? Default: `false`
-     * }
+     * - handle: A string which can be used to identify the page type
+     * - name: A user friendly display name
+     * - siteType: The site type (default: the default site type)
+     * - defaultTemplate: The default template object or handle
+     * - defaultTheme: The default theme
+     * - allowedTemplates: (A|C|X) A for all, C for selected only, X for non-selected only
+     * - templates: Array of selected templates, see `$allowedTemplates`, or Page Template Handles
+     * - internal: Is this an internal only page type? Default: `false`
+     * - ptLaunchInComposer: Does this launch in composer? Default: `false`
+     * - ptIsFrequentlyAdded: Should this always be displayed in the pages panel? Default: `false`
      *
      * @param bool|Package $pkg This should be false if the type is not tied to a package, or a package object
      *

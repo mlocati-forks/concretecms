@@ -1363,14 +1363,7 @@ class Page extends Collection implements CategoryMemberInterface,
      * @param int $level The current depth level
      * @param bool $includeThisPage Should $pageRow itself be added to the resulting array?
      *
-     * @return array Every array item contains the following keys: {
-     *
-     *    @var int $cID
-     *    @var int $cDisplayOrder
-     *    @var int $cParentID
-     *    @var int $level
-     *    @var int $total
-     * }
+     * @return array<array{cID: int, cDisplayOrder: int, cParentID: int, level: int, total: int}>
      */
     public function populateRecursivePages($pages, $pageRow, $cParentID, $level, $includeThisPage = true)
     {
@@ -2480,21 +2473,9 @@ EOT
     /**
      * Update the data of this page.
      *
-     * @param array $data Recognized keys are {
+     * @param array{cHandle?: string, cName?: string, cDescription?: string, cDatePublic?: string, ptID?: int, pTemplateID?: int, uID?: int, pkgID?: int, cFilename?: string, cCacheFullPageContent?: int, cCacheFullPageContentLifetimeCustom?: int, cCacheFullPageContentOverrideLifetime?: string, ...} $data
      *
-     *     @var string $cHandle
-     *     @var string $cName
-     *     @var string $cDescription
-     *     @var string $cDatePublic
-     *     @var int $ptID
-     *     @var int $pTemplateID
-     *     @var int $uID
-     *     @var int $pkgID
-     *     @var string $cFilename
-     *     @var int $cCacheFullPageContent -1: use the default settings; 0: no; 1: yes
-     *     @var int $cCacheFullPageContentLifetimeCustom
-     *     @var string $cCacheFullPageContentOverrideLifetime
-     * }
+     * - cCacheFullPageContent: -1: use the default settings; 0: no; 1: yes
      */
     public function update($data)
     {
@@ -3669,22 +3650,21 @@ EOT
      * Add a new page, child of this page.
      *
      * @param \Concrete\Core\Page\Type\Type|null $pt
-     * @param array $data Supported keys: {
+     * @param array{uID?: int|null, pkgID?: int|null, cName?: string, name?: string, cID?: int|null, cIsActive?: bool|int, cIsDraft?: bool|int, cHandle?: string, cDescription?: string, cDatePublic?: string, cvIsApproved?: bool|int, cvIsNew?: bool|int, cAcquireComposerOutputControls?: bool, ...} $data Supported keys:
      *
-     *     @var int|null $uID The ID of the page author (if unspecified or NULL: current user)
-     *     @var int|null $pkgID the ID of the package that creates this page
-     *     @var string $cName The page name
-     *     @var string $name (used if cName is not specified)
-     *     @var int|null $cID The ID of the page to create (if unspecified or NULL: database autoincrement value)
-     *     @var int|bool $cIsActive Is the page to be considered as active?
-     *     @var int|bool $cIsDraft Is the page to be considered as draft?
-     *     @var string $cHandle The page handle
-     *     @var string $cDescription The page description (default: NULL)
-     *     @var string $cDatePublic The page publish date/time in format 'YYYY-MM-DD hh:mm:ss' (default: now)
-     *     @var bool $cvIsApproved Is the page version approved (default: true)
-     *     @var bool $cvIsNew Is the page to be considered "new"? (default: true if $cvIsApproved is false, false if $cvIsApproved is true)
-     *     @var bool $cAcquireComposerOutputControls
-     * }
+     * - uID: The ID of the page author (if unspecified or NULL: current user)
+     * - pkgID: the ID of the package that creates this page
+     * - cName: The page name
+     * - name: (used if cName is not specified)
+     * - cID: The ID of the page to create (if unspecified or NULL: database autoincrement value)
+     * - cIsActive: Is the page to be considered as active?
+     * - cIsDraft: Is the page to be considered as draft?
+     * - cHandle: The page handle
+     * - cDescription: The page description (default: NULL)
+     * - cDatePublic: The page publish date/time in format 'YYYY-MM-DD hh:mm:ss' (default: now)
+     * - cvIsApproved: Is the page version approved (default: true)
+     * - cvIsNew: Is the page to be considered "new"? (default: true if $cvIsApproved is false, false if $cvIsApproved is true)
+     * - cAcquireComposerOutputControls
      *
      * @param \Concrete\Core\Entity\Page\Template|false|null $template
      *

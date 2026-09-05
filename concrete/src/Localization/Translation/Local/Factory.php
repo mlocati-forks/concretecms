@@ -124,10 +124,7 @@ class Factory implements FactoryInterface
      * @param Translations $translations
      * @param DateTime $defaultUpdatedOn
      *
-     * @return null|array {
-     *     @var string $version
-     *     @var DateTime $updatedOn
-     * }
+     * @return array{version: string, updatedOn: DateTime}|null
      */
     protected function getTranslationsStats(Translations $translations, DateTime $defaultUpdatedOn)
     {

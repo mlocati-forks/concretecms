@@ -310,14 +310,13 @@ class Version implements ObjectInterface
      * @param \Concrete\Core\Entity\File\File $file the File instance associated to this version
      * @param string $filename The name of the file
      * @param string $prefix the path prefix used to store the file in the file system
-     * @param array $data Valid array keys are {
+     * @param array{uID?: int|null, fvTitle?: string, fvDescription?: string, fvTags?: string, fvIsApproved?: bool, ...} $data Valid array keys are
      *
-     *     @var int|null $uID the ID of the user that creates the file version (if not specified or empty: we'll assume the currently user logged in user)
-     *     @var string $fvTitle the title of the file version
-     *     @var string $fvDescription the description of the file version
-     *     @var string $fvTags the tags to be assigned to the file version (separated by newlines and/or commas)
-     *     @var bool $fvIsApproved Is this version the approved one for the associated file? (default: true)
-     * }
+     * - uID: the ID of the user that creates the file version (if not specified or empty: we'll assume the currently user logged in user)
+     * - fvTitle: the title of the file version
+     * - fvDescription: the description of the file version
+     * - fvTags: the tags to be assigned to the file version (separated by newlines and/or commas)
+     * - fvIsApproved: Is this version the approved one for the associated file? (default: true)
      *
      * @return static
      */

@@ -207,19 +207,18 @@ class Collection extends ConcreteObject implements TrackableInterface
     /**
      * Create a new Collection instance.
      *
-     * @param array $data {
+     * @param array{cID?: int|null, handle?: string, name?: string, cDescription?: string, cDatePublic?: string, cvIsApproved?: bool, cvIsNew?: bool, pThemeID?: int|null, pTemplateID?: int|null, uID?: int|null, ...} $data
      *
-     *     @var int|null $cID The ID of the collection to create (if unspecified or NULL: database autoincrement value)
-     *     @var string $handle The collection handle (default: NULL)
-     *     @var string $name The collection name (default: empty string)
-     *     @var string $cDescription The collection description (default: NULL)
-     *     @var string $cDatePublic The collection publish date/time in format 'YYYY-MM-DD hh:mm:ss' (default: now)
-     *     @var bool $cvIsApproved Is the collection version approved (default: true)
-     *     @var bool $cvIsNew Is the collection to be considered "new"? (default: true if $cvIsApproved is false, false if $cvIsApproved is true)
-     *     @var int|null $pThemeID The collection theme ID (default: NULL)
-     *     @var int|null $pTemplateID The collection template ID (default: NULL)
-     *     @var int|null $uID The ID of the collection author (default: NULL)
-     * }
+     * - cID: The ID of the collection to create (if unspecified or NULL: database autoincrement value)
+     * - handle: The collection handle (default: NULL)
+     * - name: The collection name (default: empty string)
+     * - cDescription: The collection description (default: NULL)
+     * - cDatePublic: The collection publish date/time in format 'YYYY-MM-DD hh:mm:ss' (default: now)
+     * - cvIsApproved: Is the collection version approved (default: true)
+     * - cvIsNew: Is the collection to be considered "new"? (default: true if $cvIsApproved is false, false if $cvIsApproved is true)
+     * - pThemeID: The collection theme ID (default: NULL)
+     * - pTemplateID: The collection template ID (default: NULL)
+     * - uID: The ID of the collection author (default: NULL)
      *
      * @return \Concrete\Core\Page\Collection\Collection
      */
@@ -370,18 +369,17 @@ class Collection extends ConcreteObject implements TrackableInterface
     /**
      * Create a new Collection instance, using the same theme as this instance (if it's a Page instance).
      *
-     * @param array $data {
+     * @param array{cID?: int|null, handle?: string, name?: string, cDescription?: string, cDatePublic?: string, cvIsApproved?: bool, cvIsNew?: bool, pTemplateID?: int|null, uID?: int|null, ...} $data
      *
-     *     @var int|null $cID The ID of the collection to create (if unspecified or NULL: database autoincrement value)
-     *     @var string $handle The collection handle (default: NULL)
-     *     @var string $name The collection name (default: empty string)
-     *     @var string $cDescription The collection description (default: NULL)
-     *     @var string $cDatePublic The collection publish date/time in format 'YYYY-MM-DD hh:mm:ss' (default: now)
-     *     @var bool $cvIsApproved Is the collection version approved (default: true)
-     *     @var bool $cvIsNew Is the collection to be considered "new"? (default: true if $cvIsApproved is false, false if $cvIsApproved is true)
-     *     @var int|null $pTemplateID The collection template ID (default: NULL)
-     *     @var int|null $uID The ID of the collection author (default: NULL)
-     * }
+     * - cID: The ID of the collection to create (if unspecified or NULL: database autoincrement value)
+     * - handle: The collection handle (default: NULL)
+     * - name: The collection name (default: empty string)
+     * - cDescription: The collection description (default: NULL)
+     * - cDatePublic: The collection publish date/time in format 'YYYY-MM-DD hh:mm:ss' (default: now)
+     * - cvIsApproved: Is the collection version approved (default: true)
+     * - cvIsNew: Is the collection to be considered "new"? (default: true if $cvIsApproved is false, false if $cvIsApproved is true)
+     * - pTemplateID: The collection template ID (default: NULL)
+     * - uID: The ID of the collection author (default: NULL)
      *
      * @return \Concrete\Core\Page\Collection\Collection
      */

@@ -149,9 +149,9 @@ class Zip
      *
      * @param string $zipFile the source ZIP archive
      * @param string $destinationDirectory the destination folder
-     * @param array $options {
-     *   @var bool $skipCheck Skip test compressed archive data
-     * }
+     * @param array{skipCheck?: bool, ...} $options
+     *
+     * - skipCheck: Skip test compressed archive data
      *
      * @throws Exception
      */
@@ -186,12 +186,12 @@ class Zip
      *
      * @param string $sourceDirectory the directory to compress
      * @param string $zipFile the ZIP file to create (it will be deleted if already existing, unless the 'append' option is set to true)
-     * @param array $options {
-     *   @var bool $includeDotFiles Shall the zip file include files and folders whose name starts with a dot?
-     *   @var bool $skipCheck Skip test compressed archive data
-     *   @var int $level Compression level (0 to 9)
-     *   @var bool $append Append to an existing archive instead of overwriting it?
-     * }
+     * @param array{includeDotFiles?: bool, skipCheck?: bool, level?: int, append?: bool, ...} $options
+     *
+     * - includeDotFiles: Shall the zip file include files and folders whose name starts with a dot?
+     * - skipCheck: Skip test compressed archive data
+     * - level: Compression level (0 to 9)
+     * - append: Append to an existing archive instead of overwriting it?
      *
      * @throws Exception
      */
@@ -233,11 +233,11 @@ class Zip
      * List the contents of a ZIP archive.
      *
      * @param string $zipFile the ZIP file to inspect
-     * @param array $options {
-     *   @var bool $skipCheck Skip test compressed archive data
-     *   @var bool $excludeDirs Don't include directories
-     *   @var bool $excludeFiles Don't include files
-     * }
+     * @param array{skipCheck?: bool, excludeDirs?: bool, excludeFiles?: bool, ...} $options
+     *
+     * - skipCheck: Skip test compressed archive data
+     * - excludeDirs: Don't include directories
+     * - excludeFiles: Don't include files
      *
      * @throws Exception
      *
