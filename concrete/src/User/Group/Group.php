@@ -512,7 +512,7 @@ class Group extends ConcreteObject implements \Concrete\Core\Permission\ObjectIn
             /** @var Connection $db */
             $db = $app->make(Connection::class);
             $row = $db->fetchAssoc("SELECT grID FROM UserGroups WHERE gID = ? AND uID = ?", [$this->getGroupID(), $user->getUserID()]);
-            if (isset($row)) {
+            if ($row !== false) {
                 return GroupRole::getByID($row["grID"]);
             }
         }
