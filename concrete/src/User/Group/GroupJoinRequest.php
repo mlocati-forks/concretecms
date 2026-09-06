@@ -113,13 +113,13 @@ class GroupJoinRequest extends ConcreteObject implements SubjectInterface
         /** @var Connection $db */
         $db = $app->make(Connection::class);
 
-        $this->user->enterGroup($this->group);
+        $row = $db->fetchAssoc("SELECT gjrRequested FROM GroupJoinRequests WHERE uID = ? AND gID = ?", [$this->user->getUserID(), $this->group->getGroupID()]);
 
-        $row = $db->fetchAssoc("SELECT gjrRequested GroupJoinRequests WHERE uID = ? AND gID = ?", [$this->user->getUserID(), $this->group->getGroupID()]);
-
-        if (isset($row)) {
+        if ($row !== false) {
             return DateTime::createFromFormat("Y-m-d H:i:s", $row["gjrRequested"]);
         }
+
+        return null;
     }
 
     public function getUsersToExcludeFromNotification()
