@@ -29,7 +29,7 @@ class Author
     public function setUser($user)
     {
         if ($user instanceof \Concrete\Core\User\User) {
-            $this->user = UserInfo::getByID($user->getUserID());
+            $this->user = UserInfo::getByID((int) $user->getUserID());
         } else {
             $this->user = $user;
         }
