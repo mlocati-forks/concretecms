@@ -45,9 +45,7 @@ class CalendarEvent extends DataSourceElementController
                     $this->set('calendarID', $calendar->getID());
                 }
                 $query = $configuration->getQuery();
-                if ($query) {
-                    $fieldSelector->setQuery($query);
-                }
+                $fieldSelector->setQuery($query);
                 $this->set('maxOccurrencesOfSameEvent', $configuration->getMaxOccurrencesOfSameEvent());
             }
         }

@@ -215,13 +215,13 @@ abstract class GenericOauthTypeController extends AuthenticationTypeController
         }
 
         if ($extractor->supportsEmail() && $user = \UserInfo::getByEmail($extractor->getEmail())) {
-            if ($user && !$user->isError()) {
+            if (!$user->isError()) {
                 throw new Exception('A user account already exists for this email, please log in and attach from your account page.');
             }
         }
 
         if ($this->supportsRegistration()) {
-            if ($extractor->getEmail() === null || empty($extractor->getEmail())) {
+            if (empty($extractor->getEmail())) {
 
                 /** @var FlashBagInterface $flashbag */
                 $flashbag = $this->app->make('session')->getFlashBag();
@@ -402,7 +402,7 @@ abstract class GenericOauthTypeController extends AuthenticationTypeController
 
         if ($group_id = intval($this->registrationGroupID(), 10)) {
             $group = \Group::getByID($group_id);
-            if ($group && is_object($group) && !$group->isError()) {
+            if ($group && !$group->isError()) {
                 $user = User::getByUserID($user_info->getUserID());
                 $user->enterGroup($group);
             }

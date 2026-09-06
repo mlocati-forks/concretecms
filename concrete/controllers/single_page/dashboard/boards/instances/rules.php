@@ -18,11 +18,9 @@ class Rules extends DashboardPageController
         $instance = $r->findOneByBoardInstanceID($id);
         if ($instance) {
             $board = $instance->getBoard();
-            if ($board) {
-                $checker = new Checker($board);
-                if ($checker->canEditBoardSettings()) {
-                    return $instance;
-                }
+            $checker = new Checker($board);
+            if ($checker->canEditBoardSettings()) {
+                return $instance;
             }
         }
 

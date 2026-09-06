@@ -66,9 +66,7 @@ class ExpressEntryCommandFactory
                                     )
                                 );
                             } else {
-                                if ($entry) {
-                                    $entries[] = $entry;
-                                }
+                                $entries[] = $entry;
                             }
                         }
                     }

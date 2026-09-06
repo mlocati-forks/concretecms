@@ -256,9 +256,9 @@ class PageController extends Controller
         }
         $task = str_replace('-/', '', $task);
         $taskparts = explode('/', $task);
-        if (isset($taskparts[0]) && $taskparts[0] !== '') {
+        if ($taskparts[0] !== '') {
             $method = $taskparts[0];
-        } elseif (is_object($this->c) && is_callable(array($this, $this->c->getCollectionHandle()))) {
+        } elseif (is_callable([$this, $this->c->getCollectionHandle()])) {
             $method = $this->c->getCollectionHandle();
         } else {
             $method = 'view';
@@ -274,17 +274,15 @@ class PageController extends Controller
         try {
             $r = new \ReflectionMethod(get_class($this), $method);
             $cl = $r->getDeclaringClass();
-            if (is_object($cl)) {
-                if (
-                    !in_array($cl->getName(), $restrictedControllers)
-                    && strpos($method, 'on_') !== 0
-                    && strpos($method, '__') !== 0
-                    && $r->isPublic()
-                    && !$r->isConstructor()
-                    && (is_array($this->restrictedMethods) && !in_array($method, $this->restrictedMethods))
-                ) {
-                    $foundTask = true;
-                }
+            if (
+                !in_array($cl->getName(), $restrictedControllers)
+                && strpos($method, 'on_') !== 0
+                && strpos($method, '__') !== 0
+                && $r->isPublic()
+                && !$r->isConstructor()
+                && !in_array($method, $this->restrictedMethods)
+            ) {
+                $foundTask = true;
             }
         } catch (\Exception $e) {
         }

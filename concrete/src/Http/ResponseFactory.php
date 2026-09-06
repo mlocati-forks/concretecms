@@ -293,8 +293,7 @@ class ResponseFactory implements ResponseFactoryInterface, ApplicationAwareInter
 
         $vp = new Checker($collection->getVersionObject());
 
-        // returns the $vp object, which we then check
-        if (is_object($vp) && $vp->isError()) {
+        if ($vp->isError()) {
             switch ($vp->getError()) {
                 case COLLECTION_NOT_FOUND:
                     return $this->notFound('', Response::HTTP_NOT_FOUND, $headers);

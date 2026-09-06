@@ -163,7 +163,7 @@ class ConstrainImageProcessor implements ProcessorInterface
         $result = false;
         $versionTypeObject = $version->getTypeObject();
         if ($versionTypeObject->getGenericType() == Type::T_IMAGE && !$versionTypeObject->isSVG()) {
-            if ($result === false && $this->maxWidth !== null) {
+            if ($this->maxWidth !== null) {
                 $imageWidth = (int) $version->getAttribute('width');
                 if ($imageWidth > $this->maxWidth) {
                     $result = true;

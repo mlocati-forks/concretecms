@@ -281,9 +281,7 @@ class Localization
      */
     public function getLocale()
     {
-        $adapter = $this->getActiveTranslatorAdapter();
-
-        return $adapter ? $adapter->getLocale() : static::BASE_LOCALE;
+        return $this->getActiveTranslatorAdapter()->getLocale();
     }
 
     /**

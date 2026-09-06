@@ -86,7 +86,7 @@ class OpCache
      */
     public static function hasXCache()
     {
-        return extension_loaded('xcache') && ini_get('xcache.cacher') && (ini_get('xcache.size') !== 0) && (ini_get('xcache.size') !== '0');
+        return extension_loaded('xcache') && ini_get('xcache.cacher') && (ini_get('xcache.size') !== '0');
     }
 
     /**

@@ -48,10 +48,6 @@ trait SearchContentTrait
             $keywords = [$result->getSearchString()];
         }
 
-        if (!count($keywords) && !count($tags)) {
-            return false;
-        }
-
         $method = $having ? [$query, 'orHaving'] : [$query, 'orWhere'];
 
         for ($i = 0; $i < count($keywords); $i++) {

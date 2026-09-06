@@ -526,8 +526,7 @@ class Text
         if (strlen($value) < 1 || strlen($searchString) < 1) {
             return $value;
         }
-        preg_match_all("/$searchString+/i", $value, $matches);
-        if (is_array($matches[0]) && count($matches[0]) > 0) {
+        if (preg_match_all("/$searchString+/i", $value, $matches)) {
             return str_replace($matches[0][0], '<em class="ccm-highlight-search">' . $matches[0][0] . '</em>', $value);
         }
 

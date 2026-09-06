@@ -101,7 +101,7 @@ class Connection extends \Doctrine\DBAL\Connection
     public function query()
     {
         $args = func_get_args();
-        if (isset($args) && isset($args[1]) && (is_string($args[1]) || is_array($args[1]))) {
+        if (isset($args[1]) && (is_string($args[1]) || is_array($args[1]))) {
             return $this->executeQuery($args[0], $args[1]);
         }
 

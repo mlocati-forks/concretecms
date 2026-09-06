@@ -143,7 +143,7 @@ class FileList extends DatabaseItemList
         $db = Loader::db();
         $i = 0;
         $_fsIDs = array();
-        if (is_array($fsIDs) && count($fsIDs)) {
+        if (count($fsIDs)) {
             foreach ($fsIDs as $fsID) {
                 if ($fsID > 0) {
                     $_fsIDs[] = $fsID;

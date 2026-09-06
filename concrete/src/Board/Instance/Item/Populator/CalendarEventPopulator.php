@@ -45,12 +45,10 @@ class CalendarEventPopulator extends AbstractPopulator
         $list->filterByCalendar($calendar);
 
         $query = $configuration->getQuery();
-        if ($query) {
-            $fields = $query->getFields();
-            if ($fields) {
-                foreach ($fields as $field) {
-                    $field->filterList($list);
-                }
+        $fields = $query->getFields();
+        if ($fields) {
+            foreach ($fields as $field) {
+                $field->filterList($list);
             }
         }
 

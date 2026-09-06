@@ -536,7 +536,7 @@ class Service implements LoggerAwareInterface
         foreach ($headers as $header) {
             if (is_string($header)) {
                 $split = array_map('trim', explode(':', $header, 2));
-                $emailHeaders->addTextHeader($split[0] ?? '', $split[1] ?? '');
+                $emailHeaders->addTextHeader($split[0], $split[1] ?? '');
             } else {
                 $emailHeaders->add($header);
             }

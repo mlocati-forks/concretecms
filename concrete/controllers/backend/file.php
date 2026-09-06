@@ -844,8 +844,7 @@ class File extends Controller
         $parsedUrl = \Concrete\Core\Url\Url::createFromUrl($url);
         $scheme = strtolower((string) $parsedUrl->getScheme());
         $host = strtolower(trim((string) $parsedUrl->getHost()));
-        $port = $parsedUrl->getPort();
-        $port = $port ? $port->get() : null;
+        $port = $parsedUrl->getPort()->get();
         $port = $port ? (int) $port : ($scheme === 'http' ? 80 : 443);
 
         return sprintf('%s://%s:%d', $scheme, $host, $port);

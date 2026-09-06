@@ -138,7 +138,7 @@ class DatabaseStructureManager
             $prefix = \Doctrine\Common\Proxy\Proxy::MARKER . $prefix;
             $filesMatched = 0;
             foreach ($fh->getDirectoryContents($proxyDir) as $file) {
-                if (strpos($file, $prefix) === 0 || !$prefix) {
+                if (strpos($file, $prefix) === 0) {
                     if (!@unlink($proxyDir . '/' . $file)) {
                         throw new \Exception(t(
                             "Could not delete a proxy file. Please check the " .

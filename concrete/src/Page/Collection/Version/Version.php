@@ -243,7 +243,7 @@ class Version extends ConcreteObject implements PermissionObjectInterface, Attri
      * @param \Concrete\Core\Page\Collection\Collection $c the collection for which you want the version
      * @param int|string $cvID the specific version ID (or 'ACTIVE', 'SCHEDULED', 'RECENT')
      *
-     * @return static
+     * @return static|null if the version doesn't exist, currently a Version instance in an error state is returned (see isError()), but future versions may return NULL: callers must handle both cases
      */
     public static function get($c, $cvID)
     {
@@ -1090,7 +1090,7 @@ class Version extends ConcreteObject implements PermissionObjectInterface, Attri
         if ($endDate != null) {
             // This collection version is published until $endDate:
             // set the initial date/time of the other collection versions that start and end at or before $endDate
-            $minOthersStartDate = $endDate ? $dh->toDB(strtotime($endDate) + 1) : null;
+            $minOthersStartDate = $dh->toDB(strtotime($endDate) + 1);
             $qb = clone $qbBase;
             $changes[] = $qb
                 ->set('cv.cvPublishDate', $qb->createNamedParameter($minOthersStartDate))
@@ -1109,7 +1109,7 @@ class Version extends ConcreteObject implements PermissionObjectInterface, Attri
         if ($startDate !== null) {
             // This collection version is published from $startDate
             // set the final date/time of the other collection versions that end at or after $startDate
-            $maxOthersEndDate = $startDate ? $dh->toDB(strtotime($startDate) - 1) : null;
+            $maxOthersEndDate = $dh->toDB(strtotime($startDate) - 1);
             $qb = clone $qbBase;
             $changes[] = $qb
                 ->set('cv.cvPublishEndDate', $qb->createNamedParameter($maxOthersEndDate))

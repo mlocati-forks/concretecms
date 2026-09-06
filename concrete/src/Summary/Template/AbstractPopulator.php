@@ -48,15 +48,13 @@ abstract class AbstractPopulator
          */
         $driverCollection = $this->driverManager->getDriverCollection($mixed);
 
-        if ($driverCollection) {
-            $data = $driverCollection->extractData($mixed);
-            $templates = $this->filterer->getTemplates($mixed->getSummaryCategoryHandle(), $data);
-            foreach($templates as $template) {
-                $categoryTemplate = $this->createCategoryTemplate($mixed);
-                $categoryTemplate->setTemplate($template);
-                $categoryTemplate->setData($data);
-                $this->entityManager->persist($categoryTemplate);
-            }
+        $data = $driverCollection->extractData($mixed);
+        $templates = $this->filterer->getTemplates($mixed->getSummaryCategoryHandle(), $data);
+        foreach($templates as $template) {
+            $categoryTemplate = $this->createCategoryTemplate($mixed);
+            $categoryTemplate->setTemplate($template);
+            $categoryTemplate->setData($data);
+            $this->entityManager->persist($categoryTemplate);
         }
         $this->entityManager->flush();
     }

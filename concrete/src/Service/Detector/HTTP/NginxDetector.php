@@ -29,7 +29,7 @@ class NginxDetector implements DetectorInterface
     public function detect()
     {
         $result = null;
-        if ($result === null && $this->request->server->has('SERVER_SOFTWARE')) {
+        if ($this->request->server->has('SERVER_SOFTWARE')) {
             $result = $this->detectFromServer($this->request->server->get('SERVER_SOFTWARE'));
         }
         if ($result === null && function_exists('apache_get_version')) {

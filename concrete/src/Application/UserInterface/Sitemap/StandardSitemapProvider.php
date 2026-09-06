@@ -194,9 +194,7 @@ class StandardSitemapProvider implements ProviderInterface
         $dh = $this->getSitemapDataProvider();
         if ($this->cookieJar->has('ConcreteSitemap-expand')) {
             $openNodeArray = explode(',', str_replace('_', '', $this->cookieJar->get('ConcreteSitemap-expand')));
-            if (is_array($openNodeArray)) {
-                $dh->setExpandedNodes($openNodeArray);
-            }
+            $dh->setExpandedNodes($openNodeArray);
         }
         if (!$this->includeMenuInResponse()) {
             if ($this->request->query->get('reloadSelfNode')) {

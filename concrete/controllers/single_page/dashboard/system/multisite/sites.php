@@ -227,7 +227,7 @@ class Sites extends DashboardPageController
     protected function setCurrentSite(?Site $site): void
     {
         $this->set('site', $site);
-        if ($site === null || $site->getSiteID() === null) {
+        if ($site === null) {
             $menu = null;
         } else {
             $breadcrumb = $this->app->make(DashboardBreadcrumbFactory::class)->getBreadcrumb($this->getPageObject());

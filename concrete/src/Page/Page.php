@@ -681,7 +681,8 @@ class Page extends Collection implements CategoryMemberInterface,
 
             $treeIDs = implode(',', $treeIDs);
 
-            while ((!$cID) && $path) {
+            $cPath = null;
+            while ($path) {
                 $row = $db->fetchAssoc('select pp.cID, ppIsCanonical from PagePaths pp inner join Pages p on pp.cID = p.cID where cPath = ? and siteTreeID in (' . $treeIDs . ')', [$path]);
                 if (!empty($row)) {
                     $cID = $row['cID'];
@@ -2368,13 +2369,11 @@ EOT
             ->orderBy('cDisplayOrder', 'asc')
             ->setParameter('cParentID', $this->getCollectionID())
             ->execute();
-        if ($r) {
-            while ($row = $r->fetchAssociative()) {
-                if ($row['cID'] > 0) {
-                    $c = self::getByID($row['cID'], $version);
-                    if ($c && !$c->isError() && $c->getVersionID() > 0) {
-                        $children[] = $c;
-                    }
+        while ($row = $r->fetchAssociative()) {
+            if ($row['cID'] > 0) {
+                $c = self::getByID($row['cID'], $version);
+                if ($c && !$c->isError() && $c->getVersionID() > 0) {
+                    $children[] = $c;
                 }
             }
         }
@@ -3106,12 +3105,10 @@ EOT
         $db->executeQuery('delete from PageSearchIndex where cID = ?', [$cID]);
 
         $r = $db->executeQuery('select cID from Pages where cParentID = ?', [$cID]);
-        if ($r) {
-            while ($row = $r->fetch()) {
-                if ($row['cID'] > 0) {
-                    $nc = self::getByID($row['cID']);
-                    $nc->delete();
-                }
+        while ($row = $r->fetch()) {
+            if ($row['cID'] > 0) {
+                $nc = self::getByID($row['cID']);
+                $nc->delete();
             }
         }
 
@@ -3793,18 +3790,16 @@ EOT
             // Collection added with no problem -- update cChildren on parrent
             PageStatistics::incrementParents($newCID);
 
-            if ($r) {
-                $cAcquireComposerOutputControls = false;
-                if (isset($data['cAcquireComposerOutputControls']) && $data['cAcquireComposerOutputControls']) {
-                    $cAcquireComposerOutputControls = true;
-                }
-                // now that we know the insert operation was a success, we need to see if the collection type we're adding has a master collection associated with it
-                if ($masterCIDBlocks) {
-                    $this->_associateMasterCollectionBlocks($newCID, $masterCIDBlocks, $cAcquireComposerOutputControls);
-                }
-                if ($masterCID) {
-                    $this->_associateMasterCollectionAttributes($newCID, $masterCID);
-                }
+            $cAcquireComposerOutputControls = false;
+            if (isset($data['cAcquireComposerOutputControls']) && $data['cAcquireComposerOutputControls']) {
+                $cAcquireComposerOutputControls = true;
+            }
+            // now that we know the insert operation was a success, we need to see if the collection type we're adding has a master collection associated with it
+            if ($masterCIDBlocks) {
+                $this->_associateMasterCollectionBlocks($newCID, $masterCIDBlocks, $cAcquireComposerOutputControls);
+            }
+            if ($masterCID) {
+                $this->_associateMasterCollectionAttributes($newCID, $masterCID);
             }
 
             $pc = self::getByID($newCID, 'RECENT');
@@ -4187,13 +4182,11 @@ EOT
         $db = Database::connection();
         $q = "select cID from Pages where cParentID = {$cID} and cIsTemplate = 0 order by {$sortColumn}";
         $r = $db->query($q);
-        if ($r) {
-            while ($row = $r->fetch()) {
-                if ($row['cID'] > 0) {
-                    $this->childrenCIDArray[] = $row['cID'];
-                    if (!$oneLevelOnly) {
-                        $this->_getNumChildren($row['cID']);
-                    }
+        while ($row = $r->fetch()) {
+            if ($row['cID'] > 0) {
+                $this->childrenCIDArray[] = $row['cID'];
+                if (!$oneLevelOnly) {
+                    $this->_getNumChildren($row['cID']);
                 }
             }
         }
@@ -4213,17 +4206,15 @@ EOT
         $cID = $cParent->getCollectionID();
         $q = 'select cID, ptHandle from Pages p left join PageTypes pt on p.ptID = pt.ptID where cParentID = ? order by cDisplayOrder asc';
         $r = $db->executeQuery($q, [$cID]);
-        if ($r) {
-            while ($row = $r->fetch()) {
-                // This is a terrible hack.
-                if ($row['ptHandle'] === STACKS_PAGE_TYPE) {
-                    $tc = Stack::getByID($row['cID']);
-                } else {
-                    $tc = self::getByID($row['cID']);
-                }
-                $nc = $tc->duplicate($cNewParent, $preserveUserID, $site);
-                $tc->_duplicateAll($tc, $nc, $preserveUserID, $site);
+        while ($row = $r->fetch()) {
+            // This is a terrible hack.
+            if ($row['ptHandle'] === STACKS_PAGE_TYPE) {
+                $tc = Stack::getByID($row['cID']);
+            } else {
+                $tc = self::getByID($row['cID']);
             }
+            $nc = $tc->duplicate($cNewParent, $preserveUserID, $site);
+            $tc->_duplicateAll($tc, $nc, $preserveUserID, $site);
         }
     }
 
@@ -4310,15 +4301,13 @@ EOT
 
         $r = $db->query($q);
 
-        if ($r) {
-            while ($row = $r->fetch()) {
-                $b = Block::getByID($row['bID'], $mc, $row['arHandle']);
-                if ($cAcquireComposerOutputControls || !in_array($b->getBlockTypeHandle(), ['core_page_type_composer_control_output'])) {
-                    if ($row['btCopyWhenPropagate']) {
-                        $b->duplicate($nc, 'duplicate_master');
-                    } else {
-                        $b->alias($nc);
-                    }
+        while ($row = $r->fetch()) {
+            $b = Block::getByID($row['bID'], $mc, $row['arHandle']);
+            if ($cAcquireComposerOutputControls || !in_array($b->getBlockTypeHandle(), ['core_page_type_composer_control_output'])) {
+                if ($row['btCopyWhenPropagate']) {
+                    $b->duplicate($nc, 'duplicate_master');
+                } else {
+                    $b->alias($nc);
                 }
             }
         }

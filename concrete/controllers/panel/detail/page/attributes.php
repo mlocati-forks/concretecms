@@ -65,7 +65,7 @@ class Attributes extends BackendInterfacePageController
         $selectedAttributes = array();
         $allowed = $this->assignment->getAttributesAllowedArray();
         foreach ($this->page->getSetCollectionAttributes() as $ak) {
-            if (is_object($ak) && in_array($ak->getAttributeKeyID(), $allowed)) {
+            if (in_array($ak->getAttributeKeyID(), $allowed)) {
                 $obj = $this->getAttributeJSONRepresentation($ak);
                 $selectedAttributes[] = $obj;
             }

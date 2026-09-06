@@ -116,10 +116,7 @@ class PackageService
             // get package objects from the file system
             foreach ($packages as $p) {
                 if (file_exists(DIR_PACKAGES . '/' . $p . '/' . FILENAME_CONTROLLER)) {
-                    $pkg = $this->getClass($p);
-                    if (!empty($pkg)) {
-                        $packagesTemp[] = $pkg;
-                    }
+                    $packagesTemp[] = $this->getClass($p);
                 }
             }
             $packages = $packagesTemp;

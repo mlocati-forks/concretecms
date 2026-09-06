@@ -930,8 +930,8 @@ class Group extends ConcreteObject implements \Concrete\Core\Permission\ObjectIn
         $excludeGIDs = [];
         if (is_object($excludeUser)) {
             $groups = $excludeUser->getUserGroups();
-            $groupKeys = array_keys($groups);
-            if (is_array($groupKeys)) {
+            if (!empty($groups)) {
+                $groupKeys = array_keys($groups);
                 $gs->filter(false, 'gID not in (' . implode(',', $groupKeys) . ')');
             }
         }

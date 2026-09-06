@@ -29,7 +29,7 @@ class ApacheDetector implements DetectorInterface
     public function detect()
     {
         $result = null;
-        if (($result === null || $result === '') && $this->request->server->has('SERVER_SOFTWARE')) {
+        if ($this->request->server->has('SERVER_SOFTWARE')) {
             $version = $this->detectFromServer($this->request->server->get('SERVER_SOFTWARE'));
             if ($version !== null) {
                 $result = $version;

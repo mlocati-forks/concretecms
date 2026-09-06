@@ -191,7 +191,7 @@ abstract class AbstractRepetition implements RepetitionInterface
             if (!$start_date) {
                 return null;
             }
-            if ($start_date && $start_time > $now) {
+            if ($start_time > $now) {
                 return null;
             }
             if ($end_date && $end_time < $now) {

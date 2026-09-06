@@ -523,7 +523,7 @@ class Version
                                 if ($thumbnailWidth < $imageWidth) {
                                     $result = true;
                                 }
-                            } elseif ($thumbnailHeight > 0) {
+                            } else {
                                 // Only the thumbnail height is set: the thumbnail must be shorter than the image.
                                 if ($thumbnailHeight < $imageHeight) {
                                     $result = true;

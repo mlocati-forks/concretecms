@@ -271,15 +271,13 @@ class Marketplace implements ApplicationAwareInterface
 
             if ($filterInstalled) {
                 $handles = $packageService->getInstalledHandles();
-                if (is_array($handles)) {
-                    $adlist = [];
-                    foreach ($addons as $key => $ad) {
-                        if (!in_array($ad->getHandle(), $handles)) {
-                            $adlist[$key] = $ad;
-                        }
+                $adlist = [];
+                foreach ($addons as $key => $ad) {
+                    if (!in_array($ad->getHandle(), $handles)) {
+                        $adlist[$key] = $ad;
                     }
-                    $addons = $adlist;
                 }
+                $addons = $adlist;
             }
         }
 

@@ -955,16 +955,12 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
             $this->task = $method;
         }
 
-        if (method_exists($this, 'on_start')) {
-            $this->on_start($method);
-        }
+        $this->on_start($method);
         if ($method) {
             $this->runTask($method, []);
         }
 
-        if (method_exists($this, 'on_before_render')) {
-            $this->on_before_render($method);
-        }
+        $this->on_before_render($method);
     }
 
     /**

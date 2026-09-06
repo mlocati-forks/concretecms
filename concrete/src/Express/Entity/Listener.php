@@ -88,9 +88,7 @@ class Listener
         }
 
         $indexer = $entity->getAttributeKeyCategory()->getSearchIndexer();
-        if (is_object($indexer)) {
-            $indexer->createRepository($entity->getAttributeKeyCategory());
-        }
+        $indexer->createRepository($entity->getAttributeKeyCategory());
 
         $this->logger->info(t('Creating new Express entity: %s', $entity->getName()));
     }

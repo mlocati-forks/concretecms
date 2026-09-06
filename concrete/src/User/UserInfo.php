@@ -1036,11 +1036,9 @@ class UserInfo extends ConcreteObject implements AttributeObjectInterface, Permi
     {
         foreach ($attributes as $uak) {
             $controller = $uak->getController();
-            if (method_exists($controller, 'createDefaultAttributeValue')) {
-                $value = $controller->createDefaultAttributeValue();
-                if ($value !== null) {
-                    $this->setAttributeValue($uak, $value);
-                }
+            $value = $controller->createDefaultAttributeValue();
+            if ($value !== null) {
+                $this->setAttributeValue($uak, $value);
             }
         }
         $this->dispatchUserAttributesSavedEvent($attributes);

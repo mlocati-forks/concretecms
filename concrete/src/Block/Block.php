@@ -1783,7 +1783,7 @@ EOT
                 ->setParameter('bID', $this->getBlockID())
                 ->setParameter('arHandle', $this->getAreaHandle())
                 ->execute()->fetchAssociative();
-            if ($row && is_array($row) && $row['cID']) {
+            if ($row !== false) {
                 $connection->insert('PageTypeComposerOutputBlocks', [
                     'cID' => $ncID,
                     'cvID' => $nvID,
@@ -2004,7 +2004,7 @@ EOT
 
             // so, first we delete the block's sub content
             $bt = BlockType::getByID($this->getBlockTypeID());
-            if ($bt && method_exists($bt, 'getBlockTypeClass')) {
+            if ($bt) {
                 $class = $bt->getBlockTypeClass();
                 $app = Facade::getFacadeApplication();
                 $bc = $app->make($class, ['obj' => $this]);

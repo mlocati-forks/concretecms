@@ -110,7 +110,7 @@ class ExpressCategory extends AbstractStandardCategory
      */
     public function getCacheNamespace()
     {
-        if ($this->expressEntity && $this->expressEntity->getId()) {
+        if ($this->expressEntity->getId()) {
             // If app(ExpressCategory::class) is run WITHOUT specifying the entity we will just
             // merrily pass an empty one into here, which is obviously not valid. Hence the additional
             // check above for `getId()`

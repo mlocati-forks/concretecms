@@ -23,23 +23,21 @@ class PagePopulator extends AbstractPopulator
         $query = $configuration->getQuery();
         $list->ignorePermissions();
         $containsSitefield = false;
-        if ($query) {
-            foreach ($query->getFields() as $field) {
-                if ($field instanceof SiteField) {
-                    // If we have a site field we handle it manually here, because we have to use the instance's
-                    // site.
-                    $containsSitefield = true;
-                    if ($field->isSetToCurrent()) {
-                        // we filter by the instance's site
-                        $list->setSiteTreeObject($instance->getSite()->getSiteTreeObject());
-                    } else {
-                        if ($field->isSetToAll()) {
-                            $list->setSiteTreeToAll();
-                        }
-                    }
+        foreach ($query->getFields() as $field) {
+            if ($field instanceof SiteField) {
+                // If we have a site field we handle it manually here, because we have to use the instance's
+                // site.
+                $containsSitefield = true;
+                if ($field->isSetToCurrent()) {
+                    // we filter by the instance's site
+                    $list->setSiteTreeObject($instance->getSite()->getSiteTreeObject());
                 } else {
-                    $field->filterList($list);
+                    if ($field->isSetToAll()) {
+                        $list->setSiteTreeToAll();
+                    }
                 }
+            } else {
+                $field->filterList($list);
             }
         }
 

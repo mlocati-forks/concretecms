@@ -199,7 +199,7 @@ class GroupCombinationEntity extends Entity
             where peID = ? order by gID asc',
             [$this->peID]
         );
-        if ($gIDs && is_array($gIDs)) {
+        if ($gIDs) {
             for ($i = 0; $i < count($gIDs); ++$i) {
                 $g = Group::getByID($gIDs[$i]['gID']);
                 if (is_object($g)) {

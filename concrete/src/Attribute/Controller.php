@@ -581,9 +581,7 @@ class Controller extends AbstractController implements AttributeInterface
         if ($method) {
             $this->task = $method;
         }
-        if (method_exists($this, 'on_start')) {
-            $this->on_start($method);
-        }
+        $this->on_start($method);
         if ($method == 'composer') {
             $method = ['composer', 'form'];
         }
@@ -592,9 +590,7 @@ class Controller extends AbstractController implements AttributeInterface
             $this->runTask($method, $args);
         }
 
-        if (method_exists($this, 'on_before_render')) {
-            $this->on_before_render($method);
-        }
+        $this->on_before_render($method);
     }
 
     /**

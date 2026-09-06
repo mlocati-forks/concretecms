@@ -31,7 +31,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         ClientEntityInterface $clientEntity
     ) {
         $user = new \Concrete\Core\User\User($username, $password);
-        if ($user && !$user->isError() && $user->isActive()) {
+        if (!$user->isError() && $user->isActive()) {
             return $this->getEntityManager()->getRepository(User::class)->find($user->getUserID());
         }
 

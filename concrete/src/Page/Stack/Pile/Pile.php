@@ -86,12 +86,10 @@ class Pile extends ConcreteObject
         $u = $app->make(User::class);
         $v = array($u->getUserID(), 0, $name, 'READY');
         $q = "insert into Piles (uID, isDefault, name, state) values (?, ?, ?, ?)";
-        $r = $db->query($q, $v);
-        if ($r) {
-            $pID = $db->Insert_ID();
+        $db->query($q, $v);
+        $pID = $db->Insert_ID();
 
-            return self::get($pID);
-        }
+        return self::get($pID);
     }
 
     /**
@@ -137,12 +135,10 @@ class Pile extends ConcreteObject
 
         $v = array($u->getUserID(), 0, $name, 'READY');
         $q = "insert into Piles (uID, isDefault, name, state) values (?, ?, ?, ?)";
-        $r = $db->query($q, $v);
-        if ($r) {
-            $pID = $db->Insert_ID();
+        $db->query($q, $v);
+        $pID = $db->Insert_ID();
 
-            return self::get($pID);
-        }
+        return self::get($pID);
     }
 
     /**
@@ -211,12 +207,10 @@ class Pile extends ConcreteObject
             // create a new one
             $v = array($u->getUserID(), 1, null, 'READY');
             $q = "insert into Piles (uID, isDefault, name, state) values (?, ?, ?, ?)";
-            $r = $db->query($q, $v);
-            if ($r) {
-                $pID = $db->Insert_ID();
+            $db->query($q, $v);
+            $pID = $db->Insert_ID();
 
-                return self::get($pID);
-            }
+            return self::get($pID);
         }
     }
 
@@ -349,12 +343,10 @@ class Pile extends ConcreteObject
         if (!$existingPCID) {
             $v = array($this->pID, $obj->getBlockID(), "BLOCK", $quantity, $displayOrder);
             $q = "insert into PileContents (pID, itemID, itemType, quantity, displayOrder) values (?, ?, ?, ?, ?)";
-            $r = $db->query($q, $v);
-            if ($r) {
-                $pcID = $db->Insert_ID();
+            $db->query($q, $v);
+            $pcID = $db->Insert_ID();
 
-                return $pcID;
-            }
+            return $pcID;
         } else {
             return $existingPCID;
         }

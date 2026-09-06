@@ -168,54 +168,52 @@ class Date
                         if (array_key_exists($chunks[0], $continentNames)) {
                             $chunks[0] = $continentNames[$chunks[0]];
                         }
-                        if (count($chunks) > 0) {
-                            $city = Calendar::getTimezoneExemplarCity($timezoneID, false);
-                            if (!strlen($city)) {
-                                switch ($timezoneID) {
-                                    case 'America/Fort_Nelson':
-                                        $city = tc(/*i18n: Canadian territory */'Territory', 'Fort Nelson');
-                                        break;
-                                    case 'America/Montreal':
-                                        $city = tc(/*i18n: Canadian city */'Territory', 'Montreal');
-                                        break;
-                                    case 'America/Shiprock':
-                                        $city = tc(/*i18n: Territory in New Mexico (USA) */'Territory', 'Shiprock');
-                                        break;
-                                    case 'Antarctica/South_Pole':
-                                        $city = tc(/*i18n: The South Pole */'Territory', 'South Pole');
-                                        break;
-                                    case 'Asia/Atyrau':
-                                        $city = tc(/*i18n: Kazakh territory */'Territory', 'Atyrau');
-                                        break;
-                                    case 'Asia/Barnaul':
-                                        $city = tc(/*i18n: Russian city */'Territory', 'Barnaul');
-                                        break;
-                                    case 'Asia/Famagusta':
-                                        $city = tc(/*i18n: City in Cyprus Island */'Territory', 'Famagusta');
-                                        break;
-                                    case 'Asia/Tomsk':
-                                        $city = tc(/*i18n: Russian city */'Territory', 'Tomsk');
-                                        break;
-                                    case 'Asia/Yangon':
-                                        $city = tc(/*i18n: Burmese city */'Territory', 'Yangon');
-                                        break;
-                                    case 'Europe/Astrakhan':
-                                        $city = tc(/*i18n: Russian city */'Territory', 'Astrakhan');
-                                        break;
-                                    case 'Europe/Kirov':
-                                        $city = tc(/*i18n: Russian city */'Territory', 'Kirov');
-                                        break;
-                                    case 'Europe/Saratov':
-                                        $city = tc(/*i18n: Russian city */'Territory', 'Saratov');
-                                        break;
-                                    case 'Europe/Ulyanovsk':
-                                        $city = tc(/*i18n: Russian city */'Territory', 'Ulyanovsk');
-                                        break;
-                                }
+                        $city = Calendar::getTimezoneExemplarCity($timezoneID, false);
+                        if (!strlen($city)) {
+                            switch ($timezoneID) {
+                                case 'America/Fort_Nelson':
+                                    $city = tc(/*i18n: Canadian territory */'Territory', 'Fort Nelson');
+                                    break;
+                                case 'America/Montreal':
+                                    $city = tc(/*i18n: Canadian city */'Territory', 'Montreal');
+                                    break;
+                                case 'America/Shiprock':
+                                    $city = tc(/*i18n: Territory in New Mexico (USA) */'Territory', 'Shiprock');
+                                    break;
+                                case 'Antarctica/South_Pole':
+                                    $city = tc(/*i18n: The South Pole */'Territory', 'South Pole');
+                                    break;
+                                case 'Asia/Atyrau':
+                                    $city = tc(/*i18n: Kazakh territory */'Territory', 'Atyrau');
+                                    break;
+                                case 'Asia/Barnaul':
+                                    $city = tc(/*i18n: Russian city */'Territory', 'Barnaul');
+                                    break;
+                                case 'Asia/Famagusta':
+                                    $city = tc(/*i18n: City in Cyprus Island */'Territory', 'Famagusta');
+                                    break;
+                                case 'Asia/Tomsk':
+                                    $city = tc(/*i18n: Russian city */'Territory', 'Tomsk');
+                                    break;
+                                case 'Asia/Yangon':
+                                    $city = tc(/*i18n: Burmese city */'Territory', 'Yangon');
+                                    break;
+                                case 'Europe/Astrakhan':
+                                    $city = tc(/*i18n: Russian city */'Territory', 'Astrakhan');
+                                    break;
+                                case 'Europe/Kirov':
+                                    $city = tc(/*i18n: Russian city */'Territory', 'Kirov');
+                                    break;
+                                case 'Europe/Saratov':
+                                    $city = tc(/*i18n: Russian city */'Territory', 'Saratov');
+                                    break;
+                                case 'Europe/Ulyanovsk':
+                                    $city = tc(/*i18n: Russian city */'Territory', 'Ulyanovsk');
+                                    break;
                             }
-                            if (strlen($city)) {
-                                $chunks = [$chunks[0], $city];
-                            }
+                        }
+                        if (strlen($city)) {
+                            $chunks = [$chunks[0], $city];
                         }
                         $timezoneName = implode('/', $chunks);
                         break;

@@ -52,9 +52,7 @@ class PresetFactory
 
         foreach ($entries as $path) {
             $preset = $type->createPresetFromPath($path, $theme);
-            if ($preset) {
-                $presets[] = $preset;
-            }
+            $presets[] = $preset;
         }
         usort($presets, function (PresetInterface $a, PresetInterface $b) {
             if ($a->getIdentifier() === 'default') {

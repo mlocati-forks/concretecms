@@ -860,7 +860,7 @@ class Version implements ObjectInterface
                     $to->getGenericDisplayType()
                 );
             }
-        } else if ($to) {
+        } else {
             return $to->getGenericDisplayType();
         }
 

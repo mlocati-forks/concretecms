@@ -186,9 +186,7 @@ class CollectionAttributeControl extends Control
     {
         $ak = $this->getAttributeKeyObject();
         $controller = $ak->getController();
-        if (is_object($controller)) {
-            return $controller->requestFieldExists();
-        }
+        return $controller->requestFieldExists();
     }
 
     public function validate()

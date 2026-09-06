@@ -777,17 +777,13 @@ class Theme extends ConcreteObject implements \JsonSerializable
                             ltrim($extensionOf, '\\')
                         );
                     } else {
-                        if (method_exists($instance, 'getThemeName')) {
-                            $s = $instance->getThemeName();
-                            if (strlen($s) > 0) {
-                                $res->pThemeName = $s;
-                            }
+                        $s = $instance->getThemeName();
+                        if (strlen($s) > 0) {
+                            $res->pThemeName = $s;
                         }
-                        if (method_exists($instance, 'getThemeDescription')) {
-                            $s = $instance->getThemeDescription();
-                            if (strlen($s) > 0) {
-                                $res->pThemeDescription = $s;
-                            }
+                        $s = $instance->getThemeDescription();
+                        if (strlen($s) > 0) {
+                            $res->pThemeDescription = $s;
                         }
                     }
                 }

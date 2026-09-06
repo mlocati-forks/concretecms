@@ -452,7 +452,7 @@ class AuthenticationType extends ConcreteObject
         // invoke the auth controller method even when no matching template existed, then
         // render form.php as a fallback.
         if (!$this->hasTemplate($element) && method_exists($this->controller, $element)) {
-            $params = array_values($params) === $params ? array_values($params) : [];
+            $params = array_values($params) === $params ? $params : [];
             call_user_func_array([$this->controller, $element], $params);
 
             $atHandle = $this->getAuthenticationTypeHandle();
@@ -460,9 +460,7 @@ class AuthenticationType extends ConcreteObject
             $r = $this->getTemplateVariantLocator()->getRecord($path);
             if ($r && $r->exists()) {
                 $sets = $this->controller->getSets();
-                if (is_array($sets)) {
-                    $params = array_merge($params, $sets);
-                }
+                $params = array_merge($params, $sets);
 
                 echo $this->templateService->renderTemplate($r->getFile(), $params, $this);
                 return;
@@ -561,16 +559,14 @@ class AuthenticationType extends ConcreteObject
         }
 
         if (method_exists($this->controller, $handle)) {
-            $params = array_values($data) === $data ? array_values($data) : [];
+            $params = array_values($data) === $data ? $data : [];
             call_user_func_array([$this->controller, $handle], $params);
-        } elseif ($viewFallback && method_exists($this->controller, 'view')) {
+        } elseif ($viewFallback) {
             $this->controller->view();
         }
 
         $sets = $this->controller->getSets();
-        if (is_array($sets)) {
-            $data = array_merge($data, $this->controller->getSets());
-        }
+        $data = array_merge($data, $this->controller->getSets());
 
         return $this->templateService->renderTemplate($r->getFile(), $data, $this);
     }

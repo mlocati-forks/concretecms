@@ -224,9 +224,7 @@ class Files extends ApiController
          */
         $importer = $this->app->make(FileImporter::class);
         $importOptions = $this->app->make(ImportOptions::class);
-        if ($folder) {
-            $importOptions->setImportToFolder($folder);
-        }
+        $importOptions->setImportToFolder($folder);
         $file = $importer->importLocalFile($uploadedFile->getPathname(), $uploadedFile->getClientOriginalName(), $importOptions);
         return $this->transform($file->getFile(), new FileTransformer(), Resources::RESOURCE_FILES);
     }

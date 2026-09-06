@@ -497,9 +497,7 @@ class Site implements TreeInterface, ObjectInterface, PermissionObjectInterface,
     {
         $timezone = null;
         $config = $this->getConfigRepository();
-        if ($config) {
-            $timezone = $config->get('timezone');
-        }
+        $timezone = $config->get('timezone');
         if (!$timezone) {
             $timezone = date_default_timezone_get();
         }

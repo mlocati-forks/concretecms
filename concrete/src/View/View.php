@@ -509,6 +509,7 @@ class View extends AbstractView
 
         $_c = Page::getCurrentPage();
         $_app = Facade::getFacadeApplication();
+        $_theme = null;
         if (is_object($_c)) {
             $_theme = $_c->getCollectionThemeObject();
         } else if ($_app->isInstalled()) {
@@ -517,7 +518,7 @@ class View extends AbstractView
 
         $_fs = $_app->make(Filesystem::class);
         $_locator = new FileLocator($_fs, $_app);
-        if (isset($_theme) && is_object($_theme)) {
+        if (is_object($_theme)) {
             $_locator->addLocation(new FileLocator\ThemeElementLocation($_theme));
         }
         if ($_pkgHandle) {

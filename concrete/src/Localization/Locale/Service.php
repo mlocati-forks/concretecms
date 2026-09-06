@@ -121,7 +121,7 @@ class Service
                 foreach ($localeInfo->categories as $category) {
                     $pluralCases[] = $category->id . '@' . $category->examples;
                 }
-                $pluralCases = is_array($pluralCases) ? implode("\n", $pluralCases) : $pluralCases;
+                $pluralCases = implode("\n", $pluralCases);
                 $l->setNumPlurals($numPlurals);
                 $l->setPluralCases($pluralCases);
                 $l->setPluralRule($pluralRule);

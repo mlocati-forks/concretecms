@@ -121,12 +121,10 @@ class Section extends Page
 
             if ($page->isPageDraft()) {
                 $tree = false;
-                if ($page->getPageDraftTargetParentPageID()) {
-                    $cParentID = $page->getPageDraftTargetParentPageID();
-                    if ($cParentID) {
-                        $parent = Page::getByID($cParentID);
-                        $tree = $parent->getSiteTreeObject();
-                    }
+                $cParentID = $page->getPageDraftTargetParentPageID();
+                if ($cParentID) {
+                    $parent = Page::getByID($cParentID);
+                    $tree = $parent->getSiteTreeObject();
                 }
             }
 
