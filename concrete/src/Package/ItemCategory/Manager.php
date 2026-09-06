@@ -214,9 +214,7 @@ class Manager extends CoreManager
     {
         $items = [];
         foreach ($this->getPackageItemCategories() as $category) {
-            /**
-             * @var ItemInterface
-             */
+            /** @var ItemInterface[] $items */
             $items = array_merge($items, $category->getItems($package));
         }
 

@@ -26,7 +26,6 @@ class GenerateThumbnailCommandHandler
 
     public function __invoke(GeneratedThumbnailCommand $command)
     {
-        /** @var FileEntity $f */
         $fileEntity = $this->entityManager->find(FileEntity::class, $command->getFileID());
 
         if ($fileEntity instanceof FileEntity) {

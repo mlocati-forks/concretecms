@@ -129,9 +129,6 @@ class Events extends DashboardPageController
     {
         $ping = $this->request->request->get('ping');
         $service = $this->app->make(MercureService::class);
-        /**
-         * @var Subscriber $subscriber
-         */
         $event = new TestConnectionEvent($ping);
         $service->publish($event);
 

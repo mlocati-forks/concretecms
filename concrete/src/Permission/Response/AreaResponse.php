@@ -51,9 +51,6 @@ class AreaResponse extends Response
 
     public function validate($permissionHandle, $args = array())
     {
-        /**
-         * @var Area $area
-         */
         $page = $this->object->getAreaCollectionObject();
         if ($page->isMasterCollection()) {
             $key = Key::getByHandle('access_page_defaults');

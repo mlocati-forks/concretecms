@@ -84,10 +84,8 @@ final class Version20200523051311 extends AbstractMigration implements Repeatabl
          */
         $objectManager = $this->app->make(ObjectManager::class);
         $list = $objectManager->getEntities(true);
+        /** @var Connection $db */
         $db = $this->app->make(Connection::class);
-        /**
-         * @var Connection $db
-         */
         foreach($list->findAll() as $entity) {
             $db->executeQuery(
                 'update ExpressEntityEntries set resultsNodeID = ? 

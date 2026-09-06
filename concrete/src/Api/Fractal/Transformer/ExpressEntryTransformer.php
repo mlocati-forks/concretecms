@@ -69,10 +69,8 @@ class ExpressEntryTransformer extends TransformerAbstract
     public function __call($method, $arguments)
     {
         $attributeOrObjectHandle = snake_case(substr($method, 7));
+        /** @var Entry $entry */
         $entry = $arguments[0];
-        /**
-         * @var Entry $entry
-         */
         foreach ($entry->getEntity()->getAttributes() as $attribute) {
             if ($attribute->getAttributeKeyHandle() == $attributeOrObjectHandle) {
                 $value = $entry->getAttributeValue($attribute);

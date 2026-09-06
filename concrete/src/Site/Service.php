@@ -250,9 +250,6 @@ class Service
         }
         */
 
-        /**
-         * @var Manager $manager
-         */
         $request = Request::createFromGlobals();
         $controller = $this->getController($site);
         $site = $controller->add($site, $request);

@@ -1,7 +1,7 @@
 <?php
 namespace Concrete\Core\Permission\Response;
 
-use Concrete\Core\Entity\Express\Entry;
+use Concrete\Core\Entity\Express\Entity;
 use Concrete\Core\Tree\Node\Node;
 use Permissions;
 
@@ -9,9 +9,7 @@ class ExpressEntityResponse extends Response
 {
     protected function getExpressNodePermissions()
     {
-        /**
-         * @var Entry $entry
-         */
+        /** @var Entity|null $entity */
         $entity = $this->getPermissionObject();
         if (is_object($entity)) {
             $node = Node::getByID($entity->getEntityResultsNodeId());
