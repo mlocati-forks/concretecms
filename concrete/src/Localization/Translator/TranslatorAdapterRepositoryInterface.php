@@ -38,7 +38,7 @@ interface TranslatorAdapterRepositoryInterface
      * @param string $handle
      * @param string $locale
      *
-     * @return mixed The translator object
+     * @return \Concrete\Core\Localization\Translator\TranslatorAdapterInterface The translator adapter
      */
     public function getTranslatorAdapter($handle, $locale);
 
