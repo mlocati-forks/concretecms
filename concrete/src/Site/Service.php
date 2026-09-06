@@ -397,8 +397,9 @@ class Service
 
         $tree = new SiteTree();
         $cID = false;
+        /** @var \Concrete\Core\Database\Connection\Connection|null $connection may be null in case of tests that mock the EntityManager */
         $connection = $this->entityManager->getConnection();
-        if ($connection->tableExists('MultilingualSections')) {
+        if ($connection && $connection->tableExists('MultilingualSections')) {
             $cID = $connection->fetchColumn('select cID from MultilingualSections where msLanguage = ? and msCountry = ?', [$data[0], $data[1]]);
         }
         if (!$cID) {
