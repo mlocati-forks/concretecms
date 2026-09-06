@@ -389,9 +389,6 @@ class Section extends Page
         }
 
         $em = Database::get()->getEntityManager();
-        /**
-         * @var Locale $section
-         */
         $section = $em->getRepository('Concrete\Core\Entity\Site\Locale')
             ->findOneBy(['site' => $site, 'msLanguage' => $language]);
 
