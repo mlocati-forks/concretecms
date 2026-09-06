@@ -716,10 +716,6 @@ class File extends Controller
             $replacingFile = $this->getFileToBeReplaced();
             if ($replacingFile !== null) {
                 $folder = $replacingFile->getFileFolderObject();
-                // Fix for 5.7 files that had their parents set to their own file id
-                if ($folder instanceof \Concrete\Core\Tree\Node\Type\File) {
-                    $folder = $folder->getTreeNodeParentObject();
-                }
             } else {
                 $treeNodeID = $this->request->request->all()['currentFolder'] ?? null;
                 if ($treeNodeID) {

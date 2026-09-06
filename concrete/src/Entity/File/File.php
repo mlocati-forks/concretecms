@@ -573,11 +573,19 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
     }
 
     /**
+     * Get the folder containing this file.
+     *
      * @return \Concrete\Core\Tree\Node\Type\FileFolder|null
      */
     public function getFileFolderObject()
     {
-        return Node::getByID($this->folderTreeNodeID);
+        $node = Node::getByID($this->folderTreeNodeID);
+        // Fix for 5.7 files that had their parents set to their own file id
+        if ($node instanceof \Concrete\Core\Tree\Node\Type\File) {
+            $node = $node->getTreeNodeParentObject();
+        }
+
+        return $node instanceof FileFolder ? $node : null;
     }
 
     /**
