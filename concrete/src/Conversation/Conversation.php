@@ -137,6 +137,11 @@ class Conversation extends ConcreteObject implements \Concrete\Core\Permission\O
         return $this->getConversationID();
     }
 
+    /**
+     * @param int $cnvID
+     *
+     * @return static|null
+     */
     public static function getByID($cnvID)
     {
         $db = Loader::db();
@@ -150,6 +155,8 @@ class Conversation extends ConcreteObject implements \Concrete\Core\Permission\O
 
             return $cnv;
         }
+
+        return null;
     }
 
     public function getConversationPageObject()
