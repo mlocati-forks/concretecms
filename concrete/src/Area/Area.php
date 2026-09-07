@@ -32,7 +32,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     public $arHandle;
 
     /**
-     * @var Page
+     * @var Page|null NULL until the area is loaded (see load())
      */
     public $c;
 
@@ -251,19 +251,21 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * returns the Collection's cID.
      *
-     * @return int
+     * @return int|null NULL until the area is loaded (see load())
      */
     public function getCollectionID()
     {
         if (is_object($this->c)) {
             return $this->c->getCollectionID();
         }
+
+        return null;
     }
 
     /**
      * returns the Collection object for the current Area.
      *
-     * @return Page
+     * @return Page|null NULL until the area is loaded (see load())
      */
     public function getAreaCollectionObject()
     {
