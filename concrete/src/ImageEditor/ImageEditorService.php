@@ -180,7 +180,7 @@ class ImageEditorService
     }
 
     /**
-     * @param Editor $editor
+     * @param Editor|null $editor the editor to be activated (if NULL, the default editor is activated)
      */
     public function setActiveEditor(
         $editor
@@ -210,7 +210,7 @@ class ImageEditorService
     }
 
     /**
-     * @param Version $fileVersion
+     * @param Version|null $fileVersion the file version to be edited (if NULL, nothing is rendered)
      */
     public function renderActiveImageEditor(
         $fileVersion
@@ -227,7 +227,7 @@ class ImageEditorService
     }
 
     /**
-     * @param Version $fileVersion
+     * @param Version|null $fileVersion the file version to be edited (if NULL, nothing is rendered)
      */
     public function renderActiveThumbnailEditor(
         $fileVersion,
