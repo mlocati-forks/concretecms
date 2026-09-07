@@ -11,7 +11,10 @@ use RuntimeException;
 abstract class Column extends ConcreteObject implements ColumnInterface
 {
     /**
-     * @var Layout
+     * The layout containing this column.
+     * It's set only by Layout::getAreaLayoutColumns(): it's NULL for the columns loaded directly with getByID() (for example, the ones returned by Layout::addLayoutColumn()).
+     *
+     * @var Layout|null
      */
     public $arLayout;
     /**
@@ -69,7 +72,9 @@ abstract class Column extends ConcreteObject implements ColumnInterface
     }
 
     /**
-     * @return Layout
+     * Get the layout containing this column.
+     *
+     * @return Layout|null NULL if the column has been loaded directly with getByID() instead of being retrieved from the layout (see Layout::getAreaLayoutColumns())
      */
     public function getAreaLayoutObject()
     {
