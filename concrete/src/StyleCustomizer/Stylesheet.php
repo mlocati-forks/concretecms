@@ -49,7 +49,7 @@ class Stylesheet
             )
         );
         $parser = $parser->parseFile($this->file, $this->sourceUriRoot);
-        if (isset($this->variableCollection) && $this->variableCollection instanceof NormalizedVariableCollection) {
+        if (isset($this->variableCollection)) {
             $variables = [];
             foreach ($this->variableCollection->getValues() as $variable) {
                 $variables[$variable->getName()] = (string) $variable->getValue();

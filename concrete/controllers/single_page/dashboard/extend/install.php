@@ -147,7 +147,7 @@ class Install extends DashboardPageController implements LoggerAwareInterface
             $pkg = Package::getByID($pkgID);
         }
 
-        if (isset($pkg) && ($pkg instanceof PackageEntity)) {
+        if (isset($pkg)) {
             /** @var Manager $manager */
             $manager = $this->app->make(Manager::class, ['application' => $this->app]);
             $this->set('categories', $manager->getPackageItemCategories());

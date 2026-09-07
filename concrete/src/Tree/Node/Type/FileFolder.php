@@ -195,7 +195,7 @@ class FileFolder extends TreeNode
     public static function add($treeNodeName = '', $parent = false, $storageLocationID = null)
     {
         // Get the storage location id if we have an object
-        if (is_object($storageLocationID) && $storageLocationID instanceof \Concrete\Core\Entity\File\StorageLocation\StorageLocation) {
+        if ($storageLocationID instanceof \Concrete\Core\Entity\File\StorageLocation\StorageLocation) {
             $storageLocationID = $storageLocationID->getID();
         }
 

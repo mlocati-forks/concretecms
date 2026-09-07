@@ -244,40 +244,36 @@ class Add extends BackendInterfacePageController
             if (!$request->request->has("ccm_token")) {
                 $errorList->add(t("You need to enter a valid token"));
             } else {
-                if (!$this->page instanceof Page) {
-                    $errorList->add(t("You need to enter a valid page id."));
+                $blockId = (int)$request->request->get("blockId");
+                $removeToken = $request->request->get("ccm_token");
+
+                if (!$token->validate('remove_orphaned_block', $removeToken)) {
+                    $errorList->add($token->getErrorMessage());
                 } else {
-                    $blockId = (int)$request->request->get("blockId");
-                    $removeToken = $request->request->get("ccm_token");
+                    $usedAreas = (array) $request->request->get("usedAreas");
 
-                    if (!$token->validate('remove_orphaned_block', $removeToken)) {
-                        $errorList->add($token->getErrorMessage());
+                    $arrOrphanedBlocks = $this->getOrphanedBlockIds($usedAreas);
+
+                    if (count($arrOrphanedBlocks) === 0) {
+                        $errorList->add(t("There are no blocks to remove."));
                     } else {
-                        $usedAreas = (array) $request->request->get("usedAreas");
+                        $orphanedBlockFound = false;
 
-                        $arrOrphanedBlocks = $this->getOrphanedBlockIds($usedAreas);
-
-                        if (count($arrOrphanedBlocks) === 0) {
-                            $errorList->add(t("There are no blocks to remove."));
-                        } else {
-                            $orphanedBlockFound = false;
-
-                            foreach ($arrOrphanedBlocks as $arrOrphanedBlock) {
-                                if ($blockId === (int)$arrOrphanedBlock["bID"]) {
-                                    $orphanedBlockFound = true;
-                                    $block = Block::getByID($blockId, $this->page, $arrOrphanedBlock["arHandle"]);
-                                    if (!$block instanceof Block) {
-                                        $errorList->add(t("Error while removing orphaned block."));
-                                    } else {
-                                        $block->deleteBlock();
-                                    }
-                                    break;
+                        foreach ($arrOrphanedBlocks as $arrOrphanedBlock) {
+                            if ($blockId === (int)$arrOrphanedBlock["bID"]) {
+                                $orphanedBlockFound = true;
+                                $block = Block::getByID($blockId, $this->page, $arrOrphanedBlock["arHandle"]);
+                                if (!$block instanceof Block) {
+                                    $errorList->add(t("Error while removing orphaned block."));
+                                } else {
+                                    $block->deleteBlock();
                                 }
+                                break;
                             }
+                        }
 
-                            if (!$orphanedBlockFound) {
-                                $errorList->add(t("The given block is not orphaned."));
-                            }
+                        if (!$orphanedBlockFound) {
+                            $errorList->add(t("The given block is not orphaned."));
                         }
                     }
                 }

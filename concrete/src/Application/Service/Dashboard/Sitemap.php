@@ -118,11 +118,11 @@ class Sitemap
             $pl->includeSystemPages();
             $pl->includeInactivePages();
         }
-        if (!is_object($parent)) {
-            $cID = $parent;
-        } elseif ($parent instanceof Tree) {
+        if ($parent instanceof Tree) {
             $pl->setSiteTreeObject($parent);
             $cID = 0;
+        } else {
+            $cID = $parent;
         }
         $pl->filterByParentID($cID); // Either 0 or cParentID
         $pl->setPageVersionToRetrieve(\Concrete\Core\Page\PageList::PAGE_VERSION_RECENT);

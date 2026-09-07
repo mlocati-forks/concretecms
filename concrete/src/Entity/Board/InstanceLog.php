@@ -79,9 +79,7 @@ class InstanceLog implements \JsonSerializable
         if ($entries->count()) {
             $return = [];
             foreach ($entries as $entry) {
-                if ($entry instanceof InstanceLogEntry) {
-                    $return[] = $entry;
-                }
+                $return[] = $entry;
             }
         }
 

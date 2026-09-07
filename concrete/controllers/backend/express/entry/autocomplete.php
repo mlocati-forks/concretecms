@@ -70,9 +70,6 @@ class Autocomplete extends AbstractController
             $entry = $objectManager->getEntry($id);
             if ($entry) {
                 $entryEntity = $entry->getEntity();
-                if (!$entryEntity instanceof Entity) {
-                    throw new \Exception(t('Unable to retrieve entity from Express entry: %s', $entry->getID()));
-                }
                 if ($entryEntity->getID() !== $entity->getID()) {
                     throw new \Exception(t('Access Denied.'));
                 }

@@ -54,7 +54,7 @@ final class Version20200523051311 extends AbstractMigration implements Repeatabl
         ];
 
         foreach ($attributeTypeFactory->getList() as $attributeType) {
-            if ($attributeType instanceof Type && in_array($attributeType->getAttributeTypeHandle(), $mappedAttributesTypeHandles)) {
+            if (in_array($attributeType->getAttributeTypeHandle(), $mappedAttributesTypeHandles)) {
                 $category->getAttributeTypes()->add($attributeType);
             }
         }

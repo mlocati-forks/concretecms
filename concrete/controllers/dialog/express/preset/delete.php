@@ -53,11 +53,8 @@ class Delete extends PresetDelete
     public function getSavedSearchEntity()
     {
         $em = $this->app->make(EntityManager::class);
-        if (is_object($em)) {
-            return $em->getRepository('Concrete\Core\Entity\Search\SavedExpressSearch');
-        }
 
-        return null;
+        return $em->getRepository('Concrete\Core\Entity\Search\SavedExpressSearch');
     }
 
     public function remove_search_preset()

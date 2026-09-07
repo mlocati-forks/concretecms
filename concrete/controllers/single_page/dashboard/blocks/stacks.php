@@ -83,10 +83,7 @@ class Stacks extends DashboardPageController
                 foreach ($blocks as $b1) {
                     $btc = $b1->getController();
                     // now we inject any custom template CSS and JavaScript into the header
-                    if ($btc instanceof \Concrete\Core\Block\BlockController) {
-                        $btc->outputAutoHeaderItems();
-                    }
-
+                    $btc->outputAutoHeaderItems();
                     $btc->runAction('on_page_view', [$view]);
                 }
 

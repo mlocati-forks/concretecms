@@ -20,10 +20,8 @@ class Listener
         // Remove the index column(s), if any
         if ($key->isAttributeKeySearchable()) {
             $indexer = $key->getSearchIndexer();
-            if ($indexer instanceof SearchIndexerInterface) {
-                $key->setIsAttributeKeySearchable(false);
-                $indexer->updateSearchIndexKeyColumns($category, $key);
-            }
+            $key->setIsAttributeKeySearchable(false);
+            $indexer->updateSearchIndexKeyColumns($category, $key);
         }
         // Delete the category key record
         $category->deleteKey($key);
