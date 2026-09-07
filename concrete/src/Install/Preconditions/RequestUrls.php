@@ -127,7 +127,7 @@ EOT
      *
      * @see WebPreconditionInterface::getAjaxAnswer()
      *
-     * @param string|int $argument
+     * @param string|int|mixed $argument a NULL response is returned if it's not a number
      */
     public function getAjaxAnswer($argument)
     {

@@ -1,7 +1,6 @@
 <?php
 namespace Concrete\Core\Authentication;
 
-use Concrete\Authentication\Concrete\Controller;
 use Concrete\Core\Backup\ContentImporter;
 use Concrete\Core\Database\Schema\Schema;
 use Concrete\Core\Filesystem\FileLocator;
@@ -18,7 +17,7 @@ use Package;
 
 class AuthenticationType extends ConcreteObject
 {
-    /** @var Controller */
+    /** @var \Concrete\Core\Authentication\AuthenticationTypeController */
     public $controller;
     protected $authTypeID;
     protected $authTypeName;

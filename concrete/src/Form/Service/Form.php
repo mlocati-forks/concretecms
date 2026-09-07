@@ -455,7 +455,7 @@ class Form
      * Renders a select field.
      *
      * @param string $key The name of the element. If $key denotes an array, the ID will start with $key but will have a progressive unique number added; if $key does not denotes an array, the ID attribute will be $key.
-     * @param array $optionValues an associative array of key => display
+     * @param array|mixed $optionValues an associative array of key => display (no options are rendered if it's not an array)
      * @param string|array|int $valueOrMiscFields the value of the field to be selected or an array with additional fields appended to the element (a hash array of attributes name => value), possibly including 'class', 'id', and 'name'
      * @param array $miscFields (used if $valueOrMiscFields is not an array) Additional fields appended to the element (a hash array of attributes name => value), possibly including 'class', 'id', and 'name'
      *
@@ -626,7 +626,7 @@ class Form
      * Renders a multiple select box.
      *
      * @param string $key The ID of the element. The name attribute will be $key followed by '[].
-     * @param array $optionValues Hash array with name/value as the select's option value/text
+     * @param array|mixed $optionValues Hash array with name/value as the select's option value/text (no options are rendered if it's not an array)
      * @param array|string|false|null $defaultValues Default value(s) which match with the option values; overridden by $_REQUEST
      * @param array $miscFields additional fields appended to the element (a hash array of attributes name => value), possibly including 'class', 'id', and 'name'
      *

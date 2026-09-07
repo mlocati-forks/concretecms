@@ -160,7 +160,7 @@ class Group extends ConcreteObject implements \Concrete\Core\Permission\ObjectIn
     /**
      * Get the date/time when a user entered this group.
      *
-     * @param object|int $user the user ID or an object with a getUserID method
+     * @param object|int|mixed $user the user ID or an object with a getUserID method (NULL is returned if it's neither an object nor a number)
      *
      * @return string|null
      */

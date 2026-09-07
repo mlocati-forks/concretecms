@@ -224,7 +224,7 @@ class DragRequestData
     /**
      * Get the reason why an operation can't be performed.
      *
-     * @param string $operation The value of one of the OPERATION_... constants.
+     * @param string|mixed $operation The value of one of the OPERATION_... constants. (an error message is returned if it's not a string)
      *
      * @return string empty string if the operation CAN be performed
      */

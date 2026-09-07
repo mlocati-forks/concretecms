@@ -187,7 +187,7 @@ abstract class Editor extends ConcreteObject
     /**
      * This function is used to instantiate a Conversation Editor object from an associative array.
      *
-     * @param array $record an associative array of field value pairs for the ConversationEditor record
+     * @param array|false|null $record an associative array of field value pairs for the ConversationEditor record (NULL is returned if it's not an array)
      *
      * @return Editor|null
      */

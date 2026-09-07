@@ -95,6 +95,8 @@ class BasicThumbnailer implements ThumbnailerInterface, ApplicationAwareInterfac
      * {@inheritdoc}
      *
      * @see ThumbnailerInterface::setJpegCompression()
+     *
+     * @param int|float|numeric-string|mixed $level ignored if it's not a number
      */
     public function setJpegCompression($level)
     {
@@ -123,6 +125,8 @@ class BasicThumbnailer implements ThumbnailerInterface, ApplicationAwareInterfac
      * {@inheritdoc}
      *
      * @see ThumbnailerInterface::setWebpCompression()
+     *
+     * @param int|float|numeric-string|mixed $level ignored if it's not a number
      */
     public function setWebpCompression($level)
     {
@@ -151,6 +155,8 @@ class BasicThumbnailer implements ThumbnailerInterface, ApplicationAwareInterfac
      * {@inheritdoc}
      *
      * @see ThumbnailerInterface::setPngCompression()
+     *
+     * @param int|float|numeric-string|mixed $level ignored if it's not a number
      */
     public function setPngCompression($level)
     {

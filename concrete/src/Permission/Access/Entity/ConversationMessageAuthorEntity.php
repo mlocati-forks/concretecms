@@ -63,7 +63,7 @@ class ConversationMessageAuthorEntity extends Entity
     }
 
     /**
-     * @param User|\Concrete\Core\Entity\User\User $user
+     * @param User|\Concrete\Core\Entity\User\User|mixed $user no entities are returned if it's not an object
      *
      * @throws \Doctrine\DBAL\Exception
      *

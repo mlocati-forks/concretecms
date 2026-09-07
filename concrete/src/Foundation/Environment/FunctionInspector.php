@@ -55,7 +55,7 @@ class FunctionInspector
     /**
      * Check if a function exists and is not disabled.
      *
-     * @param string $functionName
+     * @param string|mixed $functionName false is returned if it's not a string
      *
      * @return bool
      */

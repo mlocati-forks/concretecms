@@ -489,7 +489,7 @@ class UserInfo extends ConcreteObject implements AttributeObjectInterface, Permi
     }
 
     /**
-     * @param array $data
+     * @param array|mixed $data ignored if it's not an array
      *
      * @return bool|null returns false if the record has not been saved, null if the password confirmation failed, true otherwise
      */
@@ -621,7 +621,7 @@ class UserInfo extends ConcreteObject implements AttributeObjectInterface, Permi
     }
 
     /**
-     * @param int[] $groupArray
+     * @param int[]|mixed $groupArray nothing happens if it's not an array
      */
     public function updateGroups($groupArray)
     {

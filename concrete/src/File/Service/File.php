@@ -400,7 +400,7 @@ class File
      * Splits a filename into directory, base file name, extension.
      * If the file name starts with a dot and it's the only dot (eg: '.htaccess'), we don't consider the file to have an extension.
      *
-     * @param string $filename
+     * @param string|mixed $filename empty strings are returned if it's not a string
      *
      * @return array
      */
@@ -442,7 +442,7 @@ class File
      * Takes a path and replaces the files extension in that path with the specified extension.
      *
      * @param string $filename
-     * @param string $extension
+     * @param string|mixed $extension no extension is added if it's not a non-empty string
      *
      * @return string
      */

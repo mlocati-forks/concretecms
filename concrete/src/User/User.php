@@ -743,7 +743,7 @@ class User extends ConcreteObject
     }
 
     /**
-     * @param Group $g
+     * @param Group|mixed $g nothing happens if it's not an object
      * @param GroupRole $r
      */
     public function changeGroupRole($g, $r)
@@ -768,7 +768,7 @@ class User extends ConcreteObject
     }
 
     /**
-     * @param Group $g
+     * @param Group|mixed $g nothing happens if it's not an object
      */
     public function enterGroup($g)
     {
@@ -819,7 +819,7 @@ class User extends ConcreteObject
     }
 
     /**
-     * @param Group $g
+     * @param Group|mixed $g nothing happens if it's not an object
      */
     public function exitGroup($g)
     {

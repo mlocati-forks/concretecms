@@ -83,7 +83,7 @@ class Query implements \JsonSerializable, DenormalizableInterface
     }
 
     /**
-     * @param int $itemsPerPage
+     * @param int|mixed $itemsPerPage MAX_ITEMS_PER_PAGE is used if it's not numeric
      */
     public function setItemsPerPage($itemsPerPage)
     {

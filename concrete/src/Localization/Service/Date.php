@@ -115,7 +115,7 @@ class Date
     /**
      * Retrieve the display name (localized) of a time zone given its PHP identifier.
      *
-     * @param string $timezoneID
+     * @param string|mixed $timezoneID an empty string is returned if it's not a string
      *
      * @return string
      */
@@ -749,8 +749,8 @@ class Date
     }
 
     /** Returns the format string for the jQueryUI DatePicker widget
-     * @param string $relatedPHPFormat = '' Related PHP date format that will be used to parse the format handled by the DatePicker.
-     *     If not specified we'll use the same format used by formatDate(..., false)
+     * @param string|mixed $relatedPHPFormat = '' Related PHP date format that will be used to parse the format handled by the DatePicker.
+     *     If not specified (or if it's not a string) we'll use the same format used by formatDate(..., false)
      *
      * @return string
      *

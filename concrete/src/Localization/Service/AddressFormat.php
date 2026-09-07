@@ -274,7 +274,7 @@ class AddressFormat
     /**
      * Fetches the country's address format from the address format repository.
      *
-     * @param  string $code the country code
+     * @param  string|mixed $code the country code (NULL is returned if it's not a string)
      *
      * @return \CommerceGuys\Addressing\AddressFormat\AddressFormat|null the address
      *         format for the country

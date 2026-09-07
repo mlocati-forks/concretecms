@@ -74,7 +74,7 @@ class Strings
     /**
      * Returns false if the string is empty (including trim()).
      *
-     * @param string $field
+     * @param string|mixed $field false is returned if it's not a string
      *
      * @return bool
      */

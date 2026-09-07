@@ -916,7 +916,7 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
     /**
      * Tracks File Download, takes the cID of the page that the file was downloaded from.
      *
-     * @param int $rcID
+     * @param int|null|mixed $rcID 0 is used if it's not numeric
      */
     public function trackDownload($rcID = null)
     {

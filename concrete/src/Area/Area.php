@@ -419,7 +419,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * Clear the request cache of the areas of a page.
      *
-     * @param \Concrete\Core\Page\Page $c
+     * @param \Concrete\Core\Page\Collection\Collection $c
      */
     public static function refreshCacheForPage($c)
     {
@@ -429,7 +429,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     }
 
     /**
-     * @param Page $c
+     * @param \Concrete\Core\Page\Collection\Collection $c
      *
      * @deprecated use the static refreshCacheForPage() method
      */
@@ -441,7 +441,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * Gets the Area object for the given page and area handle.
      *
-     * @param Page $c
+     * @param Page|mixed $c false is returned if it's not an object
      * @param string $arHandle
      *
      * @return Area|false|null returns false if $c is not an object, null if the area doesn't exist
