@@ -22,9 +22,9 @@ abstract class Editor extends ConcreteObject
     protected $cnvEditorInputName = 'cnvMessageBody';
     /** @var string */
     protected $cnvEditorName;
-    /** @var Message */
+    /** @var Message|null NULL until setConversationMessageObject() is called */
     protected $cnvMessage;
-    /** @var Conversation */
+    /** @var Conversation|null NULL until setConversationObject() is called */
     protected $cnvObject;
     /** @var int|numeric-string */
     protected $pkgID;

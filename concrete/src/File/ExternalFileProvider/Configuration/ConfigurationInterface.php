@@ -21,7 +21,7 @@ interface ConfigurationInterface
     /**
      * Validate a request, this is used during saving
      * @param Request $req
-     * @return Error
+     * @return Error|null NULL if there are no errors
      */
     public function validateRequest(Request $req);
 

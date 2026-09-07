@@ -54,7 +54,7 @@ abstract class Progress extends ConcreteObject implements SubjectInterface
     /**
      * Gets the Workflow object attached to this WorkflowProgress object.
      *
-     * @return Workflow
+     * @return Workflow|null NULL if the workflow doesn't exist anymore
      */
     public function getWorkflowObject()
     {
@@ -250,10 +250,11 @@ abstract class Progress extends ConcreteObject implements SubjectInterface
     public function start()
     {
         $wf = $this->getWorkflowObject();
-        if (is_object($wf)) {
-            $r = $wf->start($this);
-            $this->updateOnAction($wf);
+        if (!is_object($wf)) {
+            return null;
         }
+        $r = $wf->start($this);
+        $this->updateOnAction($wf);
 
         return $r;
     }

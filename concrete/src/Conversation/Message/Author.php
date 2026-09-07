@@ -5,7 +5,7 @@ use Concrete\Core\User\UserInfo;
 
 class Author
 {
-    /** @var \Concrete\Core\User\UserInfo */
+    /** @var \Concrete\Core\User\UserInfo|null NULL until setUser() is called */
     protected $user;
     /** @var string|null */
     protected $name;
@@ -15,7 +15,7 @@ class Author
     protected $website;
 
     /**
-     * @return \Concrete\Core\User\UserInfo
+     * @return \Concrete\Core\User\UserInfo|null NULL until setUser() is called
      */
     public function getUser()
     {

@@ -216,7 +216,7 @@ class Entry implements \JsonSerializable, PermissionObjectInterface, AttributeOb
     protected $resultsNodeID;
 
     /**
-     * @return Entity
+     * @return Entity|null NULL only for entries that have not been assigned to an entity yet (see Manager::createEntry())
      */
     public function getEntity()
     {
@@ -224,7 +224,7 @@ class Entry implements \JsonSerializable, PermissionObjectInterface, AttributeOb
     }
 
     /**
-     * @param mixed $entity
+     * @param Entity $entity
      */
     public function setEntity($entity)
     {

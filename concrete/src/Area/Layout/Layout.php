@@ -13,7 +13,7 @@ use Database;
 abstract class Layout extends ConcreteObject
 {
     /**
-     * @var Area
+     * @var Area|null NULL until setAreaObject() is called
      */
     public $area;
 
@@ -104,7 +104,7 @@ abstract class Layout extends ConcreteObject
     }
 
     /**
-     * @return Area
+     * @return Area|null NULL until setAreaObject() is called
      */
     public function getAreaObject()
     {

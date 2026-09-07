@@ -62,7 +62,7 @@ class StorageLocation
 
     /**
      * @deprecated use StorageLocationFactory::fetchDefault()
-     * @return StorageLocation
+     * @return \Concrete\Core\Entity\File\StorageLocation\StorageLocation|null NULL if there's no default storage location
      */
     public static function getDefault()
     {
