@@ -358,11 +358,9 @@ class FolderItemList extends AttributedItemList implements PagerProviderInterfac
         $u = Application::getFacadeApplication()->make(User::class);
         // Super user can search any files
         if (!$u->isSuperUser()) {
-            /** @var FileFolderKey $pk */
             $pk = FileFolderKey::getByHandle('search_file_folder');
             if (is_object($pk)) {
                 $pk->setPermissionObject($this->parent);
-                /** @var \Concrete\Core\Permission\Access\Access $pa */
                 $pa = $pk->getPermissionAccessObject();
                 // Check whether or not current user can search files in the current folder
                 if (is_object($pa) && $pa->validate()) {

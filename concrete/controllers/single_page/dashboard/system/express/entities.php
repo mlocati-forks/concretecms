@@ -254,7 +254,6 @@ class Entities extends DashboardPageController
      */
     public function delete_entries()
     {
-        /** @var \Concrete\Core\Entity\Express\Entity $entity */
         $entity = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Entity')->findOneById($this->request->request->get('entity_id'));
 
         if (!is_object($entity)) {
@@ -296,7 +295,6 @@ class Entities extends DashboardPageController
      */
     public function publish()
     {
-        /** @var \Concrete\Core\Entity\Express\Entity $entity */
         $entity = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Entity')->findOneById($this->request->request->get('entity_id'));
 
         if (!is_object($entity)) {

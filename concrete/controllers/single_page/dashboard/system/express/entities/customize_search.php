@@ -23,9 +23,6 @@ class CustomizeSearch extends DashboardPageController
 
     public function save($id = null)
     {
-        /**
-         * @var Entity $entity
-         */
         $entity = $this->repository->findOneById($id);
         if (is_object($entity)) {
             if (!$this->token->validate('save')) {

@@ -240,7 +240,6 @@ class Themes extends DashboardSitePageController
                 throw new Exception($this->token->getErrorMessage());
             }
 
-            /** @var \Concrete\Core\Page\Theme\Theme $pl */
             $pl = Theme::getByID($pThemeID);
             if (!is_object($pl)) {
                 throw new Exception(t('Invalid theme.'));

@@ -8,7 +8,6 @@ use Concrete\Core\Page\Theme\Theme;
 use Concrete\Core\Site\Type\Service as TypeService;
 use Concrete\Core\Attribute\Category\SiteTypeCategory;
 use Doctrine\ORM\EntityManager;
-use Concrete\Core\Entity\Site\Skeleton;
 use Concrete\Core\Entity\Site\SkeletonLocale;
 use Concrete\Core\Site\Type\Skeleton\Service as SkeletonService;
 use Concrete\Core\Site\User\Group\Service as GroupService;
@@ -98,9 +97,6 @@ class ImportSiteTypeSkeletonsRoutine extends AbstractRoutine
                         $locale->setCountry((string)$localeNode['country']);
                         $locale->setLanguage((string)$localeNode['language']);
 
-                        /**
-                         * @var Skeleton $skeleton
-                         */
                         $skeleton = $this->skeletonService->getSkeleton($site_type);
 
                         if (!is_object($skeleton)) {
