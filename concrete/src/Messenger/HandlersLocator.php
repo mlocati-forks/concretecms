@@ -5,6 +5,7 @@ use Closure;
 use Concrete\Core\Application\Application;
 use Concrete\Core\Command\Batch\Stamp\BatchStamp;
 use Concrete\Core\Command\Batch\BatchAwareInterface;
+use Concrete\Core\Command\Task\Output\NullOutput;
 use Concrete\Core\Command\Task\Output\OutputAwareInterface;
 use Concrete\Core\Command\Task\Stamp\OutputStamp;
 use Concrete\Core\Config\Repository\Repository;
@@ -61,6 +62,8 @@ class HandlersLocator implements HandlersLocatorInterface
                      * @var $outputStamp OutputStamp
                      */
                     $builtClass->setOutput($outputStamp->getOutput());
+                } else {
+                    $builtClass->setOutput(new NullOutput());
                 }
             }
             if ($builtClass instanceof BatchAwareInterface) {
