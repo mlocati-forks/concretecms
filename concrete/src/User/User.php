@@ -290,7 +290,7 @@ class User extends ConcreteObject
             $this->uTimezone = null;
             if ($req->hasCustomRequestUser()) {
                 $ux = $req->getCustomRequestUser();
-                if ($ux && is_object($ux)) {
+                if ($ux instanceof UserInfo) {
                     $this->uID = $ux->getUserID();
                     $this->uName = $ux->getUserName();
                     $this->superUser = $ux->getUserID() == USER_SUPER_ID;
@@ -298,9 +298,6 @@ class User extends ConcreteObject
                         $this->uDefaultLanguage = $ux->getUserDefaultLanguage();
                     }
                     $this->uTimezone = $ux->getUserTimezone();
-                } elseif ($ux === -1) {
-                    $this->uID = 0;
-                    $this->uName = t('Guest');
                 }
                 $this->uGroups = $this->_getUserGroups(true);
             } elseif ($validator->hasActiveSession()) {

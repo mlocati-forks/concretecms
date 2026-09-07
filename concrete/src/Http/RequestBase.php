@@ -36,7 +36,7 @@ class RequestBase extends SymfonyRequest
     protected $hasCustomRequestUser;
 
     /**
-     * @var \Concrete\Core\User\UserInfo
+     * @var \Concrete\Core\User\UserInfo|null NULL if the custom request user is the guest user (or if there's no custom request user)
      */
     protected $customRequestUser;
 
@@ -105,10 +105,14 @@ class RequestBase extends SymfonyRequest
     }
 
     /**
-     * @param \Concrete\Core\User\UserInfo|null $ui
+     * @param \Concrete\Core\User\UserInfo|-1|false|null $ui the user (NULL: the guest user; -1 and false are legacy values with the same meaning)
      */
     public function setCustomRequestUser($ui)
     {
+        if ($ui === -1 || $ui === false) {
+            // Legacy values that used to identify the guest user
+            $ui = null;
+        }
         $this->hasCustomRequestUser = true;
         $this->customRequestUser = $ui;
         $app = Facade::getFacadeApplication();
