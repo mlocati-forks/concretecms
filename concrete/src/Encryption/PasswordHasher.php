@@ -13,8 +13,9 @@ class PasswordHasher
     private $phpassPasswordHash;
 
     /**
-     * The hash algorithm to use for passwords
-     * @var string
+     * The hash algorithm to use for passwords (a string identifier, or an integer with PHP 7.3 where the PASSWORD_* constants are integers).
+     *
+     * @var int|string
      */
     private $algorithm;
 
