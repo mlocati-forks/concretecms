@@ -292,9 +292,16 @@ class DatabaseManager implements ConnectionRegistry
         return $this->connection($name);
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Doctrine\Persistence\ConnectionRegistry::getConnectionNames()
+     */
     public function getConnectionNames()
     {
-        return array_keys($this->connections);
+        $names = array_keys($this->connections);
+
+        return array_combine($names, $names);
     }
 
     public function getDefaultConnectionName()

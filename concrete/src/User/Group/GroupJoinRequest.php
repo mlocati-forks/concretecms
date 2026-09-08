@@ -107,6 +107,11 @@ class GroupJoinRequest extends ConcreteObject implements SubjectInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Notification\Subject\SubjectInterface::getNotificationDate()
+     */
     public function getNotificationDate()
     {
         $app = Application::getFacadeApplication();
@@ -115,11 +120,12 @@ class GroupJoinRequest extends ConcreteObject implements SubjectInterface
 
         $row = $db->fetchAssoc("SELECT gjrRequested FROM GroupJoinRequests WHERE uID = ? AND gID = ?", [$this->user->getUserID(), $this->group->getGroupID()]);
 
-        if ($row !== false) {
-            return DateTime::createFromFormat("Y-m-d H:i:s", $row["gjrRequested"]);
+        $date = $row === false ? false : DateTime::createFromFormat('Y-m-d H:i:s', $row['gjrRequested']);
+        if ($date === false) {
+            throw new \RuntimeException(t('The group join request does not exist.'));
         }
 
-        return null;
+        return $date;
     }
 
     public function getUsersToExcludeFromNotification()

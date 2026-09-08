@@ -31,7 +31,7 @@ class Controller extends AbstractController implements ControllerInterface
     }
 
     /**
-     * @return Link
+     * @return \HtmlObject\Traits\Tag
      */
     public function getMenuItemLinkElement()
     {

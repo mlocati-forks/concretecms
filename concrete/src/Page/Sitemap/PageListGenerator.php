@@ -263,7 +263,10 @@ class PageListGenerator
     protected function getViewPagePermissionKey()
     {
         if ($this->viewPagePermissionKey === false) {
-            $this->viewPagePermissionKey = PermissionKey::getByHandle('view_page');
+            // The view_page permission key belongs to the page category
+            /** @var \Concrete\Core\Permission\Key\PageKey|null $key */
+            $key = PermissionKey::getByHandle('view_page');
+            $this->viewPagePermissionKey = $key;
         }
 
         return $this->viewPagePermissionKey;

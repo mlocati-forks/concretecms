@@ -76,8 +76,13 @@ class EventCategory extends AbstractStandardCategory
     }
 
     /**
-     * @param Key $key
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Attribute\Category\CategoryInterface::getAttributeValue()
+     *
      * @param \Concrete\Core\Entity\Calendar\CalendarEventVersion $version
+     *
+     * @return \Concrete\Core\Entity\Attribute\Value\EventValue|null
      */
     public function getAttributeValue(Key $key, $version)
     {

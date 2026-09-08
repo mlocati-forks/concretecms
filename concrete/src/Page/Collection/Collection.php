@@ -3,7 +3,6 @@
 namespace Concrete\Core\Page\Collection;
 
 use Concrete\Core\Area\Area;
-
 use CacheLocal;
 use CollectionVersion;
 use Concrete\Core\Area\CustomStyleRepository as AreaCustomStyleRepository;
@@ -564,7 +563,10 @@ class Collection extends ConcreteObject implements TrackableInterface
         $values = $category->getAttributeValues($this->vObj);
         $attribs = [];
         foreach ($values as $value) {
-            $attribs[] = $value->getAttributeKey();
+            // The values of the page category always reference page keys
+            /** @var \Concrete\Core\Entity\Attribute\Key\PageKey $key */
+            $key = $value->getAttributeKey();
+            $attribs[] = $key;
         }
 
         return $attribs;

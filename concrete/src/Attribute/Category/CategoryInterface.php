@@ -47,7 +47,7 @@ interface CategoryInterface
     /**
      * Get the attribute types.
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection|Type[]
+     * @return iterable<\Concrete\Core\Entity\Attribute\Type>
      */
     public function getAttributeTypes();
 
