@@ -175,6 +175,8 @@ class Controller extends AbstractController implements AttributeInterface
      * {@inheritdoc}
      *
      * @see \Concrete\Core\Attribute\AttributeInterface::getAttributeKey()
+     *
+     * @return \Concrete\Core\Entity\Attribute\Key\Key|null
      */
     public function getAttributeKey()
     {
@@ -443,7 +445,12 @@ class Controller extends AbstractController implements AttributeInterface
      */
     public function getControlView(ContextInterface $context)
     {
-        return new ControlView($context, $this->getAttributeKey(), $this->getAttributeValue());
+        $key = $this->getAttributeKey();
+        if ($key === null) {
+            throw new \RuntimeException(t('The attribute key is not set.'));
+        }
+
+        return new ControlView($context, $key, $this->getAttributeValue());
     }
 
     /**
