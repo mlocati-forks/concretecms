@@ -49,6 +49,7 @@ use Imagine\Image\ImagineInterface;
 use Imagine\Image\Metadata\ExifMetadataReader;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Cached\CachedAdapter;
+use League\Flysystem\File as FlysystemFile;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\MountManager;
 use League\Flysystem\Util;
@@ -1285,7 +1286,7 @@ class Version implements ObjectInterface
     /**
      * Get an abstract object to work with the actual file resource (note: this is NOT a concrete5 File object).
      *
-     * @throws \League\Flysystem\FileNotFoundException
+     * @throws \League\Flysystem\FileNotFoundException if the file doesn't exist (or if it's a directory)
      *
      * @return \League\Flysystem\File
      */
@@ -1294,7 +1295,11 @@ class Version implements ObjectInterface
         $app = Application::getFacadeApplication();
         $cf = $app->make('helper/concrete/file');
         $fs = $this->getFile()->getFileStorageLocationObject()->getFileSystemObject();
-        $fo = $fs->get($cf->prefix($this->fvPrefix, $this->fvFilename));
+        $path = $cf->prefix($this->fvPrefix, $this->fvFilename);
+        $fo = $fs->get($path);
+        if (!$fo instanceof FlysystemFile) {
+            throw new FileNotFoundException($path);
+        }
 
         return $fo;
     }
