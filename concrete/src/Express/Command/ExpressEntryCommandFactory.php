@@ -45,7 +45,7 @@ class ExpressEntryCommandFactory
                 $association = $entity->getAssociation($key);
                 if ($association) {
                     $entryIds = [];
-                    $entries = null;
+                    $entries = [];
                     if ($data === null) {
                         $entryIds = null;
                     } else if ($association instanceof ManyToOneAssociation || $association instanceof OneToOneAssociation) {
