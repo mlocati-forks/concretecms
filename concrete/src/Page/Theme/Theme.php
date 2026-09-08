@@ -1399,7 +1399,7 @@ class Theme extends ConcreteObject implements \JsonSerializable
     /**
      * Get the theme-specific templates for every block.
      *
-     * @return array array keys are the block type handles, array values are a list of the block templates.
+     * @return array|mixed array keys are the block type handles, array values are a list of the block templates (values that are not arrays are ignored)
      *
      * @see \Concrete\Theme\Elemental\PageTheme::getThemeDefaultBlockTemplates() for an example
      */
