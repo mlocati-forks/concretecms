@@ -9,6 +9,7 @@ use Concrete\Core\Attribute\Category\SearchIndexer\StandardSearchIndexerInterfac
 use Concrete\Core\Attribute\Key\ImportLoader\StandardImportLoader;
 use Concrete\Core\Attribute\Key\RequestLoader\StandardRequestLoader;
 use Concrete\Core\Attribute\SetFactory;
+use Concrete\Core\Attribute\StandardSetManager;
 use Concrete\Core\Attribute\TypeFactory;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Type as AttributeType;
@@ -283,6 +284,9 @@ abstract class AbstractCategory implements CategoryInterface, StandardSearchInde
 
         if ($asID) {
             $manager = $this->getSetManager();
+        if (!$manager instanceof StandardSetManager) {
+            throw new \RuntimeException(t('The set manager of the attribute category must be an instance of %s.', StandardSetManager::class));
+        }
             $factory = new SetFactory($this->entityManager);
             $set = $factory->getByID($asID);
             if ($set !== null) {
@@ -417,8 +421,9 @@ abstract class AbstractCategory implements CategoryInterface, StandardSearchInde
      */
     public function deleteValue(AttributeValueInterface $attributeValue)
     {
-        // @var \Concrete\Core\Entity\Attribute\Value\AbstractValue $attributeValue
-
+        if (!method_exists($attributeValue, 'getGenericValue')) {
+            throw new \InvalidArgumentException(t('The attribute value must have the %s method.', 'getGenericValue()'));
+        }
         $genericValue = $attributeValue->getGenericValue();
         if ($genericValue !== null) {
             $genericValues = $this->getAttributeValueRepository()->count(['generic_value' => $genericValue]);

@@ -12,10 +12,18 @@ class NewConversationMessageType extends Type
 {
 
     /**
-     * @param $user NewMessage
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
+     *
+     * @throws \InvalidArgumentException if $message is not a \Concrete\Core\Conversation\Message\NewMessage instance
      */
     public function createNotification(SubjectInterface $message)
     {
+        if (!$message instanceof NewMessage) {
+            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', NewMessage::class));
+        }
+
         return new NewConversationMessageNotification($message);
     }
 

@@ -9,6 +9,7 @@ use Concrete\Core\User\Group\GroupRepository;
 use Concrete\Core\User\Group\GroupList;
 use Imagine\Image\Box;
 use Concrete\Core\Localization\Localization;
+use Concrete\Core\Permission\Key\EditUserPropertiesUserKey;
 use Concrete\Core\Permission\Key\Key as PermissionKey;
 use Concrete\Core\Attribute\Key\UserKey as UserAttributeKey;
 use Imagine\Image\ImagineInterface;
@@ -25,7 +26,11 @@ class Add extends DashboardPageController
 
         $locales = Localization::getAvailableInterfaceLanguageDescriptions();
         $attribs = UserAttributeKey::getRegistrationList();
-        $assignment = PermissionKey::getByHandle('edit_user_properties')->getMyAssignment();
+        $pk = PermissionKey::getByHandle('edit_user_properties');
+        if (!$pk instanceof EditUserPropertiesUserKey) {
+            throw new \RuntimeException(t('The %s permission key is not installed correctly.', 'edit_user_properties'));
+        }
+        $assignment = $pk->getMyAssignment();
         $gl = new GroupList();
         $gArray = $gl->getPagination()->setMaxPerPage(10000)->getCurrentPageResults();
 
@@ -48,7 +53,11 @@ class Add extends DashboardPageController
     {
         $this->checkAddUsersPermission();
 
-        $assignment = PermissionKey::getByHandle('edit_user_properties')->getMyAssignment();
+        $pk = PermissionKey::getByHandle('edit_user_properties');
+        if (!$pk instanceof EditUserPropertiesUserKey) {
+            throw new \RuntimeException(t('The %s permission key is not installed correctly.', 'edit_user_properties'));
+        }
+        $assignment = $pk->getMyAssignment();
         $postRequest = $this->request->request;
         $username = trim($postRequest->get('uName'));
         $username = preg_replace("/\s+/", ' ', $username);

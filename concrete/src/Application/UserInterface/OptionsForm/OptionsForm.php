@@ -25,7 +25,7 @@ class OptionsForm
     public function renderForm()
     {
         /**
-         * @var OptionsFormControllerInterface $elementController
+         * @var \Concrete\Core\Controller\ElementController&OptionsFormControllerInterface $elementController
          */
         $elementController = \Core::make($this->getController());
         $elementController->setupController($this->provider);

@@ -6,6 +6,7 @@ use Concrete\Core\Attribute\Context\AttributePanelContext;
 use Concrete\Core\Http\ResponseAssetGroup;
 use Concrete\Core\Workflow\Request\ApprovePageRequest;
 use PageEditResponse;
+use Concrete\Core\Permission\Key\EditPagePropertiesPageKey;
 use PermissionKey;
 use stdClass;
 use Loader;
@@ -31,6 +32,9 @@ class Attributes extends BackendInterfacePageController
     {
         parent::on_start();
         $pk = PermissionKey::getByHandle('edit_page_properties');
+        if (!$pk instanceof EditPagePropertiesPageKey) {
+            throw new \RuntimeException(t('The %s permission key is not installed correctly.', 'edit_page_properties'));
+        }
         $pk->setPermissionObject($this->page);
         $this->assignment = $pk->getMyAssignment();
     }

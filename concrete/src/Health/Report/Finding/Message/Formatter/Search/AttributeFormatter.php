@@ -26,6 +26,9 @@ class AttributeFormatter implements FormatterInterface, MessageHasDetailsInterfa
      */
     public function getFindingsListMessage(MessageInterface $findingMessage, Finding $finding): string
     {
+        if (!$findingMessage instanceof AttributeMessage) {
+            throw new \InvalidArgumentException(t('The message must be an instance of %s.', AttributeMessage::class));
+        }
         $value = $findingMessage->getCategoryValue();
         if ($value) {
             $key = $value->getAttributeKey();
@@ -104,11 +107,18 @@ class AttributeFormatter implements FormatterInterface, MessageHasDetailsInterfa
 
     public function getDetailsString(MessageInterface $message): string
     {
+        if (!$message instanceof AttributeMessage) {
+            throw new \InvalidArgumentException(t('The message must be an instance of %s.', AttributeMessage::class));
+        }
+
         return $message->getDetails();
     }
 
     public function getLocation(MessageInterface $message): ?LocationInterface
     {
+        if (!$message instanceof AttributeMessage) {
+            throw new \InvalidArgumentException(t('The message must be an instance of %s.', AttributeMessage::class));
+        }
         $value = $message->getCategoryValue();
         if ($value instanceof ExpressValue) {
             $entry = $value->getEntry();

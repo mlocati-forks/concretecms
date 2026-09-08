@@ -4,6 +4,7 @@ namespace Concrete\Core\Workflow;
 use Concrete\Core\Permission\AssignableObjectInterface;
 use Concrete\Core\Permission\AssignableObjectTrait;
 use Concrete\Core\Permission\Key\Key;
+use Concrete\Core\Permission\Key\WorkflowKey;
 use Concrete\Core\Workflow\HistoryEntry\BasicHistoryEntry as BasicWorkflowHistoryEntry;
 use Concrete\Core\Workflow\Progress\Action\ApprovalAction as WorkflowProgressApprovalAction;
 use Concrete\Core\Workflow\Progress\Action\CancelAction as WorkflowProgressCancelAction;
@@ -178,6 +179,9 @@ class BasicWorkflow extends \Concrete\Core\Workflow\Workflow implements Assignab
         $parameters = []
     ) {
         $nk = PermissionKey::getByHandle($permission);
+        if (!$nk instanceof WorkflowKey) {
+            throw new \InvalidArgumentException(t('The %s permission key must be a workflow permission key.', $permission));
+        }
         $nk->setPermissionObject($this);
         $users = $nk->getCurrentlyActiveUsers($wp);
         $loc = Localization::getInstance();

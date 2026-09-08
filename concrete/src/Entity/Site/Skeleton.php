@@ -5,6 +5,7 @@ use Concrete\Core\Attribute\Category\SiteTypeCategory;
 use Concrete\Core\Attribute\ObjectInterface;
 use Concrete\Core\Attribute\ObjectTrait;
 use Concrete\Core\Attribute\Key\SiteTypeKey;
+use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Value\SiteTypeValue;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,7 +35,7 @@ class Skeleton implements ObjectInterface
             $ak = SiteTypeKey::getByHandle($ak);
         }
         $value = false;
-        if (is_object($ak)) {
+        if ($ak instanceof Key) {
             $value = $this->getObjectAttributeCategory()->getAttributeValue($ak, $this);
         }
 

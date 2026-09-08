@@ -11,10 +11,18 @@ class UserSignupType extends Type
 {
 
     /**
-     * @param $user UserSignup
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
+     *
+     * @throws \InvalidArgumentException if $signup is not a \Concrete\Core\Entity\User\UserSignup instance
      */
     public function createNotification(SubjectInterface $signup)
     {
+        if (!$signup instanceof UserSignup) {
+            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', UserSignup::class));
+        }
+
         return new UserSignupNotification($signup);
     }
 

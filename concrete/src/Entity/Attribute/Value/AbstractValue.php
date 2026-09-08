@@ -158,8 +158,9 @@ abstract class AbstractValue implements AttributeValueInterface
             return $controller->getDisplayValue();
         }
 
-        if ($this->getValueObject()) {
-            return (string) $this->getValueObject();
+        $valueObject = $this->getValueObject();
+        if ($valueObject && method_exists($valueObject, '__toString')) {
+            return (string) $valueObject;
         }
 
         // Legacy support.
@@ -178,8 +179,9 @@ abstract class AbstractValue implements AttributeValueInterface
             return $controller->getPlainTextValue();
         }
 
-        if ($this->getValueObject()) {
-            return (string) $this->getValueObject();
+        $valueObject = $this->getValueObject();
+        if ($valueObject && method_exists($valueObject, '__toString')) {
+            return (string) $valueObject;
         }
 
         // Legacy support.
@@ -193,7 +195,8 @@ abstract class AbstractValue implements AttributeValueInterface
     /**
      * Returns the attribute in the context of search indexing (for search index
      * database tables)
-     * @return $this
+     *
+     * @return mixed the value returned by the getSearchIndexValue() method of the attribute type controller (an array for multi-column indexes), or this instance if the controller doesn't implement it
      */
     public function getSearchIndexValue()
     {

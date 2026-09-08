@@ -53,6 +53,7 @@ class Applier
     public function associateManyToOne(Association $association, Entry $entry, Entry $associatedEntry)
     {
         // First create the owning entry association
+        /** @var \Concrete\Core\Entity\Express\Entry\OneAssociation|null $oneAssociation */
         $oneAssociation = $entry->getEntryAssociation($association);
         if (!is_object($oneAssociation)) {
             $oneAssociation = new Entry\OneAssociation();
@@ -323,6 +324,7 @@ class Applier
         // Locate the inverse association
         $inversedAssociation = $this->getInverseAssociation($association);
 
+        /** @var \Concrete\Core\Entity\Express\Entry\OneAssociation|null $oneAssociation */
         $oneAssociation = $entry->getEntryAssociation($association);
         if (!is_object($oneAssociation)) {
             $oneAssociation = new Entry\OneAssociation();
@@ -355,6 +357,7 @@ class Applier
         $this->entityManager->persist($oneAssociation);
         $this->entityManager->flush();
 
+        /** @var \Concrete\Core\Entity\Express\Entry\OneAssociation|null $oneAssociation */
         $oneAssociation = $associatedEntry->getEntryAssociation($inversedAssociation);
 
         if (!is_object($oneAssociation)) {

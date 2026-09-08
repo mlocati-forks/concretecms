@@ -25,6 +25,9 @@ class CalendarEventPopulator extends AbstractPopulator
     public function getDataObjects(Instance $instance, ConfiguredDataSource $dataSource): array
     {
         $configuration = $dataSource->getConfiguration();
+        if (!$configuration instanceof CalendarEventConfiguration) {
+            throw new \InvalidArgumentException(t('The data source configuration must be an instance of %s.', CalendarEventConfiguration::class));
+        }
         // @TODO We need to fix this: if our configuration has no calendar, we need to get the calendar
         // from the site. But in this case, we're just going to temporarily get the first calendar
         // from the site that we can find

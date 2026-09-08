@@ -265,7 +265,7 @@ class Controller extends AbstractController implements AttributeInterface
     {
         try {
             $class = $this->getAttributeValueClass();
-            if ($class && $this->attributeValue && !empty($this->attributeValue->getAttributeValueID())) {
+            if ($class && $this->attributeValue && method_exists($this->attributeValue, 'getAttributeValueID') && method_exists($this->attributeValue, 'getGenericValue') && !empty($this->attributeValue->getAttributeValueID())) {
                 $result = $this->entityManager->find($class, $this->attributeValue->getGenericValue());
             } else {
                 if ($class && $this->attributeValue) {
@@ -617,7 +617,7 @@ class Controller extends AbstractController implements AttributeInterface
      */
     public function getAttributeValueID()
     {
-        if (is_object($this->attributeValue)) {
+        if (is_object($this->attributeValue) && method_exists($this->attributeValue, 'getAttributeValueID')) {
             return $this->attributeValue->getAttributeValueID();
         }
     }

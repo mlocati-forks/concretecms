@@ -238,8 +238,12 @@ class ImageEditorService
             $activeEditor = $this->getActiveEditor();
             $element = $activeEditor->getThumbnailEditorHandle();
             if ($element instanceof Element) {
-                $element->getElementController()->setThumbnail($thumbnail);
-                $element->getElementController()->set("fileVersion", $fileVersion);
+                $controller = $element->getElementController();
+                if (method_exists($controller, 'setThumbnail')) {
+                    /** @var \Concrete\Controller\Element\Files\Edit\ThumbnailEditor\ConcreteThumbnailEditor $controller for the default image editor; custom image editors may use other controllers implementing setThumbnail() */
+                    $controller->setThumbnail($thumbnail);
+                }
+                $controller->set("fileVersion", $fileVersion);
                 $element->render();
             }
         }

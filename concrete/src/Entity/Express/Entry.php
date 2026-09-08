@@ -145,7 +145,7 @@ class Entry implements \JsonSerializable, PermissionObjectInterface, AttributeOb
      * @param \Concrete\Core\Attribute\AttributeKeyInterface|string $ak
      * @param bool $createIfNotExists
      *
-     * @return \Concrete\Core\Attribute\AttributeValueInterface|ExpressValue|null
+     * @return \Concrete\Core\Entity\Attribute\Value\ExpressValue|null
      */
     public function getAttributeValueObject($ak, $createIfNotExists = false)
     {

@@ -4,6 +4,7 @@ namespace Concrete\Core\Board\Instance\Item\Populator;
 
 use Concrete\Core\Board\Instance\Item\Data\DataInterface;
 use Concrete\Core\Board\Instance\Item\Data\PageData;
+use Concrete\Core\Entity\Board\DataSource\Configuration\PageConfiguration;
 use Concrete\Core\Entity\Board\DataSource\ConfiguredDataSource;
 use Concrete\Core\Entity\Board\Instance;
 use Concrete\Core\Entity\File\File;
@@ -19,6 +20,9 @@ class PagePopulator extends AbstractPopulator
     public function getDataObjects(Instance $instance, ConfiguredDataSource $dataSource): array
     {
         $configuration = $dataSource->getConfiguration();
+        if (!$configuration instanceof PageConfiguration) {
+            throw new \InvalidArgumentException(t('The data source configuration must be an instance of %s.', PageConfiguration::class));
+        }
         $list = new PageList();
         $query = $configuration->getQuery();
         $list->ignorePermissions();

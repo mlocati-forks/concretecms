@@ -14,6 +14,9 @@ class DropdownItemFormatter implements FormatterInterface
      */
     public function getFindingsListElement(ControlInterface $control, Finding $finding): Element
     {
+        if (!$control instanceof ButtonControl) {
+            throw new \InvalidArgumentException(t('The control must be an instance of %s.', ButtonControl::class));
+        }
         $location = $control->getLocation();
         return new Element('a', $location->getName(), ['href' => $location->getUrl(), 'class' => 'dropdown-item']);
     }

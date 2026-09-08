@@ -6,6 +6,7 @@ use Concrete\Core\Entity\Page\PagePath;
 use Concrete\Core\Page\PagePathEvent;
 use Events;
 use PageEditResponse;
+use Concrete\Core\Permission\Key\EditPagePropertiesPageKey;
 use PermissionKey;
 use Exception;
 use Loader;
@@ -32,6 +33,9 @@ class Location extends BackendInterfacePageController
     {
         parent::on_start();
         $pk = PermissionKey::getByHandle('edit_page_properties');
+        if (!$pk instanceof EditPagePropertiesPageKey) {
+            throw new \RuntimeException(t('The %s permission key is not installed correctly.', 'edit_page_properties'));
+        }
         $pk->setPermissionObject($this->page);
         $this->asl = $pk->getMyAssignment();
     }

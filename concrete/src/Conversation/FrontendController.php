@@ -242,7 +242,10 @@ abstract class FrontendController extends Controller
     protected function getBlockController(): CoreConversationBlockController
     {
         if ($this->blockController === null) {
-            $this->blockController = $this->getBlock()->getController();
+            // getBlock() guarantees that the block is a conversation block
+            /** @var CoreConversationBlockController $controller */
+            $controller = $this->getBlock()->getController();
+            $this->blockController = $controller;
         }
 
         return $this->blockController;

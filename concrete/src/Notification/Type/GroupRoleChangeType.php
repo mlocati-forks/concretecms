@@ -3,6 +3,7 @@
 namespace Concrete\Core\Notification\Type;
 
 use Concrete\Core\Entity\Notification\GroupRoleChangeNotification;
+use Concrete\Core\Entity\User\GroupRoleChange;
 use Concrete\Core\Notification\Alert\Filter\StandardFilter;
 use Concrete\Core\Notification\Subject\SubjectInterface;
 use Concrete\Core\Notification\Subscription\StandardSubscription;
@@ -10,8 +11,19 @@ use Concrete\Core\Notification\Subscription\StandardSubscription;
 class GroupRoleChangeType extends Type
 {
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
+     *
+     * @throws \InvalidArgumentException if $group is not a \Concrete\Core\Entity\User\GroupRoleChange instance
+     */
     public function createNotification(SubjectInterface $group)
     {
+        if (!$group instanceof GroupRoleChange) {
+            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', GroupRoleChange::class));
+        }
+
         return new GroupRoleChangeNotification($group);
     }
 

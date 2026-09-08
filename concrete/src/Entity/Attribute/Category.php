@@ -151,10 +151,17 @@ class Category implements CategoryObjectInterface
 
     /**
      * @deprecated
+     *
+     * @throws \RuntimeException if the category controller doesn't support the attribute sets
      */
     public function addSet($handle, $name, $pkg = null)
     {
-        return $this->getController()->addSet($handle, $name, $pkg, false);
+        $controller = $this->getController();
+        if (!method_exists($controller, 'addSet')) {
+            throw new \RuntimeException(t('The attribute category %s does not support the attribute sets.', $this->getAttributeKeyCategoryHandle()));
+        }
+
+        return $controller->addSet($handle, $name, $pkg, false);
     }
 
     public function __toString()
@@ -164,10 +171,16 @@ class Category implements CategoryObjectInterface
 
     /**
      * @deprecated
+     *
+     * @throws \RuntimeException if the category controller doesn't support associating the attribute types
      */
     public function associateAttributeKeyType(Type $type)
     {
-        $this->getController()->associateAttributeKeyType($type);
+        $controller = $this->getController();
+        if (!method_exists($controller, 'associateAttributeKeyType')) {
+            throw new \RuntimeException(t('The attribute category %s does not support associating the attribute types.', $this->getAttributeKeyCategoryHandle()));
+        }
+        $controller->associateAttributeKeyType($type);
     }
 
 

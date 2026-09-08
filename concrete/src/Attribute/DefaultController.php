@@ -139,6 +139,9 @@ class DefaultController extends AttributeTypeController implements SimpleTextExp
                 $value = $this->createAttributeValue($textRepresentation);
             }
         } else {
+            if (!method_exists($value, 'setValue')) {
+                throw new \RuntimeException(t('The attribute value must have the %s method.', 'setValue()'));
+            }
             $value->setValue($textRepresentation);
         }
 

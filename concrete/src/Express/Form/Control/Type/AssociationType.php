@@ -73,6 +73,10 @@ class AssociationType implements TypeInterface
 
     public function getSaveHandler(Control $control)
     {
+        if (!$control instanceof AssociationControl) {
+            throw new \InvalidArgumentException(t('The control must be an instance of %s.', AssociationControl::class));
+        }
+
         return $control->getAssociation()->getSaveHandler();
     }
 

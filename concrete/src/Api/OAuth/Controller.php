@@ -144,6 +144,9 @@ final class Controller implements LoggerAwareInterface
             $step = $this->determineStep($request);
 
             $client = $request->getClient();
+            if (!$client instanceof Client) {
+                throw new \UnexpectedValueException(t('The client must be an instance of %s.', Client::class));
+            }
             $scopes = $request->getScopes();
             if (!$this->validateScopesAgainstClient($client, $scopes)) {
                 throw new \Exception(t('Invalid scope(s) requested. Please ensure only scopes allowed by the client are requested.'));

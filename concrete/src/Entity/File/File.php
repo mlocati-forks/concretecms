@@ -18,6 +18,7 @@ use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\Support\Facade\Database;
 use Concrete\Core\Tree\Node\Node;
 use Concrete\Core\Tree\Node\NodeType;
+use Concrete\Core\Tree\Node\Type\File as FileNode;
 use Concrete\Core\Tree\Node\Type\FileFolder;
 use Concrete\Core\Url\UrlInterface;
 use Concrete\Core\User\User;
@@ -580,14 +581,15 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
     }
 
     /**
-     * @return NodeType|null
+     * @return \Concrete\Core\Tree\Node\Type\File|null
      */
     public function getFileNodeObject()
     {
         $db = \Database::connection();
         $treeNodeID = $db->GetOne('select treeNodeID from TreeFileNodes where fID = ?', [$this->getFileID()]);
+        $node = Node::getByID($treeNodeID);
 
-        return Node::getByID($treeNodeID);
+        return $node instanceof FileNode ? $node : null;
     }
 
     /**

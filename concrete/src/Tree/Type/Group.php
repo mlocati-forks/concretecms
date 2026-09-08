@@ -42,7 +42,9 @@ class Group extends Tree
         $db = Database::connection();
         $treeID = $db->fetchOne('SELECT Trees.treeID FROM TreeTypes INNER JOIN Trees ON TreeTypes.treeTypeID = Trees.treeTypeID WHERE TreeTypes.treeTypeHandle = ?', ['group']);
 
-        return Tree::getByID($treeID);
+        $tree = Tree::getByID($treeID);
+
+        return $tree instanceof self ? $tree : null;
     }
 
     public function exportDetails(\SimpleXMLElement $sx)

@@ -188,8 +188,9 @@ class Group extends TreeNode
     {
         $db = app(Connection::class);
         $treeNodeID = $db->fetchOne('select treeNodeID from TreeGroupNodes where gID = ?', [$gID]);
+        $node = TreeNode::getByID($treeNodeID);
 
-        return TreeNode::getByID($treeNodeID);
+        return $node instanceof static ? $node : null;
     }
 
     /**

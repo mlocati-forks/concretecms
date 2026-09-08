@@ -194,6 +194,9 @@ class UserCategory extends AbstractStandardCategory
     public function import(Type $type, \SimpleXMLElement $element, ?Package $package = null)
     {
         $key = parent::import($type, $element, $package);
+        if (!$key instanceof UserKey) {
+            throw new \UnexpectedValueException(t('The imported attribute key is not a user attribute key.'));
+        }
         $xml = $this->application->make(Xml::class);
         $key->setAttributeKeyDisplayedOnProfile($xml->getBool($element['profile-displayed']));
         $key->setAttributeKeyEditableOnProfile($xml->getBool($element['profile-editable']));

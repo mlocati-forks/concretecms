@@ -4,6 +4,7 @@ namespace Concrete\Core\Permission\Assignment;
 
 use Concrete\Core\Database\Connection\Connection;
 use Concrete\Core\Permission\Access\Access;
+use Concrete\Core\Permission\Access\PageAccess;
 use Concrete\Core\Permission\Key\Key;
 use Concrete\Core\Support\Facade\Application;
 
@@ -51,6 +52,9 @@ class PageAssignment extends Assignment
         $db = $app->make(Connection::class);
         $r = $db->fetchColumn('select paID from PagePermissionAssignments where cID = ? and pkID = ?', [$this->getPermissionObject()->getPermissionsCollectionID(), $this->pk->getPermissionKeyID()]);
         $pa = $r ? Access::getByID($r, $this->pk, false) : null;
+        if (!$pa instanceof PageAccess) {
+            $pa = null;
+        }
         if ($pa) {
             $permissionObject = $this->getPermissionObject();
             if ($permissionObject->isPageDraft() && $permissionObject->getCollectionInheritance() == 'PARENT' && isset($this->inheritedPageTypeDraftPermissions[$this->pk->getPermissionKeyHandle()])) {

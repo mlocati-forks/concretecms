@@ -14,11 +14,11 @@ abstract class OptionsFormController extends ElementController implements Option
      */
     protected $type;
 
-    /**
-     * @param $provider OptionsFormProvider
-     */
     public function setupController(OptionsFormProviderInterface $provider)
     {
+        if (!method_exists($provider, 'getType')) {
+            throw new \InvalidArgumentException(t('The provider must have the %s method.', 'getType()'));
+        }
         $this->type = $provider->getType();
     }
 

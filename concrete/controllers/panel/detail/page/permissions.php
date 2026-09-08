@@ -39,7 +39,7 @@ class Permissions extends BackendInterfacePageController
             $assignments = $pk->getAccessListItems();
             foreach ($assignments as $asi) {
                 $ae = $asi->getAccessEntityObject();
-                if ($ae->getAccessEntityTypeHandle() == 'group') {
+                if ($ae instanceof GroupPermissionAccessEntity) {
                     $group = $ae->getGroupObject();
                     if (is_object($group)) {
                         $viewAccess[] = $group->getGroupID();
@@ -52,7 +52,7 @@ class Permissions extends BackendInterfacePageController
             $assignments = $pk->getAccessListItems();
             foreach ($assignments as $asi) {
                 $ae = $asi->getAccessEntityObject();
-                if ($ae->getAccessEntityTypeHandle() == 'group') {
+                if ($ae instanceof GroupPermissionAccessEntity) {
                     $group = $ae->getGroupObject();
                     if (is_object($group)) {
                         $editAccess[] = $group->getGroupID();

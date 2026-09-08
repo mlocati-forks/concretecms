@@ -4,6 +4,7 @@ namespace Concrete\Core\Entity\Site;
 
 use Concrete\Core\Attribute\Category\SiteCategory;
 use Concrete\Core\Attribute\Key\SiteKey;
+use Concrete\Core\Entity\Attribute\Key\SiteKey as SiteKeyEntity;
 use Concrete\Core\Attribute\ObjectInterface;
 use Concrete\Core\Attribute\ObjectTrait;
 use Concrete\Core\Entity\Attribute\Value\SiteValue;
@@ -187,7 +188,7 @@ class Site implements TreeInterface, ObjectInterface, PermissionObjectInterface,
         if (!is_object($ak)) {
             $ak = SiteKey::getAttributeKeyByHandle($ak);
         }
-        if ($ak !== null) {
+        if ($ak instanceof SiteKeyEntity) {
             $result = $this->getObjectAttributeCategory()->getAttributeValue($ak, $this);
             if ($result === null && $createIfNotExists) {
                 $result = new SiteValue();

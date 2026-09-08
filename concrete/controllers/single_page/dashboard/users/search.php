@@ -25,6 +25,7 @@ use Concrete\Core\User\User;
 use Concrete\Core\Workflow\Progress\UserProgress as UserWorkflowProgress;
 use Exception;
 use Imagine\Image\Box;
+use Concrete\Core\Permission\Key\EditUserPropertiesUserKey;
 use PermissionKey;
 use Permissions;
 use stdClass;
@@ -693,6 +694,9 @@ class Search extends DashboardPageController
             }
             $tp = new Permissions();
             $pke = PermissionKey::getByHandle('edit_user_properties');
+            if (!$pke instanceof EditUserPropertiesUserKey) {
+                throw new \RuntimeException(t('The %s permission key is not installed correctly.', 'edit_user_properties'));
+            }
             $this->user = $ui;
             $this->assignment = $pke->getMyAssignment();
             $this->canEdit = $up->canEditUser();

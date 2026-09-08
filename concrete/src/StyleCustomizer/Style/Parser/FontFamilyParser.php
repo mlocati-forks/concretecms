@@ -23,6 +23,13 @@ class FontFamilyParser extends AbstractParser
         $this->webFontCollectionFactory = $webFontCollectionFactory;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\StyleCustomizer\Style\Parser\AbstractParser::createStyleObject()
+     *
+     * @return \Concrete\Core\StyleCustomizer\Style\FontFamilyStyle
+     */
     public function createStyleObject(): StyleInterface
     {
         return new FontFamilyStyle();

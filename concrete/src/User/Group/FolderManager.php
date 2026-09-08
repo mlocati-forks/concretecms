@@ -65,11 +65,9 @@ class FolderManager
     public function getRootFolder()
     {
         $tree = \Concrete\Core\Tree\Type\Group::get();
-        if ($tree !== null) {
-            return $tree->getRootTreeNodeObject();
-        }
+        $root = $tree === null ? null : $tree->getRootTreeNodeObject();
 
-        return null;
+        return $root instanceof GroupFolder ? $root : null;
     }
 
     /**

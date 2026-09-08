@@ -8,6 +8,7 @@ use Concrete\Core\Attribute\ObjectInterface;
 use Concrete\Core\Attribute\ObjectTrait;
 use Concrete\Core\Config\Repository\Repository;
 use Concrete\Core\Database\Connection\Connection;
+use Concrete\Core\Entity\Attribute\Key\FileKey;
 use Concrete\Core\Entity\Attribute\Value\FileValue;
 use Concrete\Core\Entity\File\StorageLocation\StorageLocation;
 use Concrete\Core\Events\EventDispatcher;
@@ -1450,7 +1451,7 @@ class Version implements ObjectInterface
         if (!($ak instanceof AttributeKeyInterface)) {
             $ak = $ak ? $this->getObjectAttributeCategory()->getAttributeKeyByHandle((string) $ak) : null;
         }
-        if ($ak === null) {
+        if (!$ak instanceof FileKey) {
             $result = null;
         } else {
             $result = $this->getObjectAttributeCategory()->getAttributeValue($ak, $this);

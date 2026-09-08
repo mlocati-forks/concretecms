@@ -6,12 +6,24 @@ use Concrete\Core\Notification\Alert\Filter\StandardFilter;
 use Concrete\Core\Notification\Notifier\NewPrivateMessageNotifier;
 use Concrete\Core\Notification\Subject\SubjectInterface;
 use Concrete\Core\Notification\Subscription\StandardSubscription;
+use Concrete\Core\User\PrivateMessage\PrivateMessage;
 
 class NewPrivateMessageType extends Type
 {
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
+     *
+     * @throws \InvalidArgumentException if $subject is not a \Concrete\Core\User\PrivateMessage\PrivateMessage instance
+     */
     public function createNotification(SubjectInterface $subject)
     {
+        if (!$subject instanceof PrivateMessage) {
+            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', PrivateMessage::class));
+        }
+
         return new NewPrivateMessageNotification($subject);
     }
 

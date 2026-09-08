@@ -10,6 +10,13 @@ use Concrete\Core\StyleCustomizer\WebFont\WebFontCollectionFactory;
 class TypeParser extends AbstractParser
 {
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\StyleCustomizer\Style\Parser\AbstractParser::createStyleObject()
+     *
+     * @return \Concrete\Core\StyleCustomizer\Style\TypeStyle
+     */
     public function createStyleObject(): StyleInterface
     {
         return new TypeStyle();

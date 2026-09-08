@@ -26,7 +26,7 @@ class ValidateUniqueAttributesRoutine implements RoutineInterface
                 $controller = $key->getController();
                 if ($controller instanceof FilterableByValueInterface) {
                     $value = $controller->createAttributeValueFromRequest();
-                    if ($value) {
+                    if ($value && method_exists($value, '__toString')) {
                         $valueString = (string) $value;
                         if ($valueString) {
                             // If you leave values blank we allow this, because there is a separate validation routine

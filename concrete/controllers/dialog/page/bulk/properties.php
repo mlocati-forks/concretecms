@@ -13,6 +13,7 @@ use Concrete\Core\Filesystem\ElementManager;
 use Concrete\Core\Page\EditResponse as PageEditResponse;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Permission\Checker;
+use Concrete\Core\Permission\Key\EditPagePropertiesPageKey;
 use Concrete\Core\Permission\Key\Key;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -128,6 +129,9 @@ class Properties extends BackendInterfaceController
     {
         $attributeKey = $this->category->getAttributeKeyByID($akID);
         $key = Key::getByHandle('edit_page_properties');
+        if (!$key instanceof EditPagePropertiesPageKey) {
+            throw new \RuntimeException(t('The %s permission key is not installed correctly.', 'edit_page_properties'));
+        }
         $key->setPermissionObject($object);
         $assignment = $key->getMyAssignment();
         return $assignment->canEditAttributeKey($attributeKey);
