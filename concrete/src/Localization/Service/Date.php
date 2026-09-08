@@ -395,17 +395,25 @@ class Date
     /**
      * Returns the normalized timezone identifier.
      *
-     * @param string $timezone The timezone to retrieve. Special values are:<ul>
+     * @param string|\DateTimeZone|mixed $timezone The timezone to retrieve. Special values are:<ul>
      *    <li>'system' (default) for the current system timezone</li>
      *    <li>'user' for the user's timezone</li>
      *    <li>'app' for the app's timezone</li>
+     *    <li>a \DateTimeZone instance: its identifier is returned</li>
      *    <li>Other values: one of the PHP supported time zones (see http://us1.php.net/manual/en/timezones.php )</li>
      * </ul>
+     * An empty string is returned if $timezone is neither a string nor a \DateTimeZone instance.
      *
      * @return string
      */
     public function getTimezoneID($timezone)
     {
+        if ($timezone instanceof \DateTimeZone) {
+            return $timezone->getName();
+        }
+        if (!is_string($timezone)) {
+            return '';
+        }
         $app = Facade::getFacadeApplication();
         /** @var Repository $config */
         $config = $app->make('config');
@@ -461,12 +469,7 @@ class Date
     /**
      * Returns a \DateTimeZone instance for a specified timezone identifier.
      *
-     * @param string $timezone The timezone to retrieve. Special values are:<ul>
-     *    <li>'system' (default) for the current system timezone</li>
-     *    <li>'user' for the user's timezone</li>
-     *    <li>'app' for the app's timezone</li>
-     *    <li>Other values: one of the PHP supported time zones (see http://us1.php.net/manual/en/timezones.php )</li>
-     * </ul>
+     * @param string|\DateTimeZone|mixed $timezone The timezone to retrieve (see getTimezoneID() for the accepted values)
      *
      * @return \DateTimeZone|null Returns null if $timezone is invalid or the \DateTimeZone corresponding to $timezone
      */
@@ -474,7 +477,7 @@ class Date
     {
         $tz = null;
         $phpTimezone = $this->getTimezoneID($timezone);
-        if (is_string($phpTimezone) && strlen($phpTimezone)) {
+        if ($phpTimezone !== '') {
             try {
                 $tz = new \DateTimeZone($phpTimezone);
             } catch (\Exception $x) {
