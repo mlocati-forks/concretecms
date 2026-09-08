@@ -128,7 +128,7 @@ class Group extends TreeNode
 
         $group = $this->getTreeNodeGroupObject();
         if ($group === null) {
-            return null;
+            return '';
         }
         $gName = $group->getGroupDisplayName(false, false);
         switch ($format) {
