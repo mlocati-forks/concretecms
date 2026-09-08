@@ -547,7 +547,7 @@ where treeNodeDisplayOrder > ? and treeNodeParentID = ?',
      *
      * @param Node|null|false $parent the parent node
      *
-     * @return Node
+     * @return static
      */
     public static function add($parent = false)
     {
@@ -586,6 +586,9 @@ where treeNodeDisplayOrder > ? and treeNodeParentID = ?',
         );
         $id = $db->lastInsertId();
         $node = self::getByID($id);
+        if (!$node instanceof static) {
+            throw new \RuntimeException(t('Failed to load the tree node that has just been created.'));
+        }
 
         if (!$inheritPermissionsFromTreeNodeID) {
             $node->setTreeNodePermissionsToOverride();

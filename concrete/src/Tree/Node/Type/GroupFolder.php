@@ -202,7 +202,7 @@ class GroupFolder extends TreeNode
      *
      * @param int $contains
      * @param GroupType[] $selectedGroupTypes
-     * @return TreeNode|GroupFolder
+     * @return static
      */
     public static function add($treeNodeName = '', $parent = false, $contains = self::CONTAINS_GROUP_FOLDERS, $selectedGroupTypes = [])
     {

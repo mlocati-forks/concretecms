@@ -190,7 +190,7 @@ class FileFolder extends TreeNode
      * @param \Concrete\Core\Tree\Node\Node|bool $parent Node's parent folder
      * @param int|\Concrete\Core\Entity\File\StorageLocation\StorageLocation|null $storageLocationID Id or object of the storage location, if null the default one will be used
      *
-     * @return \Concrete\Core\Tree\Node\Node
+     * @return static
      */
     public static function add($treeNodeName = '', $parent = false, $storageLocationID = null)
     {
