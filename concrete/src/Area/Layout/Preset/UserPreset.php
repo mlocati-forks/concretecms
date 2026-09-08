@@ -27,10 +27,9 @@ class UserPreset extends ConcreteObject
     public $arLayoutID;
 
     /**
-     * @param Layout $arLayout
      * @param string $name
      *
-     * @return Preset
+     * @return static
      */
     public static function add(Layout $arLayout, $name)
     {
@@ -43,7 +42,12 @@ class UserPreset extends ConcreteObject
             )
         );
 
-        return static::getByID($db->Insert_ID());
+        $preset = static::getByID($db->Insert_ID());
+        if ($preset === null) {
+            throw new \RuntimeException(t('Failed to load the layout preset that has just been created.'));
+        }
+
+        return $preset;
     }
 
     /**
