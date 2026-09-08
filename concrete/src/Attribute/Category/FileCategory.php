@@ -110,7 +110,7 @@ class FileCategory extends AbstractStandardCategory
      *
      * @see \Concrete\Core\Attribute\Category\CategoryInterface::getAttributeValues()
      *
-     * @param \Concrete\Core\Entity\File\Version $version
+     * @param \Concrete\Core\Entity\File\Version|\Concrete\Core\Entity\File\File $version the file version (or a file: in this case its approved version is used)
      *
      * @return \Concrete\Core\Entity\Attribute\Value\FileValue[]
      */

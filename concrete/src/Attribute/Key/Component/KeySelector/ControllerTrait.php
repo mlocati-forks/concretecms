@@ -35,12 +35,13 @@ trait ControllerTrait
         // In case of non modified Multiple Valued attribute in bulk edit
         $ignoredAttributes = (array) $this->request->request->get('ignoredKeys');
 
+        $category = $this->getCategory();
         foreach ($this->getObjects() as $object) {
             // Now, let's divide attributes into piles of those we need to save, and those we need to clear
             $attributesToClear = [];
             $attributesToSave = [];
 
-            $values = $this->category->getAttributeValues($object);
+            $values = $category->getAttributeValues($object);
             foreach ($values as $value) {
                 /** @var \Concrete\Core\Entity\Attribute\Key\Key|null $attributeKey */
                 $attributeKey = $value->getAttributeKey();
@@ -58,7 +59,7 @@ trait ControllerTrait
 
             foreach ($selectedAttributes as $akID) {
                 if ($this->canEditAttributeKey($akID, $object)) {
-                    $ak = $this->category->getAttributeKeyByID($akID);
+                    $ak = $category->getAttributeKeyByID($akID);
                     if ($ak) {
                         $controller = $ak->getController();
                         $validator = $controller->getValidator();
@@ -88,7 +89,7 @@ trait ControllerTrait
 
     public function getAttribute()
     {
-        $key = $this->category->getByID($this->request->request->get('akID'));
+        $key = $this->getCategory()->getAttributeKeyByID($this->request->request->get('akID'));
         $keySerializer = new KeySerializer($key);
 
         return new JsonResponse($keySerializer);
