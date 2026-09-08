@@ -559,8 +559,6 @@ class Form
             $requestValue = $this->getRequestValue($name);
             if (is_array($requestValue)) {
                 $requestValue = (string) $requestValue[0];
-            } elseif ($requestValue !== false && !is_string($requestValue)) {
-                $requestValue = '';
             }
             if ($requestValue !== false && !isset($allCountries[$requestValue])) {
                 $requestValue = '';
@@ -756,11 +754,11 @@ EOT;
             $key = explode('[', trim($key, '['));
             $v2 = $this->ah->get($bag->all(), $key);
             if ($v2 !== null) {
-                if (is_string($v2)) {
-                    return $this->th->specialchars($v2);
-                } else {
+                if (is_array($v2)) {
                     return $v2;
                 }
+
+                return $this->th->specialchars((string) $v2);
             }
         } elseif ($bag->has($key) && is_string($s = $bag->get($key))) {
             return $this->th->specialchars($s);
