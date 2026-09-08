@@ -365,7 +365,7 @@ class BasicThumbnailer implements ThumbnailerInterface, ApplicationAwareInterfac
                 $created = false;
                 try {
                     if ($obj instanceof File) {
-                        $image = !is_callable([$fr, 'exists']) || $fr->exists() ? \Image::load($fr->read()) : null;
+                        $image = $fr->exists() ? \Image::load($fr->read()) : null;
                     } else {
                         $image = \Image::open($obj);
                     }
