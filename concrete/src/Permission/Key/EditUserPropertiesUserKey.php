@@ -153,7 +153,7 @@ class EditUserPropertiesUserKey extends UserKey
             $asl->allowEditPassword() ||
             $asl->allowEditTimezone() ||
             $asl->allowEditDefaultLanguage() ||
-            ($asl->getAttributesAllowedPermission() == 'A' || ($asl->getAttributesAllowedPermission() == 'C' && count($asl->getAttributesAllowedArray() > 0)))) {
+            ($asl->getAttributesAllowedPermission() == 'A' || ($asl->getAttributesAllowedPermission() == 'C' && count($asl->getAttributesAllowedArray()) > 0))) {
             return true;
         } else {
             return false;
