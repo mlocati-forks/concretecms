@@ -102,7 +102,7 @@ class GroupCombinationEntity extends Entity
      *
      * @param Group[] $groups Groups for this combination.
      *
-     * @return self
+     * @return static|null NULL if the group_combination access entity type isn't installed
      */
     public static function getOrCreate($groups)
     {
@@ -113,6 +113,9 @@ class GroupCombinationEntity extends Entity
             'select petID from PermissionAccessEntityTypes
                       where petHandle = \'group_combination\''
         );
+        if (!$petID) {
+            return null;
+        }
         $query = $database->createQueryBuilder();
         $query->select('pae.peID')->from('PermissionAccessEntities', 'pae');
         $i = 1;
@@ -162,7 +165,9 @@ class GroupCombinationEntity extends Entity
             }
         }
 
-        return self::getByID($peID);
+        $entity = self::getByID($peID);
+
+        return $entity instanceof static ? $entity : null;
     }
 
     /**

@@ -62,10 +62,16 @@ class FileUploaderEntity extends Entity
         return $entities;
     }
 
+    /**
+     * @return static|null NULL if the file_uploader access entity type isn't installed
+     */
     public static function getOrCreate()
     {
         $db = Loader::db();
         $petID = $db->GetOne('select petID from PermissionAccessEntityTypes where petHandle = \'file_uploader\'');
+        if (!$petID) {
+            return null;
+        }
         $peID = $db->GetOne('select peID from PermissionAccessEntities where petID = ?',
             array($petID));
         if (!$peID) {
@@ -74,7 +80,9 @@ class FileUploaderEntity extends Entity
             Config::save('concrete.misc.access_entity_updated', time());
         }
 
-        return \Concrete\Core\Permission\Access\Entity\Entity::getByID($peID);
+        $entity = \Concrete\Core\Permission\Access\Entity\Entity::getByID($peID);
+
+        return $entity instanceof static ? $entity : null;
     }
 
     public function load()
