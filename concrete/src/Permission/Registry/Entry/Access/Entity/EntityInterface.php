@@ -8,7 +8,7 @@ interface EntityInterface extends EntrySubjectInterface
 {
 
     /**
-     * @return \Concrete\Core\Permission\Access\Entity\Entity|false|null NULL or false if the entity can't be resolved
+     * @return \Concrete\Core\Permission\Access\Entity\Entity|\Concrete\Core\User\Group\Group|false|null the access entity (or a group, that AssignableObjectTrait::assignPermissions() converts to an access entity); NULL or false if it can't be resolved
      */
     function getAccessEntity();
 }

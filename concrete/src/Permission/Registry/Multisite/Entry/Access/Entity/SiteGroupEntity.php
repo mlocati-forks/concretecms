@@ -21,6 +21,8 @@ class SiteGroupEntity implements EntityInterface
      * {@inheritdoc}
      *
      * @see \Concrete\Core\Permission\Registry\Entry\Access\Entity\EntityInterface::getAccessEntity()
+     *
+     * @return \Concrete\Core\Permission\Access\Entity\SiteGroupEntity|null NULL if the site_group access entity type isn't installed
      */
     public function getAccessEntity()
     {
