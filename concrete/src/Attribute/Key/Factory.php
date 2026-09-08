@@ -20,11 +20,21 @@ class Factory
     }
 
 
+    /**
+     * @param int $akID
+     *
+     * @return \Concrete\Core\Entity\Attribute\Key\Key|null
+     */
     public function getInstanceByID($akID)
     {
         return $this->getByID($akID);
     }
 
+    /**
+     * @param int $akID
+     *
+     * @return \Concrete\Core\Entity\Attribute\Key\Key|null
+     */
     public function getByID($akID)
     {
         $cache = Facade::getFacadeApplication()->make("cache/request");

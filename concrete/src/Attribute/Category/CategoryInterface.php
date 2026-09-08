@@ -17,7 +17,7 @@ interface CategoryInterface
      *
      * @param int $akID
      *
-     * @return \Concrete\Core\Attribute\AttributeKeyInterface|null
+     * @return \Concrete\Core\Entity\Attribute\Key\Key|null
      */
     public function getAttributeKeyByID($akID);
 
@@ -26,14 +26,14 @@ interface CategoryInterface
      *
      * @param string $akHandle
      *
-     * @return \Concrete\Core\Attribute\AttributeKeyInterface|null
+     * @return \Concrete\Core\Entity\Attribute\Key\Key|null
      */
     public function getAttributeKeyByHandle($akHandle);
 
     /**
      * Get all the attribute keys.
      *
-     * @return \Concrete\Core\Attribute\AttributeKeyInterface[]
+     * @return \Concrete\Core\Entity\Attribute\Key\Key[]
      */
     public function getList();
 
