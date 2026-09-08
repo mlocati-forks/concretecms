@@ -5,6 +5,7 @@ namespace Concrete\Core\Routing;
 use Concrete\Core\Page\Theme\ThemeRouteCollection;
 use Concrete\Core\Support\Facade\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
@@ -182,8 +183,12 @@ class Router implements RouterInterface
         $potentialRoutes = $this->filterRouteCollectionForPath($this->getRoutes(), $path);
         $matcher = new UrlMatcher($potentialRoutes, $context);
         $routeAttributes = $matcher->match($path);
+        $route = $potentialRoutes->get($routeAttributes['_route']);
+        if (!$route instanceof Route) {
+            throw new ResourceNotFoundException(sprintf('The route "%s" is not a Concrete route.', $routeAttributes['_route']));
+        }
 
-        return $potentialRoutes->get($routeAttributes['_route']);
+        return $route;
     }
 
     /**
