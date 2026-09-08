@@ -134,7 +134,7 @@ EOT
         $output->write('Installing... ');
         $r = $packageService->install($pkg, $packageOptions);
         if ($r instanceof ErrorList) {
-            throw new Exception(implode("\n", $r->getList()));
+            throw new Exception($r->toText());
         }
         $output->writeln('<info>installed.</info>');
 
