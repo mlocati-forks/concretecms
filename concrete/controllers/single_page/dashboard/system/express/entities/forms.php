@@ -195,7 +195,7 @@ class Forms extends DashboardPageController
 
                 $type = $manager->driver($this->request->request->get('type'));
                 $control = $type->createControlByIdentifier($this->request->request->get('id'));
-                $control->setId((new UuidGenerator())->generate($this->entityManager, $control));
+                $control->setId((new UuidGenerator())->generateId($this->entityManager, $control));
                 $control->setFieldSet($set);
                 $control->setPosition($position);
 
