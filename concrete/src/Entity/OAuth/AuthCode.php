@@ -30,8 +30,8 @@ class AuthCode implements AuthCodeEntityInterface
     protected $scopes = [];
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
+     * @var \DateTimeImmutable
+     * @ORM\Column(type="datetime_immutable")
      */
     protected $expiryDateTime;
 

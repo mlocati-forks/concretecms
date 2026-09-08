@@ -25,8 +25,8 @@ class AccessToken implements AccessTokenEntityInterface
     protected $identifier;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
+     * @var \DateTimeImmutable
+     * @ORM\Column(type="datetime_immutable")
      */
     protected $expiryDateTime;
 

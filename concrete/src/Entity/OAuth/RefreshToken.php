@@ -21,8 +21,8 @@ class RefreshToken implements RefreshTokenEntityInterface
     protected $identifier;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
+     * @var \DateTimeImmutable
+     * @ORM\Column(type="datetime_immutable")
      */
     protected $expiryDateTime;
 
