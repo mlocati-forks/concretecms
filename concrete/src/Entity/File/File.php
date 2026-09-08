@@ -1031,12 +1031,14 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
 
     /**
      * Returns a URL to the file in the file manager
-     *
-     * @return UrlInterface
      */
     public function getDetailsURL(): UrlInterface
     {
-        return \URL::to('/dashboard/files/details', $this->getFileID());
+        // The core URL resolvers always create Concrete URLs when resolving relative paths
+        /** @var \Concrete\Core\Url\UrlInterface $url */
+        $url = \URL::to('/dashboard/files/details', $this->getFileID());
+
+        return $url;
     }
 
     /**
