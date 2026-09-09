@@ -127,6 +127,9 @@ class Properties extends BackendInterfaceController
      */
     public function canEditAttributeKey(int $akID, ObjectInterface $object): bool
     {
+        if (!$object instanceof Page) {
+            return false;
+        }
         $attributeKey = $this->category->getAttributeKeyByID($akID);
         $key = Key::getByHandle('edit_page_properties');
         if (!$key instanceof EditPagePropertiesPageKey) {

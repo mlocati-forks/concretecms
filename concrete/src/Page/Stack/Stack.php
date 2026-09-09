@@ -63,7 +63,7 @@ class Stack extends Page
     {
         $app = Application::getFacadeApplication();
         $db = $app->make(Connection::class);
-        $checker = new Checker($collection);
+        $checker = $collection instanceof Page ? new Checker($collection) : null;
 
         /** @var \Concrete\Core\Cache\Level\RequestCache $requestCache */
         $requestCache = $app->make('cache/request');
@@ -81,7 +81,7 @@ class Stack extends Page
         if (!$stackID) {
             return null;
         }
-        $cvID = $checker->canViewPageVersions() ? 'RECENT': 'ACTIVE';
+        $cvID = $checker !== null && $checker->canViewPageVersions() ? 'RECENT' : 'ACTIVE';
         $s = Stack::getByID($stackID, $cvID);
         if (!$s) {
             return null;
