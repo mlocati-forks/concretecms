@@ -739,6 +739,11 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
         return $this->validateEditBlockPassThruAction($b);
     }
 
+    /**
+     * @param string[] $parameters the action followed by its parameters
+     *
+     * @return array the method name and the array of its parameters
+     */
     public function getPassThruActionAndParameters($parameters)
     {
         $method = 'action_' . $parameters[0];

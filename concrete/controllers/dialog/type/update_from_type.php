@@ -34,7 +34,7 @@ class UpdateFromType extends BackendInterfaceController
     protected $permissions;
 
     /**
-     * @var \Concrete\Core\Page\Template|null
+     * @var \Concrete\Core\Entity\Page\Template|null
      */
     protected $template;
 

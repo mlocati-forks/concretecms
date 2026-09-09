@@ -15,6 +15,11 @@ class Template
         }
     }
 
+    /**
+     * @param string $pTemplateHandle
+     *
+     * @return \Concrete\Core\Entity\Page\Template|null
+     */
     public static function getByHandle($pTemplateHandle)
     {
         $em = \ORM::entityManager();
@@ -25,6 +30,11 @@ class Template
             );
     }
 
+    /**
+     * @param int|string|null $pTemplateID
+     *
+     * @return \Concrete\Core\Entity\Page\Template|null
+     */
     public static function getByID($pTemplateID)
     {
         if ($pTemplateID) {
@@ -32,6 +42,8 @@ class Template
 
             return $em->find('\Concrete\Core\Entity\Page\Template', $pTemplateID);
         }
+
+        return null;
     }
 
     protected static function sort($list)

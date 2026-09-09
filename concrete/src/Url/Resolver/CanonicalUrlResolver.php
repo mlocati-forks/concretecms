@@ -42,6 +42,8 @@ class CanonicalUrlResolver implements UrlResolverInterface
      * {@inheritdoc}
      *
      * @see \Concrete\Core\Url\Resolver\UrlResolverInterface::resolve()
+     *
+     * @return \Concrete\Core\Url\UrlImmutable
      */
     public function resolve(array $arguments, $resolved = null)
     {
