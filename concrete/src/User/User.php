@@ -411,7 +411,7 @@ class User extends ConcreteObject
     }
 
     /**
-     * @return string
+     * @return int|numeric-string|''|null the ID of the user (as an integer or as a numeric string, depending on where it comes from); an empty string or null if no user is logged in
      */
     public function getUserID()
     {

@@ -365,7 +365,7 @@ class CoreExtension extends AbstractExtension implements ApplicationAwareInterfa
     {
         $user = $this->loadUser();
         if ($user !== null && $this->userInfo === null) {
-            $this->userInfo = $this->userInfoRepository->getByID($user->getUserID());
+            $this->userInfo = $this->userInfoRepository->getByID((int) $user->getUserID());
         }
 
         return $this->userInfo;

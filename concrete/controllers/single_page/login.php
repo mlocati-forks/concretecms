@@ -180,7 +180,7 @@ class Login extends PageController implements LoggerAwareInterface
             }
         }
 
-        $ui = UserInfo::getByID($u->getUserID());
+        $ui = UserInfo::getByID((int) $u->getUserID());
         $aks = UserAttributeKey::getRegistrationList();
 
         $unfilled = array_values(
@@ -375,7 +375,7 @@ class Login extends PageController implements LoggerAwareInterface
                 throw new Exception(t('Invalid Authentication Type'));
             }
 
-            $ui = UserInfo::getByID($u->getUserID());
+            $ui = UserInfo::getByID((int) $u->getUserID());
             $aks = UserAttributeKey::getRegistrationList();
 
             $unfilled = array_values(

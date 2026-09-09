@@ -40,7 +40,7 @@ class Delete extends BackendInterfaceController
     {
         if ($this->validateAction()) {
             $u = new \User();
-            $uID = $u->getUserID();
+            $uID = (int) $u->getUserID();
             $pages = $this->items;
             $batch = Batch::create(t('Delete Pages'), function() use ($uID, $pages) {
                 foreach ($pages as $page) {
