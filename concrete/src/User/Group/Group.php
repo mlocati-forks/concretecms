@@ -887,7 +887,7 @@ class Group extends ConcreteObject implements \Concrete\Core\Permission\ObjectIn
      * This is deprecated; use the AddGroupCommand and the command bus.
      * @param string $gName
      * @param string $gDescription
-     * @param GroupFolder|false|null $parentFolder
+     * @param \Concrete\Core\Tree\Node\Type\GroupFolder|\Concrete\Core\Tree\Node\Type\Group|\Concrete\Core\Tree\Node\Node|false|null $parentFolder the parent node: a group folder, or the node of a group (for nested groups); if empty, the group is added to the root of the tree
      *
      * @return Group
      */
