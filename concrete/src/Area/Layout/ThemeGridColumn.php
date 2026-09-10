@@ -9,6 +9,8 @@ use Loader;
 
 /**
  * @phpstan-consistent-constructor
+ *
+ * @method \Concrete\Core\Area\Layout\ThemeGridLayout|null getAreaLayoutObject()
  */
 class ThemeGridColumn extends Column
 {
@@ -111,10 +113,7 @@ class ThemeGridColumn extends Column
      */
     public function getAreaLayoutColumnClass()
     {
-        /*
-         * @var ThemeGridLayout $this->arLayout
-         */
-        $gf = $this->arLayout->getThemeGridFrameworkObject();
+        $gf = $this->getAreaLayoutObject()->getThemeGridFrameworkObject();
         if (is_object($gf)) {
             $class = $gf->getPageThemeGridFrameworkColumnAdditionalClasses();
             if ($class) {
@@ -137,10 +136,7 @@ class ThemeGridColumn extends Column
      */
     public function getAreaLayoutColumnOffsetEditClass()
     {
-        /*
-         * @var ThemeGridLayout $this->arLayout
-         */
-        $gf = $this->arLayout->getThemeGridFrameworkObject();
+        $gf = $this->getAreaLayoutObject()->getThemeGridFrameworkObject();
         if (is_object($gf)) {
             $class = $gf->getPageThemeGridFrameworkColumnAdditionalClasses();
             if ($class) {
@@ -173,7 +169,7 @@ class ThemeGridColumn extends Column
     {
         $element = new Element('div');
         $element->addClass($this->getAreaLayoutColumnClass());
-        $gf = $this->arLayout->getThemeGridFrameworkObject();
+        $gf = $this->getAreaLayoutObject()->getThemeGridFrameworkObject();
         if (is_object($gf) && $gf->hasPageThemeGridFrameworkOffsetClasses() && $this->getAreaLayoutColumnOffset()) {
             $element->addClass($this->getAreaLayoutColumnOffsetClass());
         }
@@ -197,7 +193,7 @@ class ThemeGridColumn extends Column
      */
     public function getAreaLayoutColumnOffsetClass()
     {
-        $gf = $this->arLayout->getThemeGridFrameworkObject();
+        $gf = $this->getAreaLayoutObject()->getThemeGridFrameworkObject();
         if (is_object($gf)) {
             // the width parameter of the column becomes the span
             $class = $gf->getPageThemeGridFrameworkColumnOffsetAdditionalClasses();

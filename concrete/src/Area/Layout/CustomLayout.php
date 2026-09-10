@@ -3,6 +3,9 @@ namespace Concrete\Core\Area\Layout;
 
 use Loader;
 
+/**
+ * @method \Concrete\Core\Area\Layout\CustomColumn[] getAreaLayoutColumns()
+ */
 class CustomLayout extends Layout
 {
     /**

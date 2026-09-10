@@ -7,6 +7,8 @@ use HtmlObject\Element;
 
 /**
  * @phpstan-consistent-constructor
+ *
+ * @method \Concrete\Core\Area\Layout\PresetLayout|null getAreaLayoutObject()
  */
 class PresetColumn extends Column
 {
