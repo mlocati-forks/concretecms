@@ -10,6 +10,9 @@ use Pagerfanta\Pagerfanta;
 
 class PagerPagination extends Pagination
 {
+    /**
+     * @var \Concrete\Core\Search\ItemList\Database\ItemList&\Concrete\Core\Search\ItemList\Pager\PagerProviderInterface
+     */
     protected $list;
     protected $app;
     protected $request;

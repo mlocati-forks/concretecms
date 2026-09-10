@@ -46,7 +46,7 @@ class DefaultController extends AttributeTypeController implements SimpleTextExp
     }
 
     /**
-     * @param \Concrete\Core\Search\ItemList\ItemList $list
+     * @param \Concrete\Core\Search\ItemList\Database\AttributedItemList $list
      * @param TextValue $value
      * @return mixed|void
      */

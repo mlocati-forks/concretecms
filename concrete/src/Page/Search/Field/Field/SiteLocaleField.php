@@ -54,6 +54,8 @@ class SiteLocaleField extends AbstractField
      * {@inheritdoc}
      *
      * @see \Concrete\Core\Search\Field\FieldInterface::filterList()
+     *
+     * @param \Concrete\Core\Page\PageList $list
      */
     public function filterList(ItemList $list)
     {
