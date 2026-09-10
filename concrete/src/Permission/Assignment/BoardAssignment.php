@@ -28,7 +28,7 @@ class BoardAssignment extends Assignment
     );
 
     /**
-     * @param $board Board
+     * @param \Concrete\Core\Entity\Board\Board $board
      */
     public function setPermissionObject($board)
     {

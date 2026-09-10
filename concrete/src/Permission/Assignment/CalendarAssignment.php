@@ -32,7 +32,7 @@ class CalendarAssignment extends Assignment
     );
 
     /**
-     * @param $calendar Calendar
+     * @param \Concrete\Core\Entity\Calendar\Calendar $calendar
      */
     public function setPermissionObject($calendar)
     {
