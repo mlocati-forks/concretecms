@@ -38,8 +38,8 @@ class BlockViewTemplate
         $this->obj = $obj;
         if ($obj instanceof Block) {
             $this->bFilename = $obj->getBlockFilename();
-            $c = $obj->getBlockCollectionObject();
-            if (is_object($c)) {
+            $c = $obj->getBlockPageObject();
+            if ($c !== null) {
                 $this->theme = $c->getCollectionThemeObject();
             }
         } else {

@@ -553,6 +553,25 @@ EOT
     }
 
     /**
+     * Get the page instance containing the block.
+     *
+     * @return \Concrete\Core\Page\Page|null
+     */
+    public function getBlockPageObject(): ?Page
+    {
+        $collection = $this->getBlockCollectionObject();
+        if ($collection instanceof Page) {
+            return $collection;
+        }
+        if (!$collection) {
+            return null;
+        }
+        $page = Page::getByID($collection->getCollectionID(), $collection->getVersionID());
+
+        return $page && !$page->isError() ? $page : null;
+    }
+
+    /**
      * Get the page instance where this block is defined (or the page where the original block is defined if this block is an alias).
      *
      * @return \Concrete\Core\Page\Page|null
@@ -900,9 +919,9 @@ EOT
      */
     public function isAliasOfMasterCollection()
     {
-        $blockCollection = $this->getBlockCollectionObject();
+        $page = $this->getBlockPageObject();
 
-        return $blockCollection ? $blockCollection->isBlockAliasedFromMasterCollection($this) : false;
+        return $page === null ? false : $page->isBlockAliasedFromMasterCollection($this);
     }
 
     /**
@@ -928,8 +947,8 @@ EOT
      */
     public function isBlockInStack()
     {
-        $co = $this->getBlockCollectionObject();
-        if (is_object($co)) {
+        $co = $this->getBlockPageObject();
+        if ($co !== null) {
             if ($co->getPageTypeHandle() == STACKS_PAGE_TYPE) {
                 return true;
             }
@@ -966,7 +985,8 @@ EOT
     {
         if ($this->getCustomStyleSetID() > 0 || $force) {
             $csr = StyleSet::getByID($this->getCustomStyleSetID());
-            $theme = $this->c->getCollectionThemeObject();
+            $page = $this->getBlockPageObject();
+            $theme = $page === null ? null : $page->getCollectionThemeObject();
             switch ($this->getBlockTypeHandle()) {
                 case BLOCK_HANDLE_LAYOUT_PROXY:
                     $bs = new CoreAreaLayoutCustomStyle($csr, $this, $theme);
@@ -2096,7 +2116,10 @@ EOT
         $records = [];
         /** @var Connection $db */
         $db = $app->make(Connection::class);
-        $oc = $this->getBlockCollectionObject();
+        $oc = $this->getBlockPageObject();
+        if ($oc === null) {
+            throw new \RuntimeException(t('The block is not associated to a page.'));
+        }
         $site = $app->make('site')->getSite();
         $cbRelationID = $this->getBlockRelationID();
         $treeIDs = [0];

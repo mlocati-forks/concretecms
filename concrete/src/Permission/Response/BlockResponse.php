@@ -34,8 +34,8 @@ class BlockResponse extends Response
 
     public function validate($permissionHandle, $args = array())
     {
-        $page = $this->object->getBlockCollectionObject();
-        if ($page->isMasterCollection()) {
+        $page = $this->object->getBlockPageObject();
+        if ($page !== null && $page->isMasterCollection()) {
             $key = Key::getByHandle('access_page_defaults');
             return $key->validate();
         } else {

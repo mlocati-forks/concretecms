@@ -482,8 +482,8 @@ EOT
         }
 
         // Next, check the current theme.
-        $c = $b->getBlockCollectionObject();
-        if (is_object($c)) {
+        $c = $b->getBlockPageObject();
+        if ($c !== null) {
             $theme = $c->getCollectionThemeObject();
             if (is_object($theme)) {
                 $dir = DIR_FILES_THEMES . "/" . $theme->getThemeHandle() . "/" . DIRNAME_BLOCKS . "/" . $btHandle . "/" . DIRNAME_BLOCK_TEMPLATES;
