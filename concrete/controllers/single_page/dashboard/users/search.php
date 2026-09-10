@@ -391,7 +391,8 @@ class Search extends DashboardPageController
             case 'delete':
                 $this->setupUser($uID);
                 if ($this->canDeleteUser && $this->app->make('helper/validation/token')->validate()) {
-                    $wasDeleted = $this->user->triggerDelete($this->user);
+                    $me = $this->app->make(User::class);
+                    $wasDeleted = $this->user->triggerDelete($me);
                     if ($wasDeleted) {
                         $this->flash('success', t("User deleted successfully"));
                         return $this->buildRedirect('/dashboard/users/search');
