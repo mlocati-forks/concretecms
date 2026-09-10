@@ -32,7 +32,7 @@ class Versions extends BackendInterfacePageController
      */
     public function canAccess()
     {
-        return $this->permissions->canViewPageVersions() || $this->permissions->canEditPageVersions();
+        return $this->permissions->canViewPageVersions();
     }
 
     /**
