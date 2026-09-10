@@ -232,7 +232,7 @@ abstract class GenericOauthTypeController extends AuthenticationTypeController
                     $flashbag->set('lastName', $this->getLastName());
                 }
                 $flashbag->set('username', $this->getUsername());
-                $flashbag->set('token', $this->getToken());
+                $flashbag->set('token', $this->getToken()->getAccessToken());
 
 
                 $response = \Redirect::to('/login/callback/' . $this->getHandle() . '/handle_register/', id(new Token())->generate($this->getHandle() . '_register'));
@@ -266,7 +266,7 @@ abstract class GenericOauthTypeController extends AuthenticationTypeController
         $token_helper = new Token();
 
         if (!$token_helper->validate($this->getHandle().'_register', $token) && !$token_helper->validate($this->getHandle().'_register') ||
-            !$this->token) {
+            !$accessToken) {
             $this->redirect('/login/');
         }
         if (\Request::request('uEmail', false)) {
