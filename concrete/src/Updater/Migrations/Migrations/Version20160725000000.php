@@ -656,7 +656,10 @@ class Version20160725000000 extends AbstractMigration implements LongRunningMigr
                 $type = Type::add($handle, $name);
                 foreach ($categories as $category) {
                     $cat = Category::getByHandle($category);
-                    $cat->getController()->associateAttributeKeyType($type);
+                    // The core attribute categories are standard categories
+                    /** @var \Concrete\Core\Attribute\Category\AbstractStandardCategory $controller */
+                    $controller = $cat->getController();
+                    $controller->associateAttributeKeyType($type);
                 }
             }
         }
@@ -860,6 +863,8 @@ class Version20160725000000 extends AbstractMigration implements LongRunningMigr
             ]);
         }
 
+        // The core attribute categories are standard categories
+        /** @var \Concrete\Core\Attribute\Category\AbstractStandardCategory $category */
         $category = Category::getByHandle('collection')->getController();
         $attribute = CollectionKey::getByHandle('is_desktop');
         if (!is_object($attribute)) {
@@ -983,6 +988,8 @@ class Version20160725000000 extends AbstractMigration implements LongRunningMigr
         } else {
             $category = $category->getController();
         }
+        // The core attribute categories are standard categories
+        /** @var \Concrete\Core\Attribute\Category\AbstractStandardCategory $category */
 
         $types = Type::getList();
         foreach ($types as $type) {
