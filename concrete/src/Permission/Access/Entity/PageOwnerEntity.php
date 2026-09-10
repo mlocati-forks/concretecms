@@ -29,7 +29,7 @@ class PageOwnerEntity extends Entity
                 }
             }
         }
-        if (is_object($c) && ($c instanceof Page)) {
+        if ($c instanceof Page) {
             $ui = UserInfo::getByID($c->getCollectionUserID());
             if ($ui) {
                 return [$ui];
