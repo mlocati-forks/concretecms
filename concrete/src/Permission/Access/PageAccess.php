@@ -4,7 +4,7 @@ namespace Concrete\Core\Permission\Access;
 use Concrete\Core\Permission\Access\SiteAccessInterface;
 
 /**
- * @method \Concrete\Core\Page\Page getPermissionObject()
+ * @method \Concrete\Core\Page\Page|null getPermissionObject()
  */
 class PageAccess extends Access implements SiteAccessInterface
 {
