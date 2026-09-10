@@ -133,7 +133,7 @@ class DataSources extends DashboardSitePageController
                 $this->flash('success', t('Data Source removed successfully.'));
                 return $this->redirect('/dashboard/boards/data_sources', 'view', $board->getBoardID());
             }
-            $this->update($configuredDataSource->getId());
+            $this->update($configuredDataSource->getConfiguredDataSourceID());
         } else {
             return $this->redirect('/dashboard/boards/boards');
         }
