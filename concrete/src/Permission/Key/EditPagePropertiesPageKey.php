@@ -20,6 +20,9 @@ class EditPagePropertiesPageKey extends PageKey
         return $allAKIDs;
     }
 
+    /**
+     * @return \Concrete\Core\Permission\Access\ListItem\EditPagePropertiesPageListItem
+     */
     public function getMyAssignment()
     {
         $app = Application::getFacadeApplication();

@@ -78,9 +78,6 @@ class NotifyInNotificationCenterNotificationAccess extends NotificationAccess
         $list = parent::getAccessListItems($accessType, $filterEntities);
         $list = PermissionDuration::filterByActive($list);
         foreach ($list as $l) {
-            /**
-             * @var \Concrete\Core\Permission\Access\ListItem\NotifyInNotificationCenterNotificationListItem
-             */
             $pe = $l->getAccessEntityObject();
             $prow = $db->fetchAssoc('select permission from NotificationPermissionSubscriptionList where peID = ? and paID = ?', [$pe->getAccessEntityID(), $l->getPermissionAccessID()]);
             if (is_array($prow) && $prow['permission']) {

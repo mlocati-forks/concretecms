@@ -71,11 +71,9 @@ class Attributes extends BackendInterfaceController
                 throw new \RuntimeException(t('The %s permission key is not installed correctly.', 'edit_page_properties'));
             }
             $assignment = $pk->getMyAssignment();
-            if ($assignment) {
-                $this->allowedEditAttributes = $assignment->getAttributesAllowedArray();
+            $this->allowedEditAttributes = $assignment->getAttributesAllowedArray();
 
-                return count($this->allowedEditAttributes) > 0;
-            }
+            return count($this->allowedEditAttributes) > 0;
         }
 
         return false;

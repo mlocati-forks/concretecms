@@ -8,7 +8,6 @@ use Concrete\Core\Notification\Subscription\SubscriptionInterface;
 use Concrete\Core\Notification\Type\TypeInterface;
 use Concrete\Core\Permission\Access\Access;
 use Concrete\Core\Permission\Access\Entity\Entity;
-use Concrete\Core\Permission\Access\ListItem\NotifyInNotificationCenterNotificationListItem;
 use Concrete\Core\Permission\Key\Key;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -34,9 +33,6 @@ class StandardNotifier implements NotifierInterface
                  */
                 /** @var \Concrete\Core\Permission\Access\ListItem\NotifyInNotificationCenterNotificationListItem[] $items */
                 $items = $access->getAccessListItems(Key::ACCESS_TYPE_INCLUDE);
-                /**
-                 * @var NotifyInNotificationCenterNotificationListItem $item
-                 */
                 foreach($items as $item) {
                     if ($item->getSubscriptionsAllowedPermission() == 'A' ||
                         ($item->getSubscriptionsAllowedPermission() == 'C' && in_array($subscription->getSubscriptionIdentifier(), $item->getSubscriptionsAllowedArray()))) {
@@ -51,9 +47,6 @@ class StandardNotifier implements NotifierInterface
                 // Now we loop through the array and remove
                 /** @var \Concrete\Core\Permission\Access\ListItem\NotifyInNotificationCenterNotificationListItem[] $items */
                 $items = $access->getAccessListItems(Key::ACCESS_TYPE_EXCLUDE);
-                /**
-                 * @var NotifyInNotificationCenterNotificationListItem $item
-                 */
                 $usersToRemove = array();
                 foreach($subject->getUsersToExcludeFromNotification() as $user) {
                     $usersToRemove[] = $user->getUserID();
