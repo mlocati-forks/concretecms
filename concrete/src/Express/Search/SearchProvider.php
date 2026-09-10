@@ -95,6 +95,13 @@ class SearchProvider extends AbstractSearchProvider
         return $this->columnSet;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Search\ProviderInterface::createSearchResultObject()
+     *
+     * @return \Concrete\Core\Express\Entry\Search\Result\Result
+     */
     public function createSearchResultObject($columns, $list)
     {
         $result = new Result($columns, $list);
