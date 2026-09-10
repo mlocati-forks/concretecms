@@ -37,7 +37,7 @@ class Delete extends PresetDelete
             if (!empty($presetID)) {
                 $searchEntity = $this->getSavedSearchEntity();
                 if (is_object($searchEntity)) {
-                    $searchPreset = $searchEntity->findOneById($presetID);
+                    $searchPreset = $searchEntity->find($presetID);
                     if (!is_object($searchPreset)) {
                         $this->error->add(t('Invalid search preset.'));
                     }
