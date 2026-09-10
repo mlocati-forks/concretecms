@@ -149,7 +149,7 @@ class StandardSearchIndexer implements SearchIndexerInterface
     protected function isValid(CategoryInterface $category)
     {
         if (!($category instanceof StandardSearchIndexerInterface)) {
-            throw new \Exception(t('Category %s must implement StandardSearchIndexerInterface.'), $category->getCategoryEntity()->getAttributeCategoryHandle());
+            throw new \Exception(t('Category %s must implement StandardSearchIndexerInterface.', get_class($category)));
         }
 
         return true;
