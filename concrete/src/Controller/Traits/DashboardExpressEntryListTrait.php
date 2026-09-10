@@ -57,6 +57,9 @@ trait DashboardExpressEntryListTrait
      */
     protected $headerMenu;
 
+    /**
+     * @return \Concrete\Core\Filesystem\Element
+     */
     protected function getHeaderMenu()
     {
         if (!isset($this->headerMenu)) {
@@ -65,6 +68,9 @@ trait DashboardExpressEntryListTrait
         return $this->headerMenu;
     }
 
+    /**
+     * @return \Concrete\Core\Filesystem\Element
+     */
     protected function getHeaderSearch()
     {
         if (!isset($this->headerSearch)) {
@@ -148,15 +154,19 @@ trait DashboardExpressEntryListTrait
         $query = $result->getQuery();
         $headerMenu = $this->getHeaderMenu();
         $headerSearch = $this->getHeaderSearch();
-        $headerMenu->getElementController()->setQuery($query);
-        $headerMenu->getElementController()->setEntity($entity);
-        $headerSearch->getElementController()->setQuery($query);
-        $headerSearch->getElementController()->setEntity($entity);
+        /** @var \Concrete\Controller\Element\Express\Search\Menu $headerMenuController the controller of the 'express/search/menu' element */
+        $headerMenuController = $headerMenu->getElementController();
+        $headerMenuController->setQuery($query);
+        $headerMenuController->setEntity($entity);
+        /** @var \Concrete\Controller\Element\Express\Search\Search $headerSearchController the controller of the 'express/search/search' element */
+        $headerSearchController = $headerSearch->getElementController();
+        $headerSearchController->setQuery($query);
+        $headerSearchController->setEntity($entity);
 
         $permissions = new Checker($entity);
 
         if ($permissions->canAddExpressEntries()) {
-            $headerMenu->getElementController()->setCreateURL(
+            $headerMenuController->setCreateURL(
                 $this->app->make('url/resolver/path')->resolve([
                                                                    $this->getPageObject()->getCollectionPath(), 'create_entry', $entity->getID()])
             );
@@ -171,12 +181,12 @@ trait DashboardExpressEntryListTrait
             $exportArgs[] = $this->getParameters()[0];
         }
 
-        $this->headerSearch->getElementController()->setHeaderSearchAction($this->getHeaderSearchAction($entity));
+        $headerSearchController->setHeaderSearchAction($this->getHeaderSearchAction($entity));
 
         $exportURL = $this->app->make('url/resolver/path')->resolve($exportArgs);
         $query = Url::createFromServer($_SERVER)->getQuery();
         $exportURL = $exportURL->setQuery($query);
-        $headerMenu->getElementController()->setExportURL($exportURL);
+        $headerMenuController->setExportURL($exportURL);
 
         $this->set('result', $result);
         $this->set('headerMenu', $headerMenu);

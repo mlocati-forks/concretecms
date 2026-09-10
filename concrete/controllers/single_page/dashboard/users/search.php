@@ -156,6 +156,9 @@ class Search extends DashboardPageController
         return $this->app->make(QueryFactory::class);
     }
 
+    /**
+     * @return \Concrete\Core\Filesystem\Element
+     */
     protected function getHeaderMenu()
     {
         if (!isset($this->headerMenu)) {
@@ -165,6 +168,9 @@ class Search extends DashboardPageController
         return $this->headerMenu;
     }
 
+    /**
+     * @return \Concrete\Core\Filesystem\Element
+     */
     protected function getHeaderSearch()
     {
         if (!isset($this->headerSearch)) {
@@ -196,8 +202,12 @@ class Search extends DashboardPageController
     {
         $headerMenu = $this->getHeaderMenu();
         $headerSearch = $this->getHeaderSearch();
-        $headerMenu->getElementController()->setQuery($result->getQuery());
-        $headerSearch->getElementController()->setQuery($result->getQuery());
+        /** @var \Concrete\Controller\Element\Users\Search\Menu $headerMenuController the controller of the 'users/search/menu' element */
+        $headerMenuController = $headerMenu->getElementController();
+        $headerMenuController->setQuery($result->getQuery());
+        /** @var \Concrete\Controller\Element\Users\Search\Search $headerSearchController the controller of the 'users/search/search' element */
+        $headerSearchController = $headerSearch->getElementController();
+        $headerSearchController->setQuery($result->getQuery());
         $query = $this->getExportQueryParameters();
 
         $exportArgs = [$this->getPageObject()->getCollectionPath(), 'csv_export'];
@@ -209,7 +219,7 @@ class Search extends DashboardPageController
         }
         $exportURL = $this->app->make('url/resolver/path')->resolve($exportArgs);
         $exportURL = $exportURL->setQuery($query);
-        $headerMenu->getElementController()->setExportURL($exportURL);
+        $headerMenuController->setExportURL($exportURL);
 
         $this->set('resultsBulkMenu', $this->app->make(MenuFactory::class)->createBulkMenu());
         $this->set('result', $result);
@@ -673,7 +683,9 @@ class Search extends DashboardPageController
 
         $this->renderSearchResult($result);
 
-        $this->headerSearch->getElementController()->setQuery(null);
+        /** @var \Concrete\Controller\Element\Users\Search\Search $headerSearchController the controller of the 'users/search/search' element */
+        $headerSearchController = $this->headerSearch->getElementController();
+        $headerSearchController->setQuery(null);
     }
 
     /**
