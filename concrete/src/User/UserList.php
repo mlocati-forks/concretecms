@@ -79,11 +79,6 @@ class UserList extends DatabaseItemList implements DatabasePagerProviderInterfac
      */
     private $userInfoRepository;
 
-    /**
-     * @var int
-     */
-    protected $sortUserStatus;
-
     public function __construct(?StickyRequest $req = null)
     {
         $u = Application::getFacadeApplication()->make(User::class);
@@ -313,7 +308,6 @@ class UserList extends DatabaseItemList implements DatabasePagerProviderInterfac
 
     public function sortByStatus($dir = 'asc')
     {
-        $this->sortUserStatus = 1;
         parent::sortBy('uStatus', $dir);
     }
 
@@ -499,20 +493,6 @@ class UserList extends DatabaseItemList implements DatabasePagerProviderInterfac
     protected function getAttributeKeyClassName()
     {
         return '\\Concrete\\Core\\Attribute\\Key\\UserKey';
-    }
-
-    protected function setBaseQuery()
-    {
-        $sql = '';
-        if ($this->sortUserStatus) {
-            // When uStatus column is selected, we also get the "status" column for
-            // multilingual sorting purposes.
-            $sql =
-                ", CASE WHEN u.uIsActive = 1 THEN '" . t('Active') . "' " .
-                "WHEN u.uIsValidated = 1 AND u.uIsActive = 0 THEN '" . t('Inactive') . "' " .
-                "ELSE '" . t('Unvalidated') . "' END AS uStatus";
-        }
-        $this->setQuery('SELECT DISTINCT u.uID, u.uName' . $sql . ' FROM Users u ');
     }
 
     /**
