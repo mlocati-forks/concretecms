@@ -64,6 +64,13 @@ use Session;
 use Concrete\Core\Events\EventDispatcher;
 use Doctrine\DBAL\ParameterType;
 use UserInfo;
+use Concrete\Core\Area\CustomStyleRepository as AreaCustomStyleRepository;
+use Concrete\Core\Area\CustomStyle as AreaCustomStyle;
+use Concrete\Core\Area\GlobalArea;
+use Concrete\Core\Block\CustomStyleRepository as BlockCustomStyleRepository;
+use Concrete\Core\Page\Command\QueuedReindexPageCommand;
+use Concrete\Core\Page\Command\ReindexPageCommand;
+use Concrete\Core\StyleCustomizer\Inline\StyleSet;
 
 /**
  * The page object in Concrete encapsulates all the functionality used by a typical page and their contents including blocks, page metadata, page permissions.
@@ -3775,7 +3782,7 @@ EOT
             $data['pTemplateID'] = $template->getPageTemplateID();
         }
 
-        $cobj = parent::addCollection($data);
+        $cobj = $this->addCollection($data);
         $cID = $cobj->getCollectionID();
 
         //$this->rescanChildrenDisplayOrder();
@@ -4407,5 +4414,184 @@ EOT
         }
 
         return $pkHandles;
+    }
+
+    /**
+     * Create a new Collection instance, using the same theme as this instance (if it's a Page instance).
+     *
+     * @param array{cID?: int|null, handle?: string, name?: string, cDescription?: string, cDatePublic?: string, cvIsApproved?: bool, cvIsNew?: bool, pTemplateID?: int|null, uID?: int|null, ...} $data
+     *
+     * - cID: The ID of the collection to create (if unspecified or NULL: database autoincrement value)
+     * - handle: The collection handle (default: NULL)
+     * - name: The collection name (default: empty string)
+     * - cDescription: The collection description (default: NULL)
+     * - cDatePublic: The collection publish date/time in format 'YYYY-MM-DD hh:mm:ss' (default: now)
+     * - cvIsApproved: Is the collection version approved (default: true)
+     * - cvIsNew: Is the collection to be considered "new"? (default: true if $cvIsApproved is false, false if $cvIsApproved is true)
+     * - pTemplateID: The collection template ID (default: NULL)
+     * - uID: The ID of the collection author (default: NULL)
+     *
+     * @return \Concrete\Core\Page\Collection\Collection
+     */
+    public function addCollection($data)
+    {
+        $data['pThemeID'] = $this->getCollectionThemeID();
+
+        return static::createCollection($data);
+    }
+
+    /**
+     * Get the Collection instance to be modified (this instance if it's a new or master Collection, a clone otherwise).
+     *
+     * @return $this|\Concrete\Core\Page\Page
+     */
+    public function getVersionToModify()
+    {
+        $vObj = $this->getVersionObject();
+        if ($this->isMasterCollection() || ($vObj->isNew())) {
+            return $this;
+        } else {
+            $nc = $this->cloneVersion(null);
+
+            return $nc;
+        }
+    }
+
+    public function reindex($doReindexImmediately = true)
+    {
+        if ($this->isAlias() && !$this->isExternalLink()) {
+            return false;
+        }
+
+        if ($doReindexImmediately) {
+            $command = new ReindexPageCommand($this->getCollectionID());
+        } else {
+            $command = new QueuedReindexPageCommand($this->getCollectionID());
+        }
+        $app = Facade::getFacadeApplication();
+        $app->executeCommand($command);
+    }
+
+    /**
+     * Get the custom style of an area in the currently loaded collection version.
+     *
+     * @param \Concrete\Core\Area\Area $area the area for which you want the custom styles
+     * @param bool $force Set to true to retrieve a CustomStyle even if the area does not define any custom style
+     *
+     * @return \Concrete\Core\Area\CustomStyle|null return NULL if the area does not have any custom style and $force is false, a CustomStyle instance otherwise
+     */
+    public function getAreaCustomStyle($area, $force = false)
+    {
+        $areac = $area->getAreaCollectionObject();
+        if ($areac instanceof Stack) {
+            // this fixes the problem of users applying design to the main area on the page, and then that trickling into any
+            // stacks that have been added to other areas of the page.
+            return null;
+        }
+        $result = null;
+        $styleSet = null;
+        $areaHandle = $area->getAreaHandle();
+        if ($area->isGlobalArea()) {
+            /**
+             * @var GlobalArea $area
+             */
+            $stack = Stack::getGlobalAreaStackFromName($this, $area->getAreaHandle());
+            if ($stack) {
+                $styles = $stack->getVersionObject()->getCustomAreaStyles();
+                if (isset($styles[STACKS_AREA_NAME])) {
+                    $styleSet = StyleSet::getByID($styles[STACKS_AREA_NAME]);
+                }
+            }
+        } else {
+            $styles = $this->vObj->getCustomAreaStyles();
+            if (isset($styles[$areaHandle])) {
+                $styleSet = StyleSet::getByID($styles[$areaHandle]);
+            }
+        }
+
+        if ($styleSet || $force) {
+            $result = new AreaCustomStyle($styleSet, $area, $this->getCollectionThemeObject());
+        }
+
+        return $result;
+    }
+
+    /**
+     * Retrieve all custom style rules that should be inserted into the header on a page, whether they are defined in areas or blocks.
+     *
+     * @param bool $return set to true to return the HTML that defines the styles, false to add it to the current View instance
+     *
+     * @return string|null
+     */
+    public function outputCustomStyleHeaderItems($return = false)
+    {
+        $app = Application::getFacadeApplication();
+        if (!$app['config']->get('concrete.design.enable_custom')) {
+            return $return ? '' : null;
+        }
+
+        $psss = [];
+        /** @var BlockCustomStyleRepository $blockCustomStyleRepository */
+        $blockCustomStyleRepository = $app->make(BlockCustomStyleRepository::class);
+        /** @var AreaCustomStyleRepository $areaCustomStyleRepository */
+        $areaCustomStyleRepository = $app->make(AreaCustomStyleRepository::class);
+
+        foreach ($blockCustomStyleRepository->getCollectionVersionBlockStyles($this) as $blockStyle) {
+            $psss[] = $blockStyle;
+        }
+        foreach ($areaCustomStyleRepository->getCollectionVersionAreaStyles($this) as $areaStyle) {
+            $psss[] = $areaStyle;
+        }
+
+        // grab all the header block style rules for items in global areas on this page
+        $applicableStacks = $this->getGlobalStacksForCollection();
+        foreach ($applicableStacks as $s) {
+            foreach ($blockCustomStyleRepository->getStackBlockStyles($s, $this->getCollectionThemeObject()) as $blockStyle) {
+                $psss[] = $blockStyle;
+            }
+            foreach ($areaCustomStyleRepository->getStackAreaStyles($s, $this->getCollectionThemeObject()) as $areaStyle) {
+                $psss[] = $areaStyle;
+            }
+        }
+
+        $styleHeader = '';
+        foreach ($psss as $st) {
+            $css = $st->getCSS();
+            if ($css !== '') {
+                $styleHeader .= $st->getStyleWrapper($css);
+            }
+        }
+
+        if (strlen(trim($styleHeader))) {
+            if ($return == true) {
+                return $styleHeader;
+            } else {
+                $v = \View::getInstance();
+                $v->addHeaderItem($styleHeader);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Clone the currently loaded version and returns a Page instance containing the new version.
+     *
+     * @param string|null $versionComments the comments to be associated to the new Version
+     * @param bool $createEmpty set to true to create a Version without any blocks/area styles, false to clone them too
+     *
+     * @return \Concrete\Core\Page\Page
+     */
+    public function cloneVersion($versionComments, $createEmpty = false)
+    {
+        $app = Application::getFacadeApplication();
+        $cloner = $app->make(Cloner::class);
+        $clonerOptions = $app->make(ClonerOptions::class)
+            ->setVersionComments($versionComments)
+            ->setCopyContents($createEmpty ? false : true)
+        ;
+        $newVersion = $cloner->cloneCollectionVersion($this->getVersionObject(), $this, $clonerOptions);
+
+        return Page::getByID($newVersion->getCollectionID(), $newVersion->getVersionID());
     }
 }
