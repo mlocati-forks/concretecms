@@ -75,6 +75,7 @@ trait GetBlockToEditTrait
 
         if ($b->getBlockTypeHandle() == BLOCK_HANDLE_SCRAPBOOK_PROXY) {
             $originalDisplayOrder = $b->getBlockDisplayOrder();
+            /** @var \Concrete\Block\CoreScrapbookDisplay\Controller $cnt */
             $cnt = $b->getController();
             $ob = Block::getByID($cnt->getOriginalBlockID());
             $ob->loadNewCollection($nvc);

@@ -2868,6 +2868,7 @@ EOT
         $b = parent::addBlock($bt, $a, $data, $saveMode);
         $btHandle = $bt->getBlockTypeHandle();
         if ($b->getBlockTypeHandle() == BLOCK_HANDLE_PAGE_TYPE_OUTPUT_PROXY) {
+            /** @var \Concrete\Block\CorePageTypeComposerControlOutput\Controller $bi */
             $bi = $b->getInstance();
             $output = $bi->getComposerOutputControlObject();
             $control = FormLayoutSetControl::getByID($output->getPageTypeComposerFormLayoutSetControlID());

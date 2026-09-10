@@ -75,6 +75,7 @@ class Menu extends PopoverMenu
             $editInline = true;
         }
         if ($btw->getBlockTypeHandle() == BLOCK_HANDLE_SCRAPBOOK_PROXY) {
+            /** @var \Concrete\Block\CoreScrapbookDisplay\Controller $_bi */
             $_bi = $b->getInstance();
             $_bo = Block::getByID($_bi->getOriginalBlockID());
             $btOriginal = BlockType::getByHandle($_bo->getBlockTypeHandle());
