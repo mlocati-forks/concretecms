@@ -5,7 +5,7 @@ namespace Concrete\Core\User;
 use Concrete\Core\Database\Query\LikeBuilder;
 use Concrete\Core\Search\ItemList\Database\AttributedItemList as DatabaseItemList;
 use Concrete\Core\Search\ItemList\Pager\Manager\UserListPagerManager;
-use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
+use Concrete\Core\Search\ItemList\Pager\DatabasePagerProviderInterface;
 use Concrete\Core\Search\ItemList\Pager\QueryString\VariableFactory;
 use Concrete\Core\Search\Pagination\PaginationProviderInterface;
 use Concrete\Core\Search\StickyRequest;
@@ -13,7 +13,7 @@ use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\User\Group\Group;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 
-class UserList extends DatabaseItemList implements PagerProviderInterface, PaginationProviderInterface
+class UserList extends DatabaseItemList implements DatabasePagerProviderInterface, PaginationProviderInterface
 {
     /**
      * Determines whether the list should automatically always sort by a column that's in the automatic sort.

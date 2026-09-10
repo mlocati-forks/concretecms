@@ -7,7 +7,7 @@ namespace Concrete\Core\File;
 use Concrete\Core\Database\Query\LikeBuilder;
 use Concrete\Core\Search\ItemList\Database\AttributedItemList as DatabaseItemList;
 use Concrete\Core\Search\ItemList\Pager\Manager\FileListPagerManager;
-use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
+use Concrete\Core\Search\ItemList\Pager\DatabasePagerProviderInterface;
 use Concrete\Core\Search\ItemList\Pager\QueryString\VariableFactory;
 use Concrete\Core\Search\Pagination\PaginationProviderInterface;
 use Concrete\Core\Search\StickyRequest;
@@ -17,7 +17,7 @@ use Pagerfanta\Adapter\DoctrineDbalAdapter;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
-class FileList extends DatabaseItemList implements PagerProviderInterface, PaginationProviderInterface
+class FileList extends DatabaseItemList implements DatabasePagerProviderInterface, PaginationProviderInterface
 {
     /**
      * @var \Closure|int|null

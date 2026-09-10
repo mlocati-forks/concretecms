@@ -11,7 +11,7 @@ use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Entity\Site\Tree;
 use Concrete\Core\Search\ItemList\Database\AttributedItemList as DatabaseItemList;
 use Concrete\Core\Search\ItemList\Pager\Manager\PageListPagerManager;
-use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
+use Concrete\Core\Search\ItemList\Pager\DatabasePagerProviderInterface;
 use Concrete\Core\Search\ItemList\Pager\QueryString\VariableFactory;
 use Concrete\Core\Search\Pagination\PaginationProviderInterface;
 use Concrete\Core\Search\StickyRequest;
@@ -23,7 +23,7 @@ use Pagerfanta\Adapter\DoctrineDbalAdapter;
 /**
  * An object that allows a filtered list of pages to be returned.
  */
-class PageList extends DatabaseItemList implements PagerProviderInterface, PaginationProviderInterface
+class PageList extends DatabaseItemList implements DatabasePagerProviderInterface, PaginationProviderInterface
 {
     const PAGE_VERSION_ACTIVE = 1;
     const PAGE_VERSION_RECENT = 2;

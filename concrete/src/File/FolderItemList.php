@@ -10,7 +10,7 @@ use Concrete\Core\Permission\Checker as Permissions;
 use Concrete\Core\Permission\Key\FileFolderKey;
 use Concrete\Core\Search\ItemList\Database\AttributedItemList;
 use Concrete\Core\Search\ItemList\Pager\Manager\FolderItemListPagerManager;
-use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
+use Concrete\Core\Search\ItemList\Pager\DatabasePagerProviderInterface;
 use Concrete\Core\Search\ItemList\Pager\QueryString\VariableFactory;
 use Concrete\Core\Search\Pagination\PaginationProviderInterface;
 use Concrete\Core\Support\Facade\Application;
@@ -19,7 +19,7 @@ use Concrete\Core\Tree\Node\Type\FileFolder;
 use Concrete\Core\User\User;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 
-class FolderItemList extends AttributedItemList implements PagerProviderInterface, PaginationProviderInterface
+class FolderItemList extends AttributedItemList implements DatabasePagerProviderInterface, PaginationProviderInterface
 {
     protected $parent;
 
