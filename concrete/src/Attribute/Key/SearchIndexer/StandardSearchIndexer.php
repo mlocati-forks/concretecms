@@ -40,7 +40,7 @@ class StandardSearchIndexer implements SearchIndexerInterface
     }
 
     /**
-     * @deprecated use the updateRepositoryColumns() method, with TRUE as the fourth argument
+     * @deprecated use the updateSearchIndexKeyColumns() method
      *
      * @param \Concrete\Core\Attribute\Category\CategoryInterface $category
      * @param \Concrete\Core\Attribute\AttributeKeyInterface $key
