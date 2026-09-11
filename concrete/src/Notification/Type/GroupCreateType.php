@@ -3,7 +3,6 @@
 namespace Concrete\Core\Notification\Type;
 
 use Concrete\Core\Entity\Notification\GroupCreateNotification;
-use Concrete\Core\Entity\User\GroupCreate;
 use Concrete\Core\Notification\Alert\Filter\StandardFilter;
 use Concrete\Core\Notification\Subject\SubjectInterface;
 use Concrete\Core\Notification\Subscription\StandardSubscription;
@@ -16,14 +15,10 @@ class GroupCreateType extends Type
      *
      * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
      *
-     * @throws \InvalidArgumentException if $group is not a \Concrete\Core\Entity\User\GroupCreate instance
+     * @param \Concrete\Core\Entity\User\GroupCreate $group
      */
     public function createNotification(SubjectInterface $group)
     {
-        if (!$group instanceof GroupCreate) {
-            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', GroupCreate::class));
-        }
-
         return new GroupCreateNotification($group);
     }
 

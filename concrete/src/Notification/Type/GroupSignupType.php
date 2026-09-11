@@ -3,7 +3,6 @@
 namespace Concrete\Core\Notification\Type;
 
 use Concrete\Core\Entity\Notification\GroupSignupNotification;
-use Concrete\Core\Entity\User\GroupSignup;
 use Concrete\Core\Notification\Alert\Filter\StandardFilter;
 use Concrete\Core\Notification\Subject\SubjectInterface;
 use Concrete\Core\Notification\Subscription\StandardSubscription;
@@ -16,14 +15,10 @@ class GroupSignupType extends Type
      *
      * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
      *
-     * @throws \InvalidArgumentException if $group is not a \Concrete\Core\Entity\User\GroupSignup instance
+     * @param \Concrete\Core\Entity\User\GroupSignup $group
      */
     public function createNotification(SubjectInterface $group)
     {
-        if (!$group instanceof GroupSignup) {
-            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', GroupSignup::class));
-        }
-
         return new GroupSignupNotification($group);
     }
 

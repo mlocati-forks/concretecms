@@ -2,7 +2,6 @@
 namespace Concrete\Core\Notification\Type;
 
 use Concrete\Core\Entity\Notification\NewFormSubmissionNotification;
-use Concrete\Core\Express\Entry\Notifier\Notification\EntrySubject;
 use Concrete\Core\Notification\Alert\Filter\StandardFilter;
 use Concrete\Core\Notification\Subject\SubjectInterface;
 use Concrete\Core\Notification\Subscription\StandardSubscription;
@@ -15,14 +14,10 @@ class NewFormSubmissionType extends Type
      *
      * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
      *
-     * @throws \InvalidArgumentException if $subject is not a \Concrete\Core\Express\Entry\Notifier\Notification\EntrySubject instance
+     * @param \Concrete\Core\Express\Entry\Notifier\Notification\EntrySubject $subject
      */
     public function createNotification(SubjectInterface $subject)
     {
-        if (!$subject instanceof EntrySubject) {
-            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', EntrySubject::class));
-        }
-
         return new NewFormSubmissionNotification($subject);
     }
 

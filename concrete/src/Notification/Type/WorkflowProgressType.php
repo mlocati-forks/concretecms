@@ -19,14 +19,10 @@ class WorkflowProgressType extends Type
      *
      * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
      *
-     * @throws \InvalidArgumentException if $subject is not a \Concrete\Core\Workflow\Progress\Progress instance
+     * @param \Concrete\Core\Workflow\Progress\Progress $subject
      */
     public function createNotification(SubjectInterface $subject)
     {
-        if (!$subject instanceof Progress) {
-            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', Progress::class));
-        }
-
         return new WorkflowProgressNotification($subject);
     }
 

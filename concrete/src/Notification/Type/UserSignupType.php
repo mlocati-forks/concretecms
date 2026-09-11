@@ -2,7 +2,6 @@
 namespace Concrete\Core\Notification\Type;
 
 use Concrete\Core\Entity\Notification\UserSignupNotification;
-use Concrete\Core\Entity\User\UserSignup;
 use Concrete\Core\Notification\Alert\Filter\StandardFilter;
 use Concrete\Core\Notification\Subject\SubjectInterface;
 use Concrete\Core\Notification\Subscription\StandardSubscription;
@@ -15,14 +14,10 @@ class UserSignupType extends Type
      *
      * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
      *
-     * @throws \InvalidArgumentException if $signup is not a \Concrete\Core\Entity\User\UserSignup instance
+     * @param \Concrete\Core\Entity\User\UserSignup $signup
      */
     public function createNotification(SubjectInterface $signup)
     {
-        if (!$signup instanceof UserSignup) {
-            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', UserSignup::class));
-        }
-
         return new UserSignupNotification($signup);
     }
 
