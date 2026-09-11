@@ -39,7 +39,7 @@ class StorageLocation
     /**
      * @deprecated use FileStorageFactory::fetchByID()
      * @param int $id
-     * @return null|StorageLocation
+     * @return \Concrete\Core\Entity\File\StorageLocation\StorageLocation|null
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
@@ -52,7 +52,7 @@ class StorageLocation
 
     /**
      * @deprecated use FileStorageFactory::fetchList()
-     * @return StorageLocation[]
+     * @return \Concrete\Core\Entity\File\StorageLocation\StorageLocation[]
      */
     public static function getList()
     {
