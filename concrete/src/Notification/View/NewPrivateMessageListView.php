@@ -2,14 +2,13 @@
 namespace Concrete\Core\Notification\View;
 
 
-use Concrete\Core\Entity\Notification\UserSignupNotification;
 use HtmlObject\Element;
 
 class NewPrivateMessageListView extends StandardListView
 {
 
     /**
-     * @var UserSignupNotification
+     * @var \Concrete\Core\Entity\Notification\NewPrivateMessageNotification
      */
     protected $notification;
 
