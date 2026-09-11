@@ -1,7 +1,6 @@
 <?php
 namespace Concrete\Core\Notification\Type;
 
-use Concrete\Core\Conversation\Message\NewMessage;
 use Concrete\Core\Entity\Notification\NewConversationMessageNotification;
 use Concrete\Core\Notification\Alert\Filter\StandardFilter;
 use Concrete\Core\Notification\Subject\SubjectInterface;
@@ -16,14 +15,10 @@ class NewConversationMessageType extends Type
      *
      * @see \Concrete\Core\Notification\Type\TypeInterface::createNotification()
      *
-     * @throws \InvalidArgumentException if $message is not a \Concrete\Core\Conversation\Message\NewMessage instance
+     * @param \Concrete\Core\Conversation\Message\Message $message
      */
     public function createNotification(SubjectInterface $message)
     {
-        if (!$message instanceof NewMessage) {
-            throw new \InvalidArgumentException(t('The notification subject must be an instance of %s.', NewMessage::class));
-        }
-
         return new NewConversationMessageNotification($message);
     }
 
