@@ -7,20 +7,37 @@ use Concrete\Core\Api\OpenApi\SpecParameter;
 class Parameter extends SpecParameter
 {
 
+    /**
+     * @var string|null
+     */
     protected $name;
 
+    /**
+     * @var string|null
+     */
     protected $in;
 
+    /**
+     * @var string|null
+     */
     protected $description;
 
+    /**
+     * @var \Concrete\Core\Api\OpenApi\SpecSchema|null
+     */
     protected $specSchema;
 
-    protected $isRequired = false;
     /**
-     * @param $name
-     * @param $in
-     * @param $description
-     * @param $specSchema
+     * @var bool
+     */
+    protected $isRequired = false;
+
+    /**
+     * @param string|null $name
+     * @param string|null $in
+     * @param string|null $description
+     * @param \Concrete\Core\Api\OpenApi\SpecSchema|null $specSchema
+     * @param bool $required
      */
     public function __construct($name, $in, $description, $specSchema, $required = false)
     {
@@ -31,40 +48,54 @@ class Parameter extends SpecParameter
         $this->isRequired = $required;
     }
 
-
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\OpenApi\SpecParameter::getName()
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
+     * @param string|null $name
      */
     public function setName($name): void
     {
         $this->name = $name;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\OpenApi\SpecParameter::getIn()
+     */
     public function getIn(): ?string
     {
         return $this->in;
     }
 
     /**
-     * @param mixed $in
+     * @param string|null $in
      */
     public function setIn($in): void
     {
         $this->in = $in;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\OpenApi\SpecParameter::getDescription()
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param mixed $description
+     * @param string|null $description
      */
     public function setDescription($description): void
     {
@@ -72,7 +103,9 @@ class Parameter extends SpecParameter
     }
 
     /**
-     * @return mixed
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\OpenApi\SpecParameter::getSchema()
      */
     public function getSchema()
     {
@@ -80,7 +113,7 @@ class Parameter extends SpecParameter
     }
 
     /**
-     * @param mixed $specSchema
+     * @param \Concrete\Core\Api\OpenApi\SpecSchema|null $specSchema
      */
     public function setSchema($specSchema): void
     {
@@ -88,13 +121,12 @@ class Parameter extends SpecParameter
     }
 
     /**
-     * @return bool|mixed
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\OpenApi\SpecParameter::isRequired()
      */
     public function isRequired()
     {
         return $this->isRequired;
     }
-
-
-
 }
