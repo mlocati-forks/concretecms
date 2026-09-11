@@ -56,7 +56,7 @@ class TaskSet implements \JsonSerializable
 
     public function __toString()
     {
-        return (string) $this->getAttributeSetID();
+        return (string) $this->getID();
     }
 
     /**
