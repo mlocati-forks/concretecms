@@ -239,7 +239,7 @@ class ErrorList implements ArrayAccess, JsonSerializable
     {
         $identifier = $field instanceof FieldInterface ? $field->getFieldElementName() : $field;
         foreach ($this->getList() as $error) {
-            $field = $error->getField();
+            $field = method_exists($error, 'getField') ? $error->getField() : null;
             if (is_object($field) && $field->getFieldElementName() == $identifier) {
                 return true;
             }
@@ -259,7 +259,7 @@ class ErrorList implements ArrayAccess, JsonSerializable
     {
         $identifier = ($field instanceof FieldInterface) ? $field->getFieldElementName() : $field;
         foreach ($this->getList() as $error) {
-            $field = $error->getField();
+            $field = method_exists($error, 'getField') ? $error->getField() : null;
             if (is_object($field) && $field->getFieldElementName() == $identifier) {
                 return $error->getMessage();
             }
