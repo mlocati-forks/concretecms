@@ -716,7 +716,7 @@ class Stacks extends DashboardPageController
     /**
      * Check if stacks in a Page or StackFolder can be moved.
      *
-     * @param Page|StackFolder $parent
+     * @param \Concrete\Core\Page\Page|\Concrete\Core\Page\Stack\Folder\Folder $parent
      *
      * @return bool
      */
