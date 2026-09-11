@@ -476,11 +476,10 @@ class PageList extends DatabaseItemList
             $db = Loader::db();
             $criteria = [];
             foreach ($value as $v) {
-                $escapedValue = $db->escape($v);
                 if ($isMultiSelect) {
-                    $criteria[] = "(ak_{$akHandle} LIKE '%\n{$escapedValue}\n%')";
+                    $criteria[] = "(ak_{$akHandle} LIKE " . $db->quote("%\n{$v}\n%") . ')';
                 } else {
-                    $criteria[] = "(ak_{$akHandle} = '\n{$escapedValue}\n')";
+                    $criteria[] = "(ak_{$akHandle} = " . $db->quote("\n{$v}\n") . ')';
                 }
             }
             $where = '(' . implode(' OR ', $criteria) . ')';
