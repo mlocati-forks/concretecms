@@ -10,6 +10,8 @@ use Monolog\Logger;
 
 /**
  * Decorator class around Laminas\Feed\Reader\Entry\Rss that adds sanitization
+ *
+ * @mixin \Laminas\Feed\Reader\Entry\EntryInterface
  */
 class FeedPost
 {

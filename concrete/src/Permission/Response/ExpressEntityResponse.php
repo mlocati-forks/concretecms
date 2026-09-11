@@ -5,8 +5,14 @@ use Concrete\Core\Entity\Express\Entity;
 use Concrete\Core\Tree\Node\Node;
 use Permissions;
 
+/**
+ * @mixin \Concrete\Core\Permission\Checker
+ */
 class ExpressEntityResponse extends Response
 {
+    /**
+     * @return \Concrete\Core\Permission\Checker|null
+     */
     protected function getExpressNodePermissions()
     {
         /** @var Entity|null $entity */
@@ -15,6 +21,8 @@ class ExpressEntityResponse extends Response
             $node = Node::getByID($entity->getEntityResultsNodeId());
             return new Permissions($node);
         }
+
+        return null;
     }
 
     public function __call($nm, $arguments)

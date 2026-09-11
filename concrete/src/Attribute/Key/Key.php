@@ -10,6 +10,9 @@ use Concrete\Core\Entity\Attribute\Value\Value\AbstractValue;
 use Concrete\Core\Entity\Attribute\Value\Value\Value;
 use Concrete\Core\Support\Facade\Facade;
 
+/**
+ * @mixin \Concrete\Core\Entity\Attribute\Key\LegacyKey
+ */
 class Key extends Facade implements AttributeKeyInterface
 {
     public static function getFacadeAccessor()

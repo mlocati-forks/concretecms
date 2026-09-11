@@ -7,10 +7,15 @@ use Concrete\Core\Area\ContainerArea;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Page\Stack\Stack;
 
+/**
+ * @mixin \Concrete\Core\Area\Area
+ * @mixin \Concrete\Core\Area\ContainerArea
+ * @mixin \Concrete\Core\Page\Stack\Stack
+ */
 class FluentArea
 {
     /**
-     * @var Area|Stack
+     * @var \Concrete\Core\Area\Area|\Concrete\Core\Area\ContainerArea|\Concrete\Core\Page\Stack\Stack
      */
     private $parent;
     /**

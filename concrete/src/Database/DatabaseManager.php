@@ -6,6 +6,9 @@ use Concrete\Core\Database\Connection\Connection;
 use Concrete\Core\Support\Facade\Config;
 use Doctrine\Persistence\ConnectionRegistry;
 
+/**
+ * @mixin \Concrete\Core\Database\Connection\Connection
+ */
 class DatabaseManager implements ConnectionRegistry
 {
     /**
