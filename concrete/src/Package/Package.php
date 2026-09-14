@@ -32,6 +32,9 @@ use Gettext\Translations;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
+/**
+ * @method \Concrete\Core\Entity\Package install(array $data = []) Install the package info row and the database (doctrine entities and db.xml): $data contains the options specified by the user (for example, the fields of the install form).
+ */
 abstract class Package implements LocalizablePackageInterface
 {
     /**

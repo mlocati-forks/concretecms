@@ -1369,12 +1369,6 @@ parameters:
 			path: ../concrete/src/Package/Package.php
 
 		-
-			message: '#^Method Concrete\\Core\\Package\\Package\:\:install\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../concrete/src/Package/PackageService.php
-
-		-
 			message: '#^Variable \$pkg in empty\(\) always exists and is not falsy\.$#'
 			identifier: empty.variable
 			count: 1
