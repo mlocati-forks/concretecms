@@ -1459,12 +1459,6 @@ parameters:
 			path: ../concrete/src/Page/Type/PublishTarget/Type/Type.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../concrete/src/Page/Type/Type.php
-
-		-
 			message: '#^Property Concrete\\Core\\Permission\\Assignment\\PageAssignment\:\:\$pk \(Concrete\\Core\\Permission\\Key\\PageKey\) does not accept Concrete\\Core\\Permission\\Key\\Key\.$#'
 			identifier: assign.propertyType
 			count: 1

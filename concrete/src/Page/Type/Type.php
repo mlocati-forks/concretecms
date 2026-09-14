@@ -427,10 +427,11 @@ class Type extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
         $defaultTheme = Theme::getByHandle((string) $node->pagetemplates['theme']);
 
         $ptID = $db->GetOne('select ptID from PageTypes where ptHandle = ?', array($ptHandle));
-        $data = array(
+        $data = [
             'handle' => $ptHandle,
             'name' => $ptName,
-        );
+            'allowedTemplates' => $ptAllowedPageTemplates,
+        ];
 
         $siteType = (string) $node['site-type'];
         if ($siteType) {
@@ -443,10 +444,6 @@ class Type extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
 
         if ($defaultTheme) {
             $data['defaultTheme'] = $defaultTheme;
-        }
-
-        if ($ptAllowedPageTemplates) {
-            $data['allowedTemplates'] = $ptAllowedPageTemplates;
         }
 
         $data['internal'] = $xml->getBool($node['internal']) ? 1 : 0;
