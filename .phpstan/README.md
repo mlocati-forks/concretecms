@@ -40,6 +40,7 @@ Always run PHPStan from this directory: the result cache (in the `tmp` directory
 
 The facades (`Core`, `Config`, `Database`, ...), `Concrete\Core\Permission\Checker`, the permission response classes (`Concrete\Core\Permission\Response\*`) the attributed item lists (`PageList`, `FileList`, `UserList`, ...: `filterByXxx()`/`sortByXxx()` for every attribute key) and `Concrete\Core\User\UserInfo` (`getUserXxx()` for every user attribute key) handle their methods with `__callStatic`/`__call`, so PHPStan can't know them.
 The `c5:ide-symbols phpstan` command generates `concrete/src/Support/__PHPSTAN_STUBS__.php` (ignored by git) describing those methods with `@method` annotations: it's used as a [stub file](https://phpstan.org/user-guide/stub-files).
+The same file also describes the return type of `Concrete\Core\Permission\Key\Key::getByHandle()`, which depends on the handle of the permission key (for example `Key::getByHandle('add_block')` returns an `AddBlockBlockTypeKey` instance).
 
 PHPStan validates the stub files in isolation (it only knows the classes declared in the stub files and the PHP built-in ones), so the generated file also contains empty declarations of every class it references, except the ones already declared by the stubs of phpstan-doctrine (that's the purpose of the `--phpstan-other-stubs` option in the `generate-stubs` script).
 

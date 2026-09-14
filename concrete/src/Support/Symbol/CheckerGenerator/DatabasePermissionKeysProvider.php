@@ -43,7 +43,8 @@ final class DatabasePermissionKeysProvider implements PermissionKeysProviderInte
                     $categoryHandle,
                     (string) $key->getPermissionKeyHandle(),
                     (string) $key->getPermissionKeyName(),
-                    (string) $key->getPermissionKeyDescription()
+                    (string) $key->getPermissionKeyDescription(),
+                    get_class($key)
                 );
             }
         }

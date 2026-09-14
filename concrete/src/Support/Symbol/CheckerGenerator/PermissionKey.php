@@ -31,12 +31,21 @@ final class PermissionKey
      */
     private $description;
 
-    public function __construct(string $categoryHandle, string $handle, string $name = '', string $description = '')
+    /**
+     * @var string
+     */
+    private $className;
+
+    /**
+     * @param string $className the fully-qualified name of the class implementing the permission key (empty string if unknown)
+     */
+    public function __construct(string $categoryHandle, string $handle, string $name = '', string $description = '', string $className = '')
     {
         $this->categoryHandle = $categoryHandle;
         $this->handle = $handle;
         $this->name = $name;
         $this->description = $description;
+        $this->className = $className;
     }
 
     public function getCategoryHandle(): string
@@ -57,5 +66,13 @@ final class PermissionKey
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * Get the fully-qualified name of the class implementing the permission key (empty string if unknown).
+     */
+    public function getClassName(): string
+    {
+        return $this->className;
     }
 }

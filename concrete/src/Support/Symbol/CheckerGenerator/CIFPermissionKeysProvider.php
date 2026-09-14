@@ -126,9 +126,29 @@ final class CIFPermissionKeysProvider implements PermissionKeysProviderInterface
             if ($categoryHandle === '' || $handle === '') {
                 continue;
             }
-            $result[] = new PermissionKey($categoryHandle, $handle, (string) $element['name'], (string) $element['description']);
+            $result[] = new PermissionKey($categoryHandle, $handle, (string) $element['name'], (string) $element['description'], $this->getKeyClassName($element));
         }
 
         return $result;
+    }
+
+    /**
+     * Get the name of the class implementing a permission key, as Concrete\Core\Permission\Key\Key::loadAll() does.
+     *
+     * @return string empty string if the class can't be determined (for example, for the keys of packages)
+     */
+    private function getKeyClassName(\SimpleXMLElement $element): string
+    {
+        if ((string) $element['package'] !== '') {
+            return '';
+        }
+        $categoryHandle = (string) $element['category'];
+        if (filter_var((string) $element['has-custom-class'], FILTER_VALIDATE_BOOLEAN)) {
+            $className = 'Concrete\\Core\\Permission\\Key\\' . camelcase((string) $element['handle'] . '_' . $categoryHandle) . 'Key';
+        } else {
+            $className = 'Concrete\\Core\\Permission\\Key\\' . camelcase($categoryHandle) . 'Key';
+        }
+
+        return class_exists($className) ? $className : '';
     }
 }

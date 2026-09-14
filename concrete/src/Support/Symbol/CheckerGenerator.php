@@ -47,6 +47,11 @@ class CheckerGenerator
     private $namespace;
 
     /**
+     * @var array<string, string>|null array keys are the permission key handles, array values are the fully-qualified names of the classes implementing them
+     */
+    private $permissionKeyClassNames;
+
+    /**
      * @param bool $isInstalled is Concrete installed? If so, the permission keys are read from the database, otherwise from the CIF files of the core
      * @param \Concrete\Core\Support\Symbol\CheckerGenerator\PermissionKeysProviderInterface|null $permissionKeysProvider a custom provider of the permission keys (if NULL, we'll use the default one depending on $isInstalled)
      * @param \Concrete\Core\Support\Symbol\ClassLister|null $classLister the lister of the core classes (if NULL, we'll create a new one)
@@ -70,6 +75,29 @@ class CheckerGenerator
         }
 
         return $this->namespace;
+    }
+
+    /**
+     * Get the classes implementing the permission keys (for example, the add_block key is implemented by the AddBlockBlockTypeKey class).
+     *
+     * @return array<string, string> array keys are the permission key handles, array values are the fully-qualified names of the classes implementing them
+     */
+    public function getPermissionKeyClassNames(): array
+    {
+        if ($this->permissionKeyClassNames === null) {
+            $result = [];
+            foreach ($this->permissionKeysProvider->getCategoryHandles() as $categoryHandle) {
+                foreach ($this->permissionKeysProvider->getKeys($categoryHandle) as $key) {
+                    if ($key->getClassName() !== '') {
+                        $result[$key->getHandle()] = ltrim($key->getClassName(), '\\');
+                    }
+                }
+            }
+            ksort($result, SORT_STRING);
+            $this->permissionKeyClassNames = $result;
+        }
+
+        return $this->permissionKeyClassNames;
     }
 
     public function renderLines(string $padding = '    '): array

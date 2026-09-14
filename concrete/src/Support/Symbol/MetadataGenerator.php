@@ -125,6 +125,17 @@ class MetadataGenerator
         }
         $output = array_merge($output, $this->getOverride('\Doctrine\ORM\EntityManagerInterface::find(0)', ['' => "'@'"], '$em->find(EntityClass::class, $id)'));
 
+        // Define \Concrete\Core\Permission\Key\Key::getByHandle('handle')
+        $app = ApplicationFacade::getFacadeApplication();
+        $permissionKeyClassNames = $app->make(CheckerGenerator::class, ['isInstalled' => $app->isInstalled()])->getPermissionKeyClassNames();
+        if ($permissionKeyClassNames !== []) {
+            $getByHandleMethod = [];
+            foreach ($permissionKeyClassNames as $handle => $className) {
+                $getByHandleMethod[$handle] = "\\{$className}::class";
+            }
+            $output = array_merge($output, $this->getOverride('\Concrete\Core\Permission\Key\Key::getByHandle(0)', $getByHandleMethod, 'Key::getByHandle(\'handle\')'));
+        }
+
         return implode("\n", $output);
     }
 
