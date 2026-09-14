@@ -25,6 +25,9 @@ class ValidateUniqueAttributesRoutine implements RoutineInterface
             if ($key->isAttributeKeyUnique()) {
                 $controller = $key->getController();
                 if ($controller instanceof FilterableByValueInterface) {
+                    // Attribute types not respecting the contract of createAttributeValueFromRequest() may return false (for example
+                    // when returning createAttributeValue() without implementing saveValue()) or null (when returning nothing)
+                    /** @var \Concrete\Core\Entity\Attribute\Value\Value\AbstractValue|\Concrete\Core\Attribute\Value\EmptyRequestAttributeValue|false|null $value */
                     $value = $controller->createAttributeValueFromRequest();
                     if ($value) {
                         $valueString = (string) $value;
