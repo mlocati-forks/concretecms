@@ -475,12 +475,6 @@ parameters:
 			path: ../concrete/src/Attribute/Key/Key.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../concrete/src/Attribute/Key/SearchIndexer/StandardSearchIndexer.php
-
-		-
 			message: '#^Parameter \#1 \$request of method Concrete\\Core\\Controller\\AbstractController\:\:setRequest\(\) expects Concrete\\Core\\Http\\Request, Symfony\\Component\\HttpFoundation\\Request given\.$#'
 			identifier: argument.type
 			count: 1
