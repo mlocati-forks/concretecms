@@ -769,12 +769,6 @@ parameters:
 			path: ../concrete/src/Config/DatabaseSaver.php
 
 		-
-			message: '#^Call to an undefined method Symfony\\Component\\Console\\Application\:\:getConcrete\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Console/Command.php
-
-		-
 			message: '#^Call to an undefined method Doctrine\\Common\\Cache\\Cache\:\:flushAll\(\)\.$#'
 			identifier: method.notFound
 			count: 1
