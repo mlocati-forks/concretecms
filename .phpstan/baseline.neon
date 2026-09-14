@@ -1555,12 +1555,6 @@ parameters:
 			path: ../concrete/src/Permission/Assignment/StackAssignment.php
 
 		-
-			message: '#^Method Concrete\\Core\\Permission\\Key\\Key\:\:validate\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../concrete/src/Permission/Key/GroupTreeNodeKey.php
-
-		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
