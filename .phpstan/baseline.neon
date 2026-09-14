@@ -757,12 +757,6 @@ parameters:
 			path: ../concrete/src/Entity/File/Version.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../concrete/src/Entity/File/Version.php
-
-		-
 			message: '#^Cannot call method toArray\(\) on array\<Concrete\\Core\\Entity\\Health\\Report\\Finding\>\.$#'
 			identifier: method.nonObject
 			count: 1
