@@ -48,7 +48,13 @@ final class MiddlewareStack implements StackInterface, ApplicationAwareInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Http\Middleware\StackInterface::withMiddleware()
+     *
+     * @param int $priority lower priority runs first
+     *
+     * @return static
      */
     public function withMiddleware(MiddlewareInterface $middleware, $priority = 10)
     {

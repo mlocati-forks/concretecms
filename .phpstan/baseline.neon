@@ -1126,12 +1126,6 @@ parameters:
 			message: '#^Method Concrete\\Core\\Http\\Middleware\\StackInterface\:\:withMiddleware\(\) invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1
-			path: ../concrete/src/Http/DefaultDispatcher.php
-
-		-
-			message: '#^Method Concrete\\Core\\Http\\Middleware\\StackInterface\:\:withMiddleware\(\) invoked with 2 parameters, 1 required\.$#'
-			identifier: arguments.count
-			count: 1
 			path: ../concrete/src/Http/DefaultServer.php
 
 		-
