@@ -667,12 +667,6 @@ parameters:
 			path: ../concrete/src/Cache/Command/ClearCacheCommandHandler.php
 
 		-
-			message: '#^Call to an undefined method Predis\\Client\:\:flushDB\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Cache/Driver/RedisStashDriver.php
-
-		-
 			message: '#^Parameter \#2 \$opts of class RedisArray constructor expects array\<string, string\>, array\<string, mixed\> given\.$#'
 			identifier: argument.type
 			count: 1

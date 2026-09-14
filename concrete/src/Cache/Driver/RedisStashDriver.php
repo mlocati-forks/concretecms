@@ -307,10 +307,12 @@ class RedisStashDriver extends AbstractDriver
             } else {
                 if ($this->redis instanceof Client && $this->redis->getConnection() instanceof AggregateConnectionInterface) {
                         foreach ($this->redis as $connection) {
-                            $connection->flushDB();
+                            $connection->flushdb();
                         }
-                } else {
+                } elseif ($this->redis instanceof Redis) {
                     $this->redis->flushDB();
+                } else {
+                    $this->redis->flushdb();
                 }
             }
 
