@@ -114,9 +114,14 @@ class PageList extends DatabaseItemList
 
         $keys = CollectionAttributeKey::getSearchableIndexedList();
         $attribsStr = '';
+        $queryBuilder = $db->createQueryBuilder();
         foreach ($keys as $ak) {
             $cnt = $ak->getController();
-            $attribsStr .= ' OR ' . $cnt->searchKeywords($escapedKeywords);
+            $attributeExpression = (string) $cnt->searchKeywords($keywords, $queryBuilder);
+            if ($attributeExpression !== '') {
+                // the attribute controllers build their expressions around the :keywords placeholder
+                $attribsStr .= ' OR ' . str_replace(':keywords', $qk, $attributeExpression);
+            }
         }
 
         if ($simple || $this->indexModeSimple) {

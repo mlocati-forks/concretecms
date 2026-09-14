@@ -74,9 +74,14 @@ class FileList extends DatabaseItemList
         $qkeywords = $db->quote($escapedKeywords);
         $keys = FileAttributeKey::getSearchableIndexedList();
         $attribsStr = '';
+        $queryBuilder = $db->createQueryBuilder();
         foreach ($keys as $ak) {
             $cnt = $ak->getController();
-            $attribsStr .= ' OR ' . $cnt->searchKeywords($escapedKeywords);
+            $attributeExpression = (string) $cnt->searchKeywords($keywords, $queryBuilder);
+            if ($attributeExpression !== '') {
+                // the attribute controllers build their expressions around the :keywords placeholder
+                $attribsStr .= ' OR ' . str_replace(':keywords', $qkeywords, $attributeExpression);
+            }
         }
         $this->filter(false, '(fvFilename like ' . $qkeywords . ' or fvDescription like ' . $qkeywords . ' or fvTitle like ' . $qkeywords . ' or fvTags like ' . $qkeywords . ' or u.uName = ' . $keywordsExact . $attribsStr . ')');
     }
