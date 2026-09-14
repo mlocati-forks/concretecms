@@ -204,9 +204,11 @@ final class Controller implements LoggerAwareInterface
         $app = Application::getFacadeApplication();
         $loginService = $app->make(LoginService::class);
 
+        /** @var \Concrete\Core\Entity\OAuth\Client $client */
+        $client = $request->getClient();
         while ($this->request->getMethod() === 'POST') {
 
-            if (!$this->token->validate('oauth_login_' . $request->getClient()->getClientKey())) {
+            if (!$this->token->validate('oauth_login_' . $client->getClientKey())) {
                 $error->add($this->token->getErrorMessage());
                 break;
             }
@@ -304,6 +306,7 @@ final class Controller implements LoggerAwareInterface
     public function handleAuthorizeClient(AuthorizationRequest $request)
     {
         $error = new ErrorList();
+        /** @var \Concrete\Core\Entity\OAuth\Client $client */
         $client = $request->getClient();
 
         while ($this->request->getMethod() === 'POST') {

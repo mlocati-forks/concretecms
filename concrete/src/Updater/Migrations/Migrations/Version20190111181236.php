@@ -58,6 +58,7 @@ class Version20190111181236 extends AbstractMigration implements RepeatableMigra
 
         /** @var RefreshToken $token */
         foreach ($tokens as $token) {
+            /** @var \Concrete\Core\Entity\OAuth\AccessToken $accessToken */
             $accessToken = $entityManager->merge($token->getAccessToken());
 
             if (!$accessToken->getRefreshToken()) {

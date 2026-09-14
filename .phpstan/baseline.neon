@@ -415,31 +415,13 @@ parameters:
 			path: ../concrete/src/Api/OAuth/Controller.php
 
 		-
-			message: '#^Call to an undefined method League\\OAuth2\\Server\\Entities\\ClientEntityInterface\:\:getClientKey\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: ../concrete/src/Api/OAuth/Controller.php
-
-		-
 			message: '#^Dead catch \- Concrete\\Core\\User\\Exception\\UserDeactivatedException is never thrown in the try block\.$#'
 			identifier: catch.neverThrown
 			count: 1
 			path: ../concrete/src/Api/OAuth/Controller.php
 
 		-
-			message: '#^Call to an undefined method League\\OAuth2\\Server\\AuthorizationValidators\\AuthorizationValidatorInterface\:\:setEncryptionKey\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Api/OAuth/Validator/DefaultValidator.php
-
-		-
-			message: '#^Call to an undefined method League\\OAuth2\\Server\\AuthorizationValidators\\AuthorizationValidatorInterface\:\:setPrivateKey\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Api/OAuth/Validator/DefaultValidator.php
-
-		-
-			message: '#^Call to an undefined method League\\OAuth2\\Server\\AuthorizationValidators\\AuthorizationValidatorInterface\:\:setPublicKey\(\)\.$#'
+			message: '#^Call to an undefined method League\\OAuth2\\Server\\AuthorizationValidators\\BearerTokenValidator\:\:setPrivateKey\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/src/Api/OAuth/Validator/DefaultValidator.php
@@ -2119,13 +2101,13 @@ parameters:
 			path: ../concrete/src/Updater/Migrations/Migrations/Version20150504000000.php
 
 		-
-			message: '#^Call to an undefined method League\\OAuth2\\Server\\Entities\\AccessTokenEntityInterface\:\:getRefreshToken\(\)\.$#'
+			message: '#^Call to an undefined method Concrete\\Core\\Entity\\OAuth\\AccessToken\:\:getRefreshToken\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/src/Updater/Migrations/Migrations/Version20190111181236.php
 
 		-
-			message: '#^Call to an undefined method League\\OAuth2\\Server\\Entities\\AccessTokenEntityInterface\:\:setRefreshToken\(\)\.$#'
+			message: '#^Call to an undefined method Concrete\\Core\\Entity\\OAuth\\AccessToken\:\:setRefreshToken\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/src/Updater/Migrations/Migrations/Version20190111181236.php
