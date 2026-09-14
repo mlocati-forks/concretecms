@@ -50,7 +50,8 @@ class FeedPost
                 return (string) $linkParsed;
             }
         } catch (\Exception $e) {
-            core_log(t('Unable to parse URL from RSS feed: %s', $this->feed->getOriginalSourceUri()), Logger::NOTICE, Channels::CHANNEL_CONTENT);
+            $feedUri = method_exists($this->feed, 'getOriginalSourceUri') ? (string) $this->feed->getOriginalSourceUri() : '';
+            core_log(t('Unable to parse URL from RSS feed: %s', $feedUri), Logger::NOTICE, Channels::CHANNEL_CONTENT);
         }
         return '#';
     }
