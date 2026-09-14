@@ -151,12 +151,6 @@ parameters:
 			path: ../concrete/controllers/install.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../concrete/controllers/panel/page/check_in.php
-
-		-
 			message: '#^PHPDoc type Symfony\\Component\\HttpFoundation\\Request of property Concrete\\Controller\\Permissions\\Access\\Entity\\AccessEntity\:\:\$request is not covariant with PHPDoc type Concrete\\Core\\Http\\Request\|null of overridden property Concrete\\Core\\Controller\\AbstractController\:\:\$request\.$#'
 			identifier: property.phpDocType
 			count: 1
