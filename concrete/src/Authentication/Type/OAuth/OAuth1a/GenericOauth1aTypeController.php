@@ -6,10 +6,14 @@ use Concrete\Core\Routing\RedirectResponse;
 use OAuth\Common\Exception\Exception;
 use Concrete\Core\User\User;
 
+/**
+ * @method \OAuth\OAuth1\Service\AbstractService getService()
+ */
 abstract class GenericOauth1aTypeController extends GenericOauthTypeController
 {
     public function handle_authentication_attempt()
     {
+        /** @var \OAuth\OAuth1\Token\TokenInterface $token */
         $token = $this->getService()->requestRequestToken();
         $url = $this->getService()->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
         id(new RedirectResponse((string) $url))->send();
@@ -53,6 +57,7 @@ abstract class GenericOauth1aTypeController extends GenericOauthTypeController
 
     public function handle_attach_attempt()
     {
+        /** @var \OAuth\OAuth1\Token\TokenInterface $token */
         $token = $this->getService()->requestRequestToken();
         $url = $this->getService()->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
         id(new RedirectResponse((string) $url))->send();
