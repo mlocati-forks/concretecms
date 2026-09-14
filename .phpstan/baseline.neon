@@ -1291,12 +1291,6 @@ parameters:
 			path: ../concrete/src/Package/PackageService.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../concrete/src/Package/Packer/Writer/Zipper.php
-
-		-
 			message: '#^Method Concrete\\Core\\Page\\Collection\\Collection\:\:rescanDisplayOrderFromBlock\(\) with return type void returns mixed but should not return anything\.$#'
 			identifier: return.void
 			count: 1
