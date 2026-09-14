@@ -20,6 +20,8 @@ use Throwable;
  * base command class
  * Large swaths of this class have been copied from illuminate/config 5.2 and 5.5
  * so you may refer to their documentation for some things.
+ *
+ * @method \Concrete\Core\Console\Application|null getApplication()
  */
 abstract class Command extends SymfonyCommand
 {
@@ -347,16 +349,6 @@ abstract class Command extends SymfonyCommand
     public function table(array $headers, array $rows, $tableStyle = 'default', array $columnStyles = [])
     {
         $this->output->table($headers, $rows, $tableStyle, $columnStyles);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return \Symfony\Component\Console\Application|\Concrete\Core\Console\Application
-     */
-    public function getApplication()
-    {
-        return parent::getApplication();
     }
 
     /**
