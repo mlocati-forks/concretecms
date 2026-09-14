@@ -1921,12 +1921,6 @@ parameters:
 			path: ../concrete/src/Session/SessionFactory.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Config\\Repository\:\:save\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Site/InstallationService.php
-
-		-
 			message: '#^Access to protected property Less_Parser\|Less_Tree_Ruleset\:\:\$rules\.$#'
 			identifier: property.protected
 			count: 1
