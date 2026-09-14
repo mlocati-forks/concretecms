@@ -751,12 +751,6 @@ parameters:
 			path: ../concrete/src/Entity/Board/InstanceLog.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../concrete/src/Entity/Express/Control/AttributeKeyControl.php
-
-		-
 			message: '#^Method Concrete\\Core\\Entity\\File\\File\:\:setAttribute\(\) should return Concrete\\Core\\Attribute\\AttributeValueInterface but return statement is missing\.$#'
 			identifier: return.missing
 			count: 1
@@ -1301,12 +1295,6 @@ parameters:
 			identifier: return.missing
 			count: 1
 			path: ../concrete/src/Notification/Type/CoreUpdateType.php
-
-		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../concrete/src/Notification/View/NewFormSubmissionListView.php
 
 		-
 			message: '#^Parameter \#1 \$child of method HtmlObject\\Traits\\TreeObject\:\:appendChild\(\) expects HtmlObject\\Element, HtmlObject\\Link given\.$#'
