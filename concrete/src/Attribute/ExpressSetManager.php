@@ -21,7 +21,7 @@ class ExpressSetManager implements SetManagerInterface
 
     public function getUnassignedAttributeKeys()
     {
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Key\ExpressKey');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Key\ExpressKey');
         return $r->findBy(array('entity' => $this->entity));
     }
 

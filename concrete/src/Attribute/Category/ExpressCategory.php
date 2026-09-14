@@ -243,7 +243,7 @@ class ExpressCategory extends AbstractStandardCategory
      */
     public function getAttributeKeyRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Key\ExpressKey');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Key\ExpressKey');
     }
 
     /**
@@ -253,7 +253,7 @@ class ExpressCategory extends AbstractStandardCategory
      */
     public function getAttributeValueRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\ExpressValue');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\ExpressValue');
     }
 
     /**
@@ -357,7 +357,7 @@ class ExpressCategory extends AbstractStandardCategory
      */
     public function getAttributeValues($entry)
     {
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\ExpressValue');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\ExpressValue');
 
         return $r->findBy([
             'entry' => $entry,

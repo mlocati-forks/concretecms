@@ -701,7 +701,7 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
         }
 
         $em = \ORM::entityManager();
-        $r = $em->getRepository('\Concrete\Core\Entity\File\Version');
+        $r = $em->getRepository('Concrete\Core\Entity\File\Version');
         $fv = $r->findOneBy(['file' => $this, 'fvIsApproved' => true]);
 
         $cache->save($item->set($fv));
@@ -820,7 +820,7 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
     public function getRecentVersion()
     {
         $em = \ORM::entityManager();
-        $r = $em->getRepository('\Concrete\Core\Entity\File\Version');
+        $r = $em->getRepository('Concrete\Core\Entity\File\Version');
 
         return $r->findOneBy(
             ['file' => $this],
@@ -843,7 +843,7 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
         }
 
         $em = \ORM::entityManager();
-        $r = $em->getRepository('\Concrete\Core\Entity\File\Version');
+        $r = $em->getRepository('Concrete\Core\Entity\File\Version');
 
         return $r->findOneBy(['file' => $this, 'fvID' => $fvID]);
     }

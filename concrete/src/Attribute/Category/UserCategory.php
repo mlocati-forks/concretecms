@@ -99,7 +99,7 @@ class UserCategory extends AbstractStandardCategory
      */
     public function getAttributeKeyRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Key\UserKey');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Key\UserKey');
     }
 
     /**
@@ -109,7 +109,7 @@ class UserCategory extends AbstractStandardCategory
      */
     public function getAttributeValueRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\UserValue');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\UserValue');
     }
 
     /**
@@ -224,7 +224,7 @@ class UserCategory extends AbstractStandardCategory
         if ($user instanceof UserInfo) {
             $user = $user->getEntityObject();
         }
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\UserValue');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\UserValue');
 
         return $r->findBy([
             'user' => $user,

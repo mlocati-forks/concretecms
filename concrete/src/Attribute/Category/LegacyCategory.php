@@ -212,7 +212,7 @@ class LegacyCategory implements CategoryInterface, StandardSearchIndexerInterfac
 
     public function deleteKey(Key $key)
     {
-        $values = $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\Value\Value')
+        $values = $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\Value\Value')
             ->findBy(['attribute_key' => $key]);
         $controller = $key->getController();
 

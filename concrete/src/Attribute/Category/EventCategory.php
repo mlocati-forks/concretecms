@@ -58,12 +58,12 @@ class EventCategory extends AbstractStandardCategory
 
     public function getAttributeKeyRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Key\EventKey');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Key\EventKey');
     }
 
     public function getAttributeValueRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\EventValue');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\EventValue');
     }
 
     public function getAttributeValues($version)
