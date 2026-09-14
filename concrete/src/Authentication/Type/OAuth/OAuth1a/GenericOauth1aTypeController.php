@@ -4,6 +4,7 @@ namespace Concrete\Core\Authentication\Type\OAuth\OAuth1a;
 use Concrete\Core\Authentication\Type\OAuth\GenericOauthTypeController;
 use Concrete\Core\Routing\RedirectResponse;
 use OAuth\Common\Exception\Exception;
+use OAuth\Common\Http\Exception\TokenResponseException;
 use Concrete\Core\User\User;
 
 /**
@@ -32,25 +33,26 @@ abstract class GenericOauth1aTypeController extends GenericOauthTypeController
         $token = \Request::getInstance()->get('oauth_token');
         $verifier = \Request::getInstance()->get('oauth_verifier');
 
-        $token = $this->getService()->requestAccessToken($token, $verifier);
+        try {
+            $token = $this->getService()->requestAccessToken($token, $verifier);
+        } catch (TokenResponseException $e) {
+            $this->showError(t('Failed authentication: %s', $e->getMessage()));
+            exit;
+        }
         $this->setToken($token);
 
-        if ($token) {
-            try {
-                $user = $this->attemptAuthentication();
-                if ($user) {
-                    return $this->completeAuthentication($user)->send();
-                } else {
-                    $this->showError(
-                        t('No local user account associated with this user, please log in with a local account and connect your account from your user profile.'));
-                }
-            } catch (Exception $e) {
-                $this->showError($e->getMessage());
-            } catch (\Exception $e) {
-                $this->showError(t('An unexpected error occurred.'));
+        try {
+            $user = $this->attemptAuthentication();
+            if ($user) {
+                return $this->completeAuthentication($user)->send();
+            } else {
+                $this->showError(
+                    t('No local user account associated with this user, please log in with a local account and connect your account from your user profile.'));
             }
-        } else {
-            $this->showError(t('Failed to complete authentication.'));
+        } catch (Exception $e) {
+            $this->showError($e->getMessage());
+        } catch (\Exception $e) {
+            $this->showError(t('An unexpected error occurred.'));
         }
         exit;
     }
@@ -75,13 +77,16 @@ abstract class GenericOauth1aTypeController extends GenericOauthTypeController
         $token = \Request::getInstance()->get('oauth_token');
         $verifier = \Request::getInstance()->get('oauth_verifier');
 
-        $token = $this->getService()->requestAccessToken($token, $verifier);
+        try {
+            $token = $this->getService()->requestAccessToken($token, $verifier);
+        } catch (TokenResponseException $e) {
+            $this->showError(t('Failed authentication: %s', $e->getMessage()));
+            exit;
+        }
 
-        if ($token) {
-            if ($this->bindUser($user, $this->getExtractor(true)->getUniqueId())) {
-                $this->showSuccess(t('Successfully attached.'));
-                exit;
-            }
+        if ($this->bindUser($user, $this->getExtractor(true)->getUniqueId())) {
+            $this->showSuccess(t('Successfully attached.'));
+            exit;
         }
         $this->showError(t('Unable to attach user.'));
         exit;

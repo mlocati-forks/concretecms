@@ -499,12 +499,6 @@ parameters:
 			path: ../concrete/src/Authentication/Type/OAuth/GenericOauthTypeController.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 2
-			path: ../concrete/src/Authentication/Type/OAuth/OAuth1a/GenericOauth1aTypeController.php
-
-		-
 			message: '#^Parameter \#1 \$array \(list\<SimpleXMLElement\>\) of array_values is already a list, call has no effect\.$#'
 			identifier: arrayValues.list
 			count: 1
