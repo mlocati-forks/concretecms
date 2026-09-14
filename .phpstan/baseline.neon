@@ -751,24 +751,6 @@ parameters:
 			path: ../concrete/src/Command/Batch/BatchAwareTrait.php
 
 		-
-			message: '#^Call to an undefined method Symfony\\Component\\Messenger\\Stamp\\StampInterface\:\:getBatchId\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Command/Batch/Listener.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Messenger\\Transport\\Receiver\\ReceiverInterface\:\:find\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Command/Process/Command/DeleteFailedMessageCommandHandler.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Messenger\\Transport\\Receiver\\ReceiverInterface\:\:find\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Command/Process/Command/RetryFailedMessageCommandHandler.php
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 2
@@ -1583,18 +1565,6 @@ parameters:
 			identifier: nullCoalesce.offset
 			count: 1
 			path: ../concrete/src/Mail/Service.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Messenger\\Stamp\\StampInterface\:\:getOutput\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Messenger/HandlersLocator.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Messenger\\Stamp\\StampInterface\:\:getTransportName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Messenger/HandlersLocator.php
 
 		-
 			message: '#^Trait Concrete\\Core\\Messenger\\MessageBusAwareTrait is used zero times and is not analysed\.$#'
