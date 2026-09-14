@@ -386,6 +386,7 @@ class DatabaseStructureManager
 
         // First, we flush the metadata cache.
         if (is_object($cache = $config->getMetadataCacheImpl())) {
+            /** @var \Doctrine\Common\Cache\CacheProvider $cache */
             $cache->flushAll();
         }
 

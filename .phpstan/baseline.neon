@@ -715,12 +715,6 @@ parameters:
 			path: ../concrete/src/Config/DatabaseSaver.php
 
 		-
-			message: '#^Call to an undefined method Doctrine\\Common\\Cache\\Cache\:\:flushAll\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Console/Command/CompareSchemaCommand.php
-
-		-
 			message: '#^Call to sprintf contains 1 placeholder, 2 values given\.$#'
 			identifier: argument.sprintf
 			count: 1
@@ -827,12 +821,6 @@ parameters:
 			identifier: isset.variable
 			count: 1
 			path: ../concrete/src/Database/Connection/Connection.php
-
-		-
-			message: '#^Call to an undefined method Doctrine\\Common\\Cache\\Cache\:\:flushAll\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Database/DatabaseStructureManager.php
 
 		-
 			message: '#^Property Concrete\\Core\\Database\\ForeignKeyFixer\:\:\$connection is never read, only written\.$#'
@@ -1529,12 +1517,6 @@ parameters:
 			identifier: return.empty
 			count: 1
 			path: ../concrete/src/Package/Package.php
-
-		-
-			message: '#^Call to an undefined method Doctrine\\Common\\Cache\\Cache\:\:flushAll\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: ../concrete/src/Package/PackageService.php
 
 		-
 			message: '#^Method Concrete\\Core\\Package\\Package\:\:install\(\) invoked with 1 parameter, 0 required\.$#'
