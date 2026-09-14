@@ -56,11 +56,9 @@ class HandlersLocator implements HandlersLocatorInterface
         if (isset($handlerClass)) {
             $builtClass = $this->app->build($handlerClass);
             if ($builtClass instanceof OutputAwareInterface) {
+                /** @var \Concrete\Core\Command\Task\Stamp\OutputStamp|null $outputStamp */
                 $outputStamp = $envelope->last(OutputStamp::class);
                 if ($outputStamp) {
-                    /**
-                     * @var $outputStamp OutputStamp
-                     */
                     $builtClass->setOutput($outputStamp->getOutput());
                 } else {
                     $builtClass->setOutput(new NullOutput());
@@ -101,7 +99,9 @@ class HandlersLocator implements HandlersLocatorInterface
      */
     private function shouldHandle(Envelope $envelope, HandlerDescriptor $handlerDescriptor): bool
     {
-        if (null === $received = $envelope->last(ReceivedStamp::class)) {
+        /** @var \Symfony\Component\Messenger\Stamp\ReceivedStamp|null $received */
+        $received = $envelope->last(ReceivedStamp::class);
+        if ($received === null) {
             return true;
         }
 
