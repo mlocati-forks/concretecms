@@ -17,10 +17,10 @@ class Forms extends DashboardPageController
     public function on_start()
     {
         parent::on_start();
-        $this->repository = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Entity');
-        $this->formRepository = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Form');
-        $this->fieldSetRepository = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\FieldSet');
-        $this->controlRepository = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Control\Control');
+        $this->repository = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Entity');
+        $this->formRepository = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Form');
+        $this->fieldSetRepository = $this->entityManager->getRepository('Concrete\Core\Entity\Express\FieldSet');
+        $this->controlRepository = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Control\Control');
     }
 
     public function save()

@@ -92,7 +92,7 @@ class SiteCategory extends AbstractStandardCategory
      */
     public function getAttributeKeyRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Key\SiteKey');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Key\SiteKey');
     }
 
     /**
@@ -102,7 +102,7 @@ class SiteCategory extends AbstractStandardCategory
      */
     public function getAttributeValueRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\SiteValue');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\SiteValue');
     }
 
     /**

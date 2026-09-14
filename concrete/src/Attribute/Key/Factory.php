@@ -77,7 +77,7 @@ class Factory
     public function exportTranslations()
     {
         $translations = new Translations();
-        $keys = $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Key\Key')
+        $keys = $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Key\Key')
             ->findAll();
         foreach($keys as $key) {
             $translations->insert('AttributeKeyName', $key->getAttributeKeyName());

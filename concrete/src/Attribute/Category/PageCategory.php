@@ -93,7 +93,7 @@ class PageCategory extends AbstractStandardCategory
      */
     public function getAttributeKeyRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Key\PageKey');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Key\PageKey');
     }
 
     /**
@@ -103,7 +103,7 @@ class PageCategory extends AbstractStandardCategory
      */
     public function getAttributeValueRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\PageValue');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\PageValue');
     }
 
     /**

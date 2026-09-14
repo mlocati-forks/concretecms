@@ -14,7 +14,7 @@ class CustomizeSearch extends DashboardPageController
     public function on_start()
     {
         parent::on_start();
-        $this->repository = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Entity');
+        $this->repository = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Entity');
     }
 
     public function save($id = null)

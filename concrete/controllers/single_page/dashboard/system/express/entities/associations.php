@@ -12,8 +12,8 @@ class Associations extends DashboardPageController
     public function on_start()
     {
         parent::on_start();
-        $this->repository = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Entity');
-        $this->associationRepository = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Association');
+        $this->repository = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Entity');
+        $this->associationRepository = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Association');
     }
 
     public function add($id = null)

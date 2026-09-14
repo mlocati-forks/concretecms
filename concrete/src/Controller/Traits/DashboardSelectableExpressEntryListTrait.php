@@ -76,7 +76,7 @@ trait DashboardSelectableExpressEntryListTrait
 
     public function advanced_search($entityID = null)
     {
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Entity');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Entity');
         $entity = $entityID ? $r->findOneById($entityID) : null;
         if ($entity) {
             $this->renderExpressEntryAdvancedSearchResults($entity);

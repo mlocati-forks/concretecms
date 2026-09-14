@@ -15,7 +15,7 @@ class Feed
     public static function getList()
     {
         $em = \ORM::entityManager();
-        return $em->getRepository('\Concrete\Core\Entity\Page\Feed')->findBy(array(), array('pfTitle' => 'asc'));
+        return $em->getRepository('Concrete\Core\Entity\Page\Feed')->findBy(array(), array('pfTitle' => 'asc'));
     }
 
     public static function exportList(\SimpleXMLElement $node)
@@ -69,7 +69,7 @@ class Feed
     public static function getByHandle($pfHandle)
     {
         $em = \ORM::entityManager();
-        return $em->getRepository('\Concrete\Core\Entity\Page\Feed')->findOneBy(
+        return $em->getRepository('Concrete\Core\Entity\Page\Feed')->findOneBy(
             array('pfHandle' => $pfHandle)
         );
     }

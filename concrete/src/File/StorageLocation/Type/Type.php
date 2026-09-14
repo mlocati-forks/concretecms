@@ -52,7 +52,7 @@ class Type
     public static function getByHandle($fslTypeHandle)
     {
         $em = \ORM::entityManager();
-        $type = $em->getRepository('\Concrete\Core\Entity\File\StorageLocation\Type\Type')->findOneBy(
+        $type = $em->getRepository('Concrete\Core\Entity\File\StorageLocation\Type\Type')->findOneBy(
             array('fslTypeHandle' => $fslTypeHandle,
          ));
 
@@ -67,7 +67,7 @@ class Type
     public static function getList()
     {
         $em = \ORM::entityManager();
-        return $em->getRepository('\Concrete\Core\Entity\File\StorageLocation\Type\Type')->findBy(
+        return $em->getRepository('Concrete\Core\Entity\File\StorageLocation\Type\Type')->findBy(
             array(), array('fslTypeID' => 'asc')
         );
     }
@@ -82,7 +82,7 @@ class Type
     public static function getListByPackage($pkg)
     {
         $em = \ORM::entityManager();
-        return $em->getRepository('\Concrete\Core\Entity\File\StorageLocation\Type\Type')->findBy(
+        return $em->getRepository('Concrete\Core\Entity\File\StorageLocation\Type\Type')->findBy(
             array('pkgID' => $pkg->getPackageID()), array('fslTypeID' => 'asc')
         );
     }

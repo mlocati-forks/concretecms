@@ -194,7 +194,7 @@ class Location extends BackendInterfacePageController
     protected function isCanonicalPathOnAnotherPageExist(int $cID, string $path)
     {
         $em = \ORM::entityManager();
-        return $em->getRepository('\Concrete\Core\Entity\Page\PagePath')
+        return $em->getRepository('Concrete\Core\Entity\Page\PagePath')
             ->createQueryBuilder('pp')
             ->where('pp.cID != :cID')
             ->andWhere('pp.cPath = :cPath')

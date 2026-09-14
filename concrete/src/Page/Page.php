@@ -1491,7 +1491,7 @@ class Page extends Collection implements CategoryMemberInterface,
     {
         $em = \ORM::entityManager();
         $cID = ($this->getCollectionPointerOriginalID() > 0) ? $this->getCollectionPointerOriginalID() : $this->cID;
-        $path = $em->getRepository('\Concrete\Core\Entity\Page\PagePath')->findOneBy(
+        $path = $em->getRepository('Concrete\Core\Entity\Page\PagePath')->findOneBy(
             ['cID' => $cID, 'ppIsCanonical' => true,
         ]);
 
@@ -1552,7 +1552,7 @@ class Page extends Collection implements CategoryMemberInterface,
     {
         $em = \ORM::entityManager();
 
-        return $em->getRepository('\Concrete\Core\Entity\Page\PagePath')->findBy(
+        return $em->getRepository('Concrete\Core\Entity\Page\PagePath')->findBy(
             ['cID' => $this->getCollectionID()], ['ppID' => 'asc']
         );
     }
@@ -1566,7 +1566,7 @@ class Page extends Collection implements CategoryMemberInterface,
     {
         $em = \ORM::entityManager();
 
-        return $em->getRepository('\Concrete\Core\Entity\Page\PagePath')->findBy(
+        return $em->getRepository('Concrete\Core\Entity\Page\PagePath')->findBy(
             ['cID' => $this->getCollectionID(), 'ppIsCanonical' => false,
         ]);
     }

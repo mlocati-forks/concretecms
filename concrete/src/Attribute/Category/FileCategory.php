@@ -92,7 +92,7 @@ class FileCategory extends AbstractStandardCategory
      */
     public function getAttributeKeyRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Key\FileKey');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Key\FileKey');
     }
 
     /**
@@ -102,7 +102,7 @@ class FileCategory extends AbstractStandardCategory
      */
     public function getAttributeValueRepository()
     {
-        return $this->entityManager->getRepository('\Concrete\Core\Entity\Attribute\Value\FileValue');
+        return $this->entityManager->getRepository('Concrete\Core\Entity\Attribute\Value\FileValue');
     }
 
     /**

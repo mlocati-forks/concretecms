@@ -50,7 +50,7 @@ class AssociationType implements TypeInterface
 
     public function getItems(Entity $entity)
     {
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Association');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Association');
         $associations = $r->findBy(['source_entity' => $entity], ['id' => 'asc']);
         $items = [];
         foreach ($associations as $association) {
@@ -63,7 +63,7 @@ class AssociationType implements TypeInterface
 
     public function createControlByIdentifier($id)
     {
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Express\Association');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Express\Association');
         $association = $r->findOneById($id);
         $control = new AssociationControl();
         $control->setAssociation($association);

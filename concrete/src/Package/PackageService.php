@@ -64,7 +64,7 @@ class PackageService
      */
     public function getByHandle($pkgHandle)
     {
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Package');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Package');
 
         return $r->findOneBy(['pkgHandle' => $pkgHandle]);
     }
@@ -78,7 +78,7 @@ class PackageService
      */
     public function getByID($pkgID)
     {
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Package');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Package');
 
         return $r->findOneBy(['pkgID' => $pkgID]);
     }
@@ -90,7 +90,7 @@ class PackageService
      */
     public function getInstalledList()
     {
-        $r = $this->entityManager->getRepository('\Concrete\Core\Entity\Package');
+        $r = $this->entityManager->getRepository('Concrete\Core\Entity\Package');
 
         return $r->findBy(['pkgIsInstalled' => true], ['pkgDateInstalled' => 'asc']);
     }

@@ -24,7 +24,7 @@ class Template
     {
         $em = \ORM::entityManager();
 
-        return $em->getRepository('\Concrete\Core\Entity\Page\Template')
+        return $em->getRepository('Concrete\Core\Entity\Page\Template')
             ->findOneBy(
                 ['pTemplateHandle' => $pTemplateHandle]
             );
@@ -69,7 +69,7 @@ class Template
     public static function getListByPackage($pkg)
     {
         $em = \ORM::entityManager();
-        $list = $em->getRepository('\Concrete\Core\Entity\Page\Template')
+        $list = $em->getRepository('Concrete\Core\Entity\Page\Template')
             ->findBy(
                 ['pkgID' => $pkg->getPackageID()]
             );
@@ -82,7 +82,7 @@ class Template
     {
         $em = \ORM::entityManager();
         $args = ['pTemplateIsInternal' => $includeInternal];
-        $list = $em->getRepository('\Concrete\Core\Entity\Page\Template')->findBy(
+        $list = $em->getRepository('Concrete\Core\Entity\Page\Template')->findBy(
             $args, ['pTemplateID' => 'asc']
         );
         $list = self::sort($list);
