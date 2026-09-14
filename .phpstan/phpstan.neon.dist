@@ -73,6 +73,14 @@ parameters:
             paths:
                 - ../concrete/src/Api/Model/*
                 - ../concrete/src/Api/Response/*
+        # Methods meant to be extended call the parent implementation even when it's empty (AbstractController::on_start(),
+        # Access::save()): the calls are harmless, and they keep working if the parent implementation will do something
+        -
+            message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
+            identifier: staticMethod.resultUnused
+        -
+            message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
+            identifier: staticMethod.resultUnused
         # application/config/database.php only exists in installed instances
         -
             message: '#^Path in include\(\) ".*/application/config/database\.php" is not a file or it does not exist\.$#'

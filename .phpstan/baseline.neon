@@ -37,12 +37,6 @@ parameters:
 			path: ../concrete/controllers/backend/tree/node/drag_request.php
 
 		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/backend/user_interface/marketplace_item.php
-
-		-
 			message: '#^Constant BASE_URL not found\.$#'
 			identifier: constant.notFound
 			count: 1
@@ -53,36 +47,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: ../concrete/controllers/dialog/event/advanced_search.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/dialog/express/search.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/dialog/file/bulk/folder.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/dialog/file/bulk/properties.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/dialog/file/bulk/sets.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/dialog/file/bulk/storage.php
 
 		-
 			message: '#^Property Concrete\\Controller\\Dialog\\File\\Properties\:\:\$category \(Concrete\\Core\\Attribute\\Category\\FileCategory\) does not accept Concrete\\Core\\Attribute\\Category\\CategoryInterface\.$#'
@@ -107,18 +71,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: ../concrete/controllers/dialog/file/upload_complete.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/dialog/page/bulk/permissions.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/dialog/page/bulk/properties.php
 
 		-
 			message: '#^Call to an undefined method Concrete\\Core\\Permission\\Checker\:\:canEditFileSetPermissions\(\)\.$#'
@@ -149,12 +101,6 @@ parameters:
 			identifier: deadCode.unreachable
 			count: 1
 			path: ../concrete/controllers/dialog/type/update_from_type.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/dialog/user/bulk/properties.php
 
 		-
 			message: '#^Method Concrete\\Controller\\Element\\Dashboard\\Express\\Control\\Options\:\:getElement\(\) should return string but return statement is missing\.$#'
@@ -319,22 +265,10 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/users/search.php
 
 		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/single_page/download_file.php
-
-		-
 			message: '#^Access to an undefined property Concrete\\Core\\Authentication\\AuthenticationTypeController\:\:\$apiMethods\.$#'
 			identifier: property.notFound
 			count: 1
 			path: ../concrete/controllers/single_page/login.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/controllers/upgrade.php
 
 		-
 			message: '#^Right side of && is always true\.$#'
@@ -1507,12 +1441,6 @@ parameters:
 			path: ../concrete/src/Page/Controller/PageController.php
 
 		-
-			message: '#^Call to Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Page/Controller/PublicProfilePageController.php
-
-		-
 			message: '#^Expression on left side of \?\? is not nullable\.$#'
 			identifier: nullCoalesce.expr
 			count: 3
@@ -1625,66 +1553,6 @@ parameters:
 			identifier: if.alwaysTrue
 			count: 1
 			path: ../concrete/src/Page/Type/Type.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/AddBlockBlockTypeAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/AddBlockToAreaAreaAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/AddConversationMessageConversationAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/AddFileFileFolderAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/AddSubpagePageAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/EditPagePropertiesPageAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/EditPageThemePageAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/EditUserPropertiesUserAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/NotifyInNotificationCenterNotificationAccess.php
-
-		-
-			message: '#^Call to Concrete\\Core\\Permission\\Access\\Access\:\:save\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: ../concrete/src/Permission/Access/ViewUserAttributesUserAccess.php
 
 		-
 			message: '#^Property Concrete\\Core\\Permission\\Assignment\\PageAssignment\:\:\$pk \(Concrete\\Core\\Permission\\Key\\PageKey\) does not accept Concrete\\Core\\Permission\\Key\\Key\.$#'
