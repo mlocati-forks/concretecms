@@ -90,11 +90,12 @@ class DefaultValidator implements AuthorizationValidatorInterface
     /**
      * Set path to private key.
      *
+     * @deprecated the bearer token validator no longer uses the private key (since league/oauth2-server 8): this method does nothing
+     *
      * @param CryptKey $privateKey
      */
     public function setPrivateKey(CryptKey $privateKey)
     {
-        $this->validator->setPrivateKey($privateKey);
     }
 
     /**
