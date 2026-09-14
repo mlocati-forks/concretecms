@@ -355,40 +355,10 @@ parameters:
 			path: ../concrete/src/Announcement/AnnouncementService.php
 
 		-
-			message: '#^Call to an undefined method League\\Fractal\\Resource\\ResourceAbstract\:\:setCursor\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Api/Controller/Express.php
-
-		-
-			message: '#^Call to an undefined method League\\Fractal\\Resource\\ResourceAbstract\:\:setCursor\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Api/Controller/Files.php
-
-		-
 			message: '#^Variable \$importOptions in PHPDoc tag @var does not exist\.$#'
 			identifier: varTag.variableNotFound
 			count: 1
 			path: ../concrete/src/Api/Controller/Files.php
-
-		-
-			message: '#^Call to an undefined method League\\Fractal\\Resource\\ResourceAbstract\:\:setCursor\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Api/Controller/Groups.php
-
-		-
-			message: '#^Call to an undefined method League\\Fractal\\Resource\\ResourceAbstract\:\:setCursor\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Api/Controller/Pages.php
-
-		-
-			message: '#^Call to an undefined method League\\Fractal\\Resource\\ResourceAbstract\:\:setCursor\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Api/Controller/Users.php
 
 		-
 			message: '#^Constructor of class Concrete\\Core\\Api\\Exception\\InvalidLimitQueryParameterValueException has an unused parameter \$message\.$#'
