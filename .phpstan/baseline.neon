@@ -415,18 +415,6 @@ parameters:
 			path: ../concrete/src/Attribute/Command/RebuildIndexCommandHandler.php
 
 		-
-			message: '#^Method Concrete\\Core\\Controller\\AbstractController\:\:on_before_render\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../concrete/src/Attribute/Controller.php
-
-		-
-			message: '#^Method Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../concrete/src/Attribute/Controller.php
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -551,18 +539,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: ../concrete/src/Block/Block.php
-
-		-
-			message: '#^Method Concrete\\Core\\Controller\\AbstractController\:\:on_before_render\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../concrete/src/Block/BlockController.php
-
-		-
-			message: '#^Method Concrete\\Core\\Controller\\AbstractController\:\:on_start\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../concrete/src/Block/BlockController.php
 
 		-
 			message: '#^Offset ''null'' on \*NEVER\* in isset\(\) always exists and is not nullable\.$#'
