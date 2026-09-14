@@ -1447,12 +1447,6 @@ parameters:
 			path: ../concrete/src/Page/Stack/Pile/PileContent.php
 
 		-
-			message: '#^Method Doctrine\\DBAL\\Query\\Expression\\ExpressionBuilder\:\:or\(\) invoked with 0 parameters, at least 1 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../concrete/src/Page/Stack/StackList.php
-
-		-
 			message: '#^Trait Concrete\\Core\\Page\\Theme\\BedrockThemeTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
