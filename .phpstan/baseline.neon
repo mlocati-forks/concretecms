@@ -1033,12 +1033,6 @@ parameters:
 			path: ../concrete/src/Foundation/ModifiedPsr4ClassLoader.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../concrete/src/Health/Report/Message/EmailReportMessageHandler.php
-
-		-
 			message: '#^Method Concrete\\Core\\Html\\Image\:\:__construct\(\) with return type void returns false but should not return anything\.$#'
 			identifier: return.void
 			count: 1
