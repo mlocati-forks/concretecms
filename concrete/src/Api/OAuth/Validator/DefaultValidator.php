@@ -14,7 +14,7 @@ use Psr\Http\Message\ServerRequestInterface;
 class DefaultValidator implements AuthorizationValidatorInterface
 {
 
-    /** @var \League\OAuth2\Server\AuthorizationValidators\AuthorizationValidatorInterface */
+    /** @var \League\OAuth2\Server\AuthorizationValidators\BearerTokenValidator */
     private $validator;
 
     /** @var \Concrete\Core\Application\Application */
