@@ -1489,12 +1489,6 @@ parameters:
 			path: ../concrete/src/User/User.php
 
 		-
-			message: '#^Constructor of class Concrete\\Core\\User\\UserBannedIp has an unused parameter \$db_name\.$#'
-			identifier: constructor.unusedParameter
-			count: 1
-			path: ../concrete/src/User/UserBannedIp.php
-
-		-
 			message: '#^Method Concrete\\Core\\User\\UserInfo\:\:getUserPublicProfileUrl\(\) should return League\\Url\\UrlInterface\|null but empty return statement found\.$#'
 			identifier: return.empty
 			count: 1

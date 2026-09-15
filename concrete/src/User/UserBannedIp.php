@@ -23,6 +23,7 @@ class UserBannedIp
      */
     protected $ipTo;
 
+    // @phpstan-ignore constructor.unusedParameter ($db_name is kept for backward compatibility only)
     public function __construct($db_name = false, $keys = false)
     {
         if (!$keys) {
