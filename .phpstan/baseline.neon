@@ -145,18 +145,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/system/attributes/sets.php
 
 		-
-			message: '#^Parameter \#1 \$stack of function array_pop is passed by reference, so it expects variables only\.$#'
-			identifier: argument.byRef
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/system/conversations/editor.php
-
-		-
-			message: '#^Parameter \#1 \$stack of function array_pop is passed by reference, so it expects variables only\.$#'
-			identifier: argument.byRef
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/system/conversations/settings.php
-
-		-
 			message: '#^Result of method Concrete\\Controller\\SinglePage\\Dashboard\\System\\Multisite\\Types\:\:prepareAddOrEdit\(\) \(void\) is used\.$#'
 			identifier: method.void
 			count: 2
@@ -257,12 +245,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: ../concrete/src/Authentication/Type/OAuth/BindingService.php
-
-		-
-			message: '#^Parameter \#1 \$stack of function array_shift is passed by reference, so it expects variables only\.$#'
-			identifier: argument.byRef
-			count: 5
-			path: ../concrete/src/Authentication/Type/OAuth/GenericOauthTypeController.php
 
 		-
 			message: '#^Parameter \#1 \$array \(list\<SimpleXMLElement\>\) of array_values is already a list, call has no effect\.$#'

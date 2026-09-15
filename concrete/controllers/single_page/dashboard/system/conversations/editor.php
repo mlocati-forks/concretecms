@@ -26,7 +26,7 @@ class Editor extends DashboardPageController
         }
         $q->closeCursor();
         if (!$active) {
-            $active = array_pop(array_reverse($editors));
+            $active = array_key_first($editors);
         }
         $this->set('active', $active);
         $this->set('editors', $editors);

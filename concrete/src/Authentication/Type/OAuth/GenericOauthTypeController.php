@@ -255,13 +255,13 @@ abstract class GenericOauthTypeController extends AuthenticationTypeController
         /** @var FlashBagInterface $flashbag */
         $flashbag = $this->app->make('session')->getFlashBag();
         if ($this->supportsFullName()) {
-            $this->fullName = array_shift($flashbag->peek('fullName'));
+            $this->fullName = $flashbag->peek('fullName')[0] ?? null;
         } else {
-            $this->firstName = array_shift($flashbag->peek('firstName'));
-            $this->lastName = array_shift($flashbag->peek('lastName'));
+            $this->firstName = $flashbag->peek('firstName')[0] ?? null;
+            $this->lastName = $flashbag->peek('lastName')[0] ?? null;
         }
-        $this->username = array_shift($flashbag->peek('username'));
-        $accessToken = array_shift($flashbag->peek('token'));
+        $this->username = $flashbag->peek('username')[0] ?? null;
+        $accessToken = $flashbag->peek('token')[0] ?? null;
 
         $token_helper = new Token();
 
