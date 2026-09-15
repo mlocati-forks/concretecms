@@ -169,12 +169,6 @@ parameters:
 			path: ../concrete/controllers/search/standard.php
 
 		-
-			message: '#^Access to an undefined property Concrete\\Core\\Authentication\\AuthenticationTypeController\:\:\$apiMethods\.$#'
-			identifier: property.notFound
-			count: 1
-			path: ../concrete/controllers/single_page/account/edit_profile.php
-
-		-
 			message: '#^Loose comparison using \=\= between 0\|0\.0\|''0'' and ''0'' will always evaluate to true\.$#'
 			identifier: equal.alwaysTrue
 			count: 1
@@ -251,12 +245,6 @@ parameters:
 			identifier: empty.variable
 			count: 1
 			path: ../concrete/controllers/single_page/dashboard/users/search.php
-
-		-
-			message: '#^Access to an undefined property Concrete\\Core\\Authentication\\AuthenticationTypeController\:\:\$apiMethods\.$#'
-			identifier: property.notFound
-			count: 1
-			path: ../concrete/controllers/single_page/login.php
 
 		-
 			message: '#^Right side of && is always true\.$#'

@@ -20,6 +20,14 @@ abstract class AuthenticationTypeController extends Controller implements Logger
     protected $authenticationType;
     protected $app;
 
+    /**
+     * The methods of the controller that can be called with the /login/callback/<authentication type handle>/<method> and
+     * /account/edit_profile/callback/<authentication type handle>/<method> URLs (in addition to the callback() method).
+     *
+     * @var string[]|null
+     */
+    public $apiMethods;
+
     use LoggerAwareTrait;
 
     /**
