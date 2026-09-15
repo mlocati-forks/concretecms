@@ -175,12 +175,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/system/multisite/types.php
 
 		-
-			message: '#^If condition is always false\.$#'
-			identifier: if.alwaysFalse
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/system/registration/authentication.php
-
-		-
 			message: '#^Anonymous function has an unused use \$globalConfig\.$#'
 			identifier: closure.unusedUse
 			count: 1
