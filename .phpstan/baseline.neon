@@ -1177,18 +1177,6 @@ parameters:
 			path: ../concrete/src/Page/Theme/Documentation/AtomikDocumentationProvider.php
 
 		-
-			message: '#^Cannot call method setTheme\(\) on null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../concrete/src/Page/Theme/Documentation/Installer.php
-
-		-
-			message: '#^Result of method Concrete\\Core\\Page\\Theme\\Documentation\\CustomDocumentationPageInterface\:\:installDocumentationPage\(\) \(void\) is used\.$#'
-			identifier: method.void
-			count: 1
-			path: ../concrete/src/Page/Theme/Documentation/Installer.php
-
-		-
 			message: '#^Unsafe call to private method Concrete\\Core\\Page\\Theme\\Theme\:\:getThemeNameAndDescription\(\) through static\:\:\.$#'
 			identifier: staticClassAccess.privateMethod
 			count: 2
