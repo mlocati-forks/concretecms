@@ -28,9 +28,14 @@ class DefaultConfiguration extends LocalConfiguration
         return app('error');
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\File\StorageLocation\Configuration\LocalConfiguration::loadFromRequest()
+     */
     public function loadFromRequest(\Concrete\Core\Http\Request $req)
     {
-        return false;
+        // The paths are fixed: nothing to load
     }
 
     public function __sleep()

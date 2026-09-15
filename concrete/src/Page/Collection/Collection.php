@@ -1011,7 +1011,9 @@ class Collection extends ConcreteObject implements TrackableInterface
     {
         /** This block doesnt have a display order */
         if ($block->getBlockDisplayOrder() === null) {
-            return $this->rescanDisplayOrder($arHandle);
+            $this->rescanDisplayOrder($arHandle);
+
+            return;
         }
         $fromDisplay = $fromDisplay ?? $block->getBlockDisplayOrder();
         $cID = $this->cID;

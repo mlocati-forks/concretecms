@@ -367,18 +367,6 @@ parameters:
 			path: ../concrete/src/Csv/Import/ImportResult.php
 
 		-
-			message: '#^Method Concrete\\Core\\Database\\Schema\\MySqlSchemaManager\:\:createTable\(\) with return type void returns null but should not return anything\.$#'
-			identifier: return.void
-			count: 1
-			path: ../concrete/src/Database/Schema/MySqlSchemaManager.php
-
-		-
-			message: '#^Result of method Doctrine\\DBAL\\Schema\\AbstractSchemaManager\:\:createTable\(\) \(void\) is used\.$#'
-			identifier: staticMethod.void
-			count: 1
-			path: ../concrete/src/Database/Schema/MySqlSchemaManager.php
-
-		-
 			message: '#^Variable \$password on left side of \?\? always exists and is not nullable\.$#'
 			identifier: nullCoalesce.variable
 			count: 1
@@ -451,12 +439,6 @@ parameters:
 			path: ../concrete/src/File/Service/Zip.php
 
 		-
-			message: '#^Method Concrete\\Core\\File\\StorageLocation\\Configuration\\DefaultConfiguration\:\:loadFromRequest\(\) with return type void returns false but should not return anything\.$#'
-			identifier: return.void
-			count: 1
-			path: ../concrete/src/File/StorageLocation/Configuration/DefaultConfiguration.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between string and false will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 3
@@ -491,12 +473,6 @@ parameters:
 			identifier: nullCoalesce.offset
 			count: 1
 			path: ../concrete/src/Foundation/Composer.php
-
-		-
-			message: '#^Method Concrete\\Core\\Html\\Image\:\:__construct\(\) with return type void returns false but should not return anything\.$#'
-			identifier: return.void
-			count: 1
-			path: ../concrete/src/Html/Image.php
 
 		-
 			message: '#^Loose comparison using \!\= between '''' and '''' will always evaluate to false\.$#'
@@ -683,12 +659,6 @@ parameters:
 			identifier: empty.variable
 			count: 1
 			path: ../concrete/src/Package/PackageService.php
-
-		-
-			message: '#^Method Concrete\\Core\\Page\\Collection\\Collection\:\:rescanDisplayOrderFromBlock\(\) with return type void returns mixed but should not return anything\.$#'
-			identifier: return.void
-			count: 1
-			path: ../concrete/src/Page/Collection/Collection.php
 
 		-
 			message: '#^Method Concrete\\Core\\Page\\Collection\\Version\\Version\:\:avoidApprovalOverlapping\(\) is unused\.$#'
