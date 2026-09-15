@@ -37,7 +37,7 @@ class SearchPreset extends Node
 
     public function getTreeNodeDisplayName($format = 'html')
     {
-        return $this->getTreeNodeName();
+        return $this->getTreeNodeName() ?? '';
     }
 
     public function getTreeNodeMenu()

@@ -39,7 +39,7 @@ class Topic extends TreeNode
 
     public function getTreeNodeDisplayName($format = 'html')
     {
-        $name = $this->getTreeNodeName();
+        $name = $this->getTreeNodeName() ?? '';
         $name = tc($this->getTreeNodeTranslationContext(), $name);
         switch ($format) {
             case 'html':
