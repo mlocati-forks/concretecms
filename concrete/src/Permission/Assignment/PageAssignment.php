@@ -9,7 +9,7 @@ use Concrete\Core\Permission\Key\Key;
 use Concrete\Core\Support\Facade\Application;
 
 /**
- * @property \Concrete\Core\Permission\Key\PageKey $pk
+ * @property \Concrete\Core\Permission\Key\PageKey|null $pk
  *
  * @method \Concrete\Core\Page\Page getPermissionObject()
  */
