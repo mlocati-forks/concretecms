@@ -679,12 +679,6 @@ parameters:
 			path: ../concrete/src/Localization/Translation/Local/Factory.php
 
 		-
-			message: '#^Property Concrete\\Core\\Localization\\Translator\\Loader\\Gettext\:\:\$webrootDirectory is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../concrete/src/Localization/Translator/Loader/Gettext.php
-
-		-
 			message: '#^Call to an undefined method Concrete\\Core\\Mail\\Importer\\MailImporter\:\:process\(\)\.$#'
 			identifier: method.notFound
 			count: 1
