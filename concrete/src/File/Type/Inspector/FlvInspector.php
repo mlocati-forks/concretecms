@@ -295,7 +295,7 @@ class FlvInspector extends Inspector
         $result = null;
         if (isset($data[0])) {
             $type = $this->parseUI8($data[0]);
-            $data = substr($data, 1);
+            $data = (string) substr($data, 1);
             switch ($type) {
                 case 0: // Number
                     $result = $this->extractScriptDataValue_Double($data);
@@ -339,7 +339,7 @@ class FlvInspector extends Inspector
     private function extractScriptDataValue_UI16(&$data)
     {
         $result = $this->parseUI16(substr($data, 0, 2));
-        $data = substr($data, 2);
+        $data = (string) substr($data, 2);
 
         return $result;
     }
@@ -354,7 +354,7 @@ class FlvInspector extends Inspector
     private function extractScriptDataValue_Double(&$data)
     {
         $result = $this->parseDouble(substr($data, 0, 8));
-        $data = substr($data, 8);
+        $data = (string) substr($data, 8);
 
         return $result;
     }
@@ -369,7 +369,7 @@ class FlvInspector extends Inspector
     private function extractScriptDataValue_Boolean(&$data)
     {
         $result = $this->parseUI8($data[0]) !== 0;
-        $data = substr($data, 1);
+        $data = (string) substr($data, 1);
 
         return $result;
     }
@@ -385,7 +385,7 @@ class FlvInspector extends Inspector
     {
         $stringLength = $this->parseUI16(substr($data, 0, 2));
         $result = substr($data, 2, $stringLength);
-        $data = substr($data, 2 + $stringLength);
+        $data = (string) substr($data, 2 + $stringLength);
 
         return $result;
     }
@@ -402,7 +402,7 @@ class FlvInspector extends Inspector
         $result = [];
         if (isset($data[4])) {
             $approximateLength = $this->parseUI32(substr($data, 0, 4));
-            $data = substr($data, 4);
+            $data = (string) substr($data, 4);
             while ($data !== '') {
                 $propertyName = $this->extractScriptDataValue_String($data);
                 $propertyValue = $this->extractScriptDataValue($data);
