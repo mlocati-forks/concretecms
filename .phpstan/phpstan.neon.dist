@@ -31,6 +31,9 @@ parameters:
         - Concrete\Core\Foundation\ConcreteObject
         - Concrete\Core\Legacy\Model
         - Concrete\Core\Calendar\Event\EventRepetition
+    # Don't assume that calling again a method without a declared return type gives the same result: for example,
+    # PageController::isReplaced() may change after runAction() (which may call PageController::replace())
+    rememberPossiblyImpureFunctionValues: false
     bootstrapFiles:
         - bootstrap.php
     # Constants whose value depends on the environment (PHPStan would otherwise assume the values of this instance).

@@ -109,12 +109,6 @@ parameters:
 			path: ../concrete/controllers/install.php
 
 		-
-			message: '#^Negated boolean expression is always true\.$#'
-			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: ../concrete/controllers/install.php
-
-		-
 			message: '#^PHPDoc type Symfony\\Component\\HttpFoundation\\Request of property Concrete\\Controller\\Permissions\\Access\\Entity\\AccessEntity\:\:\$request is not covariant with PHPDoc type Concrete\\Core\\Http\\Request\|null of overridden property Concrete\\Core\\Controller\\AbstractController\:\:\$request\.$#'
 			identifier: property.phpDocType
 			count: 1
@@ -137,6 +131,12 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/controllers/search/standard.php
+
+		-
+			message: '#^Variable \$box might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../concrete/controllers/single_page/account/messages.php
 
 		-
 			message: '#^Loose comparison using \=\= between 0\|0\.0\|''0'' and ''0'' will always evaluate to true\.$#'
@@ -179,6 +179,12 @@ parameters:
 			identifier: closure.unusedUse
 			count: 1
 			path: ../concrete/controllers/single_page/dashboard/system/seo/urls.php
+
+		-
+			message: '#^Argument of an invalid type bool\|float\|int\|string supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: ../concrete/controllers/single_page/dashboard/users/add.php
 
 		-
 			message: '#^Right side of && is always false\.$#'
@@ -227,6 +233,12 @@ parameters:
 			identifier: property.phpDocType
 			count: 1
 			path: ../concrete/src/Application/Service/Dashboard.php
+
+		-
+			message: '#^Variable \$cIcon might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../concrete/src/Application/Service/Dashboard/Sitemap.php
 
 		-
 			message: '#^Constant ONLINE_NOW_SRC_OFF not found\.$#'
@@ -581,12 +593,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: ../concrete/src/Http/RequestBase.php
-
-		-
-			message: '#^If condition is always false\.$#'
-			identifier: if.alwaysFalse
-			count: 1
-			path: ../concrete/src/Http/ResponseFactory.php
 
 		-
 			message: '#^Call to an undefined method Concrete\\Core\\Routing\\Router\:\:getAction\(\)\.$#'
@@ -1037,12 +1043,6 @@ parameters:
 			identifier: return.empty
 			count: 1
 			path: ../concrete/src/User/Login/LoginAttemptService.php
-
-		-
-			message: '#^Negated boolean expression is always true\.$#'
-			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: ../concrete/src/User/User.php
 
 		-
 			message: '#^Right side of \|\| is always false\.$#'
