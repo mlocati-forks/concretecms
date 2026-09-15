@@ -52,11 +52,6 @@ class ClearCacheCommandHandler
         'page' => 'cache/page'
     ];
 
-    /**
-     * @var bool
-     */
-    private $clearGlobalAreas = true;
-
     public function __construct(
         EventDispatcher $dispatcher,
         DatabaseManager $manager,
@@ -121,10 +116,11 @@ class ClearCacheCommandHandler
 
     /**
      * @param boolean $clearGlobalAreas
+     *
+     * @deprecated use \Concrete\Core\Cache\Command\ClearCacheCommand::setClearGlobalAreas()
      */
     public function setClearGlobalAreas($clearGlobalAreas)
     {
-        $this->clearGlobalAreas = $clearGlobalAreas;
     }
 
     /**
