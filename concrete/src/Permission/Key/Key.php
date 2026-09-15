@@ -212,7 +212,7 @@ abstract class Key extends ConcreteObject
      */
     public function getPermissionObjectToCheck()
     {
-        if (isset($this->permissionObjectToCheck) && is_object($this->permissionObjectToCheck)) {
+        if (is_object($this->permissionObjectToCheck ?? null)) {
             return $this->permissionObjectToCheck;
         } else {
             return $this->permissionObject;

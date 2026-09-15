@@ -277,12 +277,6 @@ parameters:
 			path: ../concrete/src/Attribute/Key/Key.php
 
 		-
-			message: '#^Right side of && is always true\.$#'
-			identifier: booleanAnd.rightAlwaysTrue
-			count: 1
-			path: ../concrete/src/Attribute/Key/Key.php
-
-		-
 			message: '#^Parameter \#1 \$func of method Doctrine\\DBAL\\Connection\:\:transactional\(\) expects Closure\(Doctrine\\DBAL\\Connection\)\: void, Closure\(Concrete\\Core\\Database\\Connection\\Connection\)\: void given\.$#'
 			identifier: argument.type
 			count: 1
@@ -839,12 +833,6 @@ parameters:
 			identifier: nullCoalesce.offset
 			count: 1
 			path: ../concrete/src/Page/Type/Composer/Control/CorePageProperty/DescriptionCorePageProperty.php
-
-		-
-			message: '#^Right side of && is always true\.$#'
-			identifier: booleanAnd.rightAlwaysTrue
-			count: 1
-			path: ../concrete/src/Permission/Key/Key.php
 
 		-
 			message: '#^Call to method Concrete\\Core\\Routing\\RedirectResponse\:\:setRequest\(\) on a separate line has no effect\.$#'

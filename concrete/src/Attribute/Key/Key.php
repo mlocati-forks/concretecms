@@ -151,7 +151,7 @@ class Key extends Facade implements AttributeKeyInterface
      */
     public function __call($name, $arguments)
     {
-        if (isset($this->legacyAttributeKey) && is_object($this->legacyAttributeKey)) {
+        if (is_object($this->legacyAttributeKey)) {
             return call_user_func_array([$this->legacyAttributeKey, $name], $arguments);
         } else {
             throw new \Exception(t('Unable to retrieve legacy attribute key for method: %s', $name));
