@@ -84,6 +84,9 @@ class FlysystemFileResponse extends Response
             $file->setFilesystem($this->filesystem);
         } else {
             $file = $this->filesystem->get($file);
+            if (!$file instanceof File) {
+                throw new FileException('The path must identify a file.');
+            }
         }
 
         if (!$this->filesystem->has($file->getPath())) {
