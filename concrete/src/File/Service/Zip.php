@@ -399,6 +399,8 @@ class Zip
                 $result = t('Unknown ZIP-related problem (code: %s).', $errorCode);
                 break;
         }
+        // PHP 7 returns false (with a warning) if the archive is not open, PHP 8+ always returns a string
+        /** @var string|false $status */
         $status = @$zip->getStatusString();
         if (is_string($status) && $status !== '') {
             if ($result === '') {
