@@ -25,9 +25,8 @@ class AppendHTMLModifier implements ModifierInterface
     public function __construct(Navigation $navigationService, Page $currentPage)
     {
         $this->navigationService = $navigationService;
-        //$this->currentPage = $currentPage;
-        $c = Page::getCurrentPage();
-        $this->currentPage = $c;
+        // The container passes an empty page when the callers do not specify it
+        $this->currentPage = $currentPage->isError() ? Page::getCurrentPage() : $currentPage;
     }
 
     protected function removeUnrelatedSectionsFromNavigation(array $items, array $sectionIDs)
