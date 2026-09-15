@@ -1027,6 +1027,8 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
         if ($fv !== null) {
             return $fv->setAttribute($ak, $value);
         }
+
+        return null;
     }
 
     /**
