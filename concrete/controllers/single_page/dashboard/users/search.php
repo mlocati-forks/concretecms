@@ -202,10 +202,10 @@ class Search extends DashboardPageController
     {
         $headerMenu = $this->getHeaderMenu();
         $headerSearch = $this->getHeaderSearch();
-        /** @var \Concrete\Controller\Element\Users\Search\Menu $headerMenuController the controller of the 'users/search/menu' element */
+        /** @var \Concrete\Controller\Element\Users\Search\Menu $headerMenuController */
         $headerMenuController = $headerMenu->getElementController();
         $headerMenuController->setQuery($result->getQuery());
-        /** @var \Concrete\Controller\Element\Users\Search\Search $headerSearchController the controller of the 'users/search/search' element */
+        /** @var \Concrete\Controller\Element\Users\Search\Search $headerSearchController */
         $headerSearchController = $headerSearch->getElementController();
         $headerSearchController->setQuery($result->getQuery());
         $query = $this->getExportQueryParameters();
@@ -501,7 +501,7 @@ class Search extends DashboardPageController
             if (!$error->has()) {
                 $this->user->update($data);
                 $message[] = t('User updated successfully.');
-                if (!empty($password)) {
+                if (isset($data['uPassword'])) {
                     $message[] = t('Password changed successfully.');
                 }
                 $this->flash('success', implode(' ', $message));
@@ -688,7 +688,7 @@ class Search extends DashboardPageController
 
         $this->renderSearchResult($result);
 
-        /** @var \Concrete\Controller\Element\Users\Search\Search $headerSearchController the controller of the 'users/search/search' element */
+        /** @var \Concrete\Controller\Element\Users\Search\Search $headerSearchController */
         $headerSearchController = $this->headerSearch->getElementController();
         $headerSearchController->setQuery(null);
     }
