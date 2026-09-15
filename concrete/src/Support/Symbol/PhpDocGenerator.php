@@ -202,9 +202,7 @@ class PhpDocGenerator
                                 if (empty($commonObjectDescriptors)) {
                                     break;
                                 }
-                                if (!empty($commonObjectDescriptors)) {
-                                    $commonObjectDescriptors = array_intersect($commonObjectDescriptors, $this->getObjectDescriptors($item));
-                                }
+                                $commonObjectDescriptors = array_intersect($commonObjectDescriptors, $this->getObjectDescriptors($item));
                             }
                         }
                     }

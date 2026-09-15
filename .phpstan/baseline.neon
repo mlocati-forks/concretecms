@@ -571,12 +571,6 @@ parameters:
 			path: ../concrete/src/Package/Offline/Inspector.php
 
 		-
-			message: '#^Variable \$pkg in empty\(\) always exists and is not falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: ../concrete/src/Package/PackageService.php
-
-		-
 			message: '#^Method Concrete\\Core\\Page\\Collection\\Version\\Version\:\:avoidApprovalOverlapping\(\) is unused\.$#'
 			identifier: method.unused
 			count: 1
@@ -677,12 +671,6 @@ parameters:
 			identifier: notIdentical.alwaysFalse
 			count: 1
 			path: ../concrete/src/Support/Symbol/CheckerGenerator.php
-
-		-
-			message: '#^Variable \$commonObjectDescriptors in empty\(\) always exists and is not falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: ../concrete/src/Support/Symbol/PhpDocGenerator.php
 
 		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'
