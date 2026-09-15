@@ -840,7 +840,7 @@ class UserInfo extends ConcreteObject implements AttributeObjectInterface, Permi
         $config = $site->getConfigRepository();
 
         if (!$config->get('user.profiles_enabled')) {
-            return;
+            return null;
         }
         $url = $this->application->make('url/manager');
 

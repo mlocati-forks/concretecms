@@ -679,12 +679,6 @@ parameters:
 			path: ../concrete/src/Package/Offline/Inspector.php
 
 		-
-			message: '#^Method Concrete\\Core\\Package\\Package\:\:getPackageEntityManager\(\) should return Doctrine\\ORM\\EntityManager\|null but empty return statement found\.$#'
-			identifier: return.empty
-			count: 1
-			path: ../concrete/src/Package/Package.php
-
-		-
 			message: '#^Variable \$pkg in empty\(\) always exists and is not falsy\.$#'
 			identifier: empty.variable
 			count: 1
@@ -713,12 +707,6 @@ parameters:
 			identifier: nullCoalesce.expr
 			count: 3
 			path: ../concrete/src/Page/Exporter.php
-
-		-
-			message: '#^Method Concrete\\Core\\Page\\Page\:\:delete\(\) should return false\|null but empty return statement found\.$#'
-			identifier: return.empty
-			count: 1
-			path: ../concrete/src/Page/Page.php
 
 		-
 			message: '#^Negated boolean expression is always true\.$#'
@@ -925,22 +913,10 @@ parameters:
 			path: ../concrete/src/User/Login/LoginAttemptService.php
 
 		-
-			message: '#^Method Concrete\\Core\\User\\Login\\LoginAttemptService\:\:trackAttempt\(\) should return \$this\(Concrete\\Core\\User\\Login\\LoginAttemptService\) but empty return statement found\.$#'
-			identifier: return.empty
-			count: 1
-			path: ../concrete/src/User/Login/LoginAttemptService.php
-
-		-
 			message: '#^Right side of \|\| is always false\.$#'
 			identifier: booleanOr.rightAlwaysFalse
 			count: 1
 			path: ../concrete/src/User/User.php
-
-		-
-			message: '#^Method Concrete\\Core\\User\\UserInfo\:\:getUserPublicProfileUrl\(\) should return League\\Url\\UrlInterface\|null but empty return statement found\.$#'
-			identifier: return.empty
-			count: 1
-			path: ../concrete/src/User/UserInfo.php
 
 		-
 			message: '#^Return type \(array\<Concrete\\Core\\User\\Workflow\\Progress\\User\>\) of method Concrete\\Core\\User\\Workflow\\Progress\\ProgressList\:\:get\(\) should be compatible with return type \(array\<Concrete\\Core\\User\\UserInfo\>\) of method Concrete\\Core\\Legacy\\UserList\:\:get\(\)$#'

@@ -3054,7 +3054,7 @@ EOT
         if ($this->isAliasPage() && !$this->isExternalLink()) {
             $this->removeThisAlias();
 
-            return;
+            return null;
         }
 
         if ($cID < 1 || $cID == static::getHomePageID()) {
