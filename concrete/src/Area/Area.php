@@ -419,7 +419,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * Clear the request cache of the areas of a page.
      *
-     * @param \Concrete\Core\Page\Page $c
+     * @param \Concrete\Core\Page\Collection\Collection $c
      */
     public static function refreshCacheForPage($c)
     {
@@ -429,7 +429,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     }
 
     /**
-     * @param Page $c
+     * @param \Concrete\Core\Page\Collection\Collection $c
      *
      * @deprecated use the static refreshCacheForPage() method
      */
@@ -491,7 +491,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     /**
      * Creates an area in the database. I would like to make this static but PHP pre 5.3 sucks at this stuff.
      *
-     * @param Page $c
+     * @param \Concrete\Core\Page\Collection\Collection $c
      * @param string $arHandle
      *
      * @return Area
@@ -771,7 +771,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
     }
 
     /**
-     * @param Page $c
+     * @param \Concrete\Core\Page\Collection\Collection $c
      * @param string $arHandle
      *
      * @return Area
