@@ -439,12 +439,6 @@ parameters:
 			path: ../concrete/src/File/Type/Inspector/FlvInspector.php
 
 		-
-			message: '#^Call to function is_numeric\(\) with numeric\-string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 2
-			path: ../concrete/src/File/Upload/ClientSideUploader.php
-
-		-
 			message: '#^Inner named functions are not supported by PHPStan\. Consider refactoring to an anonymous function, class method, or a top\-level\-defined function\. See issue \#165 \(https\://github\.com/phpstan/phpstan/issues/165\) for more details\.$#'
 			identifier: function.inner
 			count: 1
@@ -779,12 +773,6 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: ../concrete/src/Tree/Node/Node.php
-
-		-
-			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../concrete/src/Tree/Tree.php
 
 		-
 			message: '#^Access to an undefined property Concrete\\Core\\Permission\\Duration\:\:\$pdEndDate\.$#'
