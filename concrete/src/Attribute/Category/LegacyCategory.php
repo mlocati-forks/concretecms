@@ -121,7 +121,7 @@ class LegacyCategory implements CategoryInterface, StandardSearchIndexerInterfac
 
     public function addFromRequest(\Concrete\Core\Entity\Attribute\Type $type, Request $request)
     {
-        // TODO: Implement addFromRequest() method.
+        throw new \RuntimeException(t('The legacy attribute categories do not support adding attribute keys from a request.'));
     }
 
     public function updateFromRequest(Key $key, Request $request)

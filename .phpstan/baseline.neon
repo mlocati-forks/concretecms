@@ -397,12 +397,6 @@ parameters:
 			path: ../concrete/src/Attribute/Category/ExpressCategory.php
 
 		-
-			message: '#^Method Concrete\\Core\\Attribute\\Category\\LegacyCategory\:\:addFromRequest\(\) should return Concrete\\Core\\Entity\\Attribute\\Key\\Key but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Attribute/Category/LegacyCategory.php
-
-		-
 			message: '#^Variable \$key in PHPDoc tag @var does not exist\.$#'
 			identifier: varTag.variableNotFound
 			count: 1
@@ -1199,12 +1193,6 @@ parameters:
 			identifier: constructor.unusedParameter
 			count: 1
 			path: ../concrete/src/Navigation/Modifier/AppendHTMLModifier.php
-
-		-
-			message: '#^Method Concrete\\Core\\Notification\\Type\\CoreUpdateType\:\:createNotification\(\) should return Concrete\\Core\\Entity\\Notification\\Notification but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Notification/Type/CoreUpdateType.php
 
 		-
 			message: '#^Parameter \#1 \$child of method HtmlObject\\Traits\\TreeObject\:\:appendChild\(\) expects HtmlObject\\Element, HtmlObject\\Link given\.$#'
