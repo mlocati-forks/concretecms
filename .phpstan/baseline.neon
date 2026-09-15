@@ -559,12 +559,6 @@ parameters:
 			path: ../concrete/src/Install/Installer.php
 
 		-
-			message: '#^Dead catch \- Exception is never thrown in the try block\.$#'
-			identifier: catch.neverThrown
-			count: 1
-			path: ../concrete/src/Install/Preconditions/DatabaseCharsetCollation.php
-
-		-
 			message: '#^Argument of an invalid type \$this\(Concrete\\Core\\Legacy\\Model\) supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 2
