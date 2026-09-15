@@ -64,6 +64,7 @@ parameters:
         - stubs/gettext-3.stub
         - stubs/html-object.stub
         - stubs/illuminate-filesystem.stub
+        - stubs/league-flysystem-1.stub
         - stubs/league-fractal-0.stub
     scanFiles:
         # Declarations of the lcobucci/jwt 4.x classes used by the code (composer.lock installs 3.4.6): see the file itself
