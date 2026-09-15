@@ -202,6 +202,8 @@ EOT
 
     /**
      * @param \Concrete\Core\Localization\Translation\LocaleStatus[] $data
+     *
+     * @return void
      */
     private function updateLanguages(array $data)
     {
@@ -265,6 +267,8 @@ EOT
     /**
      * @param \Concrete\Core\Localization\Translation\LocaleStatus[] $data
      * @param string[] $localeIDs
+     *
+     * @return void
      */
     private function addLanguages(array $data, array $localeIDs)
     {
