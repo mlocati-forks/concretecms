@@ -248,7 +248,7 @@ class Entry implements \JsonSerializable, PermissionObjectInterface, AttributeOb
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Attribute\Value\ExpressValue[]
      */
     public function getAttributes()
     {
@@ -291,7 +291,7 @@ class Entry implements \JsonSerializable, PermissionObjectInterface, AttributeOb
     protected $associations;
 
     /**
-     * @return \Concrete\Core\Entity\Express\Entry\Association[]
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Express\Entry\Association[]
      */
     public function getAssociations()
     {

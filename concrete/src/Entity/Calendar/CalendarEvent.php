@@ -272,6 +272,9 @@ class CalendarEvent implements ObjectInterface, CategoryMemberInterface
         $this->custom_summary_templates = new ArrayCollection();
     }
 
+    /**
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Summary\Template[]
+     */
     public function getSummaryTemplatesCollection()
     {
         return $this->custom_summary_templates;

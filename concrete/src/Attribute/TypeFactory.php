@@ -138,7 +138,7 @@ class TypeFactory
         }
         $category = $this->categoryService->getByHandle($akCategoryHandle);
 
-        return $category->getAttributeTypes();
+        return $category->getAttributeTypes()->toArray();
     }
 
     /**

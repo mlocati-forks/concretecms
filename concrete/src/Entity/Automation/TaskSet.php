@@ -60,7 +60,7 @@ class TaskSet implements \JsonSerializable
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Automation\TaskSetTask[]
      */
     public function getTaskCollection()
     {

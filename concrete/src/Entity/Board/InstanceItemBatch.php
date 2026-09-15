@@ -35,6 +35,7 @@ class InstanceItemBatch
 
     public function __construct()
     {
+        $this->items = new ArrayCollection();
         $this->dateCreated = time();
     }
 
@@ -55,7 +56,7 @@ class InstanceItemBatch
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\InstanceItem[]
      */
     public function getItems()
     {

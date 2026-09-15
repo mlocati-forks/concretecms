@@ -184,7 +184,7 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
     }
 
     /**
-     * @return \Concrete\Core\Entity\File\Version[]
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\File\Version[]
      */
     public function getFileVersions()
     {
@@ -849,9 +849,9 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
     }
 
     /**
-     * Returns an array of all FileVersion objects owned by this file.
+     * Returns all the FileVersion objects owned by this file.
      *
-     * @return Version[]
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\File\Version[]
      */
     public function getVersionList()
     {

@@ -145,7 +145,7 @@ class Board implements ObjectInterface, AssignableObjectInterface, \JsonSerializ
     }
 
     /**
-     * @return ConfiguredDataSource[]
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\DataSource\ConfiguredDataSource[]
      */
     public function getDataSources()
     {
@@ -174,7 +174,7 @@ class Board implements ObjectInterface, AssignableObjectInterface, \JsonSerializ
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\SlotTemplate[]
      */
     public function getCustomSlotTemplates()
     {
@@ -222,7 +222,7 @@ class Board implements ObjectInterface, AssignableObjectInterface, \JsonSerializ
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\Instance[]
      */
     public function getInstances()
     {

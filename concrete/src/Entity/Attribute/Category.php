@@ -126,7 +126,7 @@ class Category implements CategoryObjectInterface
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Attribute\Set[]
      */
     public function getAttributeSets()
     {
@@ -134,7 +134,7 @@ class Category implements CategoryObjectInterface
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Attribute\Type[]
      */
     public function getAttributeTypes()
     {
