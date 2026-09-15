@@ -535,12 +535,6 @@ parameters:
 			path: ../concrete/src/Cache/OpCache.php
 
 		-
-			message: '#^Method Concrete\\Core\\Captcha\\SecurimageController\:\:displayCaptchaPicture\(\) should return Symfony\\Component\\HttpFoundation\\Response but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Captcha/SecurimageController.php
-
-		-
 			message: '#^Trait Concrete\\Core\\Command\\Batch\\BatchAwareTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
