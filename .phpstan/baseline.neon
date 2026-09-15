@@ -781,12 +781,6 @@ parameters:
 			path: ../concrete/src/Error/Handling/ErrorHandler.php
 
 		-
-			message: '#^Parameter \#1 \$handler of method Symfony\\Component\\ErrorHandler\\ErrorHandler\:\:setExceptionHandler\(\) expects \(callable\(\)\: mixed\)\|null, array\{Symfony\\Component\\ErrorHandler\\ErrorHandler, ''renderConcreteExcep…''\} given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../concrete/src/Error/Provider/ErrorHandlingServiceProvider.php
-
-		-
 			message: '#^Variable \$set in PHPDoc tag @var does not exist\.$#'
 			identifier: varTag.variableNotFound
 			count: 1

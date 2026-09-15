@@ -13,6 +13,9 @@ use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 
+/**
+ * @method static static register(?\Symfony\Component\ErrorHandler\ErrorHandler $handler = null, bool $replace = true)
+ */
 class ErrorHandler extends SymfonyErrorHandler
 {
     private const DISPLAY_MESSAGE = 'message';
