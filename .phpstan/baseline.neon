@@ -697,12 +697,6 @@ parameters:
 			path: ../concrete/src/Entity/Board/InstanceLog.php
 
 		-
-			message: '#^Method Concrete\\Core\\Entity\\File\\File\:\:setAttribute\(\) should return Concrete\\Core\\Attribute\\AttributeValueInterface but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Entity/File/File.php
-
-		-
 			message: '#^Dead catch \- League\\Flysystem\\FileNotFoundException is never thrown in the try block\.$#'
 			identifier: catch.neverThrown
 			count: 2
