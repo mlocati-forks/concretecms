@@ -14,11 +14,6 @@ use Throwable;
 class ForeignKeyFixer
 {
     /**
-     * @var \Concrete\Core\Database\Connection\Connection
-     */
-    private $connection;
-
-    /**
      * @var \Doctrine\DBAL\Schema\AbstractSchemaManager
      */
     private $schemaManager;
@@ -30,7 +25,6 @@ class ForeignKeyFixer
 
     public function __construct(Connection $connection)
     {
-        $this->connection = $connection;
         $this->schemaManager = $connection->getSchemaManager();
     }
 

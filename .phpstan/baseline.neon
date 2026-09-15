@@ -457,12 +457,6 @@ parameters:
 			path: ../concrete/src/Database/Connection/Connection.php
 
 		-
-			message: '#^Property Concrete\\Core\\Database\\ForeignKeyFixer\:\:\$connection is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../concrete/src/Database/ForeignKeyFixer.php
-
-		-
 			message: '#^Method Concrete\\Core\\Database\\Schema\\MySqlSchemaManager\:\:createTable\(\) with return type void returns null but should not return anything\.$#'
 			identifier: return.void
 			count: 1
