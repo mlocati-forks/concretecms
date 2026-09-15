@@ -3,7 +3,6 @@ namespace Concrete\Core\Entity\Attribute\Value;
 
 use Concrete\Core\Attribute\AttributeValueInterface;
 use Concrete\Core\Attribute\View;
-use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Form\Control\ValueInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -42,7 +41,7 @@ abstract class AbstractValue implements AttributeValueInterface
     protected $attribute_value;
 
     /**
-     * @return Key
+     * @return \Concrete\Core\Entity\Attribute\Key\Key|null NULL if the attribute key has not been set (for example for values created at runtime, or if the attribute key has been deleted)
      */
     public function getAttributeKey()
     {
