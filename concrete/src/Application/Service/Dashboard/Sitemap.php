@@ -146,7 +146,7 @@ class Sitemap
             }
         }
         if (is_object($pagination) && $pagination->haveToPaginate()) {
-            if ($this->displayNodePagination && isset($pagination)) {
+            if ($this->displayNodePagination) {
                 $n = new stdClass();
                 $n->icon = false;
                 $n->extraClasses = 'ccm-sitemap-explore';

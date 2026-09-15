@@ -76,7 +76,7 @@ class ControllerRouteAction implements RouteActionInterface
             $view = $controller->getViewObject();
             if (is_object($view)) {
                 $view->setController($controller);
-                if (isset($view) && $view instanceof AbstractView) {
+                if ($view instanceof AbstractView) {
                     $content = $view->render();
                 }
             }

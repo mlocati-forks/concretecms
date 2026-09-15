@@ -241,12 +241,6 @@ parameters:
 			path: ../concrete/src/Application/Service/Dashboard.php
 
 		-
-			message: '#^Variable \$pagination in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.variable
-			count: 1
-			path: ../concrete/src/Application/Service/Dashboard/Sitemap.php
-
-		-
 			message: '#^Constant ONLINE_NOW_SRC_OFF not found\.$#'
 			identifier: constant.notFound
 			count: 1
@@ -443,12 +437,6 @@ parameters:
 			identifier: array.duplicateKey
 			count: 1
 			path: ../concrete/src/Csv/Import/ImportResult.php
-
-		-
-			message: '#^Variable \$args in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.variable
-			count: 1
-			path: ../concrete/src/Database/Connection/Connection.php
 
 		-
 			message: '#^Method Concrete\\Core\\Database\\Schema\\MySqlSchemaManager\:\:createTable\(\) with return type void returns null but should not return anything\.$#'
@@ -781,12 +769,6 @@ parameters:
 			path: ../concrete/src/Messenger/MessageBusAwareTrait.php
 
 		-
-			message: '#^Variable \$icon in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.variable
-			count: 1
-			path: ../concrete/src/Multilingual/Service/UserInterface/Flag.php
-
-		-
 			message: '#^Parameter \#1 \$child of method HtmlObject\\Traits\\TreeObject\:\:appendChild\(\) expects HtmlObject\\Element, HtmlObject\\Link given\.$#'
 			identifier: argument.type
 			count: 1
@@ -911,12 +893,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: ../concrete/src/Permission/Key/Key.php
-
-		-
-			message: '#^Variable \$view in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.variable
-			count: 1
-			path: ../concrete/src/Routing/ControllerRouteAction.php
 
 		-
 			message: '#^Call to method Concrete\\Core\\Routing\\RedirectResponse\:\:setRequest\(\) on a separate line has no effect\.$#'
