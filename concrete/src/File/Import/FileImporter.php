@@ -344,10 +344,9 @@ class FileImporter implements LoggerAwareInterface
     protected function resolveIncomingFilename($incomingFilename, &$copiedLocally, ?VolatileDirectory &$volatileDirectory = null)
     {
         $copiedLocally = false;
-        $incoming = $this->app->make(Incoming::class);
-        $incomingStorageLocation = $incoming->getIncomingStorageLocation();
+        $incomingStorageLocation = $this->incoming->getIncomingStorageLocation();
         $incomingFilesystem = $incomingStorageLocation->getFileSystemObject();
-        $incomingPath = $incoming->getIncomingPath();
+        $incomingPath = $this->incoming->getIncomingPath();
         if (!$incomingFilesystem->has($incomingPath . '/' . $incomingFilename)) {
             throw ImportException::fromErrorCode(ImportException::E_FILE_INVALID);
         }
