@@ -218,11 +218,9 @@ class Files extends ApiController
             return $this->error(Importer::getErrorMessage(Importer::E_FILE_INVALID_EXTENSION), 403);
         }
 
-        /**
-         * @var FileImporter $importer
-         * @var ImportOptions $importOptions
-         */
+        /** @var FileImporter $importer */
         $importer = $this->app->make(FileImporter::class);
+        /** @var ImportOptions $importOptions */
         $importOptions = $this->app->make(ImportOptions::class);
         $importOptions->setImportToFolder($folder);
         $file = $importer->importLocalFile($uploadedFile->getPathname(), $uploadedFile->getClientOriginalName(), $importOptions);

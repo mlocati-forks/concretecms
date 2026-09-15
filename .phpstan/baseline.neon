@@ -7,12 +7,6 @@ parameters:
 			path: ../concrete/controllers/backend/attributes.php
 
 		-
-			message: '#^Variable \$contextFactory in PHPDoc tag @var does not exist\.$#'
-			identifier: varTag.variableNotFound
-			count: 1
-			path: ../concrete/controllers/backend/tasks.php
-
-		-
 			message: '#^Loose comparison using \=\= between int\<1, max\> and 0 will always evaluate to false\.$#'
 			identifier: equal.alwaysFalse
 			count: 1
@@ -175,12 +169,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/system/attributes/sets.php
 
 		-
-			message: '#^Variable \$controller in PHPDoc tag @var does not exist\.$#'
-			identifier: varTag.variableNotFound
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/system/basics/name.php
-
-		-
 			message: '#^Parameter \#1 \$stack of function array_pop is passed by reference, so it expects variables only\.$#'
 			identifier: argument.byRef
 			count: 1
@@ -233,12 +221,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: ../concrete/src/Announcement/AnnouncementService.php
-
-		-
-			message: '#^Variable \$importOptions in PHPDoc tag @var does not exist\.$#'
-			identifier: varTag.variableNotFound
-			count: 1
-			path: ../concrete/src/Api/Controller/Files.php
 
 		-
 			message: '#^Left side of && is always true\.$#'
@@ -347,12 +329,6 @@ parameters:
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
 			path: ../concrete/src/Attribute/Category/ExpressCategory.php
-
-		-
-			message: '#^Variable \$key in PHPDoc tag @var does not exist\.$#'
-			identifier: varTag.variableNotFound
-			count: 1
-			path: ../concrete/src/Attribute/Command/RebuildIndexCommandHandler.php
 
 		-
 			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:getAttributeKeyHandle\(\) should return string but return statement is missing\.$#'
@@ -643,12 +619,6 @@ parameters:
 			path: ../concrete/src/Error/Handling/ErrorHandler.php
 
 		-
-			message: '#^Variable \$set in PHPDoc tag @var does not exist\.$#'
-			identifier: varTag.variableNotFound
-			count: 1
-			path: ../concrete/src/Export/Item/Express/Form.php
-
-		-
 			message: '#^Parameter &\$controlsMapping by\-ref type of method Concrete\\Core\\Express\\Entity\\Cloner\:\:cloneEntityForms\(\) expects array\<string, string\>, array\<mixed\> given\.$#'
 			identifier: parameterByRef.type
 			count: 1
@@ -659,12 +629,6 @@ parameters:
 			identifier: cast.string
 			count: 1
 			path: ../concrete/src/Express/Form/Validator/Routine/ValidateUniqueAttributesRoutine.php
-
-		-
-			message: '#^Variable \$key in PHPDoc tag @var does not exist\.$#'
-			identifier: varTag.variableNotFound
-			count: 1
-			path: ../concrete/src/Express/Search/Index/EntityIndex.php
 
 		-
 			message: '#^Property Concrete\\Core\\File\\Component\\Chooser\\Option\\FolderBookmarkOption\:\:\$treeNode \(Concrete\\Core\\Tree\\Node\\Type\\FileFolder\) does not accept Concrete\\Core\\Tree\\Node\\Node\|null\.$#'
@@ -1361,12 +1325,6 @@ parameters:
 			identifier: return.empty
 			count: 1
 			path: ../concrete/src/User/Login/LoginAttemptService.php
-
-		-
-			message: '#^Variable \$provider in PHPDoc tag @var does not exist\.$#'
-			identifier: varTag.variableNotFound
-			count: 1
-			path: ../concrete/src/User/Search/ColumnSet/Column/MembershipsColumnFormatter.php
 
 		-
 			message: '#^Negated boolean expression is always true\.$#'

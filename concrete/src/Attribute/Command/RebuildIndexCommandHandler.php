@@ -7,7 +7,6 @@ use Concrete\Core\Attribute\Key\SearchIndexer\SearchIndexerInterface;
 use Concrete\Core\Command\Task\Output\OutputAwareInterface;
 use Concrete\Core\Command\Task\Output\OutputAwareTrait;
 use Concrete\Core\Database\Connection\Connection;
-use Concrete\Core\Entity\Attribute\Key\ExpressKey;
 
 class RebuildIndexCommandHandler implements OutputAwareInterface
 {
@@ -38,7 +37,6 @@ class RebuildIndexCommandHandler implements OutputAwareInterface
         }
         $table = $category->getIndexedSearchTable();
 
-        /** @var ExpressKey $key */
         if (!$this->connection->tableExists($table)) {
             $indexer = $category->getSearchIndexer();
             $indexer->createRepository($category);

@@ -86,11 +86,9 @@ class Tasks extends AbstractController
         if ($this->errorList->has()) {
             return new JsonResponse($this->errorList);
         } else {
-            /**
-             * @var InputFactory $inputFactory
-             * @var ContextFactory $contextFactory
-             */
+            /** @var InputFactory $inputFactory */
             $inputFactory = $this->app->make(InputFactory::class);
+            /** @var ContextFactory $contextFactory */
             $contextFactory = $this->app->make(ContextFactory::class);
             $input = $inputFactory->createFromRequest($this->request, $task->getController()->getInputDefinition());
 
