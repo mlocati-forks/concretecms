@@ -247,12 +247,6 @@ parameters:
 			path: ../concrete/src/Application/Application.php
 
 		-
-			message: '#^Cannot cast Concrete\\Core\\Error\\ErrorList\\Error\\ErrorInterface to string\.$#'
-			identifier: cast.string
-			count: 1
-			path: ../concrete/src/Application/EditResponse.php
-
-		-
 			message: '#^PHPDoc type array of property Concrete\\Core\\Application\\Service\\DefaultDashboardMenu\:\:\$items is not covariant with PHPDoc type array\<Concrete\\Core\\Page\\Page\> of overridden property Concrete\\Core\\Application\\Service\\DashboardMenu\:\:\$items\.$#'
 			identifier: property.phpDocType
 			count: 1
@@ -575,30 +569,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/src/Entity/OAuth/AuthCodeRepository.php
-
-		-
-			message: '#^Cannot cast Concrete\\Core\\Error\\ErrorList\\Error\\ErrorInterface to string\.$#'
-			identifier: cast.string
-			count: 1
-			path: ../concrete/src/Error/ErrorList/Formatter/JsonFormatter.php
-
-		-
-			message: '#^Cannot cast Concrete\\Core\\Error\\ErrorList\\Error\\ErrorInterface to string\.$#'
-			identifier: cast.string
-			count: 1
-			path: ../concrete/src/Error/ErrorList/Formatter/StandardFormatter.php
-
-		-
-			message: '#^Cannot cast Concrete\\Core\\Error\\ErrorList\\Error\\HtmlAwareErrorInterface to string\.$#'
-			identifier: cast.string
-			count: 1
-			path: ../concrete/src/Error/ErrorList/Formatter/StandardFormatter.php
-
-		-
-			message: '#^Cannot cast Concrete\\Core\\Error\\ErrorList\\Error\\ErrorInterface to string\.$#'
-			identifier: cast.string
-			count: 1
-			path: ../concrete/src/Error/ErrorList/Formatter/TextFormatter.php
 
 		-
 			message: '#^Class Concrete\\Core\\Error\\Handling\\ErrorHandler extends @final class Symfony\\Component\\ErrorHandler\\ErrorHandler\.$#'
