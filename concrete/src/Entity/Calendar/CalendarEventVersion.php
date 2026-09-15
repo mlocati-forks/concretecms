@@ -298,7 +298,7 @@ class CalendarEventVersion implements ObjectInterface, \JsonSerializable
     }
     
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Calendar\CalendarEventVersionOccurrence[]
      */
     public function getOccurrences()
     {
@@ -336,6 +336,9 @@ class CalendarEventVersion implements ObjectInterface, \JsonSerializable
         return $repetitions;
     }
 
+    /**
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Calendar\CalendarEventVersionRepetition[]
+     */
     public function getRepetitionEntityCollection()
     {
         return $this->repetitions;

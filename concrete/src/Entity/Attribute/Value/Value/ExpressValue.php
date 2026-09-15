@@ -26,7 +26,7 @@ class ExpressValue extends AbstractValue
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Express\Entry[]
      */
     public function getSelectedEntries()
     {

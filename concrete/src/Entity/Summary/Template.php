@@ -122,7 +122,7 @@ class Template implements \JsonSerializable
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Summary\Category[]
      */
     public function getCategories()
     {
@@ -138,7 +138,7 @@ class Template implements \JsonSerializable
     }
 
     /**
-     * @return TemplateField[]
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Summary\TemplateField[]
      */
     public function getFields()
     {

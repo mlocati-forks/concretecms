@@ -7,7 +7,6 @@ use Concrete\Core\Entity\Express\ManyToManyAssociation;
 use Concrete\Core\Entity\Express\ManyToOneAssociation;
 use Concrete\Core\Entity\Express\OneToManyAssociation;
 use Concrete\Core\Entity\Express\OneToOneAssociation;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class Applier
@@ -101,9 +100,6 @@ class Applier
 
         // Now lets loop through all the entries
         $collection = $manyAssociation->getSelectedEntriesCollection();
-        if (!$collection) {
-            $collection = new ArrayCollection();
-        }
         $displayOrder = count($collection);
 
         $associationEntry = new Entry\AssociationEntry();

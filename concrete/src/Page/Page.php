@@ -1047,10 +1047,7 @@ class Page extends Collection implements CategoryMemberInterface,
     {
         $collection = $this->getCustomPageSummaryTemplateCollection();
         if ($collection) {
-            $templates = $collection->getTemplates();
-            if ($templates) {
-                return $templates->toArray();
-            }
+            return $collection->getTemplates()->toArray();
         }
         return [];
     }

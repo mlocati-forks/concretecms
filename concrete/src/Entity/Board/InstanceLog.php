@@ -58,7 +58,7 @@ class InstanceLog implements \JsonSerializable
     }
 
     /**
-     * @return InstanceLogEntry[]
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\InstanceLogEntry[]
      */
     public function getEntries()
     {

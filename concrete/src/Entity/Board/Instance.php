@@ -108,7 +108,7 @@ class Instance implements \JsonSerializable, ObjectInterface
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\InstanceItem[]
      */
     public function getItems()
     {
@@ -124,7 +124,7 @@ class Instance implements \JsonSerializable, ObjectInterface
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\InstanceItemBatch[]
      */
     public function getBatches()
     {
@@ -175,7 +175,7 @@ class Instance implements \JsonSerializable, ObjectInterface
 
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\InstanceSlot[]
      */
     public function getSlots()
     {
@@ -309,7 +309,7 @@ class Instance implements \JsonSerializable, ObjectInterface
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection|\Concrete\Core\Entity\Board\InstanceSlotRule[]
      */
     public function getRules()
     {
