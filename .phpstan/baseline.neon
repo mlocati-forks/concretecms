@@ -19,12 +19,6 @@ parameters:
 			path: ../concrete/controllers/backend/tree/node/drag_request.php
 
 		-
-			message: '#^Constant BASE_URL not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: ../concrete/controllers/calendar_feed.php
-
-		-
 			message: '#^Method Concrete\\Controller\\Dialog\\Event\\AdvancedSearch\:\:getSearchProvider\(\) should return Concrete\\Core\\Search\\ProviderInterface but returns false\.$#'
 			identifier: return.type
 			count: 1

@@ -18,3 +18,7 @@ try {
 // Let PHPStan handle errors and exceptions
 restore_error_handler();
 restore_exception_handler();
+
+// The legacy constants defined by the runner while processing a request (see DefaultRunner::initializeLegacyURLDefinitions()):
+// their values depend on the request, so they are listed in dynamicConstantNames
+define('BASE_URL', 'http://localhost');
