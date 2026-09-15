@@ -501,7 +501,7 @@ class Search extends DashboardPageController
             if (!$error->has()) {
                 $this->user->update($data);
                 $message[] = t('User updated successfully.');
-                if (!empty($password)) {
+                if (isset($data['uPassword'])) {
                     $message[] = t('Password changed successfully.');
                 }
                 $this->flash('success', implode(' ', $message));
