@@ -427,12 +427,6 @@ parameters:
 			path: ../concrete/src/Cache/Driver/RedisStashDriver.php
 
 		-
-			message: '#^Constant XC_TYPE_PHP not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: ../concrete/src/Cache/OpCache.php
-
-		-
 			message: '#^Trait Concrete\\Core\\Command\\Batch\\BatchAwareTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
