@@ -138,7 +138,8 @@ class LoginService implements LoggerAwareInterface, ApplicationAwareInterface
      * @param string $username The user provided username
      * @param string $password The user provided password
      *
-     * @throws \Concrete\Core\User\Exception\FailedLoginThresholdExceededException
+     * @throws \Concrete\Core\User\Exception\FailedLoginThresholdExceededException if the IP address reached the failed login threshold
+     * @throws \Concrete\Core\User\Exception\UserDeactivatedException if the user has been deactivated because of too many failed logins
      */
     public function failLogin($username, $password)
     {
