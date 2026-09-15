@@ -469,12 +469,6 @@ parameters:
 			path: ../concrete/src/Conversation/Rating/Type.php
 
 		-
-			message: '#^Property Concrete\\Core\\Csv\\Export\\DownloadStatisticsExporter\:\:\$entityManager \(Doctrine\\ORM\\EntityManager\) does not accept Doctrine\\ORM\\EntityManagerInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../concrete/src/Csv/Export/DownloadStatisticsExporter.php
-
-		-
 			message: '#^Generator expects value type string, int given\.$#'
 			identifier: generator.valueType
 			count: 2
@@ -611,12 +605,6 @@ parameters:
 			identifier: return.void
 			count: 1
 			path: ../concrete/src/File/StorageLocation/Configuration/DefaultConfiguration.php
-
-		-
-			message: '#^Property Concrete\\Core\\File\\Tracker\\UsageTracker\:\:\$manager \(Doctrine\\ORM\\EntityManager\) does not accept Doctrine\\ORM\\EntityManagerInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../concrete/src/File/Tracker/UsageTracker.php
 
 		-
 			message: '#^Parameter &\$data by\-ref type of method Concrete\\Core\\File\\Type\\Inspector\\FlvInspector\:\:extractScriptDataValue\(\) expects string, \(string\|false\) given\.$#'
