@@ -232,10 +232,8 @@ class Sitemap
             }
         }
 
-        if ($c->getAttribute('icon_dashboard')) {
-            $cIconClass = $c->getAttribute('icon_dashboard'); // use markup with custom class name rather than image
-        } else {
-            $cIconClass = null;
+        $cIconClass = $c->getAttribute('icon_dashboard'); // use markup with custom class name rather than image
+        if (!$cIconClass) {
             $cIcon = $c->getCollectionIcon();
             if (!$cIcon) {
                 if ($c->isHomePage()) {
