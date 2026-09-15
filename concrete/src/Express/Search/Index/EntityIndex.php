@@ -6,7 +6,6 @@ use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Attribute\Category\PageCategory;
 use Concrete\Core\Attribute\Key\SearchIndexer\SearchIndexerInterface;
-use Concrete\Core\Entity\Attribute\Key\ExpressKey;
 use Concrete\Core\Entity\Attribute\Key\PageKey;
 use Concrete\Core\Entity\Express\Entity;
 use Concrete\Core\Search\Index\AbstractIndex;
@@ -55,7 +54,6 @@ class EntityIndex extends AbstractIndex implements ApplicationAwareInterface
         $category = $this->entity->getAttributeKeyCategory();
         $table = $category->getIndexedSearchTable();
 
-        /** @var ExpressKey $key */
         if (!$this->connection->tableExists($table)) {
             $indexer = $category->getSearchIndexer();
             $indexer->createRepository($category);
