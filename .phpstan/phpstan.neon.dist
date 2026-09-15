@@ -80,6 +80,10 @@ parameters:
             paths:
                 - ../concrete/src/Api/Model/*
                 - ../concrete/src/Api/Response/*
+        # Traits may be used only outside the analysed paths, or they may be helpers for implementing the interfaces
+        # in third-party code
+        -
+            identifier: trait.unused
         # Methods meant to be extended call the parent implementation even when it's empty (AbstractController::on_start(),
         # Access::save()): the calls are harmless, and they keep working if the parent implementation will do something
         -

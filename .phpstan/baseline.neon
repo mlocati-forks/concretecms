@@ -301,12 +301,6 @@ parameters:
 			path: ../concrete/src/Block/BlockController.php
 
 		-
-			message: '#^Trait Concrete\\Core\\Block\\Traits\\HasSubBlocksTrait is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: ../concrete/src/Block/Traits/HasSubBlocksTrait.php
-
-		-
 			message: '#^Property Concrete\\Core\\Board\\Command\\ScheduleBoardInstanceRuleCommand\:\:\$timezone \(string\) does not accept default value of type int\.$#'
 			identifier: property.defaultValue
 			count: 1
@@ -325,12 +319,6 @@ parameters:
 			path: ../concrete/src/Cache/Driver/RedisStashDriver.php
 
 		-
-			message: '#^Trait Concrete\\Core\\Command\\Batch\\BatchAwareTrait is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: ../concrete/src/Command/Batch/BatchAwareTrait.php
-
-		-
 			message: '#^Call to an undefined method Concrete\\Core\\Config\\ConfigStore\:\:rowToConfigValue\(\)\.$#'
 			identifier: method.notFound
 			count: 2
@@ -347,12 +335,6 @@ parameters:
 			identifier: property.phpDocType
 			count: 1
 			path: ../concrete/src/Console/Command/InstallLanguageCommand.php
-
-		-
-			message: '#^Trait Concrete\\Core\\Console\\ConsoleAwareTrait is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: ../concrete/src/Console/ConsoleAwareTrait.php
 
 		-
 			message: '#^Strict comparison using \!\=\= between null and null will always evaluate to false\.$#'
@@ -679,12 +661,6 @@ parameters:
 			path: ../concrete/src/Mail/Service.php
 
 		-
-			message: '#^Trait Concrete\\Core\\Messenger\\MessageBusAwareTrait is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: ../concrete/src/Messenger/MessageBusAwareTrait.php
-
-		-
 			message: '#^Parameter \#1 \$child of method HtmlObject\\Traits\\TreeObject\:\:appendChild\(\) expects HtmlObject\\Element, HtmlObject\\Link given\.$#'
 			identifier: argument.type
 			count: 1
@@ -773,12 +749,6 @@ parameters:
 			identifier: constant.notFound
 			count: 1
 			path: ../concrete/src/Page/Stack/Pile/PileContent.php
-
-		-
-			message: '#^Trait Concrete\\Core\\Page\\Theme\\BedrockThemeTrait is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: ../concrete/src/Page/Theme/BedrockThemeTrait.php
 
 		-
 			message: '#^Unsafe call to private method Concrete\\Core\\Page\\Theme\\Theme\:\:getThemeNameAndDescription\(\) through static\:\:\.$#'
