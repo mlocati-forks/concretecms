@@ -20,9 +20,10 @@ class BaseBlockTransformer extends TransformerAbstract
         if ($controller instanceof ApiResourceValueInterface) {
             $blockValueResource = $controller->getApiValueResource();
             if ($blockValueResource) {
-                $blockValue = $blockValueResource->getTransformer()->transform(
-                    $blockValueResource->getData()
-                );
+                $transformer = $blockValueResource->getTransformer();
+                $data = $blockValueResource->getData();
+                // Fractal resources accept callables as transformers too
+                $blockValue = $transformer instanceof TransformerAbstract ? $transformer->transform($data) : $transformer($data);
             } else {
                 $blockValue = null;
             }
