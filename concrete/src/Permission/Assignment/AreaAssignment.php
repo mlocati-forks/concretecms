@@ -12,6 +12,7 @@ use Concrete\Core\Permission\Key\Key as PermissionKey;
 use Concrete\Core\Support\Facade\Application;
 
 /**
+ * @property \Concrete\Core\Permission\Key\AreaKey|null $pk
  * @property \Concrete\Core\Area\Area|null $permissionObject
  * @method \Concrete\Core\Area\Area|null getPermissionObject()
  */
@@ -177,6 +178,8 @@ class AreaAssignment extends Assignment
      * {@inheritdoc}
      *
      * @see \Concrete\Core\Permission\Assignment\Assignment::setPermissionKeyObject()
+     *
+     * @param \Concrete\Core\Permission\Key\AreaKey $pk
      */
     public function setPermissionKeyObject($pk)
     {
