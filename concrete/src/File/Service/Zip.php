@@ -286,12 +286,12 @@ class Zip
                 }
                 $item = [
                     'type' => $isDir ? 'D' : 'F',
-                    'date' => (isset($stat['mtime']) && $stat['mtime']) ? DateTime::createFromFormat('U', (string) $stat['mtime']) : null,
+                    'date' => $stat['mtime'] ? DateTime::createFromFormat('U', (string) $stat['mtime']) : null,
                 ];
                 if (!$isDir) {
                     $item += [
-                        'originalSize' => isset($stat['size']) ? (int) $stat['size'] : null,
-                        'compressedSize' => isset($stat['comp_size']) ? (int) $stat['comp_size'] : null,
+                        'originalSize' => (int) $stat['size'],
+                        'compressedSize' => (int) $stat['comp_size'],
                     ];
                 }
                 $result[trim($stat['name'], '/\\')] = $item;

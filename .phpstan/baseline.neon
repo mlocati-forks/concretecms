@@ -1,18 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Offset 0 on non\-empty\-list\<string\> in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: ../concrete/controllers/backend/attribute/action.php
-
-		-
-			message: '#^Offset 1 on non\-empty\-list\<string\> in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 2
-			path: ../concrete/controllers/backend/attribute/action.php
-
-		-
 			message: '#^Call to an undefined static method Concrete\\Core\\Attribute\\Key\\UserKey\:\:updateAttributesDisplayOrder\(\)\.$#'
 			identifier: staticMethod.notFound
 			count: 1
@@ -625,12 +613,6 @@ parameters:
 			path: ../concrete/src/Entity/OAuth/AuthCodeRepository.php
 
 		-
-			message: '#^Offset 0 on array\{non\-empty\-list\<string\>\|string\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: ../concrete/src/Entity/OAuth/Client.php
-
-		-
 			message: '#^Cannot cast Concrete\\Core\\Error\\ErrorList\\Error\\ErrorInterface to string\.$#'
 			identifier: cast.string
 			count: 1
@@ -735,24 +717,6 @@ parameters:
 		-
 			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../concrete/src/File/Service/Zip.php
-
-		-
-			message: '#^Offset ''comp_size'' on array\{name\: string, index\: int, crc\: int, size\: int, mtime\: int, comp_size\: int, comp_method\: int, encryption_method\: int\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: ../concrete/src/File/Service/Zip.php
-
-		-
-			message: '#^Offset ''mtime'' on array\{name\: string, index\: int, crc\: int, size\: int, mtime\: int, comp_size\: int, comp_method\: int, encryption_method\: int\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: ../concrete/src/File/Service/Zip.php
-
-		-
-			message: '#^Offset ''size'' on array\{name\: string, index\: int, crc\: int, size\: int, mtime\: int, comp_size\: int, comp_method\: int, encryption_method\: int\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
 			count: 1
 			path: ../concrete/src/File/Service/Zip.php
 
@@ -1109,12 +1073,6 @@ parameters:
 			identifier: if.alwaysTrue
 			count: 1
 			path: ../concrete/src/Page/Container/ContainerExporter.php
-
-		-
-			message: '#^Offset 0 on non\-empty\-list\<string\> in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: ../concrete/src/Page/Controller/PageController.php
 
 		-
 			message: '#^Expression on left side of \?\? is not nullable\.$#'

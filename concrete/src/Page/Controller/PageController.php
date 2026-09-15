@@ -256,7 +256,7 @@ class PageController extends Controller
         }
         $task = str_replace('-/', '', $task);
         $taskparts = explode('/', $task);
-        if (isset($taskparts[0]) && $taskparts[0] !== '') {
+        if ($taskparts[0] !== '') {
             $method = $taskparts[0];
         } elseif (is_callable([$this, $this->c->getCollectionHandle()])) {
             $method = $this->c->getCollectionHandle();
