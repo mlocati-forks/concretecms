@@ -331,8 +331,8 @@ class Pile extends ConcreteObject
     }
 
     /**
-     * @param Page|Block|PileContent $obj
-     * @param int                    $quantity
+     * @param Page|Block|PileContent|mixed $obj
+     * @param int $quantity
      *
      * @return mixed
      */
@@ -359,7 +359,7 @@ class Pile extends ConcreteObject
     }
 
     /**
-     * @param Collection|Block|PileContent $obj
+     * @param Collection|Block|PileContent|mixed $obj
      *
      * @return int|null
      */
@@ -377,8 +377,8 @@ class Pile extends ConcreteObject
     }
 
     /**
-     * @param Page|Block|PileContent $obj
-     * @param int                    $quantity
+     * @param Page|Block|PileContent|mixed $obj
+     * @param int $quantity
      */
     public function remove(&$obj, $quantity = 1)
     {
@@ -402,7 +402,7 @@ class Pile extends ConcreteObject
     /**
      * Get the type and the ID of an item of the pile.
      *
-     * @param Collection|Block|PileContent $obj
+     * @param Collection|Block|PileContent|mixed $obj
      *
      * @return array{0: string, 1: int}|null NULL if $obj is not a supported item
      */

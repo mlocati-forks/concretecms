@@ -15,6 +15,7 @@ use Symfony\Component\ErrorHandler\Exception\FlattenException;
 
 /**
  * @method static static register(?\Symfony\Component\ErrorHandler\ErrorHandler $handler = null, bool $replace = true)
+ * @phpstan-ignore class.extendsFinalByPhpDoc (the parent class is marked as final only in its PHPDoc: extending it is a known and accepted risk)
  */
 class ErrorHandler extends SymfonyErrorHandler
 {
