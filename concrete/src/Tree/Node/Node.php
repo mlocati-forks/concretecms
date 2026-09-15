@@ -770,7 +770,7 @@ where treeNodeDisplayOrder > ? and treeNodeParentID = ?',
     public function exportTranslations(Translations $translations)
     {
         $name = $this->getTreeNodeDisplayName('text');
-        if (is_string($name) && ($name !== '')) {
+        if ($name !== '') {
             $context = method_exists($this, 'getTreeNodeTranslationContext') ? $this->getTreeNodeTranslationContext() : '';
             $translations->insert($context, $name);
         }

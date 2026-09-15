@@ -69,7 +69,7 @@ class File extends TreeNode
             return h($this->getTreeNodeDisplayName('text'));
         }
 
-        return $this->getTreeNodeName();
+        return $this->getTreeNodeName() ?? '';
     }
 
     public function loadDetails()
