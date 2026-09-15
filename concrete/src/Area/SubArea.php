@@ -8,12 +8,12 @@ class SubArea extends Area
     const AREA_SUB_DELIMITER = ' : ';
 
     /**
-     * @var \Block
+     * @var \Concrete\Core\Block\Block|null
      */
     protected $parentBlock;
 
     /**
-     * @param \Block $block
+     * @param \Concrete\Core\Block\Block $block
      */
     public function setSubAreaBlockObject($block)
     {
@@ -68,7 +68,7 @@ class SubArea extends Area
     }
 
     /**
-     * @return \Block
+     * @return \Concrete\Core\Block\Block|null
      */
     public function getSubAreaBlockObject()
     {
