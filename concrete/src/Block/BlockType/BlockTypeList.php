@@ -58,7 +58,7 @@ class BlockTypeList extends DatabaseItemList
     /**
      * @todo comment this one
      *
-     * @param string $xml
+     * @param \SimpleXMLElement $xml
      */
     public static function exportList($xml)
     {

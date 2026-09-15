@@ -451,12 +451,6 @@ parameters:
 			path: ../concrete/src/Block/BlockController.php
 
 		-
-			message: '#^Cannot call method addChild\(\) on string\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../concrete/src/Block/BlockType/BlockTypeList.php
-
-		-
 			message: '#^Trait Concrete\\Core\\Block\\Traits\\HasSubBlocksTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
