@@ -133,12 +133,6 @@ parameters:
 			path: ../concrete/controllers/search/standard.php
 
 		-
-			message: '#^Variable \$box might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../concrete/controllers/single_page/account/messages.php
-
-		-
 			message: '#^Loose comparison using \=\= between 0\|0\.0\|''0'' and ''0'' will always evaluate to true\.$#'
 			identifier: equal.alwaysTrue
 			count: 1
