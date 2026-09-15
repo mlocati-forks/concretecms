@@ -1009,12 +1009,6 @@ parameters:
 			path: ../concrete/src/Routing/Router.php
 
 		-
-			message: '#^Return type \(Symfony\\Component\\Routing\\RouteCollection\) of method Concrete\\Core\\Routing\\Router\:\:getRoutes\(\) should be compatible with return type \(array\<Symfony\\Component\\Routing\\RouteCollection\>\) of method Concrete\\Core\\Routing\\RouterInterface\:\:getRoutes\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: ../concrete/src/Routing/Router.php
-
-		-
 			message: '#^Parameter \#2 \$opts of class RedisArray constructor expects array\<string, string\>, array\<string, int\|string\> given\.$#'
 			identifier: argument.type
 			count: 1
