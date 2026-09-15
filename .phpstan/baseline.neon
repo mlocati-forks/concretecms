@@ -265,12 +265,6 @@ parameters:
 			path: ../concrete/src/Api/Fractal/Transformer/AttributeValueTransformer.php
 
 		-
-			message: '#^Cannot call method transform\(\) on \(callable\)\|League\\Fractal\\TransformerAbstract\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../concrete/src/Api/Fractal/Transformer/BaseBlockTransformer.php
-
-		-
 			message: '#^Dead catch \- Concrete\\Core\\User\\Exception\\UserDeactivatedException is never thrown in the try block\.$#'
 			identifier: catch.neverThrown
 			count: 1
