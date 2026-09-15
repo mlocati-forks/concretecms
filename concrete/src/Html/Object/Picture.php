@@ -44,6 +44,7 @@ class Picture extends Element
         }
 
         $this->fallback($fallbackSrc, $lazyLoadNative, $lazyLoadJavaScript);
+        $this->setAttributes($attributes);
     }
 
     /**

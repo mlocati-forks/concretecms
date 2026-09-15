@@ -913,18 +913,6 @@ parameters:
 			path: ../concrete/src/Html/Image.php
 
 		-
-			message: '#^Constructor of class Concrete\\Core\\Html\\Object\\JavaScriptLazyImage has an unused parameter \$attributes\.$#'
-			identifier: constructor.unusedParameter
-			count: 1
-			path: ../concrete/src/Html/Object/JavaScriptLazyImage.php
-
-		-
-			message: '#^Constructor of class Concrete\\Core\\Html\\Object\\Picture has an unused parameter \$attributes\.$#'
-			identifier: constructor.unusedParameter
-			count: 1
-			path: ../concrete/src/Html/Object/Picture.php
-
-		-
 			message: '#^Loose comparison using \!\= between '''' and '''' will always evaluate to false\.$#'
 			identifier: notEqual.alwaysFalse
 			count: 2
