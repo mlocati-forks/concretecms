@@ -583,12 +583,6 @@ parameters:
 			path: ../concrete/src/Localization/Service/Date.php
 
 		-
-			message: '#^Dead catch \- Error is never thrown in the try block\.$#'
-			identifier: catch.neverThrown
-			count: 1
-			path: ../concrete/src/Localization/Translation/Local/Factory.php
-
-		-
 			message: '#^Call to an undefined method Concrete\\Core\\Mail\\Importer\\MailImporter\:\:process\(\)\.$#'
 			identifier: method.notFound
 			count: 1
