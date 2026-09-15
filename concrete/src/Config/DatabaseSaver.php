@@ -88,7 +88,7 @@ class DatabaseSaver implements SaverInterface
         if (!$query->execute()) {
             try {
                 $query = "INSERT INTO Config (configItem, configValue, configGroup, configNamespace) VALUES (?, ?, ?, ?)";
-                \Database::executeQuery(
+                $connection->executeQuery(
                     $query,
                     array(
                         $item,
