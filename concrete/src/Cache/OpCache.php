@@ -37,7 +37,7 @@ class OpCache
             }
         }
         if (static::hasXCache()) {
-            if (function_exists('xcache_clear_cache') && ini_get('xcache.admin.user') && ini_get('xcache.admin.pass')) {
+            if (function_exists('xcache_clear_cache') && defined('XC_TYPE_PHP') && ini_get('xcache.admin.user') && ini_get('xcache.admin.pass')) {
                 @xcache_clear_cache(XC_TYPE_PHP, 0);
             }
         }
