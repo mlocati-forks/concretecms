@@ -427,12 +427,6 @@ parameters:
 			path: ../concrete/src/File/Service/File.php
 
 		-
-			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../concrete/src/File/Service/Zip.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between ZipArchive and null will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
