@@ -169,12 +169,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/system/conversations/settings.php
 
 		-
-			message: '#^Variable \$sectionID in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.variable
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/system/multilingual/page_report.php
-
-		-
 			message: '#^Result of method Concrete\\Controller\\SinglePage\\Dashboard\\System\\Multisite\\Types\:\:prepareAddOrEdit\(\) \(void\) is used\.$#'
 			identifier: method.void
 			count: 2
