@@ -217,12 +217,6 @@ parameters:
 			path: ../concrete/src/Application/Service/Dashboard.php
 
 		-
-			message: '#^Variable \$cIcon might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../concrete/src/Application/Service/Dashboard/Sitemap.php
-
-		-
 			message: '#^Constant ONLINE_NOW_SRC_OFF not found\.$#'
 			identifier: constant.notFound
 			count: 1
