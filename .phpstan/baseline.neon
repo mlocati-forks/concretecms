@@ -649,18 +649,6 @@ parameters:
 			path: ../concrete/src/File/ImportProcessor/ForceImageFormatProcessor.php
 
 		-
-			message: '#^Constant REL_DIR_FILES_THUMBNAILS_LEVEL2 not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: ../concrete/src/File/Service/Application.php
-
-		-
-			message: '#^Constant REL_DIR_FILES_THUMBNAILS_LEVEL3 not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: ../concrete/src/File/Service/Application.php
-
-		-
 			message: '#^Method Concrete\\Core\\File\\Service\\File\:\:forceDownload\(\) should never return but return statement found\.$#'
 			identifier: return.never
 			count: 1
