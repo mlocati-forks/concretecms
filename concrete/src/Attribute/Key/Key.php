@@ -41,6 +41,13 @@ class Key extends Facade implements AttributeKeyInterface
     protected $legacyAttributeKey;
 
     /**
+     * @var array|null
+     *
+     * @deprecated use \Concrete\Core\Attribute\Controller::getSearchIndexFieldDefinition() (and \Concrete\Core\Attribute\Category\SearchIndexer\StandardSearchIndexerInterface::getSearchIndexFieldDefinition() for the category) instead
+     */
+    protected $searchIndexFieldDefinition;
+
+    /**
      * @deprecated
      */
     public function getController()
@@ -250,7 +257,7 @@ class Key extends Facade implements AttributeKeyInterface
     }
 
     /**
-     * @deprecated
+     * @deprecated use \Concrete\Core\Attribute\Controller::getSearchIndexFieldDefinition() (and \Concrete\Core\Attribute\Category\SearchIndexer\StandardSearchIndexerInterface::getSearchIndexFieldDefinition() for the category) instead
      */
     public function getSearchIndexFieldDefinition()
     {
@@ -258,7 +265,7 @@ class Key extends Facade implements AttributeKeyInterface
     }
 
     /**
-     * @deprecated
+     * @deprecated use \Concrete\Core\Attribute\Category\SearchIndexer\StandardSearchIndexerInterface::getIndexedSearchTable() instead
      */
     public function getIndexedSearchTable()
     {
