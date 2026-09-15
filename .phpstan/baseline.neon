@@ -859,12 +859,6 @@ parameters:
 			path: ../concrete/src/Page/Page.php
 
 		-
-			message: '#^Property Concrete\\Core\\Page\\Search\\IndexedSearch\:\:\$cPathSections is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../concrete/src/Page/Search/IndexedSearch.php
-
-		-
 			message: '#^Loose comparison using \!\= between null and null will always evaluate to false\.$#'
 			identifier: notEqual.alwaysFalse
 			count: 1
