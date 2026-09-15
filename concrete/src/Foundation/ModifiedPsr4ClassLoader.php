@@ -83,19 +83,13 @@ class ModifiedPsr4ClassLoader implements ClassLoaderInterface
 
     /**
      * @param string $class
-     *
-     * @return bool
      */
     public function loadClass($class)
     {
         $file = $this->findFile($class);
         if (null !== $file) {
             require $file;
-
-            return true;
         }
-
-        return false;
     }
 
     /**
