@@ -93,8 +93,9 @@ final class MiddlewareStack implements StackInterface, ApplicationAwareInterface
     }
 
     /**
-     * Reduce middleware into a stack of functions that each call the next
-     * @return callable
+     * Reduce middleware into a stack of delegates that each call the next
+     *
+     * @return \Concrete\Core\Http\Middleware\DelegateInterface|null NULL if there are no middlewares and no dispatcher
      */
     private function getStack()
     {

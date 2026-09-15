@@ -889,12 +889,6 @@ parameters:
 			path: ../concrete/src/Http/FlysystemFileResponse.php
 
 		-
-			message: '#^Cannot call method next\(\) on callable\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../concrete/src/Http/Middleware/MiddlewareStack.php
-
-		-
 			message: '#^Method Concrete\\Core\\Http\\RequestBase\:\:getInstance\(\) should return static\(Concrete\\Core\\Http\\RequestBase\) but returns Symfony\\Component\\HttpFoundation\\Request\.$#'
 			identifier: return.type
 			count: 1
