@@ -392,7 +392,7 @@ class AuthenticationType extends ConcreteObject
      *
      * @param string $_file the filename you want
      *
-     * @return string this will return false if the file is not found
+     * @return \Concrete\Core\Filesystem\FileLocator\Record
      */
     protected function mapAuthenticationTypeFilePath($_file)
     {

@@ -421,24 +421,6 @@ parameters:
 			path: ../concrete/src/Attribute/Key/Key.php
 
 		-
-			message: '#^Cannot access property \$file on string\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: ../concrete/src/Authentication/AuthenticationType.php
-
-		-
-			message: '#^Cannot access property \$url on string\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: ../concrete/src/Authentication/AuthenticationType.php
-
-		-
-			message: '#^Cannot call method exists\(\) on string\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: ../concrete/src/Authentication/AuthenticationType.php
-
-		-
 			message: '#^Parameter \#1 \$func of method Doctrine\\DBAL\\Connection\:\:transactional\(\) expects Closure\(Doctrine\\DBAL\\Connection\)\: void, Closure\(Concrete\\Core\\Database\\Connection\\Connection\)\: void given\.$#'
 			identifier: argument.type
 			count: 1
