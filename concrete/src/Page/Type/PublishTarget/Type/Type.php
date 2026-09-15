@@ -112,7 +112,7 @@ abstract class Type extends ConcreteObject
 
     public static function getByHandle($ptPublishTargetTypeHandle)
     {
-        $db = Database::Connection();
+        $db = Database::connection();
         $r = $db->fetchAssoc(
             'select ptPublishTargetTypeID, ptPublishTargetTypeHandle, ptPublishTargetTypeName, pkgID
                 from PageTypePublishTargetTypes

@@ -913,12 +913,6 @@ parameters:
 			path: ../concrete/src/Page/Type/Composer/Control/CorePageProperty/DescriptionCorePageProperty.php
 
 		-
-			message: '#^Call to an undefined static method Concrete\\Core\\Support\\Facade\\Database\:\:Connection\(\)\.$#'
-			identifier: staticMethod.notFound
-			count: 1
-			path: ../concrete/src/Page/Type/PublishTarget/Type/Type.php
-
-		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
