@@ -949,12 +949,6 @@ parameters:
 			path: ../concrete/src/Form/Service/Widget/SiteLocaleSelector.php
 
 		-
-			message: '#^Parameter \#1 \$autoload_function of function spl_autoload_register expects callable\(string\)\: void, array\{\$this\(Concrete\\Core\\Foundation\\ClassAutoloader\), ''loadClass''\} given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../concrete/src/Foundation/ClassAutoloader.php
-
-		-
 			message: '#^Constructor of class Concrete\\Core\\Foundation\\ClassLoader has an unused parameter \$applicationNamespace\.$#'
 			identifier: constructor.unusedParameter
 			count: 1
