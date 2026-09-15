@@ -565,12 +565,6 @@ parameters:
 			path: ../concrete/src/Express/Entity/Cloner.php
 
 		-
-			message: '#^Property Concrete\\Core\\File\\Component\\Chooser\\Option\\FolderBookmarkOption\:\:\$treeNode \(Concrete\\Core\\Tree\\Node\\Type\\FileFolder\) does not accept Concrete\\Core\\Tree\\Node\\Node\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../concrete/src/File/Component/Chooser/Option/FolderBookmarkOption.php
-
-		-
 			message: '#^Parameter \#2 \$value of class HtmlObject\\Element constructor expects string\|null, array\<int, HtmlObject\\Element\> given\.$#'
 			identifier: argument.type
 			count: 1
