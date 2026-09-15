@@ -625,14 +625,10 @@ class Zip
             if (@$zip->close() !== true) {
                 throw new Exception($this->describeZipArchiveError($zip, ZipArchive::ER_OK));
             }
-            $zip = null;
         } catch (Exception $x) {
-            if ($zip !== null) {
-                try {
-                    @$zip->close();
-                } catch (\Exception $foo) {
-                }
-                $zip = null;
+            try {
+                @$zip->close();
+            } catch (\Exception $foo) {
             }
             @$this->getFilesystem()->delete([$zipFile]);
             throw $x;

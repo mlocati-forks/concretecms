@@ -415,12 +415,6 @@ parameters:
 			path: ../concrete/src/File/Service/File.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between ZipArchive and null will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: ../concrete/src/File/Service/Zip.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between string and false will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 3
