@@ -62,6 +62,7 @@ class SpecMerger
 
     public function mergeProperty(SpecProperty $specProperty, Schema $schema)
     {
+        /** @var \OpenApi\Annotations\Property $property */
         $property = $this->serializer->deserialize(json_encode($specProperty), 'OpenApi\Annotations\Property');
         $schema->properties[] = $property;
         return $schema;
