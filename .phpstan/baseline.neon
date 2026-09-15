@@ -103,12 +103,6 @@ parameters:
 			path: ../concrete/controllers/dialog/type/update_from_type.php
 
 		-
-			message: '#^Method Concrete\\Controller\\Element\\Dashboard\\Express\\Control\\Options\:\:getElement\(\) should return string but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/controllers/element/dashboard/express/control/options.php
-
-		-
 			message: '#^Array has 2 duplicate keys with value ''editInComposer'' \(''editInComposer'', ''editInComposer''\)\.$#'
 			identifier: array.duplicateKey
 			count: 1
