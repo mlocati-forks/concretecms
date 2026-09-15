@@ -61,12 +61,6 @@ parameters:
 			path: ../concrete/controllers/dialog/search/advanced_search.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between Concrete\\Core\\Entity\\Site\\Skeleton and null will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: ../concrete/controllers/dialog/site_type/attributes.php
-
-		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'
 			identifier: deadCode.unreachable
 			count: 1
