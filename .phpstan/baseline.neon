@@ -175,18 +175,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/system/seo/urls.php
 
 		-
-			message: '#^Argument of an invalid type bool\|float\|int\|string supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/users/add.php
-
-		-
-			message: '#^Right side of && is always false\.$#'
-			identifier: booleanAnd.rightAlwaysFalse
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/users/add.php
-
-		-
 			message: '#^Variable \$password in empty\(\) is never defined\.$#'
 			identifier: empty.variable
 			count: 1
