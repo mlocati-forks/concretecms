@@ -124,8 +124,9 @@ class Add extends DashboardPageController
                 $groupRepo = $this->app->make(GroupRepository::class);
 
                 $gIDs = [];
-                if (!empty($postRequest->get('gID')) && is_array($postRequest->get('gID'))) {
-                    foreach ($postRequest->get('gID') as $gID) {
+                $postedGroupIDs = $postRequest->all()['gID'] ?? null;
+                if (is_array($postedGroupIDs)) {
+                    foreach ($postedGroupIDs as $gID) {
                         $gx = $groupRepo->getGroupById($gID);
                         $gxp = new Checker($gx);
                         if ($gxp->canAssignGroup()) {
