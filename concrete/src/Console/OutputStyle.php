@@ -3,8 +3,6 @@
 namespace Concrete\Core\Console;
 
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -16,22 +14,6 @@ use Symfony\Component\Console\Terminal;
  */
 class OutputStyle extends SymfonyStyle
 {
-
-    /** @var \Symfony\Component\Console\Output\OutputInterface */
-    private $output;
-
-    /**
-     * Create a new Console OutputStyle instance.
-     *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
-     * @return void
-     */
-    public function __construct(InputInterface $input, OutputInterface $output)
-    {
-        $this->output = $output;
-        parent::__construct($input, $output);
-    }
 
     /**
      * Ask a question with autocompletion

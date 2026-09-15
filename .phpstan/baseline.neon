@@ -421,12 +421,6 @@ parameters:
 			path: ../concrete/src/Console/ConsoleAwareTrait.php
 
 		-
-			message: '#^Property Concrete\\Core\\Console\\OutputStyle\:\:\$output is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../concrete/src/Console/OutputStyle.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between null and null will always evaluate to false\.$#'
 			identifier: notIdentical.alwaysFalse
 			count: 1
