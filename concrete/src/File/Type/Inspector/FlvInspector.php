@@ -73,8 +73,8 @@ class FlvInspector extends Inspector
                         switch ($tagData['tagType']) {
                             case 18: // Script data
                                 if ($tagData['filter'] === 0) { // Not encrypted
-                                    $data = @fread($fp, $tagData['dataSize']);
-                                    if ($data !== false && isset($data[$tagData['dataSize'] - 1])) {
+                                    $data = (string) @fread($fp, $tagData['dataSize']);
+                                    if (isset($data[$tagData['dataSize'] - 1])) {
                                         $scriptBody = $this->extractScriptTagBody($data);
                                         if ($scriptBody !== null) {
                                             list($bodyName, $bodyData) = $scriptBody;
@@ -130,8 +130,8 @@ class FlvInspector extends Inspector
     private function readFlvHeader($fp)
     {
         $result = null;
-        $flvHeaderChunk = @fread($fp, 9); // 3 bytes signature + 1 byte version + 1 byte flags + 4 bytes data offset
-        if ($flvHeaderChunk !== false && isset($flvHeaderChunk[8])) {
+        $flvHeaderChunk = (string) @fread($fp, 9); // 3 bytes signature + 1 byte version + 1 byte flags + 4 bytes data offset
+        if (isset($flvHeaderChunk[8])) {
             if (substr($flvHeaderChunk, 0, 3) === 'FLV') { // Signature ok
                 $version = $this->parseUI8($flvHeaderChunk[3]);
                 if ($version === 1) { // Version ok
@@ -162,8 +162,8 @@ class FlvInspector extends Inspector
         $result = null;
         $seeked = @fseek($fp, $tagOffset + 4); // +4 to skip PreviousTagSize
         if ($seeked === 0) {
-            $tagHeaderChunk = @fread($fp, 11); // (2 bits reserved + 1 bit filter + 5 bits TagType) + 3 bytes DataSize + 3 bytes Timestamp + 1 byte TimestampExtended + 3 bytes StreamID
-            if ($tagHeaderChunk !== false && isset($tagHeaderChunk[10])) {
+            $tagHeaderChunk = (string) @fread($fp, 11); // (2 bits reserved + 1 bit filter + 5 bits TagType) + 3 bytes DataSize + 3 bytes Timestamp + 1 byte TimestampExtended + 3 bytes StreamID
+            if (isset($tagHeaderChunk[10])) {
                 $byte = $this->parseUI8($tagHeaderChunk[0]);
                 $result = [
                     'filter' => ($byte >> 5) & 0x01,
