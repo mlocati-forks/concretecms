@@ -133,12 +133,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/calendar/events.php
 
 		-
-			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
-			identifier: greater.alwaysTrue
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/reports/health/details.php
-
-		-
 			message: '#^Instanceof between Concrete\\Core\\Entity\\Attribute\\Key\\Key and Concrete\\Core\\Entity\\Attribute\\Key\\Key will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
@@ -367,12 +361,6 @@ parameters:
 			path: ../concrete/src/File/Image/Thumbnail/ThumbnailPlaceholderService.php
 
 		-
-			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
-			identifier: greater.alwaysTrue
-			count: 1
-			path: ../concrete/src/File/Image/Thumbnail/Type/Version.php
-
-		-
 			message: '#^Method Concrete\\Core\\File\\Service\\File\:\:forceDownload\(\) should never return but return statement found\.$#'
 			identifier: return.never
 			count: 1
@@ -449,12 +437,6 @@ parameters:
 			identifier: empty.offset
 			count: 1
 			path: ../concrete/src/Localization/Service/AddressFormat.php
-
-		-
-			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
-			identifier: greater.alwaysTrue
-			count: 1
-			path: ../concrete/src/Localization/Service/Date.php
 
 		-
 			message: '#^Call to an undefined method Concrete\\Core\\Mail\\Importer\\MailImporter\:\:process\(\)\.$#'
