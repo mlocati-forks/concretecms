@@ -31,7 +31,9 @@ class Properties extends BackendInterfaceFileController
     {
         parent::__construct();
         $categoryEntity = $attributeCategoryService->getByHandle('file');
-        $this->category = $categoryEntity->getController();
+        /** @var \Concrete\Core\Attribute\Category\FileCategory $category */
+        $category = $categoryEntity->getController();
+        $this->category = $category;
     }
 
     public function canAccess()
