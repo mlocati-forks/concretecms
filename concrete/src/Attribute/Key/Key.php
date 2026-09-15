@@ -55,6 +55,8 @@ class Key extends Facade implements AttributeKeyInterface
         if (isset($this->legacyAttributeKey)) {
             return (string) $this->legacyAttributeKey->getAttributeKeyID();
         }
+
+        return '';
     }
 
     /**
