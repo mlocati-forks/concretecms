@@ -187,12 +187,6 @@ parameters:
 			path: ../concrete/src/Api/Fractal/Transformer/AttributeValueTransformer.php
 
 		-
-			message: '#^Dead catch \- Concrete\\Core\\User\\Exception\\UserDeactivatedException is never thrown in the try block\.$#'
-			identifier: catch.neverThrown
-			count: 1
-			path: ../concrete/src/Api/OAuth/Controller.php
-
-		-
 			message: '#^Call to method Concrete\\Core\\Routing\\RedirectResponse\:\:setRequest\(\) on a separate line has no effect\.$#'
 			identifier: method.resultUnused
 			count: 1
