@@ -889,18 +889,6 @@ parameters:
 			path: ../concrete/src/Routing/Redirect.php
 
 		-
-			message: '#^If condition is always false\.$#'
-			identifier: if.alwaysFalse
-			count: 1
-			path: ../concrete/src/Routing/RouteGroupBuilder.php
-
-		-
-			message: '#^If condition is always false\.$#'
-			identifier: if.alwaysFalse
-			count: 1
-			path: ../concrete/src/Routing/Router.php
-
-		-
 			message: '#^Parameter \#2 \$opts of class RedisArray constructor expects array\<string, string\>, array\<string, int\|string\> given\.$#'
 			identifier: argument.type
 			count: 1

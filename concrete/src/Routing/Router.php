@@ -216,13 +216,13 @@ class Router implements RouterInterface
      *
      * @param $path
      * @param $callback
-     * @param null $handle
+     * @param string|null $handle
      * @param array $requirements
      * @param array $options
      * @param string $host
      * @param array $schemes
      * @param array $methods
-     * @param null $condition
+     * @param string|null $condition
      *
      * @return Route
      */
