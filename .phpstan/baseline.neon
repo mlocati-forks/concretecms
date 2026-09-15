@@ -223,12 +223,6 @@ parameters:
 			path: ../concrete/src/Area/Layout/Preset/Provider/ManagerServiceProvider.php
 
 		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 1
-			path: ../concrete/src/Attribute/Category/ExpressCategory.php
-
-		-
 			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:getAttributeKeyHandle\(\) should return string but return statement is missing\.$#'
 			identifier: return.missing
 			count: 1
@@ -467,18 +461,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/src/Http/RouteActionDispatcher.php
-
-		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 1
-			path: ../concrete/src/Install/Installer.php
-
-		-
-			message: '#^Left side of \|\| is always false\.$#'
-			identifier: booleanOr.leftAlwaysFalse
-			count: 1
-			path: ../concrete/src/Install/Installer.php
 
 		-
 			message: '#^Argument of an invalid type \$this\(Concrete\\Core\\Legacy\\Model\) supplied for foreach, only iterables are supported\.$#'
@@ -797,12 +779,6 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: ../concrete/src/Updater/Migrations/Migrations/Version20150504000000.php
-
-		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 2
-			path: ../concrete/src/Updater/Migrations/Migrations/Version20211020151701.php
 
 		-
 			message: '#^Strict comparison using \=\=\= between Concrete\\Core\\Permission\\Access\\Entity\\Entity and null will always evaluate to false\.$#'
