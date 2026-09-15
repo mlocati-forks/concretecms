@@ -518,6 +518,9 @@ class Search extends DashboardPageController
     public function update_attribute($uID = false)
     {
         $this->setupUser($uID);
+        if (!$this->user) {
+            throw new UserMessageException(t('Invalid user.'));
+        }
         $sr = new UserEditResponse();
         if ($this->app->make('helper/validation/token')->validate()) {
             $ak = UserAttributeKey::getByID($this->app->make('helper/security')->sanitizeInt($this->request->request('name')));
@@ -542,13 +545,15 @@ class Search extends DashboardPageController
             $sr->setMessage(t('Attribute saved successfully.'));
             $sr->setAdditionalDataAttribute('value', $val->getDisplayValue());
         }
-        $this->user->reindex();
         $sr->outputJSON();
     }
 
     public function clear_attribute($uID = false)
     {
         $this->setupUser($uID);
+        if (!$this->user) {
+            throw new UserMessageException(t('Invalid user.'));
+        }
         $sr = new UserEditResponse();
         if ($this->app->make('helper/validation/token')->validate()) {
             $ak = UserAttributeKey::getByID($this->app->make('helper/security')->sanitizeInt($this->request->request('akID')));

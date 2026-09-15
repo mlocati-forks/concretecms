@@ -235,12 +235,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/users/add.php
 
 		-
-			message: '#^Cannot call method reindex\(\) on Concrete\\Core\\User\\UserInfo\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/users/search.php
-
-		-
 			message: '#^Variable \$password in empty\(\) is never defined\.$#'
 			identifier: empty.variable
 			count: 1
