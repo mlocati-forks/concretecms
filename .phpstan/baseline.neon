@@ -673,12 +673,6 @@ parameters:
 			path: ../concrete/src/Mail/Importer/MailImporter.php
 
 		-
-			message: '#^Dead catch \- Throwable is never thrown in the try block\.$#'
-			identifier: catch.neverThrown
-			count: 1
-			path: ../concrete/src/Mail/Service.php
-
-		-
 			message: '#^Offset 0 on non\-empty\-list\<string\> on left side of \?\? always exists and is not nullable\.$#'
 			identifier: nullCoalesce.offset
 			count: 1

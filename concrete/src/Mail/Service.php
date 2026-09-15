@@ -100,6 +100,7 @@ class Service implements LoggerAwareInterface
     {
         try {
             unset($this->mailer);
+            // @phpstan-ignore catch.neverThrown (the destructor of the mailer may throw when unset() releases the last reference to it)
         } catch (Throwable $x) {
             // Ignore error
         }
