@@ -607,42 +607,6 @@ parameters:
 			path: ../concrete/src/File/StorageLocation/Configuration/DefaultConfiguration.php
 
 		-
-			message: '#^Parameter &\$data by\-ref type of method Concrete\\Core\\File\\Type\\Inspector\\FlvInspector\:\:extractScriptDataValue\(\) expects string, \(string\|false\) given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: ../concrete/src/File/Type/Inspector/FlvInspector.php
-
-		-
-			message: '#^Parameter &\$data by\-ref type of method Concrete\\Core\\File\\Type\\Inspector\\FlvInspector\:\:extractScriptDataValue_Boolean\(\) expects string, \(string\|false\) given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: ../concrete/src/File/Type/Inspector/FlvInspector.php
-
-		-
-			message: '#^Parameter &\$data by\-ref type of method Concrete\\Core\\File\\Type\\Inspector\\FlvInspector\:\:extractScriptDataValue_Double\(\) expects string, \(string\|false\) given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: ../concrete/src/File/Type/Inspector/FlvInspector.php
-
-		-
-			message: '#^Parameter &\$data by\-ref type of method Concrete\\Core\\File\\Type\\Inspector\\FlvInspector\:\:extractScriptDataValue_ECMAArray\(\) expects string, \(string\|false\) given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: ../concrete/src/File/Type/Inspector/FlvInspector.php
-
-		-
-			message: '#^Parameter &\$data by\-ref type of method Concrete\\Core\\File\\Type\\Inspector\\FlvInspector\:\:extractScriptDataValue_String\(\) expects string, \(string\|false\) given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: ../concrete/src/File/Type/Inspector/FlvInspector.php
-
-		-
-			message: '#^Parameter &\$data by\-ref type of method Concrete\\Core\\File\\Type\\Inspector\\FlvInspector\:\:extractScriptDataValue_UI16\(\) expects string, \(string\|false\) given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: ../concrete/src/File/Type/Inspector/FlvInspector.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between string and false will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 3
