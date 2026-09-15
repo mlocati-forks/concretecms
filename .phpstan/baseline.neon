@@ -547,12 +547,6 @@ parameters:
 			path: ../concrete/src/Entity/Attribute/Key/Settings/Settings.php
 
 		-
-			message: '#^Cannot cast Concrete\\Core\\Attribute\\AttributeValueInterface\|Concrete\\Core\\Entity\\Attribute\\Value\\Value\\AbstractValue to string\.$#'
-			identifier: cast.string
-			count: 2
-			path: ../concrete/src/Entity/Attribute/Value/AbstractValue.php
-
-		-
 			message: '#^PHPDoc tag @var does not specify variable name\.$#'
 			identifier: varTag.noVariable
 			count: 1
@@ -581,12 +575,6 @@ parameters:
 			identifier: parameterByRef.type
 			count: 1
 			path: ../concrete/src/Express/Entity/Cloner.php
-
-		-
-			message: '#^Cannot cast Concrete\\Core\\Attribute\\Value\\EmptyRequestAttributeValue\|Concrete\\Core\\Entity\\Attribute\\Value\\Value\\AbstractValue to string\.$#'
-			identifier: cast.string
-			count: 1
-			path: ../concrete/src/Express/Form/Validator/Routine/ValidateUniqueAttributesRoutine.php
 
 		-
 			message: '#^Property Concrete\\Core\\File\\Component\\Chooser\\Option\\FolderBookmarkOption\:\:\$treeNode \(Concrete\\Core\\Tree\\Node\\Type\\FileFolder\) does not accept Concrete\\Core\\Tree\\Node\\Node\|null\.$#'

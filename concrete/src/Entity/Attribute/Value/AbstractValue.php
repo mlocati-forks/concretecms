@@ -158,8 +158,9 @@ abstract class AbstractValue implements AttributeValueInterface
             return $controller->getDisplayValue();
         }
 
-        if ($this->getValueObject()) {
-            return (string) $this->getValueObject();
+        $valueObject = $this->getValueObject();
+        if ($valueObject && method_exists($valueObject, '__toString')) {
+            return (string) $valueObject;
         }
 
         // Legacy support.
@@ -178,8 +179,9 @@ abstract class AbstractValue implements AttributeValueInterface
             return $controller->getPlainTextValue();
         }
 
-        if ($this->getValueObject()) {
-            return (string) $this->getValueObject();
+        $valueObject = $this->getValueObject();
+        if ($valueObject && method_exists($valueObject, '__toString')) {
+            return (string) $valueObject;
         }
 
         // Legacy support.

@@ -29,7 +29,7 @@ class ValidateUniqueAttributesRoutine implements RoutineInterface
                     // when returning createAttributeValue() without implementing saveValue()) or null (when returning nothing)
                     /** @var \Concrete\Core\Entity\Attribute\Value\Value\AbstractValue|\Concrete\Core\Attribute\Value\EmptyRequestAttributeValue|false|null $value */
                     $value = $controller->createAttributeValueFromRequest();
-                    if ($value) {
+                    if ($value && method_exists($value, '__toString')) {
                         $valueString = (string) $value;
                         if ($valueString) {
                             // If you leave values blank we allow this, because there is a separate validation routine
