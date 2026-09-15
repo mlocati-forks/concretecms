@@ -265,12 +265,6 @@ parameters:
 			path: ../concrete/src/Area/Area.php
 
 		-
-			message: '#^Return type \(Concrete\\Core\\Area\\Layout\\CustomColumn\) of method Concrete\\Core\\Area\\Layout\\CustomColumn\:\:duplicate\(\) should be compatible with return type \(int\) of method Concrete\\Core\\Area\\Layout\\Column\:\:duplicate\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: ../concrete/src/Area/Layout/CustomColumn.php
-
-		-
 			message: '#^Return type \(Concrete\\Core\\Area\\Layout\\CustomColumn\) of method Concrete\\Core\\Area\\Layout\\CustomLayout\:\:addLayoutColumn\(\) should be compatible with return type \(int\) of method Concrete\\Core\\Area\\Layout\\Layout\:\:addLayoutColumn\(\)$#'
 			identifier: method.childReturnType
 			count: 1
@@ -281,12 +275,6 @@ parameters:
 			identifier: new.noConstructor
 			count: 1
 			path: ../concrete/src/Area/Layout/Preset/Provider/ManagerServiceProvider.php
-
-		-
-			message: '#^Return type \(Concrete\\Core\\Area\\Layout\\ThemeGridColumn\) of method Concrete\\Core\\Area\\Layout\\ThemeGridColumn\:\:duplicate\(\) should be compatible with return type \(int\) of method Concrete\\Core\\Area\\Layout\\Column\:\:duplicate\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: ../concrete/src/Area/Layout/ThemeGridColumn.php
 
 		-
 			message: '#^Return type \(Concrete\\Core\\Area\\Layout\\ThemeGridColumn\) of method Concrete\\Core\\Area\\Layout\\ThemeGridLayout\:\:addLayoutColumn\(\) should be compatible with return type \(int\) of method Concrete\\Core\\Area\\Layout\\Layout\:\:addLayoutColumn\(\)$#'
