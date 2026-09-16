@@ -91,42 +91,6 @@ parameters:
 			path: ../concrete/src/Application/Service/User.php
 
 		-
-			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:getAttributeKeyHandle\(\) should return string but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Attribute/Key/Key.php
-
-		-
-			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:getAttributeKeyID\(\) should return int but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Attribute/Key/Key.php
-
-		-
-			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:getAttributeType\(\) should return Concrete\\Core\\Entity\\Attribute\\Type but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Attribute/Key/Key.php
-
-		-
-			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:getController\(\) should return Concrete\\Core\\Attribute\\Controller but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Attribute/Key/Key.php
-
-		-
-			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:getSearchIndexer\(\) should return Concrete\\Core\\Attribute\\Key\\SearchIndexer\\SearchIndexerInterface but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Attribute/Key/Key.php
-
-		-
-			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:isAttributeKeySearchable\(\) should return bool but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: ../concrete/src/Attribute/Key/Key.php
-
-		-
 			message: '#^Parameter \#1 \$func of method Doctrine\\DBAL\\Connection\:\:transactional\(\) expects Closure\(Doctrine\\DBAL\\Connection\)\: void, Closure\(Concrete\\Core\\Database\\Connection\\Connection\)\: void given\.$#'
 			identifier: argument.type
 			count: 1
