@@ -169,12 +169,6 @@ parameters:
 			path: ../concrete/src/Backup/ContentImporter/Importer/Routine/AbstractPageStructureRoutine.php
 
 		-
-			message: '#^Method Concrete\\Core\\Backup\\ContentImporter\\Importer\\Routine\\ImportPageStructureRoutine\:\:importAlias\(\) never returns string so it can be removed from the return type\.$#'
-			identifier: return.unusedType
-			count: 1
-			path: ../concrete/src/Backup/ContentImporter/Importer/Routine/ImportPageStructureRoutine.php
-
-		-
 			message: '#^Offset ''null'' on \*NEVER\* in isset\(\) always exists and is not nullable\.$#'
 			identifier: isset.offset
 			count: 2
@@ -281,12 +275,6 @@ parameters:
 			identifier: function.inner
 			count: 1
 			path: ../concrete/src/File/ValidationService.php
-
-		-
-			message: '#^Anonymous function never returns null so it can be removed from the return type\.$#'
-			identifier: return.unusedType
-			count: 1
-			path: ../concrete/src/Filesystem/Twig/CoreExtension.php
 
 		-
 			message: '#^Binary operation "\+" between '' \<span class\="text…'' and string results in an error\.$#'
