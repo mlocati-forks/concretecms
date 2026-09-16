@@ -349,12 +349,6 @@ parameters:
 			path: ../concrete/src/Notification/View/StandardListView.php
 
 		-
-			message: '#^Access to undefined constant Concrete\\Core\\Package\\Offline\\Exception\:\:ERRORCODE_NOPARSERSFOUND\.$#'
-			identifier: classConstant.notFound
-			count: 1
-			path: ../concrete/src/Package/Offline/Inspector.php
-
-		-
 			message: '#^Property Concrete\\Core\\Package\\Offline\\Inspector\:\:\$parsers \(array\<Concrete\\Core\\Package\\Offline\\Parser\>\|null\) is never assigned null so it can be removed from the property type\.$#'
 			identifier: property.unusedType
 			count: 1
