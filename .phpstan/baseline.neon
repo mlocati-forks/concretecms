@@ -331,12 +331,6 @@ parameters:
 			path: ../concrete/src/Entity/OAuth/AuthCodeRepository.php
 
 		-
-			message: '#^Class Concrete\\Core\\Error\\Handling\\ErrorHandler extends @final class Symfony\\Component\\ErrorHandler\\ErrorHandler\.$#'
-			identifier: class.extendsFinalByPhpDoc
-			count: 1
-			path: ../concrete/src/Error/Handling/ErrorHandler.php
-
-		-
 			message: '#^Parameter \#2 \$value of class HtmlObject\\Element constructor expects string\|null, array\<int, HtmlObject\\Element\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -371,12 +365,6 @@ parameters:
 			identifier: notEqual.alwaysFalse
 			count: 2
 			path: ../concrete/src/Html/Service/Html.php
-
-		-
-			message: '#^Class Concrete\\Core\\Http\\Client\\Client extends @final class GuzzleHttp\\Client\.$#'
-			identifier: class.extendsFinalByPhpDoc
-			count: 1
-			path: ../concrete/src/Http/Client/Client.php
 
 		-
 			message: '#^Method Concrete\\Core\\Http\\DefaultDispatcher\:\:filterRouteCollectionForPath\(\) is unused\.$#'
@@ -599,12 +587,6 @@ parameters:
 			identifier: property.protected
 			count: 1
 			path: ../concrete/src/StyleCustomizer/Normalizer/LessNormalizer.php
-
-		-
-			message: '#^Class Concrete\\Core\\StyleCustomizer\\Normalizer\\ScssNormalizerCompiler extends @final class ScssPhp\\ScssPhp\\Compiler\.$#'
-			identifier: class.extendsFinalByPhpDoc
-			count: 1
-			path: ../concrete/src/StyleCustomizer/Normalizer/ScssNormalizerCompiler.php
 
 		-
 			message: '#^Access to protected property Less_Parser\|Less_Tree_Ruleset\:\:\$rules\.$#'

@@ -12,6 +12,9 @@ use Psr\Log\LoggerInterface;
 use Exception;
 use Throwable;
 
+/**
+ * @phpstan-ignore class.extendsFinalByPhpDoc (the parent class is marked as final only in its PHPDoc: extending it is a known and accepted risk)
+ */
 class Client extends GuzzleHttpClient implements LoggerAwareInterface
 {
 
