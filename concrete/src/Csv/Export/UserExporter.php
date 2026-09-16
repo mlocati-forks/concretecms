@@ -49,7 +49,7 @@ class UserExporter extends AbstractExporter
     ) {
         parent::__construct($writer, $columns === null ? $userCategory : null);
         $this->appTimezone = $dateService->getTimezone('app');
-        $this->columns = $columns === null ? null : array_values(array_filter($columns));
+        $this->columns = $columns === null ? null : array_values($columns);
         $this->dateService = $dateService;
         $this->format = $this->getFormat($config->get('concrete.export.csv.datetime_format', 'ATOM'));
     }

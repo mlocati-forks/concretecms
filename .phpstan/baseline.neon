@@ -151,12 +151,6 @@ parameters:
 			path: ../concrete/src/Config/ConfigStore.php
 
 		-
-			message: '#^Parameter \#1 \$array \(array\<Concrete\\Core\\Search\\Column\\ColumnInterface\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: ../concrete/src/Csv/Export/UserExporter.php
-
-		-
 			message: '#^Variable \$password on left side of \?\? always exists and is not nullable\.$#'
 			identifier: nullCoalesce.variable
 			count: 1
