@@ -493,18 +493,6 @@ parameters:
 			path: ../concrete/src/Session/SessionFactory.php
 
 		-
-			message: '#^Access to protected property Less_Parser\|Less_Tree_Ruleset\:\:\$rules\.$#'
-			identifier: property.protected
-			count: 1
-			path: ../concrete/src/StyleCustomizer/Normalizer/LessNormalizer.php
-
-		-
-			message: '#^Access to protected property Less_Parser\|Less_Tree_Ruleset\:\:\$rules\.$#'
-			identifier: property.protected
-			count: 1
-			path: ../concrete/src/StyleCustomizer/Preset/Type/LessFilePresetType.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between array\{\} and array\{\} will always evaluate to false\.$#'
 			identifier: notIdentical.alwaysFalse
 			count: 1
