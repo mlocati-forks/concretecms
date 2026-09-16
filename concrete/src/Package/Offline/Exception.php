@@ -180,6 +180,13 @@ class Exception extends BaseException
     const ERRORCODE_UNSUPPORTED_PROPERTYVALUE = 24;
 
     /**
+     * Error code for exceptions thrown when no parser is able to parse a file.
+     *
+     * @var int
+     */
+    const ERRORCODE_NOPARSERSFOUND = 25;
+
+    /**
      * The contextual data associated to the exception.
      *
      * @var mixed
