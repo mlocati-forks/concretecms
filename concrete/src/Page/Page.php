@@ -1472,7 +1472,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the path of this page.
      *
-     * @return string
+     * @return string|null
      */
     public function getCollectionPath()
     {
@@ -2006,7 +2006,7 @@ class Page extends Collection implements CategoryMemberInterface,
     /**
      * Get the file name of a page (single pages).
      *
-     * @return string
+     * @return string|null
      */
     public function getCollectionFilename()
     {
