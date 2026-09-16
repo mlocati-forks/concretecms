@@ -632,7 +632,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
                     if (isset($data->record)) {
                         foreach ($data->record->children() as $key => $node) {
                             $nodeValue = (string) $node;
-                            if ($nodeValue === '' && isset($node['null']) && filter_var((string) $node['null'], FILTER_VALIDATE_BOOLEAN)) {
+                            if (isset($node['null']) && $nodeValue === '' && filter_var((string) $node['null'], FILTER_VALIDATE_BOOLEAN)) {
                                 $args[$node->getName()] = null;
                             } elseif (in_array($key, $btExportPageColumns)
                                 || in_array($key, $this->btExportFileColumns)
@@ -677,7 +677,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
                             foreach ($record->children() as $key => $node) {
                                 $nodeName = $node->getName();
                                 $nodeValue = (string) $node;
-                                if ($nodeValue === '' && isset($node['null']) && filter_var((string) $node['null'], FILTER_VALIDATE_BOOLEAN)) {
+                                if (isset($node['null']) && $nodeValue === '' && filter_var((string) $node['null'], FILTER_VALIDATE_BOOLEAN)) {
                                     $aar->{$nodeName} = null;
                                 } elseif (in_array($key, $btExportPageColumns)
                                     || in_array($key, $this->btExportFileColumns)
