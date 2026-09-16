@@ -43,6 +43,7 @@ class UpdateFromType extends BackendInterfaceController
 
         throw new UserMessageException(t('This feature is not implemented yet.'));
 
+        // @phpstan-ignore deadCode.unreachable (the code is kept in case the feature will be completed)
         parent::on_start();
 
         $request = $this->request;

@@ -61,12 +61,6 @@ parameters:
 			path: ../concrete/controllers/dialog/search/advanced_search.php
 
 		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
-			count: 1
-			path: ../concrete/controllers/dialog/type/update_from_type.php
-
-		-
 			message: '#^Call to an undefined method Concrete\\Core\\Job\\JobQueue\:\:count\(\)\.$#'
 			identifier: method.notFound
 			count: 3
@@ -581,12 +575,6 @@ parameters:
 			identifier: notIdentical.alwaysFalse
 			count: 1
 			path: ../concrete/src/Support/Symbol/CheckerGenerator.php
-
-		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
-			count: 1
-			path: ../concrete/src/Support/i18n.php
 
 		-
 			message: '#^Call to an undefined static method Concrete\\Core\\Tree\\Node\\Node\:\:getClassByType\(\)\.$#'
