@@ -46,7 +46,7 @@ class RequestBase extends SymfonyRequest
     protected $customRequestDateTime;
 
     /**
-     * @var SymfonyRequest
+     * @var \Concrete\Core\Http\Request|null
      */
     protected static $instance;
 
@@ -56,21 +56,18 @@ class RequestBase extends SymfonyRequest
     protected $c;
 
     /**
-     * @return static
+     * @return \Concrete\Core\Http\Request
      */
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = static::createFromGlobals();
+            self::$instance = Request::createFromGlobals();
         }
 
         return self::$instance;
     }
 
-    /**
-     * @param SymfonyRequest $instance
-     */
-    public static function setInstance(SymfonyRequest $instance)
+    public static function setInstance(Request $instance)
     {
         self::$instance = $instance;
     }
