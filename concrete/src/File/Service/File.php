@@ -219,7 +219,7 @@ class File
      *
      * @param string $file
      *
-     * @return never
+     * @return false|never false if the file can't be opened (otherwise the script terminates after sending the file)
      */
     public function forceDownload($file)
     {

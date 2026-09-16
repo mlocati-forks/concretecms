@@ -175,12 +175,6 @@ parameters:
 			path: ../concrete/src/File/Image/Thumbnail/ThumbnailPlaceholderService.php
 
 		-
-			message: '#^Method Concrete\\Core\\File\\Service\\File\:\:forceDownload\(\) should never return but return statement found\.$#'
-			identifier: return.never
-			count: 1
-			path: ../concrete/src/File/Service/File.php
-
-		-
 			message: '#^Inner named functions are not supported by PHPStan\. Consider refactoring to an anonymous function, class method, or a top\-level\-defined function\. See issue \#165 \(https\://github\.com/phpstan/phpstan/issues/165\) for more details\.$#'
 			identifier: function.inner
 			count: 1
