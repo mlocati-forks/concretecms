@@ -19,12 +19,6 @@ parameters:
 			path: ../concrete/controllers/backend/tree/node/drag_request.php
 
 		-
-			message: '#^Method Concrete\\Controller\\Dialog\\Event\\AdvancedSearch\:\:getSearchProvider\(\) should return Concrete\\Core\\Search\\ProviderInterface but returns false\.$#'
-			identifier: return.type
-			count: 1
-			path: ../concrete/controllers/dialog/event/advanced_search.php
-
-		-
 			message: '#^Call to an undefined method Concrete\\Controller\\Dialog\\File\\Bulk\\Properties\:\:setFiles\(\)\.$#'
 			identifier: method.notFound
 			count: 1
