@@ -493,12 +493,6 @@ parameters:
 			path: ../concrete/src/User/Workflow/Progress/ProgressList.php
 
 		-
-			message: '#^Binary operation "\*\=" between string and 1024 results in an error\.$#'
-			identifier: assignOp.invalid
-			count: 1
-			path: ../concrete/src/Utility/Service/Number.php
-
-		-
 			message: '#^Elseif condition is always false\.$#'
 			identifier: elseif.alwaysFalse
 			count: 4

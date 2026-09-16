@@ -179,15 +179,17 @@ class Number
             $last = strtolower($val[strlen($val) - 1]);
             if (!is_numeric($last)) {
                 $num = trim(substr($val, 0, -1));
-                switch ($last) {
-                    case 'g':
-                        $num *= 1024;
-                    case 'm':
-                        $num *= 1024;
-                    case 'k':
-                        $num *= 1024;
-                        $val = $num;
-                        break;
+                if (is_numeric($num)) {
+                    switch ($last) {
+                        case 'g':
+                            $num *= 1024;
+                        case 'm':
+                            $num *= 1024;
+                        case 'k':
+                            $num *= 1024;
+                            $val = $num;
+                            break;
+                    }
                 }
             }
         }
