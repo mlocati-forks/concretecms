@@ -45,7 +45,7 @@ class PasswordHasher
     /**
      * Create a hash for a plain password.
      *
-     * @param string $password
+     * @param string|null $password NULL is treated as an empty string
      *
      * @return string
      */
