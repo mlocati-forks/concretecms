@@ -257,9 +257,3 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/src/Url/Resolver/RouterUrlResolver.php
-
-		-
-			message: '#^Return type \(array\<Concrete\\Core\\User\\Workflow\\Progress\\User\>\) of method Concrete\\Core\\User\\Workflow\\Progress\\ProgressList\:\:get\(\) should be compatible with return type \(array\<Concrete\\Core\\User\\UserInfo\>\) of method Concrete\\Core\\Legacy\\UserList\:\:get\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: ../concrete/src/User/Workflow/Progress/ProgressList.php
