@@ -151,24 +151,6 @@ parameters:
 			path: ../concrete/src/Config/ConfigStore.php
 
 		-
-			message: '#^Call to an undefined method Doctrine\\ORM\\EntityManagerInterface\:\:merge\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Entity/Attribute/Key/Settings/SelectSettings.php
-
-		-
-			message: '#^Call to an undefined method Doctrine\\ORM\\EntityManagerInterface\:\:merge\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Entity/Attribute/Key/Settings/Settings.php
-
-		-
-			message: '#^Call to an undefined method Doctrine\\ORM\\EntityManagerInterface\:\:merge\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/Entity/OAuth/AuthCodeRepository.php
-
-		-
 			message: '#^Parameter \#2 \$value of class HtmlObject\\Element constructor expects string\|null, array\<int, HtmlObject\\Element\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -365,12 +347,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/src/Url/Resolver/RouterUrlResolver.php
-
-		-
-			message: '#^Call to an undefined method Doctrine\\ORM\\EntityManagerInterface\:\:merge\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: ../concrete/src/User/Login/LoginAttemptService.php
 
 		-
 			message: '#^Return type \(array\<Concrete\\Core\\User\\Workflow\\Progress\\User\>\) of method Concrete\\Core\\User\\Workflow\\Progress\\ProgressList\:\:get\(\) should be compatible with return type \(array\<Concrete\\Core\\User\\UserInfo\>\) of method Concrete\\Core\\Legacy\\UserList\:\:get\(\)$#'
