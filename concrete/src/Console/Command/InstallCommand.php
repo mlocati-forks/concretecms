@@ -441,7 +441,7 @@ EOT
     {
         if ('' !== (string) $default) {
             if (stripos($option->getName(), 'password') !== false) {
-                return sprintf('%s? [<options=bold>HIDDEN</>]: ', $option->getDescription(), $default);
+                return sprintf('%s? [<options=bold>HIDDEN</>]: ', $option->getDescription());
             }
 
             return sprintf('%s? [<options=bold>%s</>]: ', $option->getDescription(), $default);
