@@ -114,7 +114,9 @@ class Query implements \JsonSerializable, DenormalizableInterface
         $all = $searchProvider->getAllColumnSet();
         foreach($data['columnSet']['columns'] as $columnRecord) {
             $column = $all->getColumnByKey($columnRecord['columnKey']);
-            $columnSet->addColumn($column);
+            if ($column !== null) {
+                $columnSet->addColumn($column);
+            }
         }
         if (isset($data['columnSet']['sortColumn'])) {
             $sortColumn = $all->getColumnByKey($data['columnSet']['sortColumn']);
