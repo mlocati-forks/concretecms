@@ -151,12 +151,6 @@ parameters:
 			path: ../concrete/src/Config/ConfigStore.php
 
 		-
-			message: '#^PHPDoc tag @return contains unresolvable type\.$#'
-			identifier: return.unresolvableType
-			count: 1
-			path: ../concrete/src/Conversation/Rating/Type.php
-
-		-
 			message: '#^Generator expects value type string, int given\.$#'
 			identifier: generator.valueType
 			count: 2
