@@ -23,7 +23,7 @@ class ListItem extends ConcreteObject
     public $accessType;
 
     /**
-     * @var \Concrete\Core\Permission\Access\Entity\Entity
+     * @var \Concrete\Core\Permission\Access\Entity\Entity|false|null
      */
     public $accessEntity;
 
@@ -89,7 +89,7 @@ class ListItem extends ConcreteObject
     }
 
     /**
-     * @return \Concrete\Core\Permission\Access\Entity\Entity
+     * @return \Concrete\Core\Permission\Access\Entity\Entity|false|null NULL if the access entity has not been set, false if it doesn't exist anymore
      */
     public function getAccessEntityObject()
     {
