@@ -190,7 +190,6 @@ class ImportResult implements JsonSerializable
         return [
             'errors' => $jsonErrors && !empty($jsonErrors['errors']) ? $jsonErrors['errors'] : [],
             'warnings' => $jsonWarnings && !empty($jsonWarnings['errors']) ? $jsonWarnings['errors'] : [],
-            'warnings' => empty($jsonWarnings['errors']) ? [] : $jsonWarnings['errors'],
             'lastDataRowIndex' => $this->lastDataRowIndex,
             'totalDataRowsProcessed' => $this->totalDataRowsProcessed,
             'importSuccessCount' => $this->importSuccessCount,
