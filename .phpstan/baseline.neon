@@ -295,12 +295,6 @@ parameters:
 			path: ../concrete/src/Page/Stack/Pile/PileContent.php
 
 		-
-			message: '#^Unsafe call to private method Concrete\\Core\\Page\\Theme\\Theme\:\:getThemeNameAndDescription\(\) through static\:\:\.$#'
-			identifier: staticClassAccess.privateMethod
-			count: 2
-			path: ../concrete/src/Page/Theme/Theme.php
-
-		-
 			message: '#^Empty array passed to foreach\.$#'
 			identifier: foreach.emptyArray
 			count: 1
