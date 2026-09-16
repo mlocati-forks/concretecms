@@ -271,12 +271,6 @@ parameters:
 			path: ../concrete/src/Legacy/Model.php
 
 		-
-			message: '#^Loose comparison using \=\= between 1 and 1 will always evaluate to true\.$#'
-			identifier: equal.alwaysTrue
-			count: 2
-			path: ../concrete/src/Legacy/PasswordHash.php
-
-		-
 			message: '#^Offset ''country'' on non\-empty\-array in empty\(\) always exists and is not falsy\.$#'
 			identifier: empty.offset
 			count: 1
