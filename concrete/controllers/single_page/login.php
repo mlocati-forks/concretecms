@@ -62,16 +62,16 @@ class Login extends PageController implements LoggerAwareInterface
     /**
      * @param string $type
      * @param string $method
-     * @param null $a
-     * @param null $b
-     * @param null $c
-     * @param null $d
-     * @param null $e
-     * @param null $f
-     * @param null $g
-     * @param null $h
-     * @param null $i
-     * @param null $j
+     * @param string|null $a
+     * @param string|null $b
+     * @param string|null $c
+     * @param string|null $d
+     * @param string|null $e
+     * @param string|null $f
+     * @param string|null $g
+     * @param string|null $h
+     * @param string|null $i
+     * @param string|null $j
      *
      * @throws \Concrete\Core\Authentication\AuthenticationTypeFailureException
      * @throws \Exception

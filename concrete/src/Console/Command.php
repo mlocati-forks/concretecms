@@ -297,7 +297,7 @@ abstract class Command extends SymfonyCommand
      * @param string $question
      * @param array $choices
      * @param string $default
-     * @param null $attempts
+     * @param int|null $attempts
      * @param bool $strict
      *
      * @return string
