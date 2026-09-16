@@ -325,12 +325,6 @@ parameters:
 			path: ../concrete/src/Html/Service/Html.php
 
 		-
-			message: '#^Method Concrete\\Core\\Http\\DefaultDispatcher\:\:filterRouteCollectionForPath\(\) is unused\.$#'
-			identifier: method.unused
-			count: 1
-			path: ../concrete/src/Http/DefaultDispatcher.php
-
-		-
 			message: '#^Method Concrete\\Core\\Http\\RequestBase\:\:getInstance\(\) should return static\(Concrete\\Core\\Http\\RequestBase\) but returns Symfony\\Component\\HttpFoundation\\Request\.$#'
 			identifier: return.type
 			count: 1
@@ -467,12 +461,6 @@ parameters:
 			identifier: property.unusedType
 			count: 1
 			path: ../concrete/src/Package/Offline/Inspector.php
-
-		-
-			message: '#^Method Concrete\\Core\\Page\\Collection\\Version\\Version\:\:avoidApprovalOverlapping\(\) is unused\.$#'
-			identifier: method.unused
-			count: 1
-			path: ../concrete/src/Page/Collection/Version/Version.php
 
 		-
 			message: '#^If condition is always true\.$#'
