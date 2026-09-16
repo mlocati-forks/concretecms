@@ -151,12 +151,6 @@ parameters:
 			path: ../concrete/src/Block/BlockController.php
 
 		-
-			message: '#^Property Concrete\\Core\\Board\\Command\\ScheduleBoardInstanceRuleCommand\:\:\$timezone \(string\) does not accept default value of type int\.$#'
-			identifier: property.defaultValue
-			count: 1
-			path: ../concrete/src/Board/Command/ScheduleBoardInstanceRuleCommand.php
-
-		-
 			message: '#^Call to function array_filter\(\) on a separate line has no effect\.$#'
 			identifier: function.resultUnused
 			count: 1
