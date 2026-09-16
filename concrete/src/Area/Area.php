@@ -805,8 +805,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
             $this->arInheritPermissionsFromAreaOnCID = $area->getAreaCollectionInheritID();
             $this->arID = $area->getAreaID();
 
-            $area = $this;
-            array_map(function($ab) use ($area) {
+            array_map(function($ab) {
                 $ab->setBlockAreaObject($this);
             }, $this->areaBlocksArray);
         }

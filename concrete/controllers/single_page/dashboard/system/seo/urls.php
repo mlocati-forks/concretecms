@@ -34,7 +34,7 @@ class Urls extends DashboardSitePageController
         $this->set('urlRewriting', (bool) $globalConfig->get('concrete.seo.url_rewriting'));
         $this->set('canonicalTag', (bool) $siteConfig->get('seo.canonical_tag.enabled'));
         $checkPrettyUrlsAction = $globalConfig->withKey('concrete.seo.url_rewriting', true, function () use ($globalConfig): string {
-            return $globalConfig->withKey('concrete.seo.url_rewriting_all', true, function () use ($globalConfig): string {
+            return $globalConfig->withKey('concrete.seo.url_rewriting_all', true, function (): string {
                 return (string) $this->action('check_pretty_urls');
             });
         });

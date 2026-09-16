@@ -121,12 +121,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/system/multisite/types.php
 
 		-
-			message: '#^Anonymous function has an unused use \$globalConfig\.$#'
-			identifier: closure.unusedUse
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/system/seo/urls.php
-
-		-
 			message: '#^Call to method Concrete\\Core\\Routing\\RedirectResponse\:\:setRequest\(\) on a separate line has no effect\.$#'
 			identifier: method.resultUnused
 			count: 1
@@ -149,12 +143,6 @@ parameters:
 			identifier: constant.notFound
 			count: 1
 			path: ../concrete/src/Application/Service/User.php
-
-		-
-			message: '#^Anonymous function has an unused use \$area\.$#'
-			identifier: closure.unusedUse
-			count: 1
-			path: ../concrete/src/Area/Area.php
 
 		-
 			message: '#^Class Concrete\\Core\\Area\\Layout\\Preset\\Provider\\Manager does not have a constructor and must be instantiated without any parameters\.$#'
