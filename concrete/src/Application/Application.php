@@ -327,10 +327,7 @@ class Application extends Container
                 $parsed_url = Url::createFromUrl($request->getUri(),
                 $trailing_slashes ? Url::TRAILING_SLASHES_ENABLED : Url::TRAILING_SLASHES_DISABLED);
 
-                $response = new RedirectResponse($parsed_url, 301);
-                $response->setRequest($request);
-
-                return $response;
+                return new RedirectResponse($parsed_url, 301);
             }
         }
 
