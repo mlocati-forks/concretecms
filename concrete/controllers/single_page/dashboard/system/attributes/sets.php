@@ -157,6 +157,8 @@ EOT
                 $this->entityManager->flush();
                 $cat = AttributeKeyCategory::getByID($as->getAttributeSetKeyCategoryID());
                 $category = $cat->getAttributeKeyCategory();
+                // The legacy attribute key categories return legacy key objects instead of the key entities
+                /** @var \Concrete\Core\Entity\Attribute\Key\Key[]|\Concrete\Core\Attribute\Key\Key[] $unassigned */
                 $unassigned = $category->getSetManager()->getUnassignedAttributeKeys();
 
                 if (is_array($this->post('akID'))) {

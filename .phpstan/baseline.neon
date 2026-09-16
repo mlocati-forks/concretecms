@@ -79,12 +79,6 @@ parameters:
 			path: ../concrete/controllers/search/standard.php
 
 		-
-			message: '#^Instanceof between Concrete\\Core\\Entity\\Attribute\\Key\\Key and Concrete\\Core\\Entity\\Attribute\\Key\\Key will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/system/attributes/sets.php
-
-		-
 			message: '#^Constant ONLINE_NOW_SRC_OFF not found\.$#'
 			identifier: constant.notFound
 			count: 1
