@@ -58,10 +58,10 @@ class PageActivityExporter extends AbstractExporter
         /** @var \Concrete\Core\Page\Page $page */
         $page = Page::getByID($version->getCollectionID());
 
-        yield (int) $page->getCollectionID();
+        yield (string) $page->getCollectionID();
         yield (string) $page->getCollectionPath();
         yield (string) $page->getCollectionName();
-        yield (int) $version->getVersionID();
+        yield (string) $version->getVersionID();
         yield (string) $this->getLocalizedDate($version->getVersionDateApproved());
         yield (string) $version->getVersionComments();
         yield (string) $version->getVersionAuthorUserName();
