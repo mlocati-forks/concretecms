@@ -3,6 +3,10 @@ namespace Concrete\Core\Url\Components;
 
 /**
  * c5 specific path component for league/url.
+ *
+ * league/url documents AbstractArray::offsetGet() as returning only null: this is its actual signature.
+ *
+ * @method string|null offsetGet(int|string $offset)
  */
 class Path extends \League\Url\Components\Path
 {
