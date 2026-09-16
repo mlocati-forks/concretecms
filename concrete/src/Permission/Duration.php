@@ -6,6 +6,10 @@ use Database;
 use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\Http\Request;
 
+// The durations are stored serialized: the ones saved by 5.7.3.1 and earlier (when Duration extended Object) still have
+// the legacy pd* properties, which unserialize() re-creates as dynamic properties (deprecated since PHP 8.2 without this
+// attribute) until they are converted by \Concrete\Core\Updater\Migrations\Migrations\Version20150504000000::updatePermissionDurationObjects().
+#[\AllowDynamicProperties]
 class Duration extends AbstractRepetition
 {
     protected $pdID;
