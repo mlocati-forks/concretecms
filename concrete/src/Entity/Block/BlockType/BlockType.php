@@ -719,8 +719,6 @@ EOT
     public function loadController()
     {
         $class = $this->getBlockTypeClass();
-
-        /** @var Controller controller */
         if ($class) {
             $this->controller = Facade::getFacadeApplication()->make($class, ['obj' => $this]);
         }
