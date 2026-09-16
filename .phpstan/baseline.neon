@@ -127,12 +127,6 @@ parameters:
 			path: ../concrete/src/Application/Service/User.php
 
 		-
-			message: '#^Class Concrete\\Core\\Area\\Layout\\Preset\\Provider\\Manager does not have a constructor and must be instantiated without any parameters\.$#'
-			identifier: new.noConstructor
-			count: 1
-			path: ../concrete/src/Area/Layout/Preset/Provider/ManagerServiceProvider.php
-
-		-
 			message: '#^Method Concrete\\Core\\Attribute\\Key\\Key\:\:getAttributeKeyHandle\(\) should return string but return statement is missing\.$#'
 			identifier: return.missing
 			count: 1
