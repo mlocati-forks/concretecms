@@ -300,7 +300,7 @@ class User extends ConcreteObject
                     $this->uTimezone = $ux->getUserTimezone();
                 }
                 $this->uGroups = $this->_getUserGroups(true);
-            } elseif ($validator->hasActiveSession() || $this->uID) {
+            } elseif ($validator->hasActiveSession()) {
                 if ($session->has('uID')) {
                     $this->uID = $session->get('uID');
                     $this->uName = $session->get('uName');

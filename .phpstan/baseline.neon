@@ -385,12 +385,6 @@ parameters:
 			path: ../concrete/src/User/Login/LoginAttemptService.php
 
 		-
-			message: '#^Right side of \|\| is always false\.$#'
-			identifier: booleanOr.rightAlwaysFalse
-			count: 1
-			path: ../concrete/src/User/User.php
-
-		-
 			message: '#^Return type \(array\<Concrete\\Core\\User\\Workflow\\Progress\\User\>\) of method Concrete\\Core\\User\\Workflow\\Progress\\ProgressList\:\:get\(\) should be compatible with return type \(array\<Concrete\\Core\\User\\UserInfo\>\) of method Concrete\\Core\\Legacy\\UserList\:\:get\(\)$#'
 			identifier: method.childReturnType
 			count: 1
