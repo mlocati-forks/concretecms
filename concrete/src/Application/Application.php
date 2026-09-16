@@ -514,7 +514,7 @@ class Application extends Container
      */
     public function bindShared($abstract, $concrete)
     {
-        return $this->singleton($abstract, $concrete);
+        $this->singleton($abstract, $concrete);
     }
     
 }

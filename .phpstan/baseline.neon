@@ -115,18 +115,6 @@ parameters:
 			path: ../concrete/controllers/single_page/dashboard/system/attributes/sets.php
 
 		-
-			message: '#^Result of method Concrete\\Controller\\SinglePage\\Dashboard\\System\\Multisite\\Types\:\:prepareAddOrEdit\(\) \(void\) is used\.$#'
-			identifier: method.void
-			count: 2
-			path: ../concrete/controllers/single_page/dashboard/system/multisite/types.php
-
-		-
-			message: '#^Result of method Illuminate\\Container\\Container\:\:singleton\(\) \(void\) is used\.$#'
-			identifier: method.void
-			count: 1
-			path: ../concrete/src/Application/Application.php
-
-		-
 			message: '#^Constant ONLINE_NOW_SRC_OFF not found\.$#'
 			identifier: constant.notFound
 			count: 1
