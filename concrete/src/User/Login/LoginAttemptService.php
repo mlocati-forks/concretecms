@@ -9,7 +9,7 @@ use Concrete\Core\Entity\User\User;
 use Concrete\Core\User\Event\DeactivateUser;
 use Concrete\Core\User\User as LegacyUser;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use InvalidArgumentException;
 use Concrete\Core\Events\EventDispatcher;
 
@@ -25,7 +25,7 @@ class LoginAttemptService
     /**
      * The entitymanager we're tracking attempts with
      *
-     * @var EntityManagerInterface
+     * @var EntityManager
      */
     protected $entityManager;
 
@@ -57,7 +57,7 @@ class LoginAttemptService
      */
     protected $knownUsers = [];
 
-    public function __construct(EntityManagerInterface $entityManager, Repository $config, EventDispatcher $director)
+    public function __construct(EntityManager $entityManager, Repository $config, EventDispatcher $director)
     {
         $this->entityManager = $entityManager;
         $this->config = $config;
@@ -147,7 +147,7 @@ class LoginAttemptService
         // $user = $event->getUserEntity();
 
         // Set the user to inactive
-        $this->entityManager->transactional(function(EntityManagerInterface $localManager) use ($user) {
+        $this->entityManager->transactional(function(EntityManager $localManager) use ($user) {
             $user = $localManager->merge($user);
             $user->setUserIsActive(false);
         });
