@@ -103,12 +103,6 @@ parameters:
 			path: ../concrete/controllers/install.php
 
 		-
-			message: '#^PHPDoc type Symfony\\Component\\HttpFoundation\\Request of property Concrete\\Controller\\Permissions\\Access\\Entity\\AccessEntity\:\:\$request is not covariant with PHPDoc type Concrete\\Core\\Http\\Request\|null of overridden property Concrete\\Core\\Controller\\AbstractController\:\:\$request\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: ../concrete/controllers/permissions/access/entity/access_entity.php
-
-		-
 			message: '#^Call to an undefined method Concrete\\Controller\\Dialog\\Search\\AdvancedSearch\:\:setEntityID\(\)\.$#'
 			identifier: method.notFound
 			count: 1
