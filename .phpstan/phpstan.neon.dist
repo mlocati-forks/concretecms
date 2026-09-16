@@ -5,8 +5,12 @@ includes:
 
 parameters:
     level: 5
-    # PHPStan itself requires PHP 7.4+, but the code must be compatible with PHP 7.3
-    phpVersion: 70300
+    # PHPStan itself requires PHP 7.4+, but the code must be compatible with PHP 7.3 to the latest PHP version supported by
+    # PHPStan (max must be updated when PHPStan adds the support for new PHP versions: PHPStan refuses greater values).
+    # The signatures of the PHP functions are the ones of the min version, the value of PHP_VERSION_ID is the whole range.
+    phpVersion:
+        min: 70300
+        max: 80599
     tmpDir: tmp
     # The Composer project of Concrete (its vendor directory is concrete/vendor), so that PHPStan finds the classes
     # and the functions defined by the dependencies regardless of the current working directory
