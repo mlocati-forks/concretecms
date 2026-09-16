@@ -157,12 +157,6 @@ parameters:
 			path: ../concrete/src/Application/Application.php
 
 		-
-			message: '#^PHPDoc type array of property Concrete\\Core\\Application\\Service\\DefaultDashboardMenu\:\:\$items is not covariant with PHPDoc type array\<Concrete\\Core\\Page\\Page\> of overridden property Concrete\\Core\\Application\\Service\\DashboardMenu\:\:\$items\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: ../concrete/src/Application/Service/Dashboard.php
-
-		-
 			message: '#^Constant ONLINE_NOW_SRC_OFF not found\.$#'
 			identifier: constant.notFound
 			count: 1
