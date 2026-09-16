@@ -52,7 +52,7 @@ class DragRequest extends UserInterface
     protected function canAccess()
     {
         list($sourceNodes, $destNode) = $this->getNodes();
-        if (!$sourceNodes || (is_array($sourceNodes) && count($sourceNodes) == 0)) {
+        if (!$sourceNodes) {
             return false;
         }
 

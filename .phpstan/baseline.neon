@@ -7,18 +7,6 @@ parameters:
 			path: ../concrete/controllers/backend/attributes.php
 
 		-
-			message: '#^Loose comparison using \=\= between int\<1, max\> and 0 will always evaluate to false\.$#'
-			identifier: equal.alwaysFalse
-			count: 1
-			path: ../concrete/controllers/backend/tree/node/drag_request.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: ../concrete/controllers/backend/tree/node/drag_request.php
-
-		-
 			message: '#^Call to an undefined method Concrete\\Controller\\Dialog\\File\\Bulk\\Properties\:\:setFiles\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -95,12 +83,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: ../concrete/controllers/search/standard.php
-
-		-
-			message: '#^Loose comparison using \=\= between 0\|0\.0\|''0'' and ''0'' will always evaluate to true\.$#'
-			identifier: equal.alwaysTrue
-			count: 1
-			path: ../concrete/controllers/single_page/dashboard/calendar/events.php
 
 		-
 			message: '#^Instanceof between Concrete\\Core\\Entity\\Attribute\\Key\\Key and Concrete\\Core\\Entity\\Attribute\\Key\\Key will always evaluate to true\.$#'
@@ -449,12 +431,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: ../concrete/src/Session/SessionFactory.php
-
-		-
-			message: '#^Strict comparison using \!\=\= between array\{\} and array\{\} will always evaluate to false\.$#'
-			identifier: notIdentical.alwaysFalse
-			count: 1
-			path: ../concrete/src/Support/Symbol/CheckerGenerator.php
 
 		-
 			message: '#^Call to an undefined static method Concrete\\Core\\Tree\\Node\\Node\:\:getClassByType\(\)\.$#'

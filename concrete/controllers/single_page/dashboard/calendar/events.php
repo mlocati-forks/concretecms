@@ -43,14 +43,14 @@ class Events extends DashboardCalendarPageController
 
         $session = \Core::make('session');
         $topic_id = $this->request->get('topic_id', $session->get('dashboard_calendar_events_topic_list', null));
+        $topic_id = is_numeric($topic_id) ? (int) $topic_id : null;
 
         $nextLink = URL::to('/dashboard/calendar/events/view', $calendar->getID(), $nextLinkYear, $nextLinkMonth);
         $previousLink = URL::to('/dashboard/calendar/events/view', $calendar->getID(), $previousLinkYear, $previousLinkMonth);
         $todayLink = URL::to('/dashboard/calendar/events/view', $calendar->getID());
 
         $this->set('topic', null);
-        if ($topic_id) {
-            $topic_id = intval($topic_id, 10);
+        if ($topic_id !== null && $topic_id > 0) {
             $topic = Node::getByID($topic_id);
 
             if ($topic instanceof Topic) {
@@ -63,7 +63,7 @@ class Events extends DashboardCalendarPageController
 
                 $session->set('dashboard_calendar_events_topic_list', $topic_id);
             }
-        } elseif (is_numeric($topic_id) && $topic_id == '0') {
+        } elseif ($topic_id === 0) {
             $session->remove('dashboard_calendar_events_topic_list');
         }
 

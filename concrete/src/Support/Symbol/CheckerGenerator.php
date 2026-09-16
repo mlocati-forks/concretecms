@@ -142,9 +142,6 @@ class CheckerGenerator
             }
             $phpDocsLines = [];
             if (($descriptions = $method->getDescriptions()) !== []) {
-                if ($phpDocsLines !== []) {
-                    $phpDocsLines[] = '';
-                }
                 foreach ($descriptions as $description) {
                     foreach (explode("\n", $description) as $line) {
                         $phpDocsLines[] = $line;
