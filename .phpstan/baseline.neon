@@ -481,12 +481,6 @@ parameters:
 			path: ../concrete/src/Page/Stack/Pile/Pile.php
 
 		-
-			message: '#^Class Concrete\\Core\\Page\\Stack\\Pile\\Pile does not have a constructor and must be instantiated without any parameters\.$#'
-			identifier: new.noConstructor
-			count: 1
-			path: ../concrete/src/Page/Stack/Pile/Pile.php
-
-		-
 			message: '#^Constant PILE_MODULES_INSTALLED not found\.$#'
 			identifier: constant.notFound
 			count: 1
