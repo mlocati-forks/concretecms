@@ -101,7 +101,7 @@ class Arrays
         $tmp = array();
         foreach ($array as $a) {
             if (is_array($a)) {
-                $tmp = array_merge($tmp, array_flat($a));
+                $tmp = array_merge($tmp, $this->flatten($a));
             } else {
                 $tmp[] = $a;
             }
