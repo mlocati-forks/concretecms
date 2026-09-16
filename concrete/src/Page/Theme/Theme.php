@@ -219,7 +219,7 @@ class Theme extends ConcreteObject implements \JsonSerializable
     {
         $dirt = $dir . '/' . $handle;
         if (is_dir($dirt)) {
-            $res = static::getThemeNameAndDescription($dirt, $handle, $pkgHandle);
+            $res = self::getThemeNameAndDescription($dirt, $handle, $pkgHandle);
 
             $th = new static();
             $th->pThemeHandle = $handle;
@@ -855,7 +855,7 @@ class Theme extends ConcreteObject implements \JsonSerializable
             $loc = Localization::getInstance();
             $loc->pushActiveContext(Localization::CONTEXT_SYSTEM);
             try {
-                $res = static::getThemeNameAndDescription(
+                $res = self::getThemeNameAndDescription(
                     $dir,
                     $pThemeHandle,
                     is_object($pkg) ? $pkg->getPackageHandle() : ''
