@@ -181,12 +181,6 @@ parameters:
 			path: ../concrete/src/Http/RouteActionDispatcher.php
 
 		-
-			message: '#^Offset ''country'' on non\-empty\-array in empty\(\) always exists and is not falsy\.$#'
-			identifier: empty.offset
-			count: 1
-			path: ../concrete/src/Localization/Service/AddressFormat.php
-
-		-
 			message: '#^Call to an undefined method Concrete\\Core\\Mail\\Importer\\MailImporter\:\:process\(\)\.$#'
 			identifier: method.notFound
 			count: 1

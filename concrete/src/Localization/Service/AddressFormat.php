@@ -134,10 +134,7 @@ class AddressFormat
             $line2 .= trim($addressData['address3']);
         }
 
-        $address = new Address();
-        if (!empty($addressData['country'])) {
-            $address = $address->withCountryCode($addressData['country']);
-        }
+        $address = (new Address())->withCountryCode($addressData['country']);
         if (!empty($addressData['address1'])) {
             $address = $address->withAddressLine1($addressData['address1']);
         }
