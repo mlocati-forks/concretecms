@@ -151,12 +151,6 @@ parameters:
 			path: ../concrete/src/Config/ConfigStore.php
 
 		-
-			message: '#^Generator expects value type string, int given\.$#'
-			identifier: generator.valueType
-			count: 2
-			path: ../concrete/src/Csv/Export/PageActivityExporter.php
-
-		-
 			message: '#^Parameter \#1 \$array \(array\<Concrete\\Core\\Search\\Column\\ColumnInterface\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
 			identifier: arrayFilter.same
 			count: 1
