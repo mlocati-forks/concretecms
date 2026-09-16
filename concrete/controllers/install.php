@@ -189,7 +189,7 @@ class Install extends Controller
         $canonicalUrlAlternative = '';
         $canonicalUrlAlternativeChecked = false;
         $uri = $this->request->getUri();
-        if (preg_match('/^(https?)(:.+?)(?:\/' . preg_quote(DISPATCHER_FILENAME, '%') . ')?\/install(?:$|\/|\?)/i', $uri, $m)) {
+        if (preg_match('/^(https?)(:.+?)(?:\/' . preg_quote(DISPATCHER_FILENAME, '/') . ')?\/install(?:$|\/|\?)/i', $uri, $m)) {
             switch (strtolower($m[1])) {
                 case 'http':
                     $canonicalUrl = (string) UrlImmutable::createFromUrl('http' . $m[2]);
