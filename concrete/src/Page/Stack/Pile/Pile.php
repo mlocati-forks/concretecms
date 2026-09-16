@@ -200,7 +200,7 @@ class Pile extends ConcreteObject
             $pID = null;
         }
         if ($pID > 0) {
-            $p = new self($pID);
+            $p = self::get($pID);
 
             return $p;
         } else {
