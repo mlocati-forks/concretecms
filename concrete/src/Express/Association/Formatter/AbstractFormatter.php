@@ -68,9 +68,28 @@ abstract class AbstractFormatter implements FormatterInterface
 
     public function getDisplayName()
     {
+        $sourceEntity = $this->association->getSourceEntity();
+        $targetEntity = $this->association->getTargetEntity();
+        $numAssociationsWithSameTargetEntity = 0;
+        foreach ($sourceEntity->getAssociations() as $association) {
+            if ($association->getTargetEntity() === $targetEntity) {
+                $numAssociationsWithSameTargetEntity++;
+            }
+        }
+
+        if ($numAssociationsWithSameTargetEntity > 1) {
+            return sprintf(
+                '%s > %s (%s)',
+                $sourceEntity->getEntityDisplayName(),
+                $targetEntity->getEntityDisplayName(),
+                $this->association->getComputedTargetPropertyName()
+            );
+        }
+
         return sprintf(
-            '%s > %s', $this->association->getSourceEntity()->getEntityDisplayName(),
-            $this->association->getTargetEntity()->getEntityDisplayName()
+            '%s > %s',
+            $sourceEntity->getEntityDisplayName(),
+            $targetEntity->getEntityDisplayName()
         );
     }
 }
