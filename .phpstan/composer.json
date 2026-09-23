@@ -1,7 +1,7 @@
 {
     "description": "Dependencies for running PHPStan on the Concrete CMS code base (see phpstan.neon.dist)",
     "require": {
-        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan": "^2.2.15",
         "phpstan/phpstan-doctrine": "^2.0"
     },
     "config": {

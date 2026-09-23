@@ -4,22 +4,22 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ceb1d897849e1f51b99a0a49bac815f",
+    "content-hash": "6d199d8a13c4d813c67b669cc7bfa62f",
     "packages": [
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.12",
+            "version": "2.2.15",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/174b0d88710f00a42598886504dd7a146f91ace5",
-                "reference": "174b0d88710f00a42598886504dd7a146f91ace5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b158556ffd26825cf615a1c1f72fb5157a2301b7",
+                "reference": "b158556ffd26825cf615a1c1f72fb5157a2301b7",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0"
             },
             "conflict": {
-                ".phpstan/phpstan-shim": "*"
+                "phpstan/phpstan-shim": "*"
             },
             "bin": [
                 "phpstan",
@@ -68,7 +68,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-31T19:09:43+00:00"
+            "time": "2026-09-23T12:23:07+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -110,9 +110,9 @@
                 "gedmo/doctrine-extensions": "^3.8",
                 "nesbot/carbon": "^2.49",
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                ".phpstan/phpstan-deprecation-rules": "^2.0.2",
-                ".phpstan/phpstan-phpunit": "^2.0.8",
-                ".phpstan/phpstan-strict-rules": "^2.0",
+                "phpstan/phpstan-deprecation-rules": "^2.0.2",
+                "phpstan/phpstan-phpunit": "^2.0.8",
+                "phpstan/phpstan-strict-rules": "^2.0",
                 "phpunit/phpunit": "^9.6.20",
                 "ramsey/uuid": "^4.2",
                 "shipmonk/name-collision-detector": "^2.1",
