@@ -1602,10 +1602,11 @@ EOT
      * Updates fields common to every block.
      *
      * @param array $data the block type-specific data to be saved
+     * @param string $saveMode one of the SaveMode constants (empty: the data comes from the form of the block type)
      *
      * @throws \Doctrine\DBAL\Exception
      */
-    public function update($data)
+    public function update($data, string $saveMode = '')
     {
         $app = Facade::getFacadeApplication();
         /** @var Connection $db */
@@ -1627,6 +1628,9 @@ EOT
         $class = $bt->getBlockTypeClass();
         $app = Facade::getFacadeApplication();
         $bc = $app->make($class, ['obj' => $this]);
+        if ($saveMode !== '') {
+            $bc->saveMode = $saveMode;
+        }
         $bc->save($data);
     }
 
