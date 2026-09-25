@@ -29,12 +29,14 @@
       "minLength": 1,
       "pattern": "^(import|export)[a-zA-Z0-9_]+$"
     },
+    "apiCifNormalizerMethod": {
+      "$comment": "The method that makes the CIF of a block and the one of the block added with its API value comparable, checking what the second one can't hold (the answers given to a survey, the blocks held by a container) and renaming what the database numbers on its own. It receives both the CIFs and returns them.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^normalizeApiCif[a-zA-Z0-9_]+$"
+    },
     "keepXmlElementsOrder": {
       "$comment": "Set to true to avoid sorting automatically the XML elements.",
-      "type": "boolean"
-    },
-    "apiRoundTrip": {
-      "$comment": "Set to false when the block type doesn't survive a round trip through the API yet.",
       "type": "boolean"
     },
     "fileUsageCount": {
