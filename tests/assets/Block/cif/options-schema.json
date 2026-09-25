@@ -33,6 +33,10 @@
       "$comment": "Set to true to avoid sorting automatically the XML elements.",
       "type": "boolean"
     },
+    "apiRoundTrip": {
+      "$comment": "Set to false when the block type doesn't survive a round trip through the API yet.",
+      "type": "boolean"
+    },
     "fileUsageCount": {
       "$comment": "The number of files that should be tracked when importing the XML for this test case.",
       "type": "integer",
