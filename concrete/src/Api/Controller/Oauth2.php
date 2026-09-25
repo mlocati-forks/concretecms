@@ -12,6 +12,7 @@ namespace Concrete\Core\Api\Controller;
  *         tokenUrl="/oauth/2.0/token",
  *         scopes={
  *             "system:info:read": "Read system information",
+ *             "definitions:read": "View what this installation offers: block types, page types, page templates, themes and layouts",
  *             "sites:read": "Read sites",
  *         }
  *     )
@@ -44,6 +45,7 @@ namespace Concrete\Core\Api\Controller;
  *             "pages:versions:add": "Create editable page version drafts",
  *             "pages:versions:update": "Update page versions",
  *             "pages:versions:delete": "Delete page versions",
+ *             "definitions:read": "View what this installation offers: block types, page types, page templates, themes and layouts",
  *             "blocks:read": "View site blocks",
  *             "blocks:update": "Update blocks",
  *             "blocks:delete": "Delete blocks",
