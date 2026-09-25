@@ -3,6 +3,7 @@
 namespace Concrete\Block\Video;
 
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Feature\Features;
 use Concrete\Core\Feature\UsesFeatureInterface;
 use Concrete\Core\File\File;
@@ -238,7 +239,7 @@ class Controller extends BlockController implements FileTrackableInterface, Uses
     public function getUsedFiles()
     {
         $result = [];
-        foreach ($this->btExportFileColumns as $field) {
+        foreach ($this->getReferenceColumns()->getColumns(ReferenceColumns::FILE) as $field) {
             if (($fID = (int) $this->{$field}) !== 0) {
                 $result[] = $fID;
             }
