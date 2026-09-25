@@ -1,8 +1,10 @@
 <?php
 namespace Concrete\Core\Block;
 
+use Concrete\Core\Api\ApiResourceValueInterface;
 use Concrete\Core\Api\Block\BlockApiHandler;
 use Concrete\Core\Api\Block\DefaultBlockApiHandler;
+use Concrete\Core\Api\Block\ResourceBlockApiHandler;
 use Concrete\Core\Area\Area;
 use Concrete\Core\Backup\ContentExporter;
 use Concrete\Core\Backup\ContentImporter;
@@ -282,6 +284,9 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
             if (is_subclass_of($class, BlockApiHandler::class)) {
                 return new $class($this);
             }
+        }
+        if ($this instanceof ApiResourceValueInterface) {
+            return new ResourceBlockApiHandler($this);
         }
 
         return new DefaultBlockApiHandler($this);
