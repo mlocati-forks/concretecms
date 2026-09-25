@@ -12,6 +12,7 @@ namespace Concrete\Core\Api\Controller;
  *         tokenUrl="/oauth/2.0/token",
  *         scopes={
  *             "system:info:read": "Read system information",
+ *             "system:openapi:read": "Read the specification of the API",
  *             "sites:read": "Read sites",
  *         }
  *     )
@@ -26,6 +27,7 @@ namespace Concrete\Core\Api\Controller;
  *         flow="authorizationCode",
  *         scopes={
  *             "openid": "Remotely authenticate into Concrete",
+ *             "system:openapi:read": "Read the specification of the API",
  *             "account:read": "Read your user object",
  *             "calendars:read": "Read calendars",
  *             "calendar_events:read": "Read calendar events",

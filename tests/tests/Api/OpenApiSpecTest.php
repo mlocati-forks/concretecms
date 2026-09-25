@@ -32,7 +32,31 @@ class OpenApiSpecTest extends TestCase
         static::assertContains('/ccm/api/1.0/block_types/{blockTypeHandle}', $paths);
     }
 
-    public function testTheBlockTypesScopeIsInTheSpec(): void
+    public function testTheOpenApiPathIsInTheSpec(): void
+    {
+        $paths = [];
+        foreach ($this->getSpec()->paths as $path) {
+            $paths[] = $path->path;
+        }
+
+        static::assertContains('/ccm/api/1.0/system/openapi', $paths);
+    }
+
+    /**
+     * @return array<int,string[]>
+     */
+    public function provideNewScopes(): array
+    {
+        return [
+            ['block_types:read'],
+            ['system:openapi:read'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideNewScopes
+     */
+    public function testTheScopeIsInTheSpec(string $expectedScope): void
     {
         $scopes = [];
         foreach ($this->getSpec()->components->securitySchemes as $scheme) {
@@ -41,7 +65,44 @@ class OpenApiSpecTest extends TestCase
             }
         }
 
-        static::assertContains('block_types:read', $scopes);
+        static::assertContains($expectedScope, $scopes);
+    }
+
+    /**
+     * Every scope used by an operation must be declared in the security scheme it refers to, since
+     * the ones that aren't never reach the OAuth2Scope table.
+     *
+     * @see \Concrete\Core\Api\Command\SynchronizeScopesCommandHandler
+     */
+    public function testEveryUsedScopeIsDeclared(): void
+    {
+        $declared = [];
+        foreach ($this->getSpec()->components->securitySchemes as $scheme) {
+            foreach ($scheme->flows[0]->scopes as $scope => $description) {
+                $declared[$scheme->securityScheme][] = $scope;
+            }
+        }
+        $undeclared = [];
+        foreach ($this->getSpec()->paths as $path) {
+            foreach (['get', 'post', 'put', 'delete'] as $method) {
+                // swagger-php fills the operations a path doesn't have with a placeholder string
+                $operation = $path->{$method};
+                if (!is_object($operation) || !is_array($operation->security)) {
+                    continue;
+                }
+                foreach ($operation->security as $security) {
+                    foreach ($security as $schemeName => $scopes) {
+                        foreach ((array) $scopes as $scope) {
+                            if (!in_array($scope, $declared[$schemeName] ?? [], true)) {
+                                $undeclared[] = "{$path->path}: {$schemeName}/{$scope}";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        static::assertSame([], $undeclared);
     }
 
     public function testEveryReferencedSchemaExists(): void
