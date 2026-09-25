@@ -1,4 +1,7 @@
 {
   "$schema": "../options-schema.json",
-  "requiredBlockTypes": ["content"]
+  "requiredBlockTypes": [
+    "content"
+  ],
+  "apiRoundTrip": false
 }

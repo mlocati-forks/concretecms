@@ -95,18 +95,29 @@ abstract class BlockApiTestCase extends PageTestCase
      */
     protected function addBlock(string $blockTypeHandle, array $saveData, ?Page $page = null): Block
     {
-        if (BlockType::getByHandle($blockTypeHandle) === null) {
-            BlockType::installBlockType($blockTypeHandle);
-        }
         $page = $page ?? self::createPage('Page with a ' . $blockTypeHandle . ' block');
         $page->addBlock(
-            BlockType::getByHandle($blockTypeHandle),
+            $this->getBlockType($blockTypeHandle),
             // that's what the API does: it gives the block the area object, not its handle
             Area::getOrCreate($page, 'Main'),
             $saveData
         );
 
         return $this->getBlock($page);
+    }
+
+    /**
+     * Get a block type, installing it the first time it's asked for.
+     */
+    protected function getBlockType(string $blockTypeHandle): BlockTypeEntity
+    {
+        $blockType = BlockType::getByHandle($blockTypeHandle);
+        if ($blockType === null) {
+            BlockType::installBlockType($blockTypeHandle);
+            $blockType = BlockType::getByHandle($blockTypeHandle);
+        }
+
+        return $blockType;
     }
 
     /**

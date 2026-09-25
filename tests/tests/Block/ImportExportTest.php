@@ -86,6 +86,7 @@ class ImportExportTest extends PageTestCase
             'AreaPermissionAssignments',
             'Blocks',
             'BlockTypeSets',
+            'CollectionVersionBlocksOutputCache',
             'Conversations',
             'ConversationSubscriptions',
             'FileSets',
@@ -338,8 +339,26 @@ class ImportExportTest extends PageTestCase
         $outputCif = simplexml_load_string('<root />');
         $createdBlock->export($outputCif);
         $this->assertTrue(isset($outputCif->block));
+        if ($options['apiRoundTrip'] ?? true) {
+            $this->checkApiRoundTrip($createdBlock);
+        }
 
         return $outputCif->block->asXML();
+    }
+
+    /**
+     * Check that a block written with the value that the API gives to its clients keeps that value.
+     */
+    private function checkApiRoundTrip(Block $block): void
+    {
+        $handler = $block->getController()->getApiHandler();
+        $value = $handler->getApiValue($block);
+
+        $block->update($handler->getSaveArgumentsFromApiValue($value, $block));
+
+        $written = Block::getByID($block->getBlockID(), self::$blockPage, 'Main');
+        $this->assertInstanceOf(Block::class, $written);
+        $this->assertSame($value, $written->getController()->getApiHandler()->getApiValue($written));
     }
 
     private function importExportPageType1(BlockTypeEntity $blockType, SimpleXMLElement $inputCif, array $options): string
