@@ -5,6 +5,5 @@
     "SELECT body FROM btFeatureLink WHERE bID = :bID": {
       "numPages": 1
     }
-  },
-  "apiRoundTrip": false
+  }
 }
