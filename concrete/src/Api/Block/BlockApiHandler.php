@@ -68,6 +68,17 @@ abstract class BlockApiHandler
     }
 
     /**
+     * Get the description of this block type written for the clients of the API, which a block type
+     * whose own description says nothing to them answers with.
+     *
+     * @return string an empty string when the description of the block type does the job
+     */
+    public function getCustomApiDescription(): string
+    {
+        return '';
+    }
+
+    /**
      * @return array<string,mixed>
      */
     abstract public function getApiValueSchema(): array;
