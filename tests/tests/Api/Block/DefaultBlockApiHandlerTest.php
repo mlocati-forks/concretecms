@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Concrete\Tests\Api\Block;
 
+use Concrete\Block\Image\Api as ImageApi;
 use Concrete\Core\Api\Block\BlockApiHandler;
 use Concrete\Core\Api\Block\DefaultBlockApiHandler;
 use Concrete\Core\Block\BlockType\BlockType;
@@ -28,6 +29,18 @@ class DefaultBlockApiHandlerTest extends ConcreteDatabaseTestCase
     public function testEveryBlockTypeHasAHandler(): void
     {
         static::assertInstanceOf(DefaultBlockApiHandler::class, $this->getHandler('image'));
+    }
+
+    public function testABlockTypeThatNeedsMoreComesWithItsOwnHandler(): void
+    {
+        static::assertInstanceOf(ImageApi::class, $this->getHandler('image'));
+    }
+
+    public function testAnOverriddenControllerKeepsTheHandlerOfTheCore(): void
+    {
+        $controller = new OverriddenImageController();
+
+        static::assertInstanceOf(ImageApi::class, $controller->getApiHandler());
     }
 
     public function testTheHandlerIsBuiltJustOnce(): void
@@ -99,4 +112,13 @@ class DefaultBlockApiHandlerTest extends ConcreteDatabaseTestCase
 
         return $blockType->getController();
     }
+}
+
+/**
+ * An image block type whose controller is overridden by a package or by the application, which
+ * keeps the class of the core beside it.
+ */
+class OverriddenImageController extends \Concrete\Block\Image\Controller
+{
+    protected $btHandle = 'image';
 }
