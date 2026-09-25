@@ -94,14 +94,15 @@ abstract class BlockApiTestCase extends PageTestCase
      *
      * @param array<string,mixed> $saveData
      */
-    protected function addBlock(string $blockTypeHandle, array $saveData, ?Page $page = null): Block
+    protected function addBlock(string $blockTypeHandle, array $saveData, ?Page $page = null, string $saveMode = SaveMode::SAVE_MODE_REQUEST): Block
     {
         $page = $page ?? self::createPage('Page with a ' . $blockTypeHandle . ' block');
         $page->addBlock(
             $this->getBlockType($blockTypeHandle),
             // that's what the API does: it gives the block the area object, not its handle
             Area::getOrCreate($page, 'Main'),
-            $saveData
+            $saveData,
+            $saveMode
         );
 
         return $this->getBlock($page);
@@ -119,6 +120,18 @@ abstract class BlockApiTestCase extends PageTestCase
         }
 
         return $blockType;
+    }
+
+    /**
+     * Put a block of a block type in a page the way the API does, with a value received by a client.
+     *
+     * @param array<string,mixed> $value
+     */
+    protected function addBlockFromApiValue(string $blockTypeHandle, array $value, ?Page $page = null): Block
+    {
+        $handler = $this->getBlockType($blockTypeHandle)->getController()->getApiHandler();
+
+        return $this->addBlock($blockTypeHandle, $handler->getSaveArgumentsFromApiValue($value, null), $page, SaveMode::SAVE_MODE_IMPORT);
     }
 
     /**
