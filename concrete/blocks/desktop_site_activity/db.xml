@@ -4,11 +4,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
 
   <table name="btDesktopSiteActivity">
-    <field name="bID" type="integer">
+    <field name="bID" type="integer" comment="The ID of the block">
       <unsigned/>
       <key/>
     </field>
-    <field name="types" type="json_array" />
+    <field name="types" type="json_array" comment="A JSON array of the kinds of activity displayed: form_submissions, survey_results, signups, conversation_messages, workflow" />
   </table>
 
 </schema>

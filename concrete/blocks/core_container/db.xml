@@ -4,12 +4,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
 
   <table name="btCoreContainer">
-    <field name="bID" type="integer">
+    <field name="bID" type="integer" comment="The ID of the block">
       <unsigned/>
       <key/>
       <notnull/>
     </field>
-    <field name="containerInstanceID" type="integer">
+    <field name="containerInstanceID" type="integer" comment="The ID of the container instance displayed by the block, which owns the areas that the container adds to the page">
       <unsigned/>
       <notnull/>
     </field>

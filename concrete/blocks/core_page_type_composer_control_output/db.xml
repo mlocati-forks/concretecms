@@ -4,12 +4,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
 
   <table name="btCorePageTypeComposerControlOutput">
-    <field name="bID" type="integer">
+    <field name="bID" type="integer" comment="The ID of the block">
       <unsigned/>
       <key/>
       <notnull/>
     </field>
-    <field name="ptComposerOutputControlID" type="integer">
+    <field name="ptComposerOutputControlID" type="integer" comment="The ID of the output control of the composer of the page type this block belongs to (0: the block displays nothing)">
       <unsigned/>
       <default value="0"/>
       <notnull/>

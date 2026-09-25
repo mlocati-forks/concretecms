@@ -3,22 +3,19 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
     <table name="btBreadcrumbs">
-        <field name="bID" type="integer">
+        <field name="bID" type="integer" comment="The ID of the block">
             <unsigned/>
             <key/>
         </field>
-        <field name="includeCurrent" type="integer">
-            <unsigned/>
+        <field name="includeCurrent" type="boolean" comment="true: the page holding the block is the last step of the breadcrumb; false: the breadcrumb stops at its parent page">
             <default value="1"/>
             <notnull/>
         </field>
-        <field name="ignoreExcludeNav" type="integer">
-            <unsigned/>
+        <field name="ignoreExcludeNav" type="boolean" comment="true: the pages whose exclude_nav attribute is set are listed too; false: they are left out, as the navigation blocks leave them out">
             <default value="1"/>
             <notnull/>
         </field>
-        <field name="ignorePermission" type="integer">
-            <unsigned/>
+        <field name="ignorePermission" type="boolean" comment="true: the pages that the visitor is not allowed to view are listed too; false: they are left out">
             <default value="0"/>
             <notnull/>
         </field>
