@@ -4,11 +4,16 @@ namespace Concrete\Core\Block\Command;
 
 use Concrete\Core\Area\Area;
 use Concrete\Core\Entity\Block\BlockType\BlockType;
+use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Foundation\Command\Command;
 use Concrete\Core\Page\Page;
 
 class AddBlockToPageCommand extends Command
 {
+    /**
+     * @var string
+     */
+    protected $saveMode = SaveMode::SAVE_MODE_REQUEST;
 
     /**
      * @var BlockType
@@ -76,6 +81,22 @@ class AddBlockToPageCommand extends Command
     public function setArea(Area $area): void
     {
         $this->area = $area;
+    }
+
+    /**
+     * Get the way the data is to be read: one of the SaveMode constants.
+     */
+    public function getSaveMode(): string
+    {
+        return $this->saveMode;
+    }
+
+    /**
+     * @param string $saveMode one of the SaveMode constants
+     */
+    public function setSaveMode(string $saveMode): void
+    {
+        $this->saveMode = $saveMode;
     }
 
     /**
