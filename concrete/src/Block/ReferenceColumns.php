@@ -52,7 +52,7 @@ final class ReferenceColumns
     public const FILE_FOLDER = 'filefolder';
 
     /**
-     * A column holding rich text, which may refer to pages and files of the site.
+     * A column holding HTML, which may refer to pages and files of the site.
      *
      * @var string
      */
