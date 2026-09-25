@@ -340,9 +340,7 @@ class ImportExportTest extends PageTestCase
         $outputCif = simplexml_load_string('<root />');
         $createdBlock->export($outputCif);
         $this->assertTrue(isset($outputCif->block));
-        if ($options['apiRoundTrip'] ?? true) {
-            $this->checkApiRoundTrip($createdBlock);
-        }
+        $this->checkApiRoundTrip($createdBlock);
 
         return $outputCif->block->asXML();
     }

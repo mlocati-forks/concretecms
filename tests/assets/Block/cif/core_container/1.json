@@ -2,6 +2,5 @@
   "$schema": "../options-schema.json",
   "requiredBlockTypes": [
     "content"
-  ],
-  "apiRoundTrip": false
+  ]
 }

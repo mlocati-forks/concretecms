@@ -110,7 +110,7 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function save($data)
     {
         $entityManager = $this->app->make(EntityManager::class);
-        $container = $entityManager->find(Container::class, $data['containerID']);
+        $container = empty($data['containerID']) ? null : $entityManager->find(Container::class, $data['containerID']);
         if ($container) {
             $instance = new Container\Instance();
             $instance->setContainer($container);
