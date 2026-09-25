@@ -1,7 +1,7 @@
 {
   "$schema": "../options-schema.json",
+  "apiCifNormalizerMethod": "normalizeApiCifContainer",
   "requiredBlockTypes": [
     "content"
-  ],
-  "apiRoundTrip": false
+  ]
 }
