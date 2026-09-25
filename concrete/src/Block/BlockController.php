@@ -1,6 +1,8 @@
 <?php
 namespace Concrete\Core\Block;
 
+use Concrete\Core\Api\Block\BlockApiHandler;
+use Concrete\Core\Api\Block\DefaultBlockApiHandler;
 use Concrete\Core\Area\Area;
 use Concrete\Core\Backup\ContentExporter;
 use Concrete\Core\Backup\ContentImporter;
@@ -153,6 +155,13 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
      */
     private $declaredTables = false;
 
+    /**
+     * What the API knows about the value of this block type, built by getApiHandler().
+     *
+     * @var \Concrete\Core\Api\Block\BlockApiHandler|null
+     */
+    private $apiHandler;
+
     protected $btWrapperClass = '';
     protected $btDefaultSet;
     protected $identifier;
@@ -242,6 +251,40 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
         }
 
         return $this->declaredTables;
+    }
+
+    /**
+     * Get what the API knows about the value of this block type.
+     *
+     * It's built just once: a block type whose value isn't simply the row of its own table comes
+     * with an Api class of its own, or overrides createApiHandler().
+     */
+    final public function getApiHandler(): BlockApiHandler
+    {
+        if ($this->apiHandler === null) {
+            $this->apiHandler = $this->createApiHandler();
+        }
+
+        return $this->apiHandler;
+    }
+
+    /**
+     * Build what the API knows about the value of this block type: it's the Api class sitting beside
+     * this controller, or beside the controller of the core when this one overrides it.
+     */
+    protected function createApiHandler(): BlockApiHandler
+    {
+        $classes = [
+            preg_replace('/Controller$/', 'Api', get_class($this)),
+            'Concrete\\Block\\' . camelcase($this->getBlockTypeHandle()) . '\\Api',
+        ];
+        foreach ($classes as $class) {
+            if (is_subclass_of($class, BlockApiHandler::class)) {
+                return new $class($this);
+            }
+        }
+
+        return new DefaultBlockApiHandler($this);
     }
 
     /**
