@@ -3,6 +3,7 @@
 namespace Concrete\Block\Image;
 
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Database\Connection\Connection;
 use Concrete\Core\Error\Error;
@@ -636,7 +637,7 @@ class Controller extends BlockController implements FileTrackableInterface, Uses
     public function getUsedFiles()
     {
         $result = [];
-        foreach ($this->btExportFileColumns as $field) {
+        foreach ($this->getReferenceColumns()->getColumns(ReferenceColumns::FILE) as $field) {
             if (($fID = (int) $this->{$field}) !== 0) {
                 $result[] = $fID;
             }

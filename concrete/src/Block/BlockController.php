@@ -139,6 +139,13 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
      */
     protected $btExportFileFolderColumns = [];
 
+    /**
+     * The columns of this block type that hold a reference, built by getReferenceColumns().
+     *
+     * @var \Concrete\Core\Block\ReferenceColumns|null
+     */
+    private $referenceColumns;
+
     protected $btWrapperClass = '';
     protected $btDefaultSet;
     protected $identifier;
@@ -181,11 +188,48 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
     /**
      * Get the names of the fields in the database table defined by $btTable and $btExportTables that contain the ID of a Concrete page.
      *
+     * @deprecated use getReferenceColumns() to get every column of the block type that holds a reference
+     *
      * @return string[]
+     *
+     * @see \Concrete\Core\Block\BlockController::getReferenceColumns()
      */
     public function getBlockTypeExportPageColumns()
     {
         return $this->btExportPageColumns;
+    }
+
+    /**
+     * Get the columns of this block type that hold a reference to something else of the site.
+     *
+     * They are built just once: override createReferenceColumns() to declare them some other way.
+     */
+    final public function getReferenceColumns(): ReferenceColumns
+    {
+        if ($this->referenceColumns === null) {
+            $this->referenceColumns = $this->createReferenceColumns();
+        }
+
+        return $this->referenceColumns;
+    }
+
+    /**
+     * Declare the columns of this block type that hold a reference to something else of the site.
+     *
+     * Block types that don't simply list them in the $btExport... properties override this method:
+     * getReferenceColumns() calls it just once.
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return new ReferenceColumns([
+            // the deprecated getter may be overridden, so let's not read the property here
+            ReferenceColumns::PAGE => $this->getBlockTypeExportPageColumns(),
+            ReferenceColumns::FILE => $this->btExportFileColumns,
+            ReferenceColumns::PAGE_TYPE => $this->btExportPageTypeColumns,
+            ReferenceColumns::PAGE_FEED => $this->btExportPageFeedColumns,
+            ReferenceColumns::FILE_FOLDER => $this->btExportFileFolderColumns,
+            ReferenceColumns::CONTENT => $this->btExportContentColumns,
+        ]);
     }
 
     public function getIdentifier()
@@ -314,9 +358,10 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
         }
 
         if ($this instanceof FileTrackableInterface) {
+            $referenceColumns = $this->getReferenceColumns();
             $fields = array_merge(
-                $this->btExportFileColumns ?: [],
-                $this->btExportContentColumns ?: []
+                $referenceColumns->getColumns(ReferenceColumns::FILE),
+                $referenceColumns->getColumns(ReferenceColumns::CONTENT)
             );
             foreach ($fields as $field) {
                 if (property_exists($this, $field)) {
@@ -494,7 +539,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
             // remove columns we don't want
             unset($columns['bid']);
             $r = $db->executeQuery('select * from ' . $tbl . ' where bID = ?', [$this->bID]);
-            $btExportPageColumns = $this->getBlockTypeExportPageColumns();
+            $referenceColumns = $this->getReferenceColumns();
             while (($record = $r->fetchAssociative()) !== false) {
                 $tableRecord = $data->addChild('record');
                 foreach ($record as $key => $value) {
@@ -503,25 +548,63 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
                             $tableRecord->addChild($key)->addAttribute('null', 'true');
                         } elseif ($value === 0 || $value === '0') {
                             $tableRecord->addChild($key, '0');
-                        } elseif (in_array($key, $btExportPageColumns)) {
-                            $xml->createChildElement($tableRecord, $key, ContentExporter::replacePageWithPlaceHolder($value));
-                        } elseif (in_array($key, $this->btExportFileColumns)) {
-                            $xml->createChildElement($tableRecord, $key, ContentExporter::replaceFileWithPlaceHolder($value));
-                        } elseif (in_array($key, $this->btExportPageTypeColumns)) {
-                            $xml->createChildElement($tableRecord, $key, ContentExporter::replacePageTypeWithPlaceHolder($value));
-                        } elseif (in_array($key, $this->btExportPageFeedColumns)) {
-                            $xml->createChildElement($tableRecord, $key, ContentExporter::replacePageFeedWithPlaceHolder($value));
-                        } elseif (in_array($key, $this->btExportFileFolderColumns)) {
-                            $xml->createChildElement($tableRecord, $key, ContentExporter::replaceFileFolderWithPlaceHolder($value));
-                        } elseif (in_array($key, $this->btExportContentColumns)) {
-                            $xml->createChildElement($tableRecord, $key, LinkAbstractor::export((string) $value));
                         } else {
-                            $xml->createChildElement($tableRecord, $key, $value);
+                            $xml->createChildElement($tableRecord, $key, $this->exportRecordValue($value, $referenceColumns->getReference($key)));
                         }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Get the value that a column of a record is exported with.
+     *
+     * @param mixed $value
+     * @param string $reference the kind of reference that the column holds (one of the ReferenceColumns::... constants, or an empty string)
+     *
+     * @return mixed
+     */
+    protected function exportRecordValue($value, string $reference)
+    {
+        switch ($reference) {
+            case ReferenceColumns::PAGE:
+                return ContentExporter::replacePageWithPlaceHolder($value);
+            case ReferenceColumns::FILE:
+                return ContentExporter::replaceFileWithPlaceHolder($value);
+            case ReferenceColumns::PAGE_TYPE:
+                return ContentExporter::replacePageTypeWithPlaceHolder($value);
+            case ReferenceColumns::PAGE_FEED:
+                return ContentExporter::replacePageFeedWithPlaceHolder($value);
+            case ReferenceColumns::FILE_FOLDER:
+                return ContentExporter::replaceFileFolderWithPlaceHolder($value);
+            case ReferenceColumns::CONTENT:
+                return LinkAbstractor::export((string) $value);
+            default:
+                return $value;
+        }
+    }
+
+    /**
+     * Get the value that a column of an exported record is imported with.
+     *
+     * @param string $reference the kind of reference that the column holds (one of the ReferenceColumns::... constants, or an empty string)
+     *
+     * @return string|null
+     */
+    protected function importRecordValue(\SimpleXMLElement $node, string $reference)
+    {
+        $value = (string) $node;
+        if ($value === '' && isset($node['null']) && filter_var((string) $node['null'], FILTER_VALIDATE_BOOLEAN)) {
+            // the export() method above marks a NULL with an attribute, since XML has no NULL
+            return null;
+        }
+        if ($reference === '') {
+            return $value;
+        }
+        $inspected = \Core::make('import/value_inspector')->inspect($value);
+
+        return $reference === ReferenceColumns::CONTENT ? $inspected->getReplacedContent() : $inspected->getReplacedValue();
     }
 
     public function getBlockTypeDatabaseTable()
@@ -609,29 +692,13 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
     protected function getImportData($blockNode, $page)
     {
         $args = [];
-        $inspector = \Core::make('import/value_inspector');
         if (isset($blockNode->data)) {
-            $btExportPageColumns = $this->getBlockTypeExportPageColumns();
+            $referenceColumns = $this->getReferenceColumns();
             foreach ($blockNode->data as $data) {
                 if ($data['table'] == $this->getBlockTypeDatabaseTable()) {
                     if (isset($data->record)) {
                         foreach ($data->record->children() as $key => $node) {
-                            $nodeValue = (string) $node;
-                            if ($nodeValue === '' && isset($node['null']) && filter_var((string) $node['null'], FILTER_VALIDATE_BOOLEAN)) {
-                                $args[$node->getName()] = null;
-                            } elseif (in_array($key, $btExportPageColumns)
-                                || in_array($key, $this->btExportFileColumns)
-                                || in_array($key, $this->btExportPageTypeColumns)
-                                || in_array($key, $this->btExportPageFeedColumns)
-                                || in_array($key, $this->btExportFileFolderColumns)) {
-                                    $result = $inspector->inspect($nodeValue);
-                                    $args[$node->getName()] = $result->getReplacedValue();
-                            } else if (in_array($key, $this->btExportContentColumns)) {
-                                $result = $inspector->inspect($nodeValue);
-                                $args[$node->getName()] = $result->getReplacedContent();
-                            } else {
-                                $args[$node->getName()] = $nodeValue;
-                            }
+                            $args[$node->getName()] = $this->importRecordValue($node, $referenceColumns->getReference($key));
                         }
                     }
                 }
@@ -649,9 +716,8 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
      */
     protected function importAdditionalData($b, $blockNode)
     {
-        $inspector = \Core::make('import/value_inspector');
         if (isset($blockNode->data)) {
-            $btExportPageColumns = $this->getBlockTypeExportPageColumns();
+            $referenceColumns = $this->getReferenceColumns();
             foreach ($blockNode->data as $data) {
                 if (strtoupper((string) $data['table']) != strtoupper((string) $this->getBlockTypeDatabaseTable())) {
                     $table = (string) $data['table'];
@@ -660,23 +726,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
                             $aar = new \Concrete\Core\Legacy\BlockRecord($table);
                             $aar->bID = $b->getBlockID();
                             foreach ($record->children() as $key => $node) {
-                                $nodeName = $node->getName();
-                                $nodeValue = (string) $node;
-                                if ($nodeValue === '' && isset($node['null']) && filter_var((string) $node['null'], FILTER_VALIDATE_BOOLEAN)) {
-                                    $aar->{$nodeName} = null;
-                                } elseif (in_array($key, $btExportPageColumns)
-                                    || in_array($key, $this->btExportFileColumns)
-                                    || in_array($key, $this->btExportPageTypeColumns)
-                                    || in_array($key, $this->btExportPageFeedColumns)
-                                    || in_array($key, $this->btExportFileFolderColumns)) {
-                                        $result = $inspector->inspect($nodeValue);
-                                        $aar->{$nodeName} = $result->getReplacedValue();
-                                } else if (in_array($key, $this->btExportContentColumns)) {
-                                    $result = $inspector->inspect($nodeValue);
-                                    $aar->{$nodeName} = $result->getReplacedContent();
-                                } else {
-                                    $aar->{$nodeName} = $nodeValue;
-                                }
+                                $aar->{$node->getName()} = $this->importRecordValue($node, $referenceColumns->getReference($key));
                             }
                             $aar->Save();
                         }
