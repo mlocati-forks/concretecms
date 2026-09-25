@@ -374,20 +374,20 @@ class ImportExportTest extends PageTestCase
                 $this->checkRichText($createdBlock->getBlockID(), $query, $info);
             }
         }
-        $outputCif = simplexml_load_string('<root />');
-        $createdBlock->export($outputCif);
-        $this->assertTrue(isset($outputCif->block));
-        if ($options['apiRoundTrip'] ?? true) {
-            $this->checkApiRoundTrip($createdBlock);
-        }
+        $exportedCif = $this->exportBlock($createdBlock);
+        $this->checkApiRoundTrip($createdBlock, $exportedCif, $options);
 
-        return $outputCif->block->asXML();
+        return $exportedCif;
     }
 
     /**
-     * Check that a block written with the value that the API gives to its clients keeps that value.
+     * Check that a block written with the value that the API gives to its clients keeps that value,
+     * and that a block added with that very value is the same block.
+     *
+     * @param string $exportedCif the CIF of the block, as it was before the API wrote it back
+     * @param array<string,mixed> $options the options of the test case
      */
-    private function checkApiRoundTrip(Block $block): void
+    private function checkApiRoundTrip(Block $block, string $exportedCif, array $options): void
     {
         $handler = $block->getController()->getApiHandler();
         $value = $handler->getApiValue($block);
@@ -397,6 +397,102 @@ class ImportExportTest extends PageTestCase
         $written = Block::getByID($block->getBlockID(), self::$blockPage, 'Main');
         $this->assertInstanceOf(Block::class, $written);
         $this->assertSame($value, $written->getController()->getApiHandler()->getApiValue($written));
+
+        $this->assertSameXML($exportedCif, $this->exportBlock($written), false);
+        $added = self::$blockPage->addBlock($block->getBlockTypeObject(), 'Main', $handler->getSaveArgumentsFromApiValue($value, null), SaveMode::SAVE_MODE_IMPORT);
+        $this->assertInstanceOf(Block::class, $added);
+        $addedCif = $this->exportBlock($added);
+        $normalizer = (string) ($options['apiCifNormalizerMethod'] ?? '');
+        if ($normalizer !== '') {
+            $this->assertTrue(method_exists($this, $normalizer), "The method '{$normalizer}' specified in the options does not exist");
+            [$exportedCif, $addedCif] = $this->{$normalizer}($exportedCif, $addedCif);
+        }
+        $this->assertSameXML($exportedCif, $addedCif, false);
+    }
+
+    /**
+     * The blocks held by the areas of a container are blocks of their own, which the API adds
+     * through the endpoints of the areas: the added block displays the same container, empty.
+     *
+     * @return string[] the CIF of the block and the one of the block added with its value
+     */
+    private function normalizeApiCifContainer(string $exportedCif, string $addedCif): array
+    {
+        $this->assertSame(0, $this->countXMLElements($addedCif, '//containerarea'));
+
+        return [$this->removeXMLElements($exportedCif, '//containerarea'), $addedCif];
+    }
+
+    /**
+     * A block added with the value of a survey holds the survey, not the answers people gave to
+     * another one, and the database gives it options of its own: let's name them by their position.
+     *
+     * @return string[] the CIF of the block and the one of the block added with its value
+     */
+    private function normalizeApiCifSurvey(string $exportedCif, string $addedCif): array
+    {
+        $this->assertSame(0, $this->countXMLElements($addedCif, '//data[@table="btSurveyResults"]/record'));
+        $exportedCif = $this->numberSurveyOptions($exportedCif);
+        $exportedCif = $this->removeXMLElements($exportedCif, '//data[@table="btSurveyResults"]/record');
+
+        return [$exportedCif, $this->numberSurveyOptions($addedCif)];
+    }
+
+    private function numberSurveyOptions(string $cif): string
+    {
+        $doc = new DOMDocument('1.0');
+        $this->assertTrue($doc->loadXML($cif));
+        $xpath = new DOMXPath($doc);
+        $positions = [];
+        foreach ($this->queryXML($xpath, '//data[@table="btSurveyOptions"]/record/optionID') as $node) {
+            $positions[$node->nodeValue] = (string) (count($positions) + 1);
+        }
+        foreach ($this->queryXML($xpath, '//optionID') as $node) {
+            $this->assertArrayHasKey($node->nodeValue, $positions, 'The CIF refers to an option that the survey does not offer');
+            $node->nodeValue = $positions[$node->nodeValue];
+        }
+
+        return $doc->saveXML($doc->documentElement);
+    }
+
+    private function countXMLElements(string $cif, string $xpathExpression): int
+    {
+        $doc = new DOMDocument('1.0');
+        $this->assertTrue($doc->loadXML($cif));
+
+        return count($this->queryXML(new DOMXPath($doc), $xpathExpression));
+    }
+
+    private function removeXMLElements(string $cif, string $xpathExpression): string
+    {
+        $doc = new DOMDocument('1.0');
+        $this->assertTrue($doc->loadXML($cif));
+        foreach ($this->queryXML(new DOMXPath($doc), $xpathExpression) as $node) {
+            $node->parentNode->removeChild($node);
+        }
+
+        return $doc->saveXML($doc->documentElement);
+    }
+
+    /**
+     * @return \DOMNode[]
+     */
+    private function queryXML(DOMXPath $xpath, string $xpathExpression): array
+    {
+        $nodes = $xpath->query($xpathExpression);
+        $this->assertNotFalse($nodes);
+
+        return iterator_to_array($nodes);
+    }
+
+    private function exportBlock(Block $block): string
+    {
+        $cif = simplexml_load_string('<root />');
+        $this->assertInstanceOf(SimpleXMLElement::class, $cif);
+        $block->export($cif);
+        $this->assertTrue(isset($cif->block));
+
+        return $cif->block->asXML();
     }
 
     private function importExportPageType1(BlockTypeEntity $blockType, SimpleXMLElement $inputCif, array $options): string
