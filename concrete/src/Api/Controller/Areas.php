@@ -87,6 +87,8 @@ class Areas extends ApiController implements ApplicationAwareInterface
 
         $controller = $blockType->getController();
         $controller->setAreaObject($area);
+        // the save() method wants the arguments the form of the block type would send
+        $body = $controller->getApiHandler()->getSaveArgumentsFromApiValue($body, null);
         $errors = $controller->validate($body);
         if ($errors instanceof ErrorList && $errors->has()) {
             return $errors->createResponse(JsonResponse::HTTP_BAD_REQUEST);
@@ -260,7 +262,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
             return $this->error(t('You do not have permission to edit this block on this page.'), 403);
         }
 
-        $body = (array) $content['value'];
+        $body = $b->getController()->getApiHandler()->getSaveArgumentsFromApiValue((array) $content['value'], $b);
         $r = $this->validateBlock($b, $body);
         if ($r instanceof JsonResponse) {
             return $r;
@@ -270,7 +272,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
 
         $command = new UpdatePageBlockCommand();
         $command->setPage($page);
-        $command->setData($content['value']);
+        $command->setData($body);
         $command->setBlock($blockToEdit);
 
         $block = $this->app->executeCommand($command);
