@@ -25,6 +25,13 @@ class NewBlock
      */
     private $value;
 
+    /**
+     * @OA\Property(type="integer", format="int64", title="Insert before block", description="The ID of a block already in the same area: the new block is placed just before it. Without it, the new block goes at the end of the area.")
+     *
+     * @var int|null
+     */
+    private $beforeBlockID;
+
 
 
 }

@@ -88,6 +88,21 @@ class Areas extends ApiController implements ApplicationAwareInterface
             return $this->error(t('You do not have permission to add this block type to this area on this page.', 403));
         }
 
+        $beforeBlock = null;
+        if (($content['beforeBlockID'] ?? null) !== null && $content['beforeBlockID'] !== '') {
+            $beforeBlockID = filter_var($content['beforeBlockID'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+            if ($beforeBlockID === false) {
+                return $this->error(t('Invalid block ID.'), 400);
+            }
+            try {
+                list(, $beforeBlock) = $this->getBlockToWorkWith($page, $areaHandle, $beforeBlockID);
+            } catch (AreaNotFoundException $e) {
+                return $this->error(t('Area not found.'), 404);
+            } catch (BlockNotFoundException $e) {
+                return $this->error(t('The block to place the new block before could not be found in this area.'), 404);
+            }
+        }
+
         $controller = $blockType->getController();
         $controller->setAreaObject($area);
         // what the client sends is the value of the block: the save() method wants the arguments
@@ -103,6 +118,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $command->setArea($area);
         $command->setBlockType($blockType);
         $command->setData($body);
+        $command->setBeforeBlock($beforeBlock);
         $command->setSaveMode(SaveMode::SAVE_MODE_IMPORT);
 
         $block = $this->app->executeCommand($command);
