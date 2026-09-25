@@ -64,6 +64,7 @@ final class FileFlag
      */
     private const RX_MODIFIED_PSR = [
         '{/controller\.php$}',
+        '{/blocks/\w+/api\.php$}',
         '{/(application|concrete|packages/\w+)/(controllers|jobs)/}',
         '{/themes/\w+/page_theme\.php$}',
     ];

@@ -14,7 +14,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 final class ReferenceKind
 {
     /**
-     * A field holding rich text, which may refer to pages and files of the site.
+     * A field holding HTML, which may refer to pages and files of the site.
      *
      * @var string
      */
