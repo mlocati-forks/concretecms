@@ -7,6 +7,7 @@ use Concrete\Core\Feature\Features;
 use Concrete\Core\Feature\UsesFeatureInterface;
 use Concrete\Core\File\File;
 use Concrete\Core\File\Tracker\FileTrackableInterface;
+use Concrete\Core\Reference\ReferenceKind;
 
 class Controller extends BlockController implements FileTrackableInterface, UsesFeatureInterface
 {
@@ -238,7 +239,7 @@ class Controller extends BlockController implements FileTrackableInterface, Uses
     public function getUsedFiles()
     {
         $result = [];
-        foreach ($this->btExportFileColumns as $field) {
+        foreach ($this->getReferenceColumns()->getColumns(ReferenceKind::FILE) as $field) {
             if (($fID = (int) $this->{$field}) !== 0) {
                 $result[] = $fID;
             }
