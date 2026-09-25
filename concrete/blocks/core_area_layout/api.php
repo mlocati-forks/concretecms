@@ -45,6 +45,16 @@ class Api extends DefaultBlockApiHandler
     /**
      * {@inheritdoc}
      *
+     * @see \Concrete\Core\Api\Block\BlockApiHandler::getCustomApiDescription()
+     */
+    public function getCustomApiDescription(): string
+    {
+        return 'Lays the blocks of an area side by side, in columns: every column is an area of its own, named by the area field of the column.';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @see \Concrete\Core\Api\Block\DefaultBlockApiHandler::getApiValueSchema()
      */
     public function getApiValueSchema(): array
