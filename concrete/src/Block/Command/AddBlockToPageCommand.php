@@ -3,6 +3,7 @@
 namespace Concrete\Core\Block\Command;
 
 use Concrete\Core\Area\Area;
+use Concrete\Core\Block\Block;
 use Concrete\Core\Entity\Block\BlockType\BlockType;
 use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Foundation\Command\Command;
@@ -10,6 +11,11 @@ use Concrete\Core\Page\Page;
 
 class AddBlockToPageCommand extends Command
 {
+    /**
+     * @var \Concrete\Core\Block\Block|null
+     */
+    protected $beforeBlock;
+
     /**
      * @var string
      */
@@ -81,6 +87,24 @@ class AddBlockToPageCommand extends Command
     public function setArea(Area $area): void
     {
         $this->area = $area;
+    }
+
+    /**
+     * Get the block that the new one is to be placed before (NULL: it goes at the end of the area).
+     */
+    public function getBeforeBlock(): ?Block
+    {
+        return $this->beforeBlock;
+    }
+
+    /**
+     * Set the block that the new one is to be placed before.
+     *
+     * @param \Concrete\Core\Block\Block|null $beforeBlock NULL to add the new block at the end of the area
+     */
+    public function setBeforeBlock(?Block $beforeBlock): void
+    {
+        $this->beforeBlock = $beforeBlock;
     }
 
     /**
