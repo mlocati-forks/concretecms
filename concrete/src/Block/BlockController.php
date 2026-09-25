@@ -146,6 +146,13 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
      */
     private $referenceColumns;
 
+    /**
+     * The tables declared by the db.xml file of this block type, read by getBlockTables().
+     *
+     * @var \Concrete\Core\Block\BlockTables|false|null false when they have yet to be read
+     */
+    private $blockTables = false;
+
     protected $btWrapperClass = '';
     protected $btDefaultSet;
     protected $identifier;
@@ -180,6 +187,11 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
      */
     public $area;
 
+    public function getBlockTypeHandle(): string
+    {
+        return (string) $this->btHandle;
+    }
+
     public function getBlockTypeInSetName()
     {
         return $this->getBlockTypeName();
@@ -211,6 +223,30 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
         }
 
         return $this->referenceColumns;
+    }
+
+    /**
+     * Get the database tables of this block type, as its db.xml file declares them (NULL when
+     * this block type owns no data).
+     *
+     * They are read just once: a block type whose tables aren't declared there overrides
+     * createBlockTables().
+     */
+    final public function getBlockTables(): ?BlockTables
+    {
+        if ($this->blockTables === false) {
+            $this->blockTables = $this->createBlockTables();
+        }
+
+        return $this->blockTables;
+    }
+
+    /**
+     * Read the db.xml file of this block type (returns NULL when this block type owns no data).
+     */
+    protected function createBlockTables(): ?BlockTables
+    {
+        return BlockTables::forBlockController($this);
     }
 
     /**
