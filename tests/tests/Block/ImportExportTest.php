@@ -9,6 +9,7 @@ use Concrete\Core\Attribute\TypeFactory as AttributeTypeFactory;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Block\BlockController;
 use Concrete\Core\Block\BlockType\BlockType;
+use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Database\Connection\Connection;
 use Concrete\Core\Entity;
 use Concrete\Core\Entity\Block\BlockType\BlockType as BlockTypeEntity;
@@ -354,7 +355,7 @@ class ImportExportTest extends PageTestCase
         $handler = $block->getController()->getApiHandler();
         $value = $handler->getApiValue($block);
 
-        $block->update($handler->getSaveArgumentsFromApiValue($value, $block));
+        $block->update($handler->getSaveArgumentsFromApiValue($value, $block), SaveMode::SAVE_MODE_IMPORT);
 
         $written = Block::getByID($block->getBlockID(), self::$blockPage, 'Main');
         $this->assertInstanceOf(Block::class, $written);
