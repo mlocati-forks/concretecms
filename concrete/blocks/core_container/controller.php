@@ -101,6 +101,22 @@ class Controller extends BlockController implements UsesFeatureInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::validate()
+     */
+    public function validate($args)
+    {
+        $e = $this->app->make('helper/validation/error');
+        if (empty($args['containerID']) && !$this->containerInstanceID) {
+            // without a container there's no instance to save the block against
+            $e->add(t('You must specify a valid container.'));
+        }
+
+        return $e;
+    }
+
+    /**
      * Run when a block is added or edited. Automatically saves block data against the block's database table. If a block needs to do more than this (save to multiple tables, upload files, etc... it should override this.
      *
      * @param array<string,mixed> $data
@@ -110,7 +126,7 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function save($data)
     {
         $entityManager = $this->app->make(EntityManager::class);
-        $container = $entityManager->find(Container::class, $data['containerID']);
+        $container = empty($data['containerID']) ? null : $entityManager->find(Container::class, $data['containerID']);
         if ($container) {
             $instance = new Container\Instance();
             $instance->setContainer($container);
