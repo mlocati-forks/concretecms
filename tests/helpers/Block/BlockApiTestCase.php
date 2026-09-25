@@ -8,6 +8,7 @@ use Concrete\Core\Api\Block\BlockApiHandler;
 use Concrete\Core\Area\Area;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Block\BlockType\BlockType;
+use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Entity\Block\BlockType\BlockType as BlockTypeEntity;
 use Concrete\Core\Entity\File\File as FileEntity;
 use Concrete\Core\File\Filesystem;
@@ -138,7 +139,7 @@ abstract class BlockApiTestCase extends PageTestCase
     protected function updateBlock(Block $block, array $value): void
     {
         // that's what the areas API controller does
-        $block->update($this->getHandler($block)->getSaveArgumentsFromApiValue($value, $block));
+        $block->update($this->getHandler($block)->getSaveArgumentsFromApiValue($value, $block), SaveMode::SAVE_MODE_IMPORT);
     }
 
     /**

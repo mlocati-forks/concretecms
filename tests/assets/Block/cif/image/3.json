@@ -1,5 +1,4 @@
 {
   "$schema": "../options-schema.json",
-  "fileUsageCount": 3,
-  "apiRoundTrip": false
+  "fileUsageCount": 3
 }

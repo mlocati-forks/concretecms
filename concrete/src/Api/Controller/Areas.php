@@ -17,6 +17,7 @@ use Concrete\Core\Block\Traits\ValidateBlockRequestTrait;
 use Concrete\Core\Block\Command\AddBlockToPageCommand;
 use Concrete\Core\Block\Command\DeleteBlockCommand;
 use Concrete\Core\Block\Command\UpdatePageBlockCommand;
+use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Api\Fractal\Transformer\BaseBlockTransformer;
 use Concrete\Core\Api\Fractal\Transformer\CollectionVersionTransformer;
 use Concrete\Core\Api\Resources;
@@ -100,6 +101,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $command->setArea($area);
         $command->setBlockType($blockType);
         $command->setData($body);
+        $command->setSaveMode(SaveMode::SAVE_MODE_IMPORT);
 
         $block = $this->app->executeCommand($command);
 
@@ -275,6 +277,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $command->setPage($page);
         $command->setData($body);
         $command->setBlock($blockToEdit);
+        $command->setSaveMode(SaveMode::SAVE_MODE_IMPORT);
 
         $block = $this->app->executeCommand($command);
 

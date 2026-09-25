@@ -97,6 +97,9 @@ abstract class BlockApiHandler
      * Turn a value received by the API into the arguments that the save() method of the controller
      * wants, keeping the settings that the value doesn't mention.
      *
+     * The API saves in import mode, so the arguments are the ones a block type reads when the data
+     * doesn't come from its own form.
+     *
      * @param array<string,mixed> $value
      * @param \Concrete\Core\Block\Block|null $block the block being updated (NULL when a block is being added)
      *
