@@ -103,6 +103,14 @@ class Files extends ApiController
      *         )
      *     ),
      *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="Search files by keyword",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
      *         name="after",
      *         in="query",
      *         description="The ID of the current object to start at."
@@ -135,7 +143,9 @@ class Files extends ApiController
                 return $fp->canViewFileInFileManager();
             }
         );
-
+        if (($search = trim((string) $this->request->get('search'))) !== '') {
+            $list->filterByKeywords($search);
+        }
         $fileVersionColumn = new FileVersionDateAddedColumn();
         $fileVersionColumn->setColumnSortDirection('desc');
         $this->setupSortAndCursor(
