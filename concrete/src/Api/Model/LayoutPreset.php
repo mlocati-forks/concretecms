@@ -35,11 +35,11 @@ class LayoutPreset implements \JsonSerializable
     public $columns;
 
     /**
-     * @OA\Property(title="Handle of the theme offering the layout, empty when the users of this installation defined it", description="A layout of a theme can only be given to the pages shown with that theme, while the ones defined here fit any")
+     * @OA\Property(title="Handle of the page theme offering the layout, empty when the users of this installation defined it", description="A layout of a page theme can only be given to the pages shown with that theme, while the ones defined here fit any")
      *
      * @var string
      */
-    public $theme;
+    public $page_theme;
 
     /**
      * {@inheritdoc}
