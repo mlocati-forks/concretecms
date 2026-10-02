@@ -40,6 +40,7 @@ class ApiRouteList implements RouteListInterface
         $api->routes('api/blocks.php');
         $api->routes('api/block_types.php');
         $api->routes('api/page_types.php');
+        $api->routes('api/page_templates.php');
         $api->routes('api/express.php');
     }
 }
