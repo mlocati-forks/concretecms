@@ -10,6 +10,10 @@ use League\Fractal\TransformerAbstract;
 class SiteTransformer extends TransformerAbstract
 {
 
+    protected $defaultIncludes = [
+        'locales',
+    ];
+
     protected $availableIncludes = [
         'locales',
         'custom_attributes',
@@ -21,10 +25,11 @@ class SiteTransformer extends TransformerAbstract
             'id' => $site->getSiteID(),
             'handle' => $site->getSiteHandle(),
             'name' => $site->getSiteName(),
-            'home_page_id' => $site->getSiteHomePageID(),
             'defaults' => $this->getDefaults($site),
         ];
+        // kept for the clients that came before the locales were handed over unasked
         $defaultLocale = $site->getDefaultLocale();
+        $data['home_page_id'] = $site->getSiteHomePageID();
         $data['default_locale'] = $defaultLocale === null ? '' : (string) $defaultLocale->getLocale();
 
         return $data;
@@ -56,7 +61,14 @@ class SiteTransformer extends TransformerAbstract
 
     public function includeLocales(Site $site)
     {
-        $locales = $site->getLocales();
+        $locales = [];
+        foreach ($site->getLocales() as $locale) {
+            if ($locale->getIsDefault()) {
+                array_unshift($locales, $locale);
+            } else {
+                $locales[] = $locale;
+            }
+        }
 
         return new Collection($locales, new SiteLocaleTransformer(), Resources::RESOURCE_LOCALES);
     }
