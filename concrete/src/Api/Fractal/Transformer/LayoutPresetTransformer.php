@@ -35,7 +35,7 @@ class LayoutPresetTransformer extends TransformerAbstract
         $model->identifier = (string) $preset->getIdentifier();
         $model->name = (string) $preset->getName();
         $model->columns = count($preset->getColumns());
-        $model->theme = $this->themeHandle;
+        $model->page_theme = $this->themeHandle;
 
         return $model->jsonSerialize();
     }
