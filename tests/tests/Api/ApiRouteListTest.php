@@ -20,6 +20,11 @@ class ApiRouteListTest extends TestCase
         static::assertContains('/ccm/api/1.0/block_types/{blockTypeHandle}', $paths);
     }
 
+    public function testThePageTypesRouteIsRegistered(): void
+    {
+        static::assertContains('/ccm/api/1.0/page_types', $this->getPaths());
+    }
+
     public function testTheSortBlocksRouteIsRegistered(): void
     {
         static::assertContains('/ccm/api/1.0/pages/{pageID}/{areaHandle}/sort', $this->getPaths());
