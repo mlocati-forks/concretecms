@@ -30,13 +30,21 @@ class LayoutPresetTransformer extends TransformerAbstract
      */
     public function transform(PresetInterface $preset): array
     {
+        return $this->describe($preset)->jsonSerialize();
+    }
+
+    /**
+     * Get what a client reads of a preset, which a theme hands over along with itself.
+     */
+    public function describe(PresetInterface $preset): LayoutPreset
+    {
         $model = new LayoutPreset();
         // a preset saved on the site is named by the ID of its layout, a theme one by a string
         $model->identifier = (string) $preset->getIdentifier();
         $model->name = (string) $preset->getName();
         $model->columns = count($preset->getColumns());
-        $model->theme = $this->themeHandle;
+        $model->page_theme = $this->themeHandle;
 
-        return $model->jsonSerialize();
+        return $model;
     }
 }
