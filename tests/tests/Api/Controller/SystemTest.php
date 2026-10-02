@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Concrete\Tests\Api\Controller;
 
 use Concrete\Core\Api\Controller\System;
+use Concrete\Core\Api\Guide\GuideGenerator;
 use Concrete\Core\Api\OpenApi\SourceRegistry;
 use Concrete\Core\Api\OpenApi\SpecGenerator;
 use Concrete\Core\Http\Request;
@@ -16,9 +17,8 @@ use Symfony\Component\Yaml\Yaml;
 defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
- * Tests the specification that the API serves of itself.
- *
  * @see \Concrete\Core\Api\Controller\System::openapi()
+ * @see \Concrete\Core\Api\Controller\System::guide()
  */
 class SystemTest extends TestCase
 {
@@ -42,6 +42,17 @@ class SystemTest extends TestCase
         static::assertArrayHasKey('/ccm/api/1.0/system/openapi', $specification['paths']);
     }
 
+    public function testTheGuideIsServedAsMarkdown(): void
+    {
+        $guideGenerator = M::mock(GuideGenerator::class);
+        $guideGenerator->shouldReceive('getGuide')->andReturn('# The API of this site');
+
+        $response = (new System(Request::createFromGlobals(), $guideGenerator, M::mock(SpecGenerator::class)))->guide();
+
+        static::assertSame('text/markdown; charset=' . APP_CHARSET, $response->headers->get('Content-Type'));
+        static::assertSame('# The API of this site', $response->getContent());
+    }
+
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -57,6 +68,6 @@ class SystemTest extends TestCase
         $specGenerator = M::mock(SpecGenerator::class);
         $specGenerator->shouldReceive('getSpec')->andReturn(Generator::scan($sourceRegistry->getSources()));
 
-        return (new System($request, $specGenerator))->openapi();
+        return (new System($request, M::mock(GuideGenerator::class), $specGenerator))->openapi();
     }
 }
