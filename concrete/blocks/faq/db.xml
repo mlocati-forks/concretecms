@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.concrete5.org/doctrine-xml/0.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
     <table name="btFaq">
-        <field name="bID" type="integer">
+        <field name="bID" type="integer" comment="The ID of the block">
             <unsigned/>
             <key/>
         </field>
-        <field name="blockTitle" type="string" size="255" />
+        <field name="blockTitle" type="string" size="255" comment="The text displayed above the questions" />
     </table>
     <table name="btFaqEntries">
-        <field name="id" type="integer">
+        <field name="id" type="integer" comment="The ID of the question">
             <unsigned/>
             <autoincrement/>
             <key/>
         </field>
-        <field name="bID" type="integer">
+        <field name="bID" type="integer" comment="The ID of the block holding the question">
             <unsigned/>
         </field>
-        <field name="linkTitle" type="string" size="255" />
-        <field name="title" type="string" size="255" />
-        <field name="sortOrder" type="integer" />
-        <field name="description" type="text" />
+        <field name="linkTitle" type="string" size="255" comment="The text of the link that jumps to the question, displayed in the list of the questions" />
+        <field name="title" type="string" size="255" comment="The question itself, displayed above its answer" />
+        <field name="sortOrder" type="integer" comment="The position of the question in the block, starting from zero" />
+        <field name="description" type="text" comment="The answer to the question, as rich text" />
         <index name="bID">
             <col>bID</col>
             <col>sortOrder</col>

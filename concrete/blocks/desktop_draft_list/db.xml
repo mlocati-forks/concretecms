@@ -4,11 +4,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
 
   <table name="btDesktopDraftList">
-    <field name="bID" type="integer">
+    <field name="bID" type="integer" comment="The ID of the block">
       <unsigned/>
       <key/>
     </field>
-    <field name="draftsPerPage" type="integer" />
+    <field name="draftsPerPage" type="integer" comment="How many drafts a page of the list displays" />
   </table>
 
 </schema>

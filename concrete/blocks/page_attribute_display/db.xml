@@ -4,23 +4,23 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
 
   <table name="btPageAttributeDisplay">
-    <field name="bID" type="integer">
+    <field name="bID" type="integer" comment="The ID of the block">
       <unsigned/>
       <key/>
     </field>
-    <field name="attributeHandle" type="string" size="255"/>
-    <field name="attributeTitleText" type="string" size="255"/>
-    <field name="displayTag" type="string" size="255"/>
-    <field name="dateFormat" type="string" size="100">
+    <field name="attributeHandle" type="string" size="255" comment="What is displayed: the handle of a page attribute, or rpv_ followed by the name of a property of the page (rpv_pageName, rpv_pageDescription, rpv_pageDateCreated and so on)"/>
+    <field name="attributeTitleText" type="string" size="255" comment="The text displayed before the value (empty: none)"/>
+    <field name="displayTag" type="string" size="255" comment="The HTML element wrapping the value, without the angle brackets (empty: the value is not wrapped)"/>
+    <field name="dateFormat" type="string" size="100" comment="A format accepted by the date() PHP function, used when the value is a date">
       <default value="div"/>
     </field>
-    <field name="thumbnailHeight" type="integer">
+    <field name="thumbnailHeight" type="integer" comment="The height of the thumbnail, in pixels, used when the value is an image (0 or NULL: the width decides)">
       <unsigned/>
     </field>
-    <field name="thumbnailWidth" type="integer">
+    <field name="thumbnailWidth" type="integer" comment="The width of the thumbnail, in pixels, used when the value is an image (0 or NULL: the height decides)">
       <unsigned/>
     </field>
-	<field name="delimiter" type="string" size="255"/>
+	<field name="delimiter" type="string" size="255" comment="The text separating the items, used when the value holds more than one (for instance a topics attribute)"/>
   </table>
 
 </schema>

@@ -4,13 +4,13 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
 
   <table name="btCoreAreaLayout">
-    <field name="bID" type="integer">
+    <field name="bID" type="integer" comment="The ID of the block">
       <unsigned/>
       <key/>
       <default value="0"/>
       <notnull/>
     </field>
-    <field name="arLayoutID" type="integer">
+    <field name="arLayoutID" type="integer" comment="The ID of the layout that the block adds to the page, which owns the columns and the area of every column">
       <unsigned/>
       <default value="0"/>
       <notnull/>

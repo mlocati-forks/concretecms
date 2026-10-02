@@ -4,11 +4,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
 
   <table name="btExternalForm">
-    <field name="bID" type="integer">
+    <field name="bID" type="integer" comment="The ID of the block">
       <unsigned/>
       <key/>
     </field>
-    <field name="filename" type="string" size="128"/>
+    <field name="filename" type="string" size="128" comment="The name of the PHP file that renders and handles the form, looked for in application/blocks/external_form/form and then in the same directory of the core"/>
   </table>
 
 </schema>
