@@ -30,6 +30,11 @@ class ApiRouteListTest extends TestCase
         static::assertContains('/ccm/api/1.0/page_templates', $this->getPaths());
     }
 
+    public function testThePageThemesRouteIsRegistered(): void
+    {
+        static::assertContains('/ccm/api/1.0/page_themes', $this->getPaths());
+    }
+
     public function testTheStacksRouteIsRegistered(): void
     {
         static::assertContains('/ccm/api/1.0/stacks', $this->getPaths());
