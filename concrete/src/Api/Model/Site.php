@@ -30,20 +30,6 @@ class Site
     private $name;
 
     /**
-     * @OA\Property(type="integer", title="Home Page ID")
-     *
-     * @var string
-     */
-    private $home_page_id;
-
-    /**
-     * @OA\Property(type="string", title="Default Locale")
-     *
-     * @var string
-     */
-    private $default_locale;
-
-    /**
      * @OA\Property(ref="#/components/schemas/SiteDefaults", title="What the pages of this site are given when they ask for nothing of their own")
      *
      * @var \Concrete\Core\Api\Model\SiteDefaults
@@ -51,11 +37,25 @@ class Site
     private $defaults;
 
     /**
-     * @OA\Property(type="array", title="Locales", @OA\Items(ref="#/components/schemas/Locale"))
+     * @OA\Property(type="array", title="Locales of the site, the default one coming first", @OA\Items(ref="#/components/schemas/Locale"))
      *
      * @var string
      */
     private $locales;
+
+    /**
+     * @OA\Property(type="integer", title="Home Page ID", deprecated=true, description="Use the home_page_id of the default locale instead")
+     *
+     * @var string
+     */
+    private $home_page_id;
+
+    /**
+     * @OA\Property(type="string", title="Default Locale", deprecated=true, description="Use the locale field of the default locale instead")
+     *
+     * @var string
+     */
+    private $default_locale;
 
 
 
