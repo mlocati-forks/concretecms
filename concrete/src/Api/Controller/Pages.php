@@ -9,6 +9,7 @@ use Concrete\Core\Page\PageList;
 use Concrete\Core\Page\Search\ColumnSet\Column\DateLastModifiedColumn;
 use Concrete\Core\Page\Search\ColumnSet\Column\SitemapDisplayOrderColumn;
 use Concrete\Core\Page\Template;
+use Concrete\Core\Page\Theme\Theme as PageTheme;
 use Concrete\Core\Page\Type\Type;
 use Concrete\Core\Permission\Checker;
 use Concrete\Core\Search\Column\Column;
@@ -304,6 +305,27 @@ class Pages extends ApiController
         if (!$template) {
             $e->add(t('Invalid page template'));
         }
+        $themeHandle = is_string($value = $data['theme'] ?? null) ? $value : '';
+        $theme = null;
+        if ($themeHandle !== '') {
+            $theme = PageTheme::getByHandle($themeHandle);
+            if ($theme === null) {
+                $e->add(t('Invalid page theme'));
+            }
+        }
+        $skinIdentifier = is_string($value = $data['theme_skin'] ?? null) ? $value : '';
+        $skin = null;
+        if ($skinIdentifier !== '') {
+            // the page gets the theme it is given, the one of its page type, or the one of the site
+            $skinTheme = $theme;
+            if ($skinTheme === null && $type) {
+                $skinTheme = $type->getPageTypeDefaultThemeObject() ?: PageTheme::getSiteTheme();
+            }
+            $skin = $skinTheme === null ? null : $skinTheme->getSkinByIdentifier($skinIdentifier);
+            if ($skin === null) {
+                $e->add(t('The page theme does not support the skin provided'));
+            }
+        }
 
         if ($e->has()) {
             return $this->error($e, 401);
@@ -324,8 +346,18 @@ class Pages extends ApiController
         if (!empty($data['description'])) {
             $pageData['description'] = $data['description'];
         }
+        $urlSlug = is_string($value = $data['url_slug'] ?? null) ? $value : '';
+        if ($urlSlug !== '') {
+            $pageData['cHandle'] = $urlSlug;
+        }
 
         $newPage = $parentPage->add($type, $pageData, $template);
+        if ($theme !== null) {
+            $newPage->setTheme($theme);
+        }
+        if ($skin !== null) {
+            $newPage->setThemeSkin($skin);
+        }
 
         if (isset($data['attributes'])) {
             $category = $this->app->make(PageCategory::class);
@@ -413,8 +445,45 @@ class Pages extends ApiController
                 $e->add(t('Invalid page template'));
             }
         }
-        if ((isset($body['name']) || isset($body['description']) || isset($body['attributes'])) && !$checker->canEditPageProperties()) {
+        $urlSlug = is_string($value = $body['url_slug'] ?? null) ? $value : '';
+        if ($urlSlug === (string) $page->getCollectionHandle()) {
+            $urlSlug = '';
+        }
+        if ((isset($body['name']) || isset($body['description']) || $urlSlug !== '' || isset($body['attributes'])) && !$checker->canEditPageProperties()) {
             return $this->error(t('You do not have access to edit the properties of this page.'), 401);
+        }
+        $themeHandle = is_string($value = $body['theme'] ?? null) ? $value : '';
+        $theme = null;
+        if ($themeHandle !== '') {
+            $theme = PageTheme::getByHandle($themeHandle);
+            if ($theme === null) {
+                $e->add(t('Invalid page theme'));
+            } elseif ((int) $theme->getThemeID() === (int) $page->getCollectionThemeID()) {
+                $theme = null;
+                $themeHandle = '';
+            }
+        }
+        // the skin belongs to the theme the page is given, or to the one it is already shown with
+        $skinTheme = $theme ?? $page->getCollectionThemeObject();
+        $ownSkinIdentifier = (string) $page->getPageSkinIdentifier(false);
+        $skin = null;
+        $clearSkin = false;
+        if (is_string($skinIdentifier = $body['theme_skin'] ?? null)) {
+            if ($skinIdentifier === '') {
+                $clearSkin = $ownSkinIdentifier !== '';
+            } elseif ($theme !== null || $skinIdentifier !== (string) $page->getPageSkinIdentifier()) {
+                $skin = $skinTheme === null ? null : $skinTheme->getSkinByIdentifier($skinIdentifier);
+                if ($skin === null) {
+                    $e->add(t('The page theme does not support the skin provided'));
+                }
+            }
+        }
+        if ($theme !== null && $skin === null && !$clearSkin && $ownSkinIdentifier !== '') {
+            // the theme the page is given may not have the skin the page is pinned to
+            $clearSkin = $skinTheme === null || $skinTheme->getSkinByIdentifier($ownSkinIdentifier) === null;
+        }
+        if (($themeHandle !== '' || $skin !== null || $clearSkin) && !$checker->canEditPageTheme()) {
+            return $this->error(t('You do not have access to edit the theme of this page.'), 401);
         }
 
         if ($e->has()) {
@@ -430,6 +499,9 @@ class Pages extends ApiController
         if (isset($body['description'])) {
             $data['cDescription'] = $body['description'];
         }
+        if ($urlSlug !== '') {
+            $data['cHandle'] = $urlSlug;
+        }
         if (isset($template)) {
             $data['pTemplateID'] = $template->getPageTemplateID();
         }
@@ -443,6 +515,15 @@ class Pages extends ApiController
             foreach ($attributeMap->getEntries() as $entry) {
                 $page->setAttribute($entry->getAttributeKey(), $entry->getAttributeValue());
             }
+        }
+
+        if ($theme !== null) {
+            $page->setTheme($theme);
+        }
+        if ($skin !== null) {
+            $page->setThemeSkin($skin);
+        } elseif ($clearSkin) {
+            $page->setThemeSkin(null);
         }
 
         $page->update($data);

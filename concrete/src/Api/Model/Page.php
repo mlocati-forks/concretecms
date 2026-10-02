@@ -23,6 +23,13 @@ class Page
     private $path;
 
     /**
+     * @OA\Property(type="string", title="Last part of the path of the page")
+     *
+     * @var string
+     */
+    private $url_slug;
+
+    /**
      * @OA\Property(type="string", title="Page Name")
      *
      * @var string
@@ -42,6 +49,20 @@ class Page
      * @var string
      */
     private $template;
+
+    /**
+     * @OA\Property(type="string", title="Handle of the page theme the page is shown with")
+     *
+     * @var string
+     */
+    private $theme;
+
+    /**
+     * @OA\Property(type="string", title="Identifier of the skin of that theme the page is shown with")
+     *
+     * @var string
+     */
+    private $theme_skin;
 
     /**
      * @OA\Property(type="date", title="Date page created")
