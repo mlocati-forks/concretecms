@@ -29,7 +29,7 @@ class LayoutPresetTransformerTest extends TestCase
             'identifier' => 'theme_elemental_left_sidebar',
             'name' => 'Left Sidebar',
             'columns' => 2,
-            'theme' => 'elemental',
+            'page_theme' => 'elemental',
         ], $transformed);
     }
 
@@ -40,7 +40,7 @@ class LayoutPresetTransformerTest extends TestCase
         $transformed = (new LayoutPresetTransformer())->transform($preset);
 
         static::assertSame('64', $transformed['identifier']);
-        static::assertSame('', $transformed['theme']);
+        static::assertSame('', $transformed['page_theme']);
     }
 
     /**
