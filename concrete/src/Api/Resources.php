@@ -10,6 +10,7 @@ class Resources
     const RESOURCE_BLOCKS = 'blocks';
     const RESOURCE_BLOCK_TYPES = 'block_types';
     const RESOURCE_PAGE_TYPES = 'page_types';
+    const RESOURCE_PAGE_TEMPLATES = 'page_templates';
     const RESOURCE_USERS = 'users';
     const RESOURCE_FILES = 'files';
     const RESOURCE_GROUPS = 'groups';
