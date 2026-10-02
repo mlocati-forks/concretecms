@@ -84,7 +84,7 @@ class PageThemeTransformerTest extends TestCase
         $transformed = (new PageThemeTransformer())->transform($theme);
 
         static::assertSame([
-            ['identifier' => 'theme_elemental_left_sidebar', 'name' => 'Left Sidebar', 'columns' => 2, 'theme' => 'elemental'],
+            ['identifier' => 'theme_elemental_left_sidebar', 'name' => 'Left Sidebar', 'columns' => 2, 'page_theme' => 'elemental'],
         ], $transformed['presets']);
     }
 
