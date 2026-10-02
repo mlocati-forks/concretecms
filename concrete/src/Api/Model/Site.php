@@ -44,6 +44,13 @@ class Site
     private $default_locale;
 
     /**
+     * @OA\Property(ref="#/components/schemas/SiteDefaults", title="What the pages of this site are given when they ask for nothing of their own")
+     *
+     * @var \Concrete\Core\Api\Model\SiteDefaults
+     */
+    private $defaults;
+
+    /**
      * @OA\Property(type="array", title="Locales", @OA\Items(ref="#/components/schemas/Locale"))
      *
      * @var string
