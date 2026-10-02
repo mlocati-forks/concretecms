@@ -3,6 +3,7 @@
 namespace Concrete\Core\Api\Controller;
 
 use Concrete\Core\Api\ApiController;
+use Concrete\Core\Api\Guide\GuideGenerator;
 use Concrete\Core\Api\OpenApi\SpecGenerator;
 use Concrete\Core\Http\Request;
 use Concrete\Core\System\Info;
@@ -14,13 +15,19 @@ class System extends ApiController
 {
 
     /**
+     * @var \Concrete\Core\Api\Guide\GuideGenerator
+     */
+    protected $guideGenerator;
+
+    /**
      * @var \Concrete\Core\Api\OpenApi\SpecGenerator
      */
     protected $specGenerator;
 
-    public function __construct(Request $request, SpecGenerator $specGenerator)
+    public function __construct(Request $request, GuideGenerator $guideGenerator, SpecGenerator $specGenerator)
     {
         parent::__construct($request);
+        $this->guideGenerator = $guideGenerator;
         $this->specGenerator = $specGenerator;
     }
 
@@ -72,6 +79,37 @@ class System extends ApiController
         }
 
         return new Response($spec->toJson(), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/ccm/api/1.0/system/guide",
+     *     tags={"system"},
+     *     operationId="getSystemGuide",
+     *     summary="Get the guide that tells how this installation expects its API to be used",
+     *     security={
+     *         {"clientCredentials": {"definitions:read"}},
+     *         {"authorization": {"definitions:read"}}
+     *     },
+     *     @OA\Response(
+     *         response="200",
+     *         description="The guide of the API, in markdown format",
+     *         @OA\MediaType(
+     *             mediaType="text/markdown",
+     *             @OA\Schema(type="string")
+     *         )
+     *     )
+     * )
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function guide()
+    {
+        return new Response(
+            $this->guideGenerator->getGuide(),
+            Response::HTTP_OK,
+            ['Content-Type' => 'text/markdown; charset=' . APP_CHARSET]
+        );
     }
 
 }
