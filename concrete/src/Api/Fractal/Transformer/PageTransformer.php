@@ -32,12 +32,18 @@ class PageTransformer extends TransformerAbstract
     {
         $data['id'] = $page->getCollectionID();
         $data['path'] = $page->getCollectionPath();
+        $data['url_slug'] = (string) $page->getCollectionHandle();
         $data['name'] = $page->getCollectionName();
         $data['date_added'] = Carbon::make($page->getCollectionDateAdded())->toAtomString();
         $data['date_last_updated']  = Carbon::make($page->getCollectionDateLastModified())->toAtomString();
         $data['date_public'] = Carbon::make($page->getCollectionDatePublic())->toAtomString();
         $data['type'] = $page->getPageTypeHandle();
         $data['template'] = $page->getPageTemplateHandle();
+        $theme = $page->getCollectionThemeObject();
+        $data['theme'] = $theme === null ? '' : (string) $theme->getThemeHandle();
+        // the core falls back to the skin named default, which a theme offering no skins doesn't have
+        $skinIdentifier = (string) $page->getPageSkinIdentifier();
+        $data['theme_skin'] = $theme !== null && $theme->getSkinByIdentifier($skinIdentifier) !== null ? $skinIdentifier : '';
 
         $config = app('config');
         $site = $page->getSite();
