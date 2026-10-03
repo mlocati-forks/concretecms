@@ -65,7 +65,9 @@ class Files extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/File"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -136,8 +138,12 @@ class Files extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/File")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/File")
+     *             ),
+     *             @OA\Property(property="meta", ref="#/components/schemas/StringCursorMeta")
      *         ),
      *     ),
      * )
@@ -188,7 +194,9 @@ class Files extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful files operation",
-     *         @OA\JsonContent(ref="#/components/schemas/File"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *         ),
      *     ),
      * )
      */
@@ -365,7 +373,9 @@ class Files extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/File"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -432,7 +442,9 @@ class Files extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/File"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,

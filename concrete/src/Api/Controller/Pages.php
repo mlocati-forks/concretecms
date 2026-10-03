@@ -69,7 +69,9 @@ class Pages extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful Page operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Page"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Page")
+     *         ),
      *     ),
      * )
      */
@@ -146,8 +148,12 @@ class Pages extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Page")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Page")
+     *             ),
+     *             @OA\Property(property="meta", ref="#/components/schemas/IntegerCursorMeta")
      *         ),
      *     ),
      * )
@@ -273,7 +279,9 @@ class Pages extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful files operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Page"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Page")
+     *         ),
      *     ),
      * )
      */
@@ -394,7 +402,9 @@ class Pages extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Page"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Page")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,

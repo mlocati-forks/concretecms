@@ -29,8 +29,11 @@ class TopicTrees extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/TopicTree")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/TopicTree")
+     *             )
      *         ),
      *     ),
      * )
@@ -67,7 +70,9 @@ class TopicTrees extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/TopicTree"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/TopicTree")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=404,

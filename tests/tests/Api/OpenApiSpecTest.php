@@ -129,6 +129,96 @@ class OpenApiSpecTest extends TestCase
         static::assertSame([], $undeclared);
     }
 
+    /**
+     * The serializer of this API wraps what an answer is about in a data property, and the answers
+     * that don't go through it are the handful listed here, the ones whose controller sends a
+     * JsonResponse of its own instead of a resource: an annotation that forgets the envelope, or
+     * that adds one here, describes something the endpoint never sends.
+     *
+     * @return array<int,string[]>
+     */
+    public static function provideAnswersBuiltByHand(): array
+    {
+        return [
+            ['delete', '/ccm/api/1.0/blocks/{blockID}', 'DeletedResponse'],
+            ['delete', '/ccm/api/1.0/files/{fileID}', 'DeletedResponse'],
+            ['delete', '/ccm/api/1.0/pages/{pageID}', 'DeletedResponse'],
+            ['delete', '/ccm/api/1.0/pages/{pageID}/{areaHandle}/{blockID}', 'DeletedAreaBlockResponse'],
+            ['delete', '/ccm/api/1.0/page_versions/{pageID}/{versionID}', 'DeletedResponse'],
+            ['delete', '/ccm/api/1.0/users/{userID}', 'DeletedResponse'],
+            ['put', '/ccm/api/1.0/pages/{pageID}/{areaHandle}/sort', 'SortedAreaBlocksResponse'],
+        ];
+    }
+
+    public function testEveryAnswerIsDescribedWithItsEnvelope(): void
+    {
+        $builtByHand = [];
+        foreach ($this->provideAnswersBuiltByHand() as [$method, $path]) {
+            $builtByHand[] = "{$method} {$path}";
+        }
+        $spec = json_decode(json_encode($this->getSpec()), true);
+        $bare = [];
+        foreach ($spec['paths'] as $path => $operations) {
+            foreach ($operations as $method => $operation) {
+                if (in_array("{$method} {$path}", $builtByHand, true)) {
+                    continue;
+                }
+                foreach ($operation['responses'] ?? [] as $code => $response) {
+                    $schema = $response['content']['application/json']['schema'] ?? null;
+                    if ($schema !== null && !isset($schema['properties']['data'])) {
+                        $bare[] = "{$method} {$path}: {$code}";
+                    }
+                }
+            }
+        }
+
+        static::assertSame([], $bare, 'These answers are described without the data property the serializer wraps them in: either the annotation forgot it, or the endpoint builds its answer by hand and belongs in provideAnswersBuiltByHand().');
+    }
+
+    /**
+     * @dataProvider provideAnswersBuiltByHand
+     */
+    public function testAnAnswerBuiltByHandIsDescribedWithoutOne(string $method, string $path, string $schemaName): void
+    {
+        $spec = json_decode(json_encode($this->getSpec()), true);
+        $schema = $spec['paths'][$path][$method]['responses'][200]['content']['application/json']['schema'];
+
+        static::assertArrayNotHasKey('properties', $schema);
+        static::assertSame("#/components/schemas/{$schemaName}", $schema['$ref']);
+    }
+
+    /**
+     * The answer of a list walked with a cursor carries one, which tells a client what to ask next.
+     */
+    public function testAListWalkedWithACursorIsDescribedWithIt(): void
+    {
+        $spec = json_decode(json_encode($this->getSpec()), true);
+        $walkedWithACursor = [];
+        foreach ($spec['paths'] as $path => $operations) {
+            foreach ($operations as $method => $operation) {
+                foreach ($operation['parameters'] ?? [] as $parameter) {
+                    if ($parameter['name'] === 'after') {
+                        $walkedWithACursor["{$method} {$path}"] = $operation['responses'][200]['content']['application/json']['schema'];
+                    }
+                }
+            }
+        }
+        $without = [];
+        foreach ($walkedWithACursor as $operation => $schema) {
+            $meta = $schema['properties']['meta'] ?? [];
+            if (isset($meta['$ref'])) {
+                $meta = $spec['components']['schemas'][substr($meta['$ref'], strlen('#/components/schemas/'))] ?? [];
+            }
+            $cursor = $meta['properties']['cursor']['properties'] ?? null;
+            if ($cursor === null || array_keys($cursor) !== ['current', 'prev', 'next', 'count']) {
+                $without[] = $operation;
+            }
+        }
+
+        static::assertNotSame([], $walkedWithACursor);
+        static::assertSame([], $without, 'These lists offer an after parameter without describing the cursor their answer carries in meta.cursor.');
+    }
+
     public function testEveryReferencedSchemaExists(): void
     {
         $defined = [];

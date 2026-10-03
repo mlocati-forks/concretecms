@@ -33,7 +33,9 @@ class FileFolders extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/FileFolderDetail"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/FileFolderDetail")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,
@@ -84,7 +86,9 @@ class FileFolders extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/FileFolderDetail"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/FileFolderDetail")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,
