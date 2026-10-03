@@ -46,7 +46,9 @@ class Sites extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Site"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Site")
+     *         ),
      *     ),
      * )
      */
@@ -86,8 +88,11 @@ class Sites extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Site")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Site")
+     *             )
      *         ),
      *     ),
      * )
@@ -123,7 +128,9 @@ class Sites extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Site"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Site")
+     *         ),
      *     ),
      * )
      */

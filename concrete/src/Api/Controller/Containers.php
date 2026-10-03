@@ -42,8 +42,11 @@ class Containers extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Container")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Container")
+     *             )
      *         ),
      *     ),
      * )
@@ -89,7 +92,9 @@ class Containers extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Container"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Container")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=404,

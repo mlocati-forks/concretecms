@@ -59,7 +59,9 @@ class Users extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful user operation",
-     *         @OA\JsonContent(ref="#/components/schemas/User"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         ),
      *     ),
      * )
      */
@@ -124,8 +126,12 @@ class Users extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/User")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/User")
+     *             ),
+     *             @OA\Property(property="meta", ref="#/components/schemas/IntegerCursorMeta")
      *         ),
      *     ),
      * )
@@ -173,7 +179,9 @@ class Users extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful files operation",
-     *         @OA\JsonContent(ref="#/components/schemas/User"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -287,7 +295,9 @@ class Users extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/User"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -394,7 +404,9 @@ class Users extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/User"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,

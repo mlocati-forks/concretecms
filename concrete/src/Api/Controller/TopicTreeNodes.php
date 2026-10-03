@@ -37,7 +37,9 @@ class TopicTreeNodes extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/TopicTreeNodeDetail"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/TopicTreeNodeDetail")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,

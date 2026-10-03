@@ -29,8 +29,11 @@ class BlockTypes extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/BlockType")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/BlockType")
+     *             )
      *         ),
      *     ),
      * )
@@ -68,7 +71,9 @@ class BlockTypes extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/BlockType"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/BlockType")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=404,
