@@ -55,6 +55,13 @@ class PageTheme implements \JsonSerializable
      */
     public $presets;
 
+    /**
+     * @OA\Property(title="Containers the theme carries the template of", @OA\Items(ref="#/components/schemas/Container"))
+     *
+     * @var \Concrete\Core\Api\Model\Container[]
+     */
+    public $containers;
+
 
     /**
      * {@inheritdoc}

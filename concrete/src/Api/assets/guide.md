@@ -78,6 +78,12 @@ To anybody else the site answers 404, as it does for a page that isn't active.
 A page holds areas, an area holds blocks, and the blocks are the contents of the page.
 Some block types hold areas of their own, so the chain goes on: the columns of a `core_area_layout`
 block are areas, and they hold blocks like any other.
+A `core_container` block shows a container, a piece of layout that brings areas of its own, and those
+areas hold blocks just the same: `GET /containers` lists the containers, and every theme of
+`GET /page_themes` carries the ones it can show.
+The areas of a page answer carry the ones that live inside blocks too, under the handle that nests them
+(`Main : 7 : Column 2`), and an inner area nothing renders any more keeps its blocks in the version: the
+page stops showing them, which is what the web interface calls orphaned blocks.
 Which areas a page has is up to the theme it is shown with: the theme declares them and names them, and
 that name is the handle an area is identified by.
 The `theme` of a page answer names the theme it is shown with: the one of the page, when it carries one,
