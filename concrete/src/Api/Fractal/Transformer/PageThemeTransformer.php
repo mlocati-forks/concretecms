@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Concrete\Core\Api\Fractal\Transformer;
 
+use Concrete\Core\Api\Container\ContainerTemplates;
 use Concrete\Core\Api\Model\PageTheme as PageThemeModel;
 use Concrete\Core\Api\Model\PageThemeGrid;
-use Concrete\Core\Api\Container\ContainerTemplates;
+use Concrete\Core\Api\Model\PageThemeImageBreakpoint;
 use Concrete\Core\Area\Layout\Preset\Provider\ThemeProvider;
 use Concrete\Core\Area\Layout\Preset\Provider\ThemeProviderInterface;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
@@ -37,10 +38,27 @@ class PageThemeTransformer extends TransformerAbstract
         $model->description = (string) $theme->getThemeDescription();
         $model->package = (string) $theme->getPackageHandle();
         $model->grid = $this->getGrid($theme);
+        $model->image_breakpoints = $this->getImageBreakpoints($theme);
         $model->presets = $this->getPresets($theme);
         $model->containers = $this->getContainers($theme);
 
         return $model->jsonSerialize();
+    }
+
+    /**
+     * @return array<int,array<string,mixed>>
+     */
+    protected function getImageBreakpoints(PageTheme $theme): array
+    {
+        $breakpoints = [];
+        foreach ($theme->getThemeResponsiveImageMap() as $handle => $minimumWidth) {
+            $model = new PageThemeImageBreakpoint();
+            $model->handle = (string) $handle;
+            $model->minimum_width = (string) $minimumWidth;
+            $breakpoints[] = $model->jsonSerialize();
+        }
+
+        return $breakpoints;
     }
 
     /**

@@ -45,6 +45,7 @@ class PageThemeTransformerTest extends TestCase
                 'supports_nesting' => true,
                 'supports_offsets' => false,
             ],
+            'image_breakpoints' => [],
             'presets' => [],
             'containers' => [],
         ], $transformed);
@@ -89,6 +90,20 @@ class PageThemeTransformerTest extends TestCase
         static::assertSame([
             ['identifier' => 'theme_elemental_left_sidebar', 'name' => 'Left Sidebar', 'columns' => 2, 'page_theme' => 'elemental'],
         ], $transformed['presets']);
+    }
+
+    public function testTheImageBreakpointsOfAThemeTravelWithItInTheOrderItDeclaresThem(): void
+    {
+        $theme = $this->createTheme('atomik', 'Atomik', 'bootstrap5', null);
+        $theme->method('getThemeResponsiveImageMap')->willReturn(['lg' => '992px', 'md' => '768px', 'xs' => '0']);
+
+        $transformed = $this->createTransformer()->transform($theme);
+
+        static::assertSame([
+            ['handle' => 'lg', 'minimum_width' => '992px'],
+            ['handle' => 'md', 'minimum_width' => '768px'],
+            ['handle' => 'xs', 'minimum_width' => '0'],
+        ], $transformed['image_breakpoints']);
     }
 
     public function testTheContainersAThemeCanShowTravelWithIt(): void
