@@ -28,8 +28,11 @@ class PageTemplates extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/PageTemplate")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/PageTemplate")
+     *             )
      *         ),
      *     ),
      * )

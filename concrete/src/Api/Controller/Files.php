@@ -66,7 +66,9 @@ class Files extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/File"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,
@@ -137,8 +139,24 @@ class Files extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/File")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/File")
+     *             ),
+     *             @OA\Property(
+     *                 property="meta",
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="cursor",
+     *                     type="object",
+     *                     title="Where the list was walked, and where to walk it on",
+     *                     @OA\Property(property="current", type="string", nullable=true, title="Where this answer was asked to start at, NULL for the beginning of the list"),
+     *                     @OA\Property(property="prev", type="string", nullable=true, title="Where the objects before these begin, NULL where nothing comes before"),
+     *                     @OA\Property(property="next", type="string", nullable=true, title="What to ask the list after, NULL where it ends here"),
+     *                     @OA\Property(property="count", type="integer", title="How many objects this answer carries")
+     *                 )
+     *             )
      *         ),
      *     ),
      * )
@@ -196,7 +214,9 @@ class Files extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful files operation",
-     *         @OA\JsonContent(ref="#/components/schemas/File"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *         ),
      *     ),
      * )
      */
@@ -378,7 +398,9 @@ class Files extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/File"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,
@@ -445,7 +467,9 @@ class Files extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/File"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,

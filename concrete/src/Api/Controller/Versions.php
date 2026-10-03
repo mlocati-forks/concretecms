@@ -47,7 +47,9 @@ class Versions extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/PageVersion"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/PageVersion")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,
@@ -118,8 +120,11 @@ class Versions extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/PageVersion")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/PageVersion")
+     *             )
      *         ),
      *     ),
      * )
@@ -167,7 +172,9 @@ class Versions extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/PageVersion"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/PageVersion")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,
@@ -312,7 +319,9 @@ class Versions extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/PageVersion"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/PageVersion")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=401,

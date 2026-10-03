@@ -35,8 +35,11 @@ class Stacks extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Stack")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Stack")
+     *             )
      *         ),
      *     ),
      * )
@@ -84,7 +87,9 @@ class Stacks extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Stack"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Stack")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=404,

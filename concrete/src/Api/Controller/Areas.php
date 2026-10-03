@@ -65,7 +65,9 @@ class Areas extends ApiController implements ApplicationAwareInterface
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Block"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Block")
+     *         ),
      *     ),
      * )
      */
@@ -362,7 +364,9 @@ class Areas extends ApiController implements ApplicationAwareInterface
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/DeletedAreaBlockResponse"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Block")
+     *         ),
      *     ),
      * )
      */
