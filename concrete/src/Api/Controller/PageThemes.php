@@ -38,6 +38,8 @@ class PageThemes extends ApiController
      */
     public function listPageThemes()
     {
-        return new Collection(PageTheme::getList(), new PageThemeTransformer(), Resources::RESOURCE_PAGE_THEMES);
+        $transformer = $this->app->make(PageThemeTransformer::class);
+
+        return new Collection(PageTheme::getList(), $transformer, Resources::RESOURCE_PAGE_THEMES);
     }
 }
