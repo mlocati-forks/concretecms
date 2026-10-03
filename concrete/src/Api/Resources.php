@@ -18,6 +18,7 @@ class Resources
     const RESOURCE_THUMBNAIL_TYPES = 'thumbnail_types';
     const RESOURCE_USERS = 'users';
     const RESOURCE_FILES = 'files';
+    const RESOURCE_FILE_FOLDERS = 'file_folders';
     const RESOURCE_GROUPS = 'groups';
     const RESOURCE_SITES = 'sites';
     const RESOURCE_LOCALES = 'locales';
