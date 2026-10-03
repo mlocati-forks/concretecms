@@ -30,5 +30,7 @@ class Resources
     const RESOURCE_OPTION_LIST_OPTIONS = 'list_options';
     const RESOURCE_SOCIAL_LINKS = 'social_links';
     const RESOURCE_TOPICS = 'topics';
+    const RESOURCE_TOPIC_TREES = 'topic_trees';
+    const RESOURCE_TOPIC_TREE_NODES = 'topic_tree_nodes';
 
 }

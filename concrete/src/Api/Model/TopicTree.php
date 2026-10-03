@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Concrete\Core\Api\Model;
+
+defined('C5_EXECUTE') or die('Access Denied.');
+
+/**
+ * @OA\Schema(
+ *     title="TopicTree model",
+ * )
+ */
+class TopicTree implements \JsonSerializable
+{
+    /**
+     * @OA\Property(format="int64", title="Topic Tree ID", description="What a topic_list block takes, and what the topics attribute of a page is tied to")
+     *
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @OA\Property(title="Topic Tree Name")
+     *
+     * @var string
+     */
+    public $name;
+
+    /**
+     * @OA\Property(type="array", title="Nodes at the top of the tree, the topics and the categories grouping them", description="Going further down takes a request per topic", @OA\Items(ref="#/components/schemas/TopicTreeNodeSummary"))
+     *
+     * @var \Concrete\Core\Api\Model\TopicTreeNode\Summary[]
+     */
+    public $nodes;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \JsonSerializable::jsonSerialize()
+     *
+     * @return array<string,mixed>
+     */
+    public function jsonSerialize(): array
+    {
+        return (array) $this;
+    }
+}
