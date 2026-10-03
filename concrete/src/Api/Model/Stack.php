@@ -33,4 +33,18 @@ class Stack
      * @var string
      */
     private $folder;
+
+    /**
+     * @OA\Property(type="array", nullable=true, title="Blocks of the stack, answered only where include_contents is on", description="NULL when the request may not read them, and for no other reason: either it carries no user, as a token of the client credentials flow does, or that user may not view the page listing the stacks and this stack", @OA\Items(ref="#/components/schemas/Block"))
+     *
+     * @var \Concrete\Core\Api\Model\Block[]|null
+     */
+    private $blocks;
+
+    /**
+     * @OA\Property(type="array", title="Versions of the stack speaking the language of a section of the site", description="Empty where the site speaks one language only", @OA\Items(ref="#/components/schemas/LocalizedStack"))
+     *
+     * @var \Concrete\Core\Api\Model\LocalizedStack[]
+     */
+    private $localized;
 }
