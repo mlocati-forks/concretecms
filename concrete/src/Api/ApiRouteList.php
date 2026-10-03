@@ -45,6 +45,7 @@ class ApiRouteList implements RouteListInterface
         $api->routes('api/stacks.php');
         $api->routes('api/layout_presets.php');
         $api->routes('api/containers.php');
+        $api->routes('api/thumbnail_types.php');
         $api->routes('api/express.php');
     }
 }
