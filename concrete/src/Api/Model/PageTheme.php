@@ -49,6 +49,13 @@ class PageTheme
     private $presets;
 
     /**
+     * @OA\Property(type="array", title="Containers the theme carries the template of", @OA\Items(ref="#/components/schemas/Container"))
+     *
+     * @var \Concrete\Core\Api\Model\Container[]
+     */
+    private $containers;
+
+    /**
      * @OA\Property(ref="#/components/schemas/PageThemeGrid", nullable=true, title="Grid framework of the theme, NULL when it declares none")
      *
      * @var \Concrete\Core\Api\Model\PageThemeGrid|null

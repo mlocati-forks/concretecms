@@ -33,7 +33,7 @@ class Api extends BlockApiHandler
             'properties' => [
                 'container' => [
                     'type' => 'string',
-                    'description' => 'The handle of the container of the theme. Sending another one empties the block, since the areas belong to the container itself.',
+                    'description' => 'The handle of the container, as GET /containers lists them. Sending another one gives the block a new instance of the container: the areas of the old instance keep their blocks in the page version, and the page stops showing them.',
                 ],
                 'areas' => [
                     'type' => 'array',

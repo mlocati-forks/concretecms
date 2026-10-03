@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Concrete\Tests\Api\Theme;
 
+use Concrete\Core\Api\Container\ContainerTemplates;
 use Concrete\Core\Api\Fractal\Transformer\PageThemeTransformer;
+use Concrete\Core\Entity\Page\Container;
 use Concrete\Core\Area\Layout\Preset\Provider\ThemeProviderInterface;
 use Concrete\Core\Page\Theme\GridFramework\GridFramework;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
@@ -28,7 +30,7 @@ class PageThemeTransformerTest extends TestCase
         $grid->method('hasPageThemeGridFrameworkOffsetClasses')->willReturn(false);
         $theme = $this->createTheme('elemental', 'Elemental', 'bootstrap5', $grid);
 
-        $transformed = (new PageThemeTransformer())->transform($theme);
+        $transformed = $this->createTransformer()->transform($theme);
 
         static::assertSame([
             'handle' => 'elemental',
@@ -43,6 +45,7 @@ class PageThemeTransformerTest extends TestCase
                 'supports_offsets' => false,
             ],
             'presets' => [],
+            'containers' => [],
         ], $transformed);
     }
 
@@ -50,7 +53,7 @@ class PageThemeTransformerTest extends TestCase
     {
         $theme = $this->createTheme('plain', 'Plain', false, null);
 
-        static::assertNull((new PageThemeTransformer())->transform($theme)['grid']);
+        static::assertNull($this->createTransformer()->transform($theme)['grid']);
     }
 
     public function testThePresetsOfAThemeTravelWithIt(): void
@@ -79,11 +82,34 @@ class PageThemeTransformerTest extends TestCase
             }
         };
 
-        $transformed = (new PageThemeTransformer())->transform($theme);
+        $transformed = $this->createTransformer()->transform($theme);
 
         static::assertSame([
             ['identifier' => 'theme_elemental_left_sidebar', 'name' => 'Left Sidebar', 'columns' => 2, 'page_theme' => 'elemental'],
         ], $transformed['presets']);
+    }
+
+    public function testTheContainersAThemeCanShowTravelWithIt(): void
+    {
+        $theme = $this->createTheme('atomik', 'Atomik', 'bootstrap5', null);
+        $container = (new Container())->setContainerHandle('light_stripe')->setContainerName('Highlight Stripe');
+
+        $transformed = $this->createTransformer([$container])->transform($theme);
+
+        static::assertSame([
+            ['handle' => 'light_stripe', 'name' => 'Highlight Stripe', 'package' => '', 'page_themes' => [], 'application' => false],
+        ], $transformed['containers']);
+    }
+
+    /**
+     * @param \Concrete\Core\Entity\Page\Container[] $containersOfTheTheme
+     */
+    private function createTransformer(array $containersOfTheTheme = []): PageThemeTransformer
+    {
+        $containerTemplates = $this->createMock(ContainerTemplates::class);
+        $containerTemplates->method('getContainersOfTheme')->willReturn($containersOfTheTheme);
+
+        return new PageThemeTransformer($containerTemplates);
     }
 
     /**
