@@ -35,7 +35,9 @@ class Account implements ApplicationAwareInterface
      *     @OA\Response(
      *         response=200,
      *         description="The currently logged in User",
-     *         @OA\JsonContent(ref="#/components/schemas/User"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         ),
      *     ),
      * )
      */

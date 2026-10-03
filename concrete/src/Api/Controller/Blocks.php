@@ -42,7 +42,9 @@ class Blocks extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Block"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Block")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,
