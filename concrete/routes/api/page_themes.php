@@ -12,3 +12,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 $router->get('/page_themes', '\Concrete\Core\Api\Controller\PageThemes::listPageThemes')
     ->setScopes('definitions:read')
 ;
+
+$router->get('/page_themes/{pageThemeHandle}', '\Concrete\Core\Api\Controller\PageThemes::read')
+    ->setScopes('definitions:read')
+;
