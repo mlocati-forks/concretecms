@@ -42,6 +42,13 @@ class PageTheme
     private $package;
 
     /**
+     * @OA\Property(type="array", title="Widths the theme shows its responsive images at", description="What the thumbnails of an image block are keyed by", @OA\Items(ref="#/components/schemas/PageThemeImageBreakpoint"))
+     *
+     * @var \Concrete\Core\Api\Model\PageThemeImageBreakpoint[]
+     */
+    private $image_breakpoints;
+
+    /**
      * @OA\Property(type="array", title="Ready-made layouts the theme offers to the pages shown with it", @OA\Items(ref="#/components/schemas/LayoutPreset"))
      *
      * @var \Concrete\Core\Api\Model\LayoutPreset[]

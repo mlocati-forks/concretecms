@@ -37,9 +37,28 @@ class PageThemeTransformer extends TransformerAbstract
             'description' => (string) $theme->getThemeDescription(),
             'package' => (string) $theme->getPackageHandle(),
             'grid' => $this->getGrid($theme),
+            'image_breakpoints' => $this->getImageBreakpoints($theme),
             'presets' => $this->getPresets($theme),
             'containers' => $this->getContainers($theme),
         ];
+    }
+
+    /**
+     * Get the widths a theme shows its responsive images at, in the order it declares them.
+     *
+     * @return array<int,array<string,mixed>>
+     */
+    protected function getImageBreakpoints(PageTheme $theme): array
+    {
+        $breakpoints = [];
+        foreach ($theme->getThemeResponsiveImageMap() as $handle => $minimumWidth) {
+            $breakpoints[] = [
+                'handle' => (string) $handle,
+                'minimum_width' => (string) $minimumWidth,
+            ];
+        }
+
+        return $breakpoints;
     }
 
     /**
