@@ -49,19 +49,25 @@ class PageTheme implements \JsonSerializable
     public $grid;
 
     /**
-     * @OA\Property(title="Ready-made layouts the theme offers to the pages shown with it", @OA\Items(ref="#/components/schemas/LayoutPreset"))
+     * @OA\Property(type="array", title="Widths the theme shows its responsive images at", description="What the thumbnails of an image block are keyed by", @OA\Items(ref="#/components/schemas/PageThemeImageBreakpoint"))
+     *
+     * @var \Concrete\Core\Api\Model\PageThemeImageBreakpoint[]
+     */
+    public $image_breakpoints;
+
+    /**
+     * @OA\Property(type="array", title="Ready-made layouts the theme offers to the pages shown with it", @OA\Items(ref="#/components/schemas/LayoutPreset"))
      *
      * @var \Concrete\Core\Api\Model\LayoutPreset[]
      */
     public $presets;
 
     /**
-     * @OA\Property(title="Containers the theme carries the template of", @OA\Items(ref="#/components/schemas/Container"))
+     * @OA\Property(type="array", title="Containers the theme carries the template of", @OA\Items(ref="#/components/schemas/Container"))
      *
      * @var \Concrete\Core\Api\Model\Container[]
      */
     public $containers;
-
 
     /**
      * {@inheritdoc}
