@@ -22,7 +22,7 @@ class Api extends DefaultBlockApiHandler
         $schema = parent::getApiValueSchema();
         $schema['properties']['breakpoints'] = [
             'type' => 'object',
-            'description' => 'The thumbnail type displayed at every breakpoint of the theme: the key is the handle of the breakpoint, the value is the ID of the thumbnail type (used if sizingOption is thumbnails_configurable).',
+            'description' => 'The thumbnail type displayed at every breakpoint of the theme: the key is the handle of the breakpoint, as the image_breakpoints of GET /page_themes name them, the value is the ID of the thumbnail type, as GET /thumbnail_types lists them (used if sizingOption is thumbnails_configurable).',
             'additionalProperties' => ['type' => 'integer'],
         ];
 
