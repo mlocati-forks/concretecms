@@ -10,8 +10,8 @@ This guide only says what that specification can't say.
 
 ## Answers
 
-A single object comes back as `{"data": {...}}` and a list as `{"data": [...]}`, while a failure comes
-back with a 4xx status and `{"error": true, "errors": ["What went wrong"]}`.
+A failure comes back with a 4xx status and `{"error": true, "errors": ["What went wrong"]}`, which the
+specification doesn't describe.
 Calling an endpoint that your token has no scope for is one of those failures, and it answers 400 as a
 malformed request would: when a 400 says that the endpoint is out of scope, the request is fine and the
 token isn't, and only the administrators of this site can widen the scopes of a client.
@@ -21,8 +21,8 @@ lists the values that each endpoint takes: `GET /pages/123?includes=areas,custom
 the areas and the attributes of that page as well.
 Attributes are read that way, while they are written as an `attributes` object keyed by attribute handle.
 
-A list that takes an `after` parameter is walked with a cursor, which the specification describes
-nowhere: pass as `after` the `meta.cursor.next` of the answer you got, until no object comes back.
+A list that takes an `after` parameter is walked with a cursor: pass as `after` the `meta.cursor.next`
+of the answer you got, until no object comes back.
 
 ## Pages are made of versions
 

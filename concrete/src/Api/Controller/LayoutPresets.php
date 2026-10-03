@@ -49,8 +49,11 @@ class LayoutPresets extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/LayoutPreset")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/LayoutPreset")
+     *             )
      *         ),
      *     ),
      * )
