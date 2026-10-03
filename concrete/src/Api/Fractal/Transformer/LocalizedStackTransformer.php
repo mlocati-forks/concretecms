@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Concrete\Core\Api\Fractal\Transformer;
+
+use Concrete\Core\Api\Fractal\Transformer\Traits\GetStackBlocksTrait;
+use Concrete\Core\Api\Model\LocalizedStack;
+use Concrete\Core\Page\Stack\Stack;
+use League\Fractal\TransformerAbstract;
+
+defined('C5_EXECUTE') or die('Access Denied.');
+
+class LocalizedStackTransformer extends TransformerAbstract
+{
+    use GetStackBlocksTrait;
+
+    /**
+     * @var bool
+     */
+    protected $includeContents;
+
+    /**
+     * @param bool $includeContents whether the blocks of the stack travel with it
+     */
+    public function __construct(bool $includeContents)
+    {
+        $this->includeContents = $includeContents;
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function transform(Stack $stack): array
+    {
+        return $this->describe($stack)->jsonSerialize();
+    }
+
+    /**
+     * Get what a client reads of a localized stack, which the stack it belongs to hands over along
+     * with itself.
+     */
+    public function describe(Stack $stack): LocalizedStack
+    {
+        $section = $stack->getMultilingualSection();
+
+        $model = new LocalizedStack();
+        $model->locale = $section === null ? '' : (string) $section->getLocale();
+        $model->id = (int) $stack->getCollectionID();
+        if ($this->includeContents) {
+            $model->blocks = $this->getStackBlocks($stack);
+        } else {
+            // the blocks are no part of the answer unless they were asked for
+            unset($model->blocks);
+        }
+
+        return $model;
+    }
+}

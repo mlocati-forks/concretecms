@@ -24,6 +24,12 @@ class Stacks extends ApiController
      *         {"clientCredentials": {"stacks:read"}},
      *         {"authorization": {"stacks:read"}}
      *     },
+     *     @OA\Parameter(
+     *         name="include_contents",
+     *         in="query",
+     *         description="Whether the blocks of every stack and of its localized versions travel with them (default: false)",
+     *         @OA\Schema(type="boolean")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -45,6 +51,8 @@ class Stacks extends ApiController
             ->setIncludeGlobalAreas(false)
         ;
 
-        return new Collection($list->getResults(), new StackTransformer(), Resources::RESOURCE_STACKS);
+        $transformer = new StackTransformer($this->request->query->getBoolean('include_contents', false));
+
+        return new Collection($list->getResults(), $transformer, Resources::RESOURCE_STACKS);
     }
 }
