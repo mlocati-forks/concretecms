@@ -46,6 +46,14 @@ class ContainerTemplates
     }
 
     /**
+     * Get the container of a handle, NULL when this installation has registered none.
+     */
+    public function getContainerByHandle(string $handle): ?Container
+    {
+        return $handle === '' ? null : $this->entityManager->getRepository(Container::class)->findOneBy(['containerHandle' => $handle]);
+    }
+
+    /**
      * Get the containers that a theme carries the template of.
      *
      * @return \Concrete\Core\Entity\Page\Container[]
