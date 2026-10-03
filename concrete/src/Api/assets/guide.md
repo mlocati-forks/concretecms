@@ -120,6 +120,13 @@ A stack is a set of blocks that a page shows wherever a `core_stack_display` blo
 `GET /stacks` lists the ones of this installation.
 A stack answers with the ID of the page that holds its blocks: the areas endpoints work on that page,
 in its `Main` area, so filling a stack is filling an area like any other.
+A stack of a site that speaks several languages answers with a version of itself per language, under
+`localized`, each the page of its own blocks.
+The `id` of the stack is still the one to hand to a `core_stack_display` block whatever the language of
+the page it sits in: the site shows the version of the language that page speaks, and the stack itself
+where that language has none.
+The blocks of a stack and of its localized versions travel with `?include_contents=true`, where the
+request is allowed to read them.
 
 ## Files
 
