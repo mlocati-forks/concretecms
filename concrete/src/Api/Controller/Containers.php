@@ -68,4 +68,47 @@ class Containers extends ApiController
 
         return new Collection($containers, new ContainerTransformer($containerTemplates), Resources::RESOURCE_CONTAINERS);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/ccm/api/1.0/containers/{containerHandle}",
+     *     tags={"containers"},
+     *     operationId="getContainerByHandle",
+     *     summary="Find a container by its handle",
+     *     security={
+     *         {"clientCredentials": {"definitions:read"}},
+     *         {"authorization": {"definitions:read"}}
+     *     },
+     *     @OA\Parameter(
+     *         name="containerHandle",
+     *         in="path",
+     *         description="Handle of the container to return",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/Container"),
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="This installation has registered no container of this handle",
+     *     ),
+     * )
+     *
+     * @param string $containerHandle
+     *
+     * @return \League\Fractal\Resource\Item|\Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function read($containerHandle)
+    {
+        $containerTemplates = $this->app->make(ContainerTemplates::class);
+        $container = $containerTemplates->getContainerByHandle((string) $containerHandle);
+        if ($container === null) {
+            return $this->error(t('Container not found.'), 404);
+        }
+
+        return $this->transform($container, new ContainerTransformer($containerTemplates), Resources::RESOURCE_CONTAINERS);
+    }
 }
