@@ -32,6 +32,7 @@ class ApiRouteList implements RouteListInterface
         $api->routes('api/site.php');
         $api->routes('api/account.php');
         $api->routes('api/files.php');
+        $api->routes('api/file_folders.php');
         $api->routes('api/users.php');
         $api->routes('api/groups.php');
         $api->routes('api/pages.php');
