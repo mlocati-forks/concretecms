@@ -12,3 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
 $router->get('/stacks', '\Concrete\Core\Api\Controller\Stacks::listStacks')
     ->setScopes('stacks:read')
 ;
+
+$router->get('/stacks/{stackID}', '\Concrete\Core\Api\Controller\Stacks::read')
+    ->setRequirement('stackID', '[0-9]+')
+    ->setScopes('stacks:read')
+;
