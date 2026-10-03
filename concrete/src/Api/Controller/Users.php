@@ -132,19 +132,7 @@ class Users extends ApiController
      *                 type="array",
      *                 @OA\Items(ref="#/components/schemas/User")
      *             ),
-     *             @OA\Property(
-     *                 property="meta",
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="cursor",
-     *                     type="object",
-     *                     title="Where the list was walked, and where to walk it on",
-     *                     @OA\Property(property="current", type="string", nullable=true, title="Where this answer was asked to start at, NULL for the beginning of the list"),
-     *                     @OA\Property(property="prev", type="string", nullable=true, title="Where the objects before these begin, NULL where nothing comes before"),
-     *                     @OA\Property(property="next", type="string", nullable=true, title="What to ask the list after, NULL where it ends here"),
-     *                     @OA\Property(property="count", type="integer", title="How many objects this answer carries")
-     *                 )
-     *             )
+     *             @OA\Property(property="meta", ref="#/components/schemas/IntegerCursorMeta")
      *         ),
      *     ),
      * )

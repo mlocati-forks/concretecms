@@ -11,9 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 trait SupportsCursorTrait
 {
 
+    /**
+     * @return int|string|null
+     */
     public function getCurrentCursorFromRequest(Request $request)
     {
-        return $this->request->query->get('after', null);
+        $after = $this->request->query->get('after', null);
+        if ($after === null || $after === '') {
+            return null;
+        }
+
+        // a cursor travels back as it went out: the ID of an object is a number, its UUID is not
+        return is_numeric($after) ? (int) $after : (string) $after;
     }
 
     public function addCursorToResource(

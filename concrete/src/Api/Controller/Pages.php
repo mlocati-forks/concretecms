@@ -154,19 +154,7 @@ class Pages extends ApiController
      *                 type="array",
      *                 @OA\Items(ref="#/components/schemas/Page")
      *             ),
-     *             @OA\Property(
-     *                 property="meta",
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="cursor",
-     *                     type="object",
-     *                     title="Where the list was walked, and where to walk it on",
-     *                     @OA\Property(property="current", type="string", nullable=true, title="Where this answer was asked to start at, NULL for the beginning of the list"),
-     *                     @OA\Property(property="prev", type="string", nullable=true, title="Where the objects before these begin, NULL where nothing comes before"),
-     *                     @OA\Property(property="next", type="string", nullable=true, title="What to ask the list after, NULL where it ends here"),
-     *                     @OA\Property(property="count", type="integer", title="How many objects this answer carries")
-     *                 )
-     *             )
+     *             @OA\Property(property="meta", ref="#/components/schemas/IntegerCursorMeta")
      *         ),
      *     ),
      * )
@@ -237,8 +225,18 @@ class Pages extends ApiController
      *             @OA\Items(type="string", enum={"custom_attributes","areas","files","content","areas.content"})
      *         )
      *     ),
-     *     @OA\Response(response="200",
-     *     description="An array of Page objects.")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation: every child of the page, since this endpoint lists them all at once and the cursor it answers with cannot be asked after",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Page")
+     *             ),
+     *             @OA\Property(property="meta", ref="#/components/schemas/IntegerCursorMeta")
+     *         ),
+     *     ),
      * )
      */
     public function sitemapPages($pageID)

@@ -206,7 +206,11 @@ class OpenApiSpecTest extends TestCase
         }
         $without = [];
         foreach ($walkedWithACursor as $operation => $schema) {
-            $cursor = $schema['properties']['meta']['properties']['cursor']['properties'] ?? null;
+            $meta = $schema['properties']['meta'] ?? [];
+            if (isset($meta['$ref'])) {
+                $meta = $spec['components']['schemas'][substr($meta['$ref'], strlen('#/components/schemas/'))] ?? [];
+            }
+            $cursor = $meta['properties']['cursor']['properties'] ?? null;
             if ($cursor === null || array_keys($cursor) !== ['current', 'prev', 'next', 'count']) {
                 $without[] = $operation;
             }
