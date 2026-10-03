@@ -45,7 +45,9 @@ class Groups extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful groups operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Group"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Group")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -105,8 +107,12 @@ class Groups extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Group")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Group")
+     *             ),
+     *             @OA\Property(property="meta", ref="#/components/schemas/IntegerCursorMeta")
      *         ),
      *     ),
      * )
@@ -150,7 +156,9 @@ class Groups extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful groups operation",
-     *         @OA\JsonContent(ref="#/components/schemas/NewGroup"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/NewGroup")
+     *         ),
      *     ),
      * )
      */
