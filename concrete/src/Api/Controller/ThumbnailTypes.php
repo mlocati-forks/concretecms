@@ -28,8 +28,11 @@ class ThumbnailTypes extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/ThumbnailType")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/ThumbnailType")
+     *             )
      *         ),
      *     ),
      * )
@@ -64,7 +67,9 @@ class ThumbnailTypes extends ApiController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/ThumbnailType"),
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/ThumbnailType")
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=404,
