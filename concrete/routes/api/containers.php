@@ -12,3 +12,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 $router->get('/containers', '\Concrete\Core\Api\Controller\Containers::listContainers')
     ->setScopes('definitions:read')
 ;
+
+$router->get('/containers/{containerHandle}', '\Concrete\Core\Api\Controller\Containers::read')
+    ->setScopes('definitions:read')
+;
