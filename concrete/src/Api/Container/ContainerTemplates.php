@@ -43,6 +43,11 @@ class ContainerTemplates
         return $this->entityManager->getRepository(Container::class)->findBy([], ['containerName' => 'asc']);
     }
 
+    public function getContainerByHandle(string $handle): ?Container
+    {
+        return $handle === '' ? null : $this->entityManager->getRepository(Container::class)->findOneBy(['containerHandle' => $handle]);
+    }
+
     /**
      * @return \Concrete\Core\Entity\Page\Container[]
      */
