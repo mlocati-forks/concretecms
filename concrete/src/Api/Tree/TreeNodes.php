@@ -33,6 +33,30 @@ class TreeNodes
     }
 
     /**
+     * Get every node that a node holds directly and the request may view, in the order of the tree.
+     *
+     * @return \Concrete\Core\Tree\Node\Node[]
+     */
+    public function getAllChildren(Node $node): array
+    {
+        $node->populateDirectChildrenOnly();
+        $children = [];
+        foreach ($node->getChildNodes() as $child) {
+            if ($this->canView($child)) {
+                $children[] = $child;
+            }
+        }
+
+        return $children;
+    }
+
+    /**
+     * Does a node hold any node at all? Unlike the children handed over, this counts the ones the
+     * request may not view: it says what the node holds, not what the request can read of it.
+     */
+    public function holdsAnyChildren(Node $node): bool
+    {
+        return (int) $node->getTreeNodeChildCount() > 0;
     }
 
     /**
@@ -54,6 +78,16 @@ class TreeNodes
     {
         // the checker answers through its magic call, which gives an integer
         return (bool) (new Checker($node))->canViewTreeNode();
+    }
+
+    /**
+     * Is a node the root its tree hangs from, which stands for the tree itself?
+     */
+    public function isRoot(Node $node): bool
+    {
+        $tree = $node->getTreeObject();
+
+        return $tree !== null && (int) $node->getTreeNodeID() === (int) $tree->getRootTreeNodeID();
     }
 
     /**
