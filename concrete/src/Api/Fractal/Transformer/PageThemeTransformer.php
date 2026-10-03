@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Concrete\Core\Api\Fractal\Transformer;
 
+use Concrete\Core\Api\Container\ContainerTemplates;
 use Concrete\Core\Api\Model\PageTheme as PageThemeModel;
 use Concrete\Core\Api\Model\PageThemeGrid;
-use Concrete\Core\Api\Container\ContainerTemplates;
+use Concrete\Core\Api\Model\PageThemeImageBreakpoint;
 use Concrete\Core\Area\Layout\Preset\Provider\ThemeProvider;
 use Concrete\Core\Area\Layout\Preset\Provider\ThemeProviderInterface;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
@@ -36,31 +37,48 @@ class PageThemeTransformer extends TransformerAbstract
         $model->name = (string) $theme->getThemeName();
         $model->description = (string) $theme->getThemeDescription();
         $model->package = (string) $theme->getPackageHandle();
-        $model->grid = $this->getGrid($theme);
-        $model->presets = $this->getPresets($theme);
-        $model->containers = $this->getContainers($theme);
+        $model->grid = $this->describeGrid($theme);
+        $model->image_breakpoints = $this->describeImageBreakpoints($theme);
+        $model->presets = $this->describePresets($theme);
+        $model->containers = $this->describeContainers($theme);
 
         return $model->jsonSerialize();
     }
 
     /**
-     * @return array<int,array<string,mixed>>
+     * @return \Concrete\Core\Api\Model\PageThemeImageBreakpoint[]
      */
-    protected function getContainers(PageTheme $theme): array
+    protected function describeImageBreakpoints(PageTheme $theme): array
+    {
+        $breakpoints = [];
+        foreach ($theme->getThemeResponsiveImageMap() as $handle => $minimumWidth) {
+            $model = new PageThemeImageBreakpoint();
+            $model->handle = (string) $handle;
+            $model->minimum_width = (string) $minimumWidth;
+            $breakpoints[] = $model;
+        }
+
+        return $breakpoints;
+    }
+
+    /**
+     * @return \Concrete\Core\Api\Model\Container[]
+     */
+    protected function describeContainers(PageTheme $theme): array
     {
         $containerTransformer = new ContainerTransformer($this->containerTemplates);
         $containers = [];
         foreach ($this->containerTemplates->getContainersOfTheme($theme) as $container) {
-            $containers[] = $containerTransformer->transform($container);
+            $containers[] = $containerTransformer->describe($container);
         }
 
         return $containers;
     }
 
     /**
-     * @return array<int,array<string,mixed>>
+     * @return \Concrete\Core\Api\Model\LayoutPreset[]
      */
-    protected function getPresets(PageTheme $theme): array
+    protected function describePresets(PageTheme $theme): array
     {
         if (!$theme instanceof ThemeProviderInterface) {
             return [];
@@ -68,16 +86,16 @@ class PageThemeTransformer extends TransformerAbstract
         $presetTransformer = new LayoutPresetTransformer((string) $theme->getThemeHandle());
         $presets = [];
         foreach ((new ThemeProvider($theme))->getPresets() as $preset) {
-            $presets[] = $presetTransformer->transform($preset);
+            $presets[] = $presetTransformer->describe($preset);
         }
 
         return $presets;
     }
 
     /**
-     * @return array<string,mixed>|null NULL when the theme declares no grid framework
+     * @return \Concrete\Core\Api\Model\PageThemeGrid|null NULL when the theme declares no grid framework
      */
-    private function getGrid(PageTheme $theme): ?array
+    private function describeGrid(PageTheme $theme): ?PageThemeGrid
     {
         $grid = $theme->getThemeGridFrameworkObject();
         if ($grid === null) {
@@ -91,6 +109,6 @@ class PageThemeTransformer extends TransformerAbstract
         $model->supports_nesting = (bool) $grid->supportsNesting();
         $model->supports_offsets = (bool) $grid->hasPageThemeGridFrameworkOffsetClasses();
 
-        return $model->jsonSerialize();
+        return $model;
     }
 }
