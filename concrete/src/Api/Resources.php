@@ -14,6 +14,7 @@ class Resources
     const RESOURCE_PAGE_THEMES = 'page_themes';
     const RESOURCE_STACKS = 'stacks';
     const RESOURCE_LAYOUT_PRESETS = 'layout_presets';
+    const RESOURCE_CONTAINERS = 'containers';
     const RESOURCE_USERS = 'users';
     const RESOURCE_FILES = 'files';
     const RESOURCE_GROUPS = 'groups';
