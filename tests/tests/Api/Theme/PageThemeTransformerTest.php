@@ -31,7 +31,7 @@ class PageThemeTransformerTest extends TestCase
         $grid->method('hasPageThemeGridFrameworkOffsetClasses')->willReturn(false);
         $theme = $this->createTheme('elemental', 'Elemental', 'bootstrap5', $grid);
 
-        $transformed = $this->createTransformer()->transform($theme);
+        $transformed = self::asRead($this->createTransformer()->transform($theme));
 
         static::assertSame([
             'handle' => 'elemental',
@@ -45,6 +45,7 @@ class PageThemeTransformerTest extends TestCase
                 'supports_nesting' => true,
                 'supports_offsets' => false,
             ],
+            'image_breakpoints' => [],
             'presets' => [],
             'containers' => [],
         ], $transformed);
@@ -55,7 +56,7 @@ class PageThemeTransformerTest extends TestCase
     {
         $theme = $this->createTheme('plain', 'Plain', false, null);
 
-        static::assertNull($this->createTransformer()->transform($theme)['grid']);
+        static::assertNull(self::asRead($this->createTransformer()->transform($theme))['grid']);
     }
 
     public function testThePresetsOfAThemeTravelWithIt(): void
@@ -84,11 +85,25 @@ class PageThemeTransformerTest extends TestCase
             }
         };
 
-        $transformed = $this->createTransformer()->transform($theme);
+        $transformed = self::asRead($this->createTransformer()->transform($theme));
 
         static::assertSame([
             ['identifier' => 'theme_elemental_left_sidebar', 'name' => 'Left Sidebar', 'columns' => 2, 'page_theme' => 'elemental'],
         ], $transformed['presets']);
+    }
+
+    public function testTheImageBreakpointsOfAThemeTravelWithItInTheOrderItDeclaresThem(): void
+    {
+        $theme = $this->createTheme('atomik', 'Atomik', 'bootstrap5', null);
+        $theme->method('getThemeResponsiveImageMap')->willReturn(['lg' => '992px', 'md' => '768px', 'xs' => '0']);
+
+        $transformed = self::asRead($this->createTransformer()->transform($theme));
+
+        static::assertSame([
+            ['handle' => 'lg', 'minimum_width' => '992px'],
+            ['handle' => 'md', 'minimum_width' => '768px'],
+            ['handle' => 'xs', 'minimum_width' => '0'],
+        ], json_decode((string) json_encode($transformed['image_breakpoints']), true));
     }
 
     public function testTheContainersAThemeCanShowTravelWithIt(): void
@@ -96,7 +111,7 @@ class PageThemeTransformerTest extends TestCase
         $theme = $this->createTheme('atomik', 'Atomik', 'bootstrap5', null);
         $container = (new Container())->setContainerHandle('light_stripe')->setContainerName('Highlight Stripe');
 
-        $transformed = $this->createTransformer([$container])->transform($theme);
+        $transformed = self::asRead($this->createTransformer([$container])->transform($theme));
 
         static::assertSame([
             ['handle' => 'light_stripe', 'name' => 'Highlight Stripe', 'package' => '', 'page_themes' => [], 'application' => false],
