@@ -15,6 +15,7 @@ class Resources
     const RESOURCE_STACKS = 'stacks';
     const RESOURCE_LAYOUT_PRESETS = 'layout_presets';
     const RESOURCE_CONTAINERS = 'containers';
+    const RESOURCE_THUMBNAIL_TYPES = 'thumbnail_types';
     const RESOURCE_USERS = 'users';
     const RESOURCE_FILES = 'files';
     const RESOURCE_GROUPS = 'groups';
