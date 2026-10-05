@@ -25,16 +25,31 @@ class CalendarEvent
     private $name;
 
     /**
-     * @OA\Property(title="Page Version", ref="#/components/schemas/CalendarEventVersion")
+     * @OA\Property(
+     *     type="object",
+     *     title="Version of the event this answer is about, which every answer carries",
+     *     @OA\Property(
+     *         property="data",
+     *         ref="#/components/schemas/CalendarEventVersion"
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $version;
 
     /**
-     * @OA\Property(type="array", title="Custom Attributes", @OA\Items(ref="#/components/schemas/CustomAttribute"))
+     * @OA\Property(
+     *     type="object",
+     *     title="Custom attributes of the event, where the includes parameter asks for them",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/CustomAttribute")
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $custom_attributes;
 

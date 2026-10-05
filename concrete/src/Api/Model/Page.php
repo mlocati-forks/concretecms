@@ -107,37 +107,75 @@ class Page
     private $description;
 
     /**
-     * @OA\Property(type="array", title="Custom Attributes", @OA\Items(ref="#/components/schemas/CustomAttribute"))
+     * @OA\Property(
+     *     type="object",
+     *     title="Custom attributes of the page, where the includes parameter asks for them",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/CustomAttribute")
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $custom_attributes;
 
     /**
-     * @OA\Property(type="array", title="Areas", @OA\Items(ref="#/components/schemas/Area"))
+     * @OA\Property(
+     *     type="object",
+     *     title="Areas of the page, where the includes parameter asks for them",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/Area")
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $areas;
 
     /**
-     * @OA\Property(type="array", title="Files", @OA\Items(ref="#/components/schemas/File"))
+     * @OA\Property(
+     *     type="object",
+     *     title="Files the page holds, where the includes parameter asks for them",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/File")
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $files;
 
     /**
-     * @OA\Property(title="Content", ref="#/components/schemas/Content")
+     * @OA\Property(
+     *     type="object",
+     *     title="Content of the page, where the includes parameter asks for it",
+     *     @OA\Property(
+     *         property="data",
+     *         ref="#/components/schemas/Content"
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $content;
 
     /**
-     * @OA\Property(title="Page Version", ref="#/components/schemas/PageVersion")
+     * @OA\Property(
+     *     type="object",
+     *     title="Version of the page this answer is about, which every answer carries",
+     *     @OA\Property(
+     *         property="data",
+     *         ref="#/components/schemas/PageVersion"
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $version;
 

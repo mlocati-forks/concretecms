@@ -37,9 +37,17 @@ class Site
     private $defaults;
 
     /**
-     * @OA\Property(type="array", title="Locales of the site, the default one coming first", @OA\Items(ref="#/components/schemas/Locale"))
+     * @OA\Property(
+     *     type="object",
+     *     title="Locales of the site, the default one coming first, which every answer carries",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/Locale")
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $locales;
 
@@ -57,8 +65,18 @@ class Site
      */
     private $default_locale;
 
-
-
-
-
+    /**
+     * @OA\Property(
+     *     type="object",
+     *     title="Custom attributes of the site, which the answer about a single site carries",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/CustomAttribute")
+     *     )
+     * )
+     *
+     * @var array
+     */
+    private $custom_attributes;
 }

@@ -25,9 +25,16 @@ class Calendar
     private $name;
 
     /**
-     * @OA\Property(title="Site", ref="#/components/schemas/Site")
+     * @OA\Property(
+     *     type="object",
+     *     title="Site the calendar belongs to, where the includes parameter asks for it",
+     *     @OA\Property(
+     *         property="data",
+     *         ref="#/components/schemas/Site"
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $site;
 
