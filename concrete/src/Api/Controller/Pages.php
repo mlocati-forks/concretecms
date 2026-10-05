@@ -214,6 +214,24 @@ class Pages extends ApiController
      *         )
      *     ),
      *     @OA\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         description="The number of children to return. Must be 100 or less. Without it every child of the page comes back, which is what this endpoint has always answered with.",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="after",
+     *         in="query",
+     *         description="The ID of the child to start after, which an answer carrying a limit names in its cursor.",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Parameter(
      *         name="includes",
      *         in="query",
      *         explode=false,
@@ -224,7 +242,7 @@ class Pages extends ApiController
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Successful operation: every child of the page, since this endpoint lists them all at once and the cursor it answers with cannot be asked after",
+     *         description="Successful operation",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                 property="data",
@@ -266,11 +284,23 @@ class Pages extends ApiController
             return $this->error(t('Invalid parent page specified.'), 400);
         }
 
-        $results = $list->getResults();
-        $resource = new Collection($results, new PageTransformer(), Resources::RESOURCE_PAGES);
         $cursor = new IntegerCursor(static function ($page) {
             return (int) $page->getCollectionID();
         });
+        $cursor->startAfter($this->request, $list, $sortColumn, static function ($currentCursor) {
+            return Page::getByID($currentCursor);
+        });
+
+        if ($this->request->query->has('limit')) {
+            $pagination = new PagerPagination($list);
+            $this->addLimitToPaginationIfSpecified($pagination, $this->request);
+            $results = $pagination->getCurrentPageResults();
+        } else {
+            // without a limit the answer carries every child, as this endpoint always did
+            $results = $list->getResults();
+        }
+
+        $resource = new Collection($results, new PageTransformer(), Resources::RESOURCE_PAGES);
         $cursor->describe($this->request, $results, $resource);
 
         return $resource;
