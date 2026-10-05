@@ -6,7 +6,6 @@ use Concrete\Core\Api\OpenApi\Parameter\Parameter;
 use Concrete\Core\Api\OpenApi\SpecSchema;
 use Concrete\Core\Entity\Express\Entity;
 use Concrete\Core\Api\Attribute\OpenApiSpecifiableInterface;
-use Concrete\Core\Api\OpenApi\JsonSchemaRefArrayContent;
 use Concrete\Core\Api\OpenApi\JsonSchemaRefContent;
 use Concrete\Core\Api\OpenApi\Parameter\AfterParameter;
 use Concrete\Core\Api\OpenApi\Parameter\IncludesParameter;
@@ -26,6 +25,8 @@ use Concrete\Core\Entity\Express\OneToOneAssociation;
 use Concrete\Core\Entity\Express\OneToManyAssociation;
 use Concrete\Core\Entity\Express\ManyToManyAssociation;
 use Concrete\Core\Api\OpenApi\SpecSecurityScheme;
+use Concrete\Core\Api\OpenApi\WrappedJsonSchemaRefArrayContent;
+use Concrete\Core\Api\OpenApi\WrappedJsonSchemaRefContent;
 
 class ExpressEntitySpecFactory
 {
@@ -42,43 +43,42 @@ class ExpressEntitySpecFactory
             ->addProperty(new SpecProperty('label', t('Label'), 'string'))
             ->addProperty(new SpecProperty('url', t('URL'), 'string'))
             ->addProperty(
-                new SpecProperty(
-                    'author', t('Author'),
+                $this->buildIncludeProperty(
+                    'author',
+                    t('Author, where the includes parameter asks for it'),
                     new SpecPropertyRef('/components/schemas/User')
                 )
             );
 
         foreach ($object->getAttributes() as $attribute) {
             $model->addProperty(
-                new SpecProperty(
-                    $attribute->getAttributeKeyHandle(), $attribute->getAttributeKeyDisplayName(),
+                $this->buildIncludeProperty(
+                    $attribute->getAttributeKeyHandle(),
+                    t('%s, where the includes parameter asks for it', $attribute->getAttributeKeyDisplayName()),
                     new SpecPropertyRef('/components/schemas/CustomAttribute')
                 )
             );
         }
 
         foreach ($object->getAssociations() as $association) {
+            $target = $association->getTargetEntity();
+            $title = t('%s, where the includes parameter asks for it', $target->getName());
             if ($association instanceof ManyToOneAssociation || $association instanceof OneToOneAssociation) {
                 $model->addProperty(
-                    new SpecProperty(
-                        $association->getTargetEntity()->getHandle(),
-                        $association->getTargetEntity()->getName(),
-                        new SpecPropertyRef(
-                            '/components/schemas/' . camelcase($association->getTargetEntity()->getHandle())
-                        )
+                    $this->buildIncludeProperty(
+                        $association->getTargetPropertyName(),
+                        $title,
+                        new SpecPropertyRef('/components/schemas/' . camelcase($target->getHandle()))
                     )
                 );
             } else {
                 if ($association instanceof OneToManyAssociation || $association instanceof ManyToManyAssociation) {
                     $model->addProperty(
-                        new SpecProperty(
-                            $association->getTargetEntity()->getHandle(),
-                            $association->getTargetEntity()->getName(),
+                        $this->buildIncludeProperty(
+                            $association->getTargetPropertyName(),
+                            $title,
                             'array',
-                            null,
-                            new SpecPropertyRefItems(
-                                '/components/schemas/' . camelcase($association->getTargetEntity()->getHandle())
-                            )
+                            new SpecPropertyRefItems('/components/schemas/' . camelcase($target->getHandle()))
                         )
                     );
                 }
@@ -87,6 +87,16 @@ class ExpressEntitySpecFactory
         $components = new SpecComponents();
         $components->addModel($model);
         return $components;
+    }
+
+    /**
+     * @param string|\Concrete\Core\Api\OpenApi\SpecPropertyRef $type
+     * @param \Concrete\Core\Api\OpenApi\SpecPropertyRefItems|null $items the schema of the elements, where the resource is a list of them
+     */
+    protected function buildIncludeProperty(string $key, string $title, $type, $items = null): SpecProperty
+    {
+        return (new SpecProperty($key, $title, 'object'))
+            ->addObjectProperty(new SpecProperty('data', $title, $type, null, $items));
     }
 
     protected function addCreateSchema(SpecComponents $components, Entity $object)
@@ -118,20 +128,21 @@ class ExpressEntitySpecFactory
             if ($association instanceof ManyToOneAssociation || $association instanceof OneToOneAssociation) {
                 $model->addProperty(
                     new SpecProperty(
-                        $association->getTargetEntity()->getHandle(),
-                        $association->getTargetEntity()->getName(),
-                        'integer',
+                        $association->getTargetPropertyName(),
+                        t('%s, named by the public identifier of the entry', $association->getTargetEntity()->getName()),
+                        'string',
+                        'uuid',
                     )
                 );
             } else {
                 if ($association instanceof OneToManyAssociation || $association instanceof ManyToManyAssociation) {
                     $model->addProperty(
                         new SpecProperty(
-                            $association->getTargetEntity()->getPluralHandle(),
-                            $association->getTargetEntity()->getName(),
+                            $association->getTargetPropertyName(),
+                            t('%s, named by the public identifier of each entry', $association->getTargetEntity()->getName()),
                             'array',
                             null,
-                            ['type' => 'integer'],
+                            ['type' => 'string', 'format' => 'uuid'],
                         )
                     );
                 }
@@ -177,7 +188,10 @@ class ExpressEntitySpecFactory
                     new SpecResponse(
                         200,
                         t('An array of %s objects.', $object->getName()),
-                        new JsonSchemaRefArrayContent('/components/schemas/' . camelcase($object->getHandle()))
+                        new WrappedJsonSchemaRefArrayContent(
+                            '/components/schemas/' . camelcase($object->getHandle()),
+                            '/components/schemas/IntegerCursorMeta'
+                        )
                     )
                 )
         );
@@ -197,7 +211,7 @@ class ExpressEntitySpecFactory
                 t('Find a %s by its public identifier.', $object->getName())
             ))
                 ->addParameter(
-                    new Parameter('uuid', 'path', t('The public identifier/uuid of the entry.'), new SpecSchema('string', 'string'))
+                    new Parameter('uuid', 'path', t('The public identifier/uuid of the entry.'), new SpecSchema('string', 'string'), true)
                 )
                 ->addParameter(new IncludesParameter($includes))
                 ->setSecurity(new SpecSecurity('authorization', [$handle . ':read']))
@@ -205,7 +219,7 @@ class ExpressEntitySpecFactory
                     new SpecResponse(
                         200,
                         t('The %s object.', $object->getName()),
-                        new JsonSchemaRefContent('/components/schemas/' . camelcase($object->getHandle()))
+                        new WrappedJsonSchemaRefContent('/components/schemas/' . camelcase($object->getHandle()))
                     )
                 )
         );
@@ -230,7 +244,7 @@ class ExpressEntitySpecFactory
                 new SpecResponse(
                     200,
                     t('The %s object.', $object->getName()),
-                    new JsonSchemaRefContent('/components/schemas/' . camelcase($object->getHandle()))
+                    new WrappedJsonSchemaRefContent('/components/schemas/' . camelcase($object->getHandle()))
                 )
             );
 
@@ -256,12 +270,12 @@ class ExpressEntitySpecFactory
 
         $specPath
             ->setSecurity(new SpecSecurity('authorization', [$handle . ':update']))
-            ->addParameter(new Parameter('id', 'path', t('The ID of the object.'), new SpecSchema('string', 'string')))
+            ->addParameter(new Parameter('uuid', 'path', t('The public identifier/uuid of the entry.'), new SpecSchema('string', 'string'), true))
             ->addResponse(
                 new SpecResponse(
                     200,
                     t('The %s object.', $object->getName()),
-                    new JsonSchemaRefContent('/components/schemas/' . camelcase($object->getHandle()))
+                    new WrappedJsonSchemaRefContent('/components/schemas/' . camelcase($object->getHandle()))
                 )
             );
 
@@ -285,13 +299,13 @@ class ExpressEntitySpecFactory
                 t('Delete a %s.', $object->getName())
             ))
                 ->addParameter(
-                    new Parameter('id', 'path', t('The ID of the object.'), new SpecSchema('string', 'string'))
+                    new Parameter('uuid', 'path', t('The public identifier/uuid of the entry.'), new SpecSchema('string', 'string'), true)
                 )
                 ->setSecurity(new SpecSecurity('authorization', [$handle . ':delete']))
                 ->addResponse(
                     new SpecResponse(
                         200,
-                        t('The %s object.', $object->getName()),
+                        t('The deleted %s entry.', $object->getName()),
                         new JsonSchemaRefContent('/components/schemas/DeletedResponse')
                     )
                 )

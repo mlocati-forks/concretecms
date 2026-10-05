@@ -23,9 +23,7 @@ class SpecPropertyRefItems implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'items' => [
-                '$ref' => '#' . $this->ref
-            ],
+            '$ref' => '#' . $this->ref
         ];
     }
 
