@@ -69,6 +69,28 @@ trait SchemaFieldsTrait
      */
     protected function getSchemaFields(string $schema): array
     {
+        return array_keys($this->getSchemaProperties($schema));
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    protected function getSchemaField(string $schema, string $field): array
+    {
+        $properties = $this->getSchemaProperties($schema);
+        if (!isset($properties[$field])) {
+            static::fail("The {$schema} schema of the OpenAPI specification describes no {$field} field.");
+        }
+
+        return $properties[$field];
+    }
+
+    /**
+     * @return array<string,array<string,mixed>> what the schema says about each of its fields, in
+     *                                           the order it declares them
+     */
+    private function getSchemaProperties(string $schema): array
+    {
         if (self::$apiSchemas === null) {
             $sourceRegistry = new SourceRegistry();
             $sourceRegistry->addDefaultSources();
@@ -79,17 +101,17 @@ trait SchemaFieldsTrait
             static::fail("The OpenAPI specification describes no {$schema} schema.");
         }
         $described = self::$apiSchemas[$schema];
-        $fields = array_keys($described['properties'] ?? []);
+        $properties = $described['properties'] ?? [];
         // a composed schema holds the one it shares its fields with, then its own ones
         foreach ($described['allOf'] ?? [] as $part) {
-            $fields = array_merge(
-                $fields,
+            $properties = array_merge(
+                $properties,
                 isset($part['$ref'])
-                    ? $this->getSchemaFields(substr($part['$ref'], strlen('#/components/schemas/')))
-                    : array_keys($part['properties'] ?? [])
+                    ? $this->getSchemaProperties(substr($part['$ref'], strlen('#/components/schemas/')))
+                    : ($part['properties'] ?? [])
             );
         }
 
-        return $fields;
+        return $properties;
     }
 }

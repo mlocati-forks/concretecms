@@ -31,6 +31,32 @@ class Block
      */
     private $value;
 
+    /**
+     * @OA\Property(
+     *     type="object",
+     *     title="Page the block sits in, which the answers of the area endpoints carry",
+     *     @OA\Property(
+     *         property="data",
+     *         ref="#/components/schemas/Page"
+     *     )
+     * )
+     *
+     * @var array
+     */
+    private $page;
 
-
+    /**
+     * @OA\Property(
+     *     type="object",
+     *     title="Pages the block sits in, where the includes parameter asks for them",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/Page")
+     *     )
+     * )
+     *
+     * @var array
+     */
+    private $pages;
 }
