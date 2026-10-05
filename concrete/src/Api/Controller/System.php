@@ -36,10 +36,17 @@ class System extends ApiController
      *     path="/ccm/api/1.0/system/info",
      *     tags={"system"},
      *     operationId="getSystemInfo",
+     *     summary="Describe this installation: the version it runs, the packages it holds, the PHP it is served by",
      *     security={
      *         {"clientCredentials": {"system:info:read"}}
      *     },
-     *     @OA\Response(response="200", description="The info object in JSON format")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/SystemInfo")
+     *         ),
+     *     ),
      * )
      */
     public function info()
