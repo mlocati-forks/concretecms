@@ -38,7 +38,8 @@ class System extends ApiController
      *     operationId="getSystemInfo",
      *     summary="Describe this installation: the version it runs, the packages it holds, the PHP it is served by",
      *     security={
-     *         {"clientCredentials": {"system:info:read"}}
+     *         {"clientCredentials": {"system:info:read"}},
+     *         {"authorization": {"system:info:read"}}
      *     },
      *     @OA\Response(
      *         response=200,
