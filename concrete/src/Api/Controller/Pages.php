@@ -222,8 +222,18 @@ class Pages extends ApiController
      *             @OA\Items(type="string", enum={"custom_attributes","areas","files","content","areas.content"})
      *         )
      *     ),
-     *     @OA\Response(response="200",
-     *     description="An array of Page objects.")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation: every child of the page, since this endpoint lists them all at once and the cursor it answers with cannot be asked after",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Page")
+     *             ),
+     *             @OA\Property(property="meta", ref="#/components/schemas/IntegerCursorMeta")
+     *         ),
+     *     ),
      * )
      */
     public function sitemapPages($pageID)
