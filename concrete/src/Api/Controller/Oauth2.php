@@ -29,6 +29,7 @@ namespace Concrete\Core\Api\Controller;
  *         flow="authorizationCode",
  *         scopes={
  *             "openid": "Remotely authenticate into Concrete",
+ *             "system:info:read": "Read system information",
  *             "system:openapi:read": "Read the specification of the API",
  *             "account:read": "Read your user object",
  *             "calendars:read": "Read calendars",
@@ -59,6 +60,7 @@ namespace Concrete\Core\Api\Controller;
  *             "users:delete": "Delete users",
  *             "groups:read": "Views groups in the site",
  *             "groups:add": "Add groups",
+ *             "sites:read": "Read sites",
  *         }
  *     )
  * )
