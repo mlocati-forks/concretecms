@@ -20,10 +20,10 @@ use Concrete\Core\Tree\Node\Type\FileFolder;
 use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Attribute\AttributeValueMapFactory;
 use Concrete\Core\File\Search\ColumnSet\Column\FileVersionDateAddedColumn;
+use Concrete\Core\Api\Cursor\StringCursor;
 use Concrete\Core\Api\Fractal\Transformer\FileTransformer;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
-use Concrete\Core\Api\Traits\SupportsCursorTrait;
 use League\Fractal\Resource\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,7 +32,6 @@ class Files extends ApiController
 {
 
     use SetListLimitFromQueryTrait;
-    use SupportsCursorTrait;
 
     /**
      * @var array|null
@@ -157,28 +156,21 @@ class Files extends ApiController
         }
         $fileVersionColumn = new FileVersionDateAddedColumn();
         $fileVersionColumn->setColumnSortDirection('desc');
-        $this->setupSortAndCursor(
-            $this->request,
-            $list,
-            $fileVersionColumn,
-            function ($currentCursor) {
-                $file = File::getByUUIDOrID($currentCursor);
-                return $file;
-            }
-        );
+        // a file of an installation older than version 9 has no UUID, and is walked by its ID
+        $cursor = new StringCursor(static function ($file) {
+            return $file->hasFileUUID() ? (string) $file->getFileUUID() : (string) $file->getFileID();
+        });
+        $list->sortBySearchColumn($fileVersionColumn);
+        $cursor->startAfter($this->request, $list, $fileVersionColumn, static function ($currentCursor) {
+            return File::getByUUIDOrID($currentCursor);
+        });
 
         $pagination = new PagerPagination($list);
         $this->addLimitToPaginationIfSpecified($pagination, $this->request);
 
         $results = $pagination->getCurrentPageResults();
         $resource = new Collection($results, new FileTransformer(), Resources::RESOURCE_FILES);
-        $this->addCursorToResource($results, $this->request, function($file) {
-            if ($file->hasFileUUID()) {
-                return $file->getFileUUID();
-            } else {
-                return $file->getFileID();
-            }
-        }, $resource);
+        $cursor->describe($this->request, $results, $resource);
 
         return $resource;
     }
