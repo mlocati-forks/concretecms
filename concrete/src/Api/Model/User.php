@@ -141,10 +141,32 @@ class User
     private $language;
 
     /**
-     * @OA\Property(type="array", title="Custom Attributes", @OA\Items(ref="#/components/schemas/CustomAttribute"))
+     * @OA\Property(
+     *     type="object",
+     *     title="Custom attributes of the user, where the includes parameter asks for them",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/CustomAttribute")
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $custom_attributes;
 
+    /**
+     * @OA\Property(
+     *     type="object",
+     *     title="Groups the user belongs to, which the answer about a single user carries",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/Group")
+     *     )
+     * )
+     *
+     * @var array
+     */
+    private $groups;
 }
