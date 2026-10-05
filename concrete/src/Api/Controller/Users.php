@@ -12,17 +12,16 @@ use Concrete\Core\User\UserInfoRepository;
 use Concrete\Core\User\UserList;
 use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Attribute\AttributeValueMapFactory;
+use Concrete\Core\Api\Cursor\IntegerCursor;
 use Concrete\Core\Api\Fractal\Transformer\UserTransformer;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
-use Concrete\Core\Api\Traits\SupportsCursorTrait;
 use League\Fractal\Resource\Collection;
 
 class Users extends ApiController
 {
 
     use SetListLimitFromQueryTrait;
-    use SupportsCursorTrait;
 
     protected function getEditUserPropertiesAssignment()
     {
@@ -143,23 +142,20 @@ class Users extends ApiController
 
         $dateAddedColumn = new DateAddedColumn();
         $dateAddedColumn->setColumnSortDirection('desc');
-        $this->setupSortAndCursor(
-            $this->request,
-            $list,
-            $dateAddedColumn,
-            function ($currentCursor) {
-                $repository = $this->app->make(UserInfoRepository::class);
-                $user = $repository->getByID($currentCursor);
-                return $user;
-            }
-        );
+        $list->sortBySearchColumn($dateAddedColumn);
+        $cursor = new IntegerCursor(static function ($user) {
+            return (int) $user->getUserID();
+        });
+        $cursor->startAfter($this->request, $list, $dateAddedColumn, function ($currentCursor) {
+            return $this->app->make(UserInfoRepository::class)->getByID($currentCursor);
+        });
 
         $pagination = new PagerPagination($list);
         $this->addLimitToPaginationIfSpecified($pagination, $this->request);
 
         $results = $pagination->getCurrentPageResults();
         $resource = new Collection($results, $this->app->make(UserTransformer::class), Resources::RESOURCE_USERS);
-        $this->addCursorToResource($results, $this->request, 'getUserID', $resource);
+        $cursor->describe($this->request, $results, $resource);
 
         return $resource;
     }

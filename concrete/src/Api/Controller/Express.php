@@ -3,9 +3,9 @@
 namespace Concrete\Core\Api\Controller;
 
 use Concrete\Core\Api\ApiController;
+use Concrete\Core\Api\Cursor\IntegerCursor;
 use Concrete\Core\Api\Fractal\Transformer\ExpressEntryTransformer;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
-use Concrete\Core\Api\Traits\SupportsCursorTrait;
 use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Express\Command\ExpressEntryCommandFactory;
@@ -21,7 +21,6 @@ class Express extends ApiController implements ApplicationAwareInterface
 {
 
     use ApplicationAwareTrait;
-    use SupportsCursorTrait;
     use SetListLimitFromQueryTrait;
 
     public function listItems(string $objectHandle)
@@ -41,9 +40,12 @@ class Express extends ApiController implements ApplicationAwareInterface
         $list = $express->getList($objectHandle, true);
         $dateModifiedColumn = new DateLastModifiedColumn();
         $dateModifiedColumn->setColumnSortDirection('desc');
-        $this->setupSortAndCursor($this->request, $list, $dateModifiedColumn, function($currentCursor) use ($express) {
-            $entry = $express->getEntry($currentCursor);
-            return $entry;
+        $list->sortBySearchColumn($dateModifiedColumn);
+        $cursor = new IntegerCursor(static function ($entry) {
+            return (int) $entry->getID();
+        });
+        $cursor->startAfter($this->request, $list, $dateModifiedColumn, static function ($currentCursor) use ($express) {
+            return $express->getEntry($currentCursor);
         });
 
         $list->setPermissionsChecker(
@@ -59,7 +61,7 @@ class Express extends ApiController implements ApplicationAwareInterface
 
         $results = $pagination->getCurrentPageResults();
         $resource = new Collection($results, new ExpressEntryTransformer($object), $object->getPluralHandle());
-        $this->addCursorToResource($results, $this->request, 'getID', $resource);
+        $cursor->describe($this->request, $results, $resource);
 
         return $resource;
     }
