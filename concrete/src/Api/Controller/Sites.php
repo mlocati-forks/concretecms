@@ -31,7 +31,8 @@ class Sites extends ApiController
      *     operationId="getSiteById",
      *     summary="Find a site by its ID",
      *     security={
-     *         {"clientCredentials": {"sites:read"}}
+     *         {"clientCredentials": {"sites:read"}},
+     *         {"authorization": {"sites:read"}}
      *     },
      *     @OA\Parameter(
      *         name="siteID",
@@ -73,7 +74,8 @@ class Sites extends ApiController
      *     operationId="getSites",
      *     summary="Returns a list of site objects, sorted by date added ascending.",
      *     security={
-     *         {"clientCredentials": {"sites:read"}}
+     *         {"clientCredentials": {"sites:read"}},
+     *         {"authorization": {"sites:read"}}
      *     },
      *     @OA\Parameter(
      *         name="includes",
@@ -114,7 +116,8 @@ class Sites extends ApiController
      *     operationId="getDefaultSite",
      *     summary="Retrieve the default site for your Concrete installation",
      *     security={
-     *         {"clientCredentials": {"sites:read"}}
+     *         {"clientCredentials": {"sites:read"}},
+     *         {"authorization": {"sites:read"}}
      *     },
      *     @OA\Parameter(
      *         name="includes",
