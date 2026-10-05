@@ -17,10 +17,10 @@ use Concrete\Core\Search\Pagination\PagerPagination;
 use Concrete\Core\User\User;
 use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Attribute\AttributeValueMapFactory;
+use Concrete\Core\Api\Cursor\IntegerCursor;
 use Concrete\Core\Api\Fractal\Transformer\PageTransformer;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
-use Concrete\Core\Api\Traits\SupportsCursorTrait;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\ResourceAbstract;
 
@@ -28,7 +28,6 @@ class Pages extends ApiController
 {
 
     use SetListLimitFromQueryTrait;
-    use SupportsCursorTrait;
 
     /**
      * @OA\Get(
@@ -170,22 +169,20 @@ class Pages extends ApiController
         $sortColumn = new DateLastModifiedColumn();
         $sortColumn->setColumnSortDirection('desc');
 
-        $this->setupSortAndCursor(
-            $this->request,
-            $list,
-            $sortColumn,
-            function ($currentCursor) {
-                $page = Page::getByID($currentCursor);
-                return $page;
-            }
-        );
+        $list->sortBySearchColumn($sortColumn);
+        $cursor = new IntegerCursor(static function ($page) {
+            return (int) $page->getCollectionID();
+        });
+        $cursor->startAfter($this->request, $list, $sortColumn, static function ($currentCursor) {
+            return Page::getByID($currentCursor);
+        });
 
         $pagination = new PagerPagination($list);
         $this->addLimitToPaginationIfSpecified($pagination, $this->request);
 
         $results = $pagination->getCurrentPageResults();
         $resource = new Collection($results, new PageTransformer(), Resources::RESOURCE_PAGES);
-        $this->addCursorToResource($results, $this->request, 'getCollectionID', $resource);
+        $cursor->describe($this->request, $results, $resource);
 
         return $resource;
     }
@@ -255,7 +252,10 @@ class Pages extends ApiController
 
         $results = $list->getResults();
         $resource = new Collection($results, new PageTransformer(), Resources::RESOURCE_PAGES);
-        $this->addCursorToResource($results, $this->request, 'getCollectionID', $resource);
+        $cursor = new IntegerCursor(static function ($page) {
+            return (int) $page->getCollectionID();
+        });
+        $cursor->describe($this->request, $results, $resource);
 
         return $resource;
     }
