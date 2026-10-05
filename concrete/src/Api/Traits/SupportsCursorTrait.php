@@ -8,9 +8,17 @@ use League\Fractal\Pagination\Cursor;
 use League\Fractal\Resource\ResourceAbstract;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @deprecated the cursor of a list knows the type of its keys, which this cannot
+ *
+ * @see \Concrete\Core\Api\Cursor
+ */
 trait SupportsCursorTrait
 {
 
+    /**
+     * @return int|string|null
+     */
     public function getCurrentCursorFromRequest(Request $request)
     {
         return $this->request->query->get('after', null);

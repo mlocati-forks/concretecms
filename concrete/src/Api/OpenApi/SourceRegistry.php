@@ -13,6 +13,7 @@ class SourceRegistry
     public function addDefaultSources()
     {
         $this->sources[] = DIR_BASE_CORE . '/' . DIRNAME_CLASSES . '/Api/Controller';
+        $this->sources[] = DIR_BASE_CORE . '/' . DIRNAME_CLASSES . '/Api/Cursor';
         $this->sources[] = DIR_BASE_CORE . '/' . DIRNAME_CLASSES . '/Api/Model';
         $this->sources[] = DIR_BASE_CORE . '/' . DIRNAME_CLASSES . '/Api/Response';
     }
