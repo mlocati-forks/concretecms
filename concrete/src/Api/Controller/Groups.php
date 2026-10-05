@@ -11,10 +11,10 @@ use Concrete\Core\User\Group\Group;
 use Concrete\Core\User\Group\GroupList;
 use Concrete\Core\Api\ApiController;
 use Concrete\Core\User\Group\Search\ColumnSet\Column\GroupIdColumn;
+use Concrete\Core\Api\Cursor\IntegerCursor;
 use Concrete\Core\Api\Fractal\Transformer\GroupTransformer;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
-use Concrete\Core\Api\Traits\SupportsCursorTrait;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 
@@ -22,7 +22,6 @@ class Groups extends ApiController
 {
 
     use SetListLimitFromQueryTrait;
-    use SupportsCursorTrait;
 
     /**
      * @OA\Get(
@@ -120,9 +119,12 @@ class Groups extends ApiController
             return $permissions->canViewTreeNode();
         });
         $groupIdColumn = new GroupIdColumn();
-        $this->setupSortAndCursor($this->request, $list, $groupIdColumn, function($currentCursor) {
-            $group = Group::getByID($currentCursor);
-            return $group;
+        $list->sortBySearchColumn($groupIdColumn);
+        $cursor = new IntegerCursor(static function ($group) {
+            return (int) $group->getGroupID();
+        });
+        $cursor->startAfter($this->request, $list, $groupIdColumn, static function ($currentCursor) {
+            return Group::getByID($currentCursor);
         });
 
         $pagination = new PagerPagination($list);
@@ -130,7 +132,7 @@ class Groups extends ApiController
 
         $results = $pagination->getCurrentPageResults();
         $resource = new Collection($results, new GroupTransformer(), Resources::RESOURCE_GROUPS);
-        $this->addCursorToResource($results, $this->request, 'getGroupID', $resource);
+        $cursor->describe($this->request, $results, $resource);
 
         return $resource;
     }
