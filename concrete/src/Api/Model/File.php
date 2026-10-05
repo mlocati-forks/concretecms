@@ -91,9 +91,17 @@ class File
     private $folder;
 
     /**
-     * @OA\Property(type="array", title="Custom Attributes", @OA\Items(ref="#/components/schemas/CustomAttribute"))
+     * @OA\Property(
+     *     type="object",
+     *     title="Custom attributes of the file, where the includes parameter asks for them",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/CustomAttribute")
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $custom_attributes;
 

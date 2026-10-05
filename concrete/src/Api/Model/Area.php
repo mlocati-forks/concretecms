@@ -18,16 +18,31 @@ class Area
     private $name;
 
     /**
-     * @OA\Property(type="array", title="Blocks", @OA\Items(ref="#/components/schemas/Block"))
+     * @OA\Property(
+     *     type="object",
+     *     title="Blocks of the area, which every answer carries",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/Block")
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $blocks;
 
     /**
-     * @OA\Property(title="Content", ref="#/components/schemas/Content")
+     * @OA\Property(
+     *     type="object",
+     *     title="Content of the area, where the includes parameter asks for it",
+     *     @OA\Property(
+     *         property="data",
+     *         ref="#/components/schemas/Content"
+     *     )
+     * )
      *
-     * @var string
+     * @var array
      */
     private $content;
 
