@@ -389,7 +389,7 @@ class Text
      * Takes text and returns it in the "lowercase-and-dashed-with-no-punctuation" format.
      *
      * @param string $handle
-     * @param int    $max_length           Max number of characters of the return value
+     * @param int|null    $max_length           Max number of characters of the return value
      * @param string $locale              Language code of the language rules that should be priorized
      * @param bool   $removeExcludedWords Set to true to remove excluded words, false to allow them.
      *

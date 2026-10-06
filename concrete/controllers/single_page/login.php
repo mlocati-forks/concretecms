@@ -60,7 +60,7 @@ class Login extends PageController implements LoggerAwareInterface
     }
 
     /**
-     * @param string $type
+     * @param string|null $type
      * @param string $method
      * @param string|null $a
      * @param string|null $b

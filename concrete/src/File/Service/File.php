@@ -84,7 +84,7 @@ class File
      *
      * @param string $source Source dir/file to copy
      * @param string $target Place to copy the source
-     * @param int    $mode   What to chmod the file to
+     * @param int|null    $mode   What to chmod the file to
      */
     public function copyAll($source, $target, $mode = null)
     {
@@ -132,7 +132,7 @@ class File
      * one for files: $res->file
      * and another for directories: $res->dir.
      *
-     * @param string $path (optional)
+     * @param string|null $path (optional)
      *
      * @return \stdClass|false
      */
@@ -319,7 +319,7 @@ class File
      * Should use curl if it exists and fopen isn't allowed (thanks Remo).
      *
      * @param string $file
-     * @param string $timeout
+     * @param string|null $timeout
      *
      * @throws RequestException Request timed out
      *

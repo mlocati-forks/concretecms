@@ -58,7 +58,7 @@ class GroupSignupRequest implements SubjectInterface
 
     /**
      * @param \Concrete\Core\User\Group\Group|null $group
-     * @param \Concrete\Core\User\User $user
+     * @param \Concrete\Core\User\User|null $user
      */
     public function __construct($group = null, $user = null)
     {

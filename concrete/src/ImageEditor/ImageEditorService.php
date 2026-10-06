@@ -90,7 +90,7 @@ class ImageEditorService
     /**
      * @param string $handle
      * @param string $name
-     * @param Package $package
+     * @param Package|null $package
      * @return ErrorList
      */
     public function addEditor(

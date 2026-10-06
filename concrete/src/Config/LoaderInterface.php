@@ -22,7 +22,7 @@ interface LoaderInterface
      * Determine if the given configuration group exists.
      *
      * @param  string  $group
-     * @param  string  $namespace
+     * @param  string|null  $namespace
      * @return bool
      */
     public function exists($group, $namespace = null);

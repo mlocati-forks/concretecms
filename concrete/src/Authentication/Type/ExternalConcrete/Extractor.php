@@ -95,7 +95,7 @@ class Extractor extends LazyExtractor
     /**
      * Convert a claim into its raw value
      *
-     * @param \Lcobucci\JWT\Claim|string $claim
+     * @param \Lcobucci\JWT\Claim|string|null $claim
      *
      * @return string|null
      */

@@ -715,7 +715,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
      * called when we update an area to have specific permissions, and all areas that are on pagesbelow it with the same
      * handle, etc... should now inherit from it.
      *
-     * @param int $cIDToCheck
+     * @param int|null $cIDToCheck
      */
     public function rescanSubAreaPermissions($cIDToCheck = null)
     {
@@ -836,7 +836,7 @@ class Area extends ConcreteObject implements \Concrete\Core\Permission\ObjectInt
      * ex: $a = new Area('Main'); $a->display($c);.
      *
      * @param \Concrete\Core\Page\Page|bool $c
-     * @param Block[] $alternateBlockArray optional array of blocks to render instead of default behavior
+     * @param Block[]|null $alternateBlockArray optional array of blocks to render instead of default behavior
      */
     public function display($c = false, $alternateBlockArray = null)
     {

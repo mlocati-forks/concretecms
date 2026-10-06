@@ -51,7 +51,7 @@ class Validation
      * Adds a test to a field to ensure that, if set, it is a valid uploaded image.
      *
      * @param string $field
-     * @param string $errorMsg
+     * @param string|null $errorMsg
      * @param bool   $emptyIsOk Tells whether this can be submitted as empty (e.g. the validation tests only run if someone is actually submitted in the post.)
      */
     public function addUploadedImage($field, $errorMsg = null, $emptyIsOk = true)
@@ -65,7 +65,7 @@ class Validation
      * if the test is passed.
      *
      * @param string $field
-     * @param string $errorMsg
+     * @param string|null $errorMsg
      * @param int $validate test to validate against
      */
     public function addRequired($field, $errorMsg = null, $validate = self::VALID_NOT_EMPTY)
@@ -81,7 +81,7 @@ class Validation
      * Adds a test to a field to ensure that, if set, it is a valid uploaded file.
      *
      * @param string $field
-     * @param string $errorMsg
+     * @param string|null $errorMsg
      * @param bool   $emptyIsOk Tells whether this can be submitted as empty (e.g. the validation tests only run if someone is actually submitted in the post.)
      */
     public function addUploadedFile($field, $errorMsg = null, $emptyIsOk = true)
@@ -94,7 +94,7 @@ class Validation
      * Adds a required field and tests that it is integer only.
      *
      * @param string $field
-     * @param string $errorMsg
+     * @param string|null $errorMsg
      * @param bool   $emptyIsOk Tells whether this can be submitted as empty (e.g. the validation tests only run if someone is actually submitted in the post.)
      */
     public function addInteger($field, $errorMsg = null, $emptyIsOk = true)
@@ -117,7 +117,7 @@ class Validation
      * Adds a required email address to the suite of tests to be run.
      *
      * @param string $field
-     * @param string $errorMsg
+     * @param string|null $errorMsg
      */
     public function addRequiredEmail($field, $errorMsg = null)
     {

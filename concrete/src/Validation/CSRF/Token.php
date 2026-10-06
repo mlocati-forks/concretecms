@@ -64,7 +64,7 @@ class Token
      * Generates a token for a given action. This is a token in the form of time:hash, where hash is md5(time:userID:action:pepper).
      *
      * @param string $action An optional identifier of the token
-     * @param int $time The UNIX timestamp to be used to determine the token expiration
+     * @param int|null $time The UNIX timestamp to be used to determine the token expiration
      *
      * @return string
      */
@@ -108,7 +108,7 @@ class Token
      * b. the time included next to the hash is within the threshold.
      *
      * @param string $action The action that should be associated to the token
-     * @param string $token The token to be validated (if empty we'll retrieve it from the current request)
+     * @param string|null $token The token to be validated (if empty we'll retrieve it from the current request)
      *
      * @return bool
      */

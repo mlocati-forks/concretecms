@@ -84,7 +84,7 @@ class DatabaseManager implements ConnectionRegistry
     /**
      * Get a database connection instance.
      *
-     * @param  string $name
+     * @param  string|null $name
      *
      * @return \Concrete\Core\Database\Connection\Connection
      */
@@ -107,7 +107,7 @@ class DatabaseManager implements ConnectionRegistry
     /**
      * Disconnect from the given database and remove from local cache.
      *
-     * @param  string $name
+     * @param  string|null $name
      */
     public function purge($name = null)
     {
@@ -120,7 +120,7 @@ class DatabaseManager implements ConnectionRegistry
     /**
      * Disconnect from the given database.
      *
-     * @param  string $name
+     * @param  string|null $name
      */
     public function disconnect($name = null)
     {
@@ -132,7 +132,7 @@ class DatabaseManager implements ConnectionRegistry
     /**
      * Reconnect to the given database.
      *
-     * @param  string $name
+     * @param  string|null $name
      *
      * @return \Concrete\Core\Database\Connection\Connection
      */

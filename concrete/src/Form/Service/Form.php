@@ -108,7 +108,7 @@ class Form
      * Returns an action suitable for including in a form action property.
      *
      * @param string $action
-     * @param string $task
+     * @param string|null $task
      *
      * @return \League\Url\UrlInterface
      */
@@ -192,7 +192,7 @@ class Form
      * Creates a hidden form field.
      *
      * @param string $key the name/id of the element
-     * @param string $value the value of the element (overriden if we received some data in POST or GET)
+     * @param string|null $value the value of the element (overriden if we received some data in POST or GET)
      * @param array $miscFields additional fields appended to the element (a hash array of attributes name => value), possibly including 'class', 'id', and 'name'
      *
      * @return string

@@ -71,7 +71,7 @@ class ValidationService
      * uploaded XML/XSLT documents).
      *
      * @param string $filename
-     * @param array $extensions
+     * @param array|null $extensions
      *
      * @return bool
      */

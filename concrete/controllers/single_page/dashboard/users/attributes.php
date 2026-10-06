@@ -49,7 +49,7 @@ class Attributes extends DashboardAttributesPageController
     }
 
     /**
-     * @param int $akID
+     * @param int|null $akID
      */
     public function delete($akID = null)
     {

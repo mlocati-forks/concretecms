@@ -370,7 +370,7 @@ class UserInfo extends ConcreteObject implements AttributeObjectInterface, Permi
      * @param UserInfo $recipient
      * @param string $subject
      * @param string $text
-     * @param PrivateMessage $inReplyTo
+     * @param PrivateMessage|null $inReplyTo
      * @param File[] $attachments
      *
      * @return ErrorList|false|null Returns:

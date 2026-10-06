@@ -171,7 +171,7 @@ class RequestBase extends SymfonyRequest
      * If no arguments are passed, returns the post array. If a key is passed, it returns the value as it exists in the post array.
      * If a default value is provided and the key does not exist in the POST array, the default value is returned.
      *
-     * @param string $key
+     * @param string|null $key
      * @param mixed $defaultValue
      *
      * @return mixed
@@ -189,7 +189,7 @@ class RequestBase extends SymfonyRequest
     }
 
     /**
-     * @param string $key
+     * @param string|null $key
      * @param mixed $defaultValue
      *
      * @return mixed

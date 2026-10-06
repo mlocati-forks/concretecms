@@ -101,7 +101,7 @@ class DefaultValidator implements AuthorizationValidatorInterface
     /**
      * Set the encryption key
      *
-     * @param string $key
+     * @param string|null $key
      */
     public function setEncryptionKey($key = null)
     {

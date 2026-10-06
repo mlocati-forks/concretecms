@@ -39,7 +39,7 @@ class UserInterface
      * @param string $text The text of the button
      * @param bool|string $formID The form this button will submit
      * @param string $buttonAlign
-     * @param string $innerClass
+     * @param string|null $innerClass
      * @param array $args Extra args passed to the link
      *
      * @return string
@@ -69,7 +69,7 @@ class UserInterface
      * @param string $text The text of the button
      * @param string $href
      * @param string $buttonAlign
-     * @param string $innerClass
+     * @param string|null $innerClass
      * @param array $args Extra args passed to the link
      *
      * @return string
@@ -95,7 +95,7 @@ class UserInterface
      * @param string $text The text of the button
      * @param string $onclick
      * @param string $buttonAlign
-     * @param string $innerClass - no longer used
+     * @param string|null $innerClass - no longer used
      * @param array $args Extra args passed to the link
      *
      * @return string

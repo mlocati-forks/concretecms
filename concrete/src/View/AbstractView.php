@@ -200,7 +200,7 @@ abstract class AbstractView
      * URL is a utility function that is used inside a view to setup urls w/tasks and parameters.
      *
      * @param string $action
-     * @param string $task
+     * @param string|null $task
      *
      * @return string $url
      */

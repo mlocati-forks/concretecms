@@ -18,7 +18,7 @@ class LoginAttemptRepository extends EntityRepository
      * Get a list of login attempts prior to a date
      *
      * @param \DateTime $before Must be in UTC
-     * @param \Concrete\Core\Entity\User\User|int $user
+     * @param \Concrete\Core\Entity\User\User|int|null $user
      * @param bool $count Whether we return an integer count, or an iterator of matches
      *
      * @return \Iterator|\Concrete\Core\Entity\User\LoginAttempt[]|int
@@ -61,7 +61,7 @@ class LoginAttemptRepository extends EntityRepository
      * Get a list of login attempts after a given date
      *
      * @param \DateTime $after Must be in UTC
-     * @param \Concrete\Core\Entity\User\User|int $user
+     * @param \Concrete\Core\Entity\User\User|int|null $user
      * @param bool $count Whether we return an integer count, or an iterator of matches
      *
      * @return \Iterator|\Concrete\Core\Entity\User\LoginAttempt[]|int

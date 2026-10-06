@@ -17,7 +17,7 @@ class ClientRepository extends EntityRepository implements ClientRepositoryInter
      * Get a client.
      *
      * @param string $clientIdentifier The client's identifier
-     * @param string $grantType The grant type used
+     * @param string|null $grantType The grant type used
      * @param null|string $clientSecret The client's secret (if sent)
      * @param bool $mustValidateSecret If true the client must attempt to validate the secret if the client
      *                                        is confidential

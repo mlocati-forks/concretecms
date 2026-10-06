@@ -3229,7 +3229,7 @@ EOT
     /**
      * Get the ID of the home page.
      *
-     * @param Page|int $page the page (or its ID) for which you want the home (if not specified, we'll use the default locale site tree)
+     * @param Page|int|null $page the page (or its ID) for which you want the home (if not specified, we'll use the default locale site tree)
      *
      * @return int|null returns NULL if $page is null (or it doesn't have a SiteTree associated) and if there's no default locale
      */

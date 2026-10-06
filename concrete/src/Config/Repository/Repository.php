@@ -495,7 +495,7 @@ class Repository extends \Illuminate\Config\Repository
      * Get the collection identifier.
      *
      * @param string $group
-     * @param string $namespace
+     * @param string|null $namespace
      *
      * @return string
      */

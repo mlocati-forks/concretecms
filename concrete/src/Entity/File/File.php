@@ -832,7 +832,7 @@ class File implements \Concrete\Core\Permission\ObjectInterface, AttributeObject
      * returns the FileVersion object for the provided fvID
      * if none provided returns the approved version.
      *
-     * @param int $fvID
+     * @param int|null $fvID
      *
      * @return Version|null
      */

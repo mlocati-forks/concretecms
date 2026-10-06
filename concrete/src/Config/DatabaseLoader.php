@@ -11,7 +11,7 @@ class DatabaseLoader implements LoaderInterface
      *
      * @param  string $environment
      * @param  string $group
-     * @param  string $namespace
+     * @param  string|null $namespace
      *
      * @return array
      */
@@ -47,7 +47,7 @@ class DatabaseLoader implements LoaderInterface
      * Determine if the given configuration group exists.
      *
      * @param  string $group
-     * @param  string $namespace
+     * @param  string|null $namespace
      *
      * @return bool
      */

@@ -145,7 +145,7 @@ class Theme extends ConcreteObject implements \JsonSerializable
      * Mark an asset as provided by this theme.
      *
      * @param string $assetType E.g. 'css' or 'javascript' (or an asset group identifier like 'jquery/ui')
-     * @param string|false $assetHandle E.g. 'core/colorpicker'.
+     * @param string|false|null $assetHandle E.g. 'core/colorpicker'.
      */
     public function providesAsset($assetType, $assetHandle = null)
     {

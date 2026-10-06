@@ -38,7 +38,7 @@ class LaminasCacheDriver extends AbstractAdapter implements StorageInterface, Fl
 
     /**
      * @param string $cacheName Name of the cache being used. Defaults to cache.
-     * @param int $cacheLifetime Number of seconds to consider the cache fresh before it expires.
+     * @param int|null $cacheLifetime Number of seconds to consider the cache fresh before it expires.
      */
     public function __construct($cacheName = 'cache', $cacheLifetime = null)
     {
@@ -52,7 +52,7 @@ class LaminasCacheDriver extends AbstractAdapter implements StorageInterface, Fl
      * Internal method to get an item.
      *
      * @param  string $normalizedKey
-     * @param  bool $success
+     * @param  bool|null $success
      * @param  mixed $casToken
      *
      * @return mixed Data on success, null on failure

@@ -52,8 +52,8 @@ class FlysystemFileResponse extends Response
     }
 
     /**
-     * @param File|string         $file               The file to stream
-     * @param FilesystemInterface $filesystem         The filesystem instance to get info with
+     * @param File|string|null         $file               The file to stream
+     * @param FilesystemInterface|null $filesystem         The filesystem instance to get info with
      * @param int                 $status             The response status code
      * @param array               $headers            An array of response headers
      * @param bool                $public             Files are public by default
@@ -71,7 +71,7 @@ class FlysystemFileResponse extends Response
      * Sets the file to stream.
      *
      * @param File|string         $file               The file to stream
-     * @param string              $contentDisposition
+     * @param string|null              $contentDisposition
      * @param bool                $autoEtag
      *
      * @return $this

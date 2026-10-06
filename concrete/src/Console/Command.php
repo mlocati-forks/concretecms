@@ -242,7 +242,7 @@ abstract class Command extends SymfonyCommand
     /**
      * Get the value of a command option.
      *
-     * @param string $key
+     * @param string|null $key
      *
      * @return string|array
      */
@@ -282,7 +282,7 @@ abstract class Command extends SymfonyCommand
      * Prompt the user for input.
      *
      * @param string $question
-     * @param string $default
+     * @param string|null $default
      *
      * @return string
      */
@@ -296,7 +296,7 @@ abstract class Command extends SymfonyCommand
      *
      * @param string $question
      * @param array $choices
-     * @param string $default
+     * @param string|null $default
      * @param int|null $attempts
      * @param bool $strict
      *
@@ -325,7 +325,7 @@ abstract class Command extends SymfonyCommand
      *
      * @param string $question
      * @param array $choices
-     * @param string $default
+     * @param string|null $default
      * @param mixed $attempts
      * @param bool $multiple
      *

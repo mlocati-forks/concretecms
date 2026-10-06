@@ -40,7 +40,7 @@ class CompositeLoader implements LoaderInterface
      *
      * @param string $environment
      * @param string $group
-     * @param string $namespace
+     * @param string|null $namespace
      * @return array
      */
     public function load($environment, $group, $namespace = null)
@@ -65,7 +65,7 @@ class CompositeLoader implements LoaderInterface
      * Determine if the given configuration group exists.
      *
      * @param string $group
-     * @param string $namespace
+     * @param string|null $namespace
      * @return bool
      */
     public function exists($group, $namespace = null)

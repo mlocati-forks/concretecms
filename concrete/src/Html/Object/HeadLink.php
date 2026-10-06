@@ -26,9 +26,9 @@ class HeadLink extends Element
      * Create a new Link.
      *
      * @param string $href  Link url
-     * @param string $rel   Link relation (stylesheet)
-     * @param string $type  Link type (text/css)
-     * @param string $media Link media (screen, print, etc)
+     * @param string|null $rel   Link relation (stylesheet)
+     * @param string|null $type  Link type (text/css)
+     * @param string|null $media Link media (screen, print, etc)
      *
      * @return HeadLink
      */
@@ -47,9 +47,9 @@ class HeadLink extends Element
      * Static alias for constructor.
      *
      * @param string $href  Link url
-     * @param string $rel   Link relation (stylesheet)
-     * @param string $type  Link type (text/css)
-     * @param string $media Link media (screen, print, etc)
+     * @param string|null $rel   Link relation (stylesheet)
+     * @param string|null $type  Link type (text/css)
+     * @param string|null $media Link media (screen, print, etc)
      *
      * @return HeadLink
      */

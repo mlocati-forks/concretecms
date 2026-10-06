@@ -123,7 +123,7 @@ class DatabaseStructureManager
      * 
      * Returns a boolean indicating whether any files were deleted or not.
      * 
-     * @param  string $prefix
+     * @param  string|null $prefix
      *
      * @return bool
      *

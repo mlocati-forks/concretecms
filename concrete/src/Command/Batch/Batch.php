@@ -77,7 +77,7 @@ class Batch
 
     /**
      * @param string $name
-     * @param iterable|callable $messages
+     * @param iterable|callable|null $messages
      * @return Batch
      */
     public static function create(?string $name = null, $messages = null)
