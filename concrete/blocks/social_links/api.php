@@ -15,6 +15,16 @@ class Api extends BlockApiHandler
     /**
      * {@inheritdoc}
      *
+     * @see \Concrete\Core\Api\Block\BlockApiHandler::getCustomApiDescription()
+     */
+    public function getCustomApiDescription(): string
+    {
+        return 'Displays the social networks of the site, named by the ID that the social_links of a site answer give.';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @see \Concrete\Core\Api\Block\BlockApiHandler::getApiValueSchema()
      */
     public function getApiValueSchema(): array
@@ -27,7 +37,7 @@ class Api extends BlockApiHandler
                     'description' => 'The social links of the site displayed by the block, in the order they are displayed.',
                     'items' => [
                         'type' => 'integer',
-                        'description' => 'The ID of one of the social links of the site.',
+                        'description' => 'The ID of one of the social links of the site, as the social_links of a site answer give them.',
                     ],
                 ],
             ],
