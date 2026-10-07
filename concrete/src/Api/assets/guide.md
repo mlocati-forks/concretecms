@@ -98,8 +98,13 @@ An area handle is a plain name and not a slug, capitals and spaces included, so 
 the path of a request (`Page%20Footer`), and the names themselves are a convention rather than a rule:
 themes usually call `Main` the area that holds the body of a page, and `Page Header`, `Page Footer` and
 `Sidebar` the other usual ones.
-An area of a page is a record that whatever drew it created, so a page that nothing has drawn yet has
-none, and a page whose theme or template changed still carries the areas the old one made.
+The areas of a page are records that whatever drew it created, so a page that nothing has drawn yet has
+none, and a page whose theme or template changed still carries the areas the old one made:
+`POST /pages/123/areas/refresh` draws the page, so that the areas it has are the ones its template
+makes, and answers 204 with nothing: the areas are then read as always, with
+`GET /pages/123?includes=areas`.
+Make that call after adding a page, after changing the theme or the template of one, and whenever a page
+comes back with no areas at all, which is what a page added earlier and never drawn looks like.
 A page hands over every area it has, the empty ones included; `GET /pages/123?includes=areas&areas=with_blocks`
 asks for the areas holding a block instead.
 Adding a block to an area handle that the page has never used creates that area anyway: the block is
