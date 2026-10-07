@@ -35,6 +35,14 @@ class ApiRouteListTest extends TestCase
         static::assertContains('/ccm/api/1.0/page_themes', $this->getPaths());
     }
 
+    public function testThePageFeedsRoutesAreRegistered(): void
+    {
+        $paths = $this->getPaths();
+
+        static::assertContains('/ccm/api/1.0/page_feeds', $paths);
+        static::assertContains('/ccm/api/1.0/page_feeds/{pageFeedID}', $paths);
+    }
+
     public function testTheLayoutPresetsRouteIsRegistered(): void
     {
         static::assertContains('/ccm/api/1.0/layout_presets', $this->getPaths());
