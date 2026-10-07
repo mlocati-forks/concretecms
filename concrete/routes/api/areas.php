@@ -8,6 +8,11 @@ defined('C5_EXECUTE') or die('Access Denied.');
  */
 
 
+$router->post('/pages/{pageID}/areas/refresh', '\Concrete\Core\Api\Controller\Areas::refreshAreas')
+    ->setRequirement('pageID', '[0-9]+')
+    ->setScopes(['pages:add', 'pages:areas:add_block'])
+;
+
 $router->post('/pages/{pageID}/{areaHandle}', '\Concrete\Core\Api\Controller\Areas::addBlock')
     ->setRequirement('pageID', '[0-9]+')
     ->setScopes('pages:areas:add_block')
