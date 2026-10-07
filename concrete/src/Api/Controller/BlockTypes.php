@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Concrete\Core\Api\Controller;
 
 use Concrete\Core\Api\ApiController;
+use Concrete\Core\Api\Block\BlockTypeCatalog;
 use Concrete\Core\Api\Fractal\Transformer\BlockTypeTransformer;
 use Concrete\Core\Api\Resources;
-use Concrete\Core\Block\BlockType\BlockType;
-use Concrete\Core\Block\BlockType\BlockTypeList;
 use League\Fractal\Resource\Collection;
 
 defined('C5_EXECUTE') or die('Access Denied.');
@@ -20,7 +19,7 @@ class BlockTypes extends ApiController
      *     path="/ccm/api/1.0/block_types",
      *     tags={"block_types"},
      *     operationId="getBlockTypes",
-     *     summary="List the available block types, with the schema of the value they accept",
+     *     summary="List the block types to work with, with the schema of the value they accept",
      *     security={
      *         {"clientCredentials": {"definitions:read"}},
      *         {"authorization": {"definitions:read"}}
@@ -42,11 +41,9 @@ class BlockTypes extends ApiController
      */
     public function listBlockTypes()
     {
-        $blockTypeList = new BlockTypeList();
-        // the areas endpoints add the internal block types as well, so let's describe them too
-        $blockTypeList->includeInternalBlockTypes();
+        $blockTypes = $this->app->make(BlockTypeCatalog::class)->getList();
 
-        return new Collection($blockTypeList->get(), new BlockTypeTransformer(), Resources::RESOURCE_BLOCK_TYPES);
+        return new Collection($blockTypes, new BlockTypeTransformer(), Resources::RESOURCE_BLOCK_TYPES);
     }
 
     /**
@@ -77,7 +74,7 @@ class BlockTypes extends ApiController
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Block type not found"
+     *         description="This installation has no such block type, or the CMS writes the blocks of this one by itself"
      *     ),
      * )
      *
@@ -85,7 +82,7 @@ class BlockTypes extends ApiController
      */
     public function read($blockTypeHandle)
     {
-        $blockType = BlockType::getByHandle($blockTypeHandle);
+        $blockType = $this->app->make(BlockTypeCatalog::class)->getByHandle((string) $blockTypeHandle);
         if ($blockType === null) {
             return $this->error(t('Block type not found'), 404);
         }
