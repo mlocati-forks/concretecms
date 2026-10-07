@@ -124,8 +124,10 @@ abstract class BlockApiTestCase extends PageTestCase
     protected function addBlockFromApiValue(string $blockTypeHandle, array $value, ?Page $page = null): Block
     {
         $handler = $this->getBlockType($blockTypeHandle)->getController()->getApiHandler();
+        $block = $this->addBlock($blockTypeHandle, $handler->getSaveArgumentsFromApiValue($value, null), $page, SaveMode::SAVE_MODE_IMPORT);
+        $this->getHandler($block)->afterApiWrite($block);
 
-        return $this->addBlock($blockTypeHandle, $handler->getSaveArgumentsFromApiValue($value, null), $page, SaveMode::SAVE_MODE_IMPORT);
+        return $block;
     }
 
     /**
@@ -143,6 +145,7 @@ abstract class BlockApiTestCase extends PageTestCase
     {
         // that's what the areas API controller does
         $block->update($this->getHandler($block)->getSaveArgumentsFromApiValue($value, $block), SaveMode::SAVE_MODE_IMPORT);
+        $this->getHandler($block)->afterApiWrite($block);
     }
 
     protected function getBlock(Page $page): Block
