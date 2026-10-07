@@ -68,6 +68,21 @@ class Site
     /**
      * @OA\Property(
      *     type="object",
+     *     title="Social networks the site is on, which the answer about a single site carries",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/SocialLink")
+     *     )
+     * )
+     *
+     * @var array
+     */
+    private $social_links;
+
+    /**
+     * @OA\Property(
+     *     type="object",
      *     title="Custom attributes of the site, which the answer about a single site carries",
      *     @OA\Property(
      *         property="data",
