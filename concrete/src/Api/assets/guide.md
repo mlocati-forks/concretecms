@@ -112,10 +112,12 @@ asks for the areas holding a block instead.
 Adding a block to an area handle that the page has never used creates that area anyway: the block is
 saved, but a theme that declares no such area never shows it.
 
-The fields of the `value` of a block depend on its block type, and `GET /block_types` answers with every
-block type of this installation, each with the `value_schema` of the value its blocks take and give back.
+The fields of the `value` of a block depend on its block type, and `GET /block_types` answers with the
+block types to work with, each with the `value_schema` of the value its blocks take and give back.
 A block type that declares no schema of its own is marked `x-concrete-undescribed`, and the only way to
 learn its fields is to read a block of that type.
+An area can also hand back a block whose type the list leaves out, one the core writes for itself: there is
+no value a client composes for it, and `GET /block_types/{handle}` answers 404 for its handle.
 
 To lay blocks side by side, add a block of the `core_area_layout` type: it holds columns of its own, and
 the value it gives back names the area of each of them, for the areas endpoints to fill.
