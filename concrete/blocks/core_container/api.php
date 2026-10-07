@@ -8,6 +8,13 @@ use Concrete\Core\Api\Block\BlockApiHandler;
 use Concrete\Core\Area\Area;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Entity\Page\Container;
+use Concrete\Core\Entity\Page\Container\Instance;
+use Concrete\Core\Filesystem\TemplateService;
+use Concrete\Core\Logging\Channels;
+use Concrete\Core\Logging\LoggerFactory;
+use Concrete\Core\Page\Container\ContainerBlockInstance;
+use Concrete\Core\Page\Container\TemplateLocator;
+use Concrete\Core\Page\Page;
 use Doctrine\ORM\EntityManagerInterface;
 
 defined('C5_EXECUTE') or die('Access Denied.');
@@ -34,7 +41,7 @@ class Api extends BlockApiHandler
                 'areas' => [
                     'type' => 'array',
                     'readOnly' => true,
-                    'description' => 'The areas of the container, which its template creates: they are there once the page has been displayed at least once. The blocks placed in them are worked with through the areas endpoints.',
+                    'description' => 'The areas of the container. The blocks placed in them are worked with through the areas endpoints.',
                     'items' => [
                         'type' => 'object',
                         'properties' => [
@@ -80,6 +87,57 @@ class Api extends BlockApiHandler
             'container' => $container->getContainerHandle(),
             'areas' => $areas,
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Block\BlockApiHandler::afterApiWrite()
+     */
+    public function afterApiWrite(Block $block): void
+    {
+        $instance = $this->controller->getContainerInstanceObject();
+        if ($instance !== null) {
+            $this->ensureInstanceAreas($block, $instance);
+        }
+    }
+
+    /**
+     * Give the instance of the container the areas it has none of, by running the template that shows
+     * it and throwing away what it draws. A template that raises anything leaves it without them.
+     */
+    protected function ensureInstanceAreas(Block $block, Instance $instance): void
+    {
+        if (count($instance->getInstanceAreas()) !== 0) {
+            return;
+        }
+        $page = $this->controller->getCollectionObject();
+        if (!$page instanceof Page) {
+            return;
+        }
+        $container = $instance->getContainer();
+        $fileToRender = app(TemplateLocator::class)->getFileToRender($page, $container, true);
+        if (!is_string($fileToRender) || $fileToRender === '') {
+            return;
+        }
+        $templateService = app(TemplateService::class);
+        $bufferLevel = ob_get_level();
+        try {
+            $templateService->renderTemplate($fileToRender, [
+                'container' => app(ContainerBlockInstance::class, ['block' => $block, 'instance' => $instance]),
+                'c' => $page,
+                'templateService' => $templateService,
+            ]);
+        } catch (\Throwable $x) {
+            app(LoggerFactory::class)->createLogger(Channels::CHANNEL_PAGES)->error(
+                t('Failed to create the areas of the %s container of the block %s: %s', $container->getContainerHandle(), $block->getBlockID(), $x->getMessage())
+            );
+        } finally {
+            // what a half-drawn template left buffered would otherwise leak into the answer
+            while (ob_get_level() > $bufferLevel) {
+                ob_end_clean();
+            }
+        }
     }
 
     /**
