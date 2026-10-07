@@ -167,6 +167,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $command->setSaveMode(SaveMode::SAVE_MODE_IMPORT);
 
         $block = $this->app->executeCommand($command);
+        $block->getController()->getApiHandler()->afterApiWrite($block);
 
         $transformer = new BaseBlockTransformer();
         $transformer->setDefaultIncludes(['page']);
@@ -450,6 +451,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $command->setSaveMode(SaveMode::SAVE_MODE_IMPORT);
 
         $block = $this->app->executeCommand($command);
+        $block->getController()->getApiHandler()->afterApiWrite($block);
 
         $transformer = new BaseBlockTransformer();
         $transformer->setDefaultIncludes(['page']);
