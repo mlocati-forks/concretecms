@@ -105,6 +105,8 @@ makes, and answers 204 with nothing: the areas are then read as always, with
 `GET /pages/123?includes=areas`.
 Make that call after adding a page, after changing the theme or the template of one, and whenever a page
 comes back with no areas at all, which is what a page added earlier and never drawn looks like.
+A container brings areas of its own, which the `areas` of its value name: that is where the blocks of a
+container go.
 A page hands over every area it has, the empty ones included; `GET /pages/123?includes=areas&areas=with_blocks`
 asks for the areas holding a block instead.
 Adding a block to an area handle that the page has never used creates that area anyway: the block is
