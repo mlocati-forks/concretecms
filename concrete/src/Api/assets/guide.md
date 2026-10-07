@@ -98,9 +98,12 @@ An area handle is a plain name and not a slug, capitals and spaces included, so 
 the path of a request (`Page%20Footer`), and the names themselves are a convention rather than a rule:
 themes usually call `Main` the area that holds the body of a page, and `Page Header`, `Page Footer` and
 `Sidebar` the other usual ones.
-Nothing in the API lists the areas that a theme declares, and adding a block to an area handle that the
-page has never used creates that area: the block is saved, but a theme that declares no such area never
-shows it.
+An area of a page is a record that whatever drew it created, so a page that nothing has drawn yet has
+none, and a page whose theme or template changed still carries the areas the old one made.
+A page hands over every area it has, the empty ones included; `GET /pages/123?includes=areas&areas=with_blocks`
+asks for the areas holding a block instead.
+Adding a block to an area handle that the page has never used creates that area anyway: the block is
+saved, but a theme that declares no such area never shows it.
 
 The fields of the `value` of a block depend on its block type, and `GET /block_types` answers with every
 block type of this installation, each with the `value_schema` of the value its blocks take and give back.
