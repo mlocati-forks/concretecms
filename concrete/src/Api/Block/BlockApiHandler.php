@@ -49,7 +49,7 @@ abstract class BlockApiHandler
             case ReferenceColumns::PAGE_TYPE:
                 return 'A page type is named by its ID.';
             case ReferenceColumns::PAGE_FEED:
-                return 'An RSS feed is named by its ID.';
+                return 'An RSS feed is named by its ID, and GET /page_feeds lists the feeds of this installation.';
             case ReferenceColumns::FILE_FOLDER:
                 return 'A folder of files is named by its ID.';
             case ReferenceColumns::CONTENT:

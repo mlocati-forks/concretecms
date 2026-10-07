@@ -12,6 +12,7 @@ class Resources
     const RESOURCE_PAGE_TYPES = 'page_types';
     const RESOURCE_PAGE_TEMPLATES = 'page_templates';
     const RESOURCE_PAGE_THEMES = 'page_themes';
+    const RESOURCE_PAGE_FEEDS = 'page_feeds';
     const RESOURCE_STACKS = 'stacks';
     const RESOURCE_LAYOUT_PRESETS = 'layout_presets';
     const RESOURCE_CONTAINERS = 'containers';
