@@ -7,6 +7,7 @@ use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Area\Area;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Block\BlockType\BlockType;
+use Concrete\Core\Page\AreaRefresher;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Permission\Checker;
 use Concrete\Core\Api\ApiController;
@@ -24,6 +25,7 @@ use Concrete\Core\Api\Fractal\Transformer\CollectionVersionTransformer;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Error\ErrorList\ErrorList;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
 class Areas extends ApiController implements ApplicationAwareInterface
@@ -32,6 +34,48 @@ class Areas extends ApiController implements ApplicationAwareInterface
     use ApplicationAwareTrait;
     use GetBlockToEditTrait;
     use ValidateBlockRequestTrait;
+
+    /**
+     * @OA\Post(
+     *     path="/ccm/api/1.0/pages/{pageID}/areas/refresh",
+     *     tags={"areas"},
+     *     operationId="refreshPageAreas",
+     *     summary="Draws a page, so that the areas it has are the ones its template makes.",
+     *     description="The areas of a page are the records that whatever draws it creates, so a page that nothing has drawn yet has none, and one whose template changed still carries the areas of the old one. Call this after adding a page, after changing the theme or the template of one, and whenever a page comes back with no areas at all; then read them as usual, with GET /pages/{pageID}?includes=areas.",
+     *     security={
+     *         {"authorization": {"pages:add"}},
+     *         {"authorization": {"pages:areas:add_block"}}
+     *     },
+     *     @OA\Parameter(
+     *         name="pageID",
+     *         in="path",
+     *         description="ID of page",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="The page was drawn",
+     *     ),
+     * )
+     */
+    public function refreshAreas($pageID)
+    {
+        $page = Page::getByID($pageID);
+        if (!$page || $page->isError()) {
+            return $this->error(t('Page not found.'), 404);
+        }
+        $permissions = new Checker($page);
+        if (!$permissions->canEditPageContents()) {
+            return $this->error(t('You do not have permission to edit the contents of this page.'), 403);
+        }
+        $this->app->make(AreaRefresher::class)->refresh($page);
+
+        return new Response('', Response::HTTP_NO_CONTENT);
+    }
 
     /**
      * @OA\Post(
