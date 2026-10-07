@@ -107,4 +107,11 @@ abstract class BlockApiHandler
      * @return array<string,mixed>
      */
     abstract public function getSaveArgumentsFromApiValue(array $value, ?Block $block): array;
+
+    /**
+     * Runs once the API has added or updated the block, with the block saved.
+     */
+    public function afterApiWrite(Block $block): void
+    {
+    }
 }
