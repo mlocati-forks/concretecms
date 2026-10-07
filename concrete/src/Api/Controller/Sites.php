@@ -60,7 +60,7 @@ class Sites extends ApiController
         if ($site) {
             $siteTransformer = $this->app->make(SiteTransformer::class);
             // Include everything if we're getting a single site.
-            $siteTransformer->setDefaultIncludes([Resources::RESOURCE_LOCALES, Resources::RESOURCE_CUSTOM_ATTRIBUTES]);
+            $siteTransformer->setDefaultIncludes([Resources::RESOURCE_LOCALES, Resources::RESOURCE_CUSTOM_ATTRIBUTES, Resources::RESOURCE_SOCIAL_LINKS]);
             return $this->transform($site, $siteTransformer, Resources::RESOURCE_SITES);
         } else {
             return $this->error(t('Site not found.'), 404);
@@ -83,7 +83,7 @@ class Sites extends ApiController
      *         explode=false,
      *         @OA\Schema(
      *             type="array",
-     *             @OA\Items(type="string", enum={"locales","custom_attributes"})
+     *             @OA\Items(type="string", enum={"locales","custom_attributes","social_links"})
      *         )
      *     ),
      *     @OA\Response(
@@ -125,7 +125,7 @@ class Sites extends ApiController
      *         explode=false,
      *         @OA\Schema(
      *             type="array",
-     *             @OA\Items(type="string", enum={"locales","custom_attributes"})
+     *             @OA\Items(type="string", enum={"locales","custom_attributes","social_links"})
      *         )
      *     ),
      *     @OA\Response(
