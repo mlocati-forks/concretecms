@@ -1,32 +1,41 @@
 <?php
 namespace Concrete\Core\Api\Fractal\Transformer\Traits;
 
+use Concrete\Core\Area\ApiArea;
 use Concrete\Core\Database\Connection\Connection;
 use Concrete\Core\Page\Page;
-use Concrete\Core\Area\ApiArea;
 
 trait GetPageApiAreasTrait
 {
 
-    public function getAreas(Page $page): array
+    /**
+     * Get the areas a page has, the empty ones included: a client places a block in one of these.
+     *
+     * An area of a page is a record created by whatever drew it, so a page that nothing has drawn yet
+     * has none to hand over.
+     *
+     * @param bool $onlyWithBlocks true to leave out the areas that hold no block in this version of the page
+     *
+     * @return \Concrete\Core\Area\ApiArea[]
+     */
+    public function getAreas(Page $page, bool $onlyWithBlocks = false): array
     {
-        /**
-         * @var $db Connection
-         */
-        $db = app(Connection::class);
-        $r = $db->createQueryBuilder()
-            ->select("distinct cvb.arHandle")
-            ->from("CollectionVersionBlocks", "cvb")
-            ->where("cvb.cID = :pageId AND cvb.cvID = :pageVersionId")
-            ->orderBy('arHandle')
-            ->setParameter("pageId", $page->getCollectionID())
-            ->setParameter("pageVersionId", $page->getVersionID())
-            ->execute();
+        $connection = app(Connection::class);
+        $handles = $onlyWithBlocks
+            ? $connection->fetchFirstColumn(
+                'SELECT DISTINCT arHandle FROM CollectionVersionBlocks WHERE cID = ? AND cvID = ? ORDER BY arHandle',
+                [$page->getCollectionID(), $page->getVersionID()]
+            )
+            : $connection->fetchFirstColumn(
+                'SELECT arHandle FROM Areas WHERE cID = ? ORDER BY arHandle',
+                [$page->getCollectionID()]
+            );
 
         $areas = [];
-        while ($row = $r->fetchAssociative()) {
-            $areas[] = new ApiArea($page, $row['arHandle']);
+        foreach ($handles as $handle) {
+            $areas[] = new ApiArea($page, $handle);
         }
+
         return $areas;
     }
 }

@@ -30,6 +30,14 @@ class Pages extends ApiController
     use SetListLimitFromQueryTrait;
 
     /**
+     * @return bool true where the request asks for the areas holding a block instead of every area
+     */
+    private function wantsOnlyAreasWithBlocks(): bool
+    {
+        return $this->request->query->get('areas') === 'with_blocks';
+    }
+
+    /**
      * @OA\Get(
      *     path="/ccm/api/1.0/pages/{pageID}",
      *     tags={"pages"},
@@ -55,6 +63,15 @@ class Pages extends ApiController
      *         @OA\Schema(
      *             type="array",
      *             @OA\Items(type="string", enum={"custom_attributes","areas","files","content","areas.content"})
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="areas",
+     *         in="query",
+     *         description="Hand over every area of the page, the empty ones included (default), or only the areas holding a block",
+     *         @OA\Schema(
+     *             type="string",
+     *             enum={"all","with_blocks"}
      *         )
      *     ),
      *     @OA\Parameter(
@@ -94,7 +111,7 @@ class Pages extends ApiController
                 $canViewPage = $permissions->canViewPage();
             }
             if ($canViewPage) {
-                $pageTransformer = new PageTransformer();
+                $pageTransformer = new PageTransformer($this->wantsOnlyAreasWithBlocks());
                 return $this->transform($page, $pageTransformer, Resources::RESOURCE_PAGES);
             } else {
                 if ($version === 'RECENT') {
@@ -144,6 +161,15 @@ class Pages extends ApiController
      *             @OA\Items(type="string", enum={"custom_attributes","areas","files","content","areas.content"})
      *         )
      *     ),
+     *     @OA\Parameter(
+     *         name="areas",
+     *         in="query",
+     *         description="Hand over every area of the page, the empty ones included (default), or only the areas holding a block",
+     *         @OA\Schema(
+     *             type="string",
+     *             enum={"all","with_blocks"}
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -187,7 +213,7 @@ class Pages extends ApiController
         $this->addLimitToPaginationIfSpecified($pagination, $this->request);
 
         $results = $pagination->getCurrentPageResults();
-        $resource = new Collection($results, new PageTransformer(), Resources::RESOURCE_PAGES);
+        $resource = new Collection($results, new PageTransformer($this->wantsOnlyAreasWithBlocks()), Resources::RESOURCE_PAGES);
         $cursor->describe($this->request, $results, $resource);
 
         return $resource;
@@ -238,6 +264,15 @@ class Pages extends ApiController
      *         @OA\Schema(
      *             type="array",
      *             @OA\Items(type="string", enum={"custom_attributes","areas","files","content","areas.content"})
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="areas",
+     *         in="query",
+     *         description="Hand over every area of the page, the empty ones included (default), or only the areas holding a block",
+     *         @OA\Schema(
+     *             type="string",
+     *             enum={"all","with_blocks"}
      *         )
      *     ),
      *     @OA\Response(
@@ -300,7 +335,7 @@ class Pages extends ApiController
             $results = $list->getResults();
         }
 
-        $resource = new Collection($results, new PageTransformer(), Resources::RESOURCE_PAGES);
+        $resource = new Collection($results, new PageTransformer($this->wantsOnlyAreasWithBlocks()), Resources::RESOURCE_PAGES);
         $cursor->describe($this->request, $results, $resource);
 
         return $resource;
@@ -416,7 +451,7 @@ class Pages extends ApiController
             }
         }
 
-        return $this->transform($newPage, new PageTransformer(), Resources::RESOURCE_PAGES);
+        return $this->transform($newPage, new PageTransformer($this->wantsOnlyAreasWithBlocks()), Resources::RESOURCE_PAGES);
     }
 
     /**
@@ -578,7 +613,7 @@ class Pages extends ApiController
 
         $page->update($data);
 
-        return $this->transform($page, new PageTransformer(), Resources::RESOURCE_PAGES);
+        return $this->transform($page, new PageTransformer($this->wantsOnlyAreasWithBlocks()), Resources::RESOURCE_PAGES);
     }
 
     /**

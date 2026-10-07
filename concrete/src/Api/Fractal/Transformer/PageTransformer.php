@@ -28,6 +28,19 @@ class PageTransformer extends TransformerAbstract
         'content',
     ];
 
+    /**
+     * @var bool
+     */
+    protected $onlyAreasWithBlocks;
+
+    /**
+     * @param bool $onlyAreasWithBlocks true to hand over the areas holding a block instead of every area
+     */
+    public function __construct(bool $onlyAreasWithBlocks = false)
+    {
+        $this->onlyAreasWithBlocks = $onlyAreasWithBlocks;
+    }
+
     public function transform(Page $page)
     {
         $data['id'] = $page->getCollectionID();
@@ -78,7 +91,7 @@ class PageTransformer extends TransformerAbstract
 
     public function includeAreas(Page $page)
     {
-        $areas = $this->getAreas($page);
+        $areas = $this->getAreas($page, $this->onlyAreasWithBlocks);
         return new Collection($areas, new AreaTransformer());
     }
 
