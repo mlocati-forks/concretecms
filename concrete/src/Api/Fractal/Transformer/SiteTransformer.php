@@ -4,6 +4,7 @@ namespace Concrete\Core\Api\Fractal\Transformer;
 use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
+use Concrete\Core\Sharing\SocialNetwork\Link as SocialLink;
 use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 
@@ -17,6 +18,7 @@ class SiteTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'locales',
         'custom_attributes',
+        'social_links',
     ];
 
     public function transform(Site $site)
@@ -66,6 +68,19 @@ class SiteTransformer extends TransformerAbstract
         }
 
         return new Collection($locales, new SiteLocaleTransformer(), Resources::RESOURCE_LOCALES);
+    }
+
+    public function includeSocialLinks(Site $site)
+    {
+        return new Collection($this->getSocialLinks($site), new SiteSocialLinkTransformer(), Resources::RESOURCE_SOCIAL_LINKS);
+    }
+
+    /**
+     * @return \Concrete\Core\Entity\Sharing\SocialNetwork\Link[]
+     */
+    protected function getSocialLinks(Site $site): array
+    {
+        return SocialLink::getList($site);
     }
 
     public function includeCustomAttributes(Site $site)
