@@ -12,7 +12,7 @@ trait GetPageApiAreasTrait
      * Get the areas a page has, the empty ones included: a client places a block in one of these.
      *
      * An area of a page is a record created by whatever drew it, so a page that nothing has drawn yet
-     * has none to hand over.
+     * has none to hand over: POST /pages/{pageID}/areas/refresh draws it.
      *
      * @param bool $onlyWithBlocks true to leave out the areas that hold no block in this version of the page
      *
