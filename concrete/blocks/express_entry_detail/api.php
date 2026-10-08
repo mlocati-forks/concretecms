@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Concrete\Block\ExpressEntryDetail;
 
 use Concrete\Core\Api\Block\DefaultBlockApiHandler;
+use Concrete\Core\Api\Express\EntityAccess;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Entity\Express\Entity;
 use Concrete\Core\Entity\Express\Entry;
 use Concrete\Core\Error\UserMessageException;
 use Concrete\Core\Express\ObjectManager;
-use Concrete\Core\Permission\Checker;
-use Doctrine\ORM\EntityManagerInterface;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -21,6 +20,13 @@ class Api extends DefaultBlockApiHandler
      * @var string
      */
     private const ENTRY_FORMAT = 'Entries are named by UUID, or by ID when the UUID is missing.';
+
+    /**
+     * Where a client reads what an entity offers, described to the clients of the API.
+     *
+     * @var string
+     */
+    private const ENTITY_FORMAT = 'GET /express_entities names the entities this API serves, each with its forms.';
 
     /**
      * {@inheritdoc}
@@ -34,6 +40,12 @@ class Api extends DefaultBlockApiHandler
         $described['type'] = ['string', 'integer', 'null'];
         $described['description'] = implode("\n", array_filter([(string) ($described['description'] ?? ''), self::ENTRY_FORMAT]));
         $schema['properties']['exSpecificEntryID'] = $described;
+        foreach (['exEntityID', 'exFormID'] as $name) {
+            $schema['properties'][$name]['description'] = implode("\n", array_filter([
+                (string) ($schema['properties'][$name]['description'] ?? ''),
+                self::ENTITY_FORMAT,
+            ]));
+        }
 
         return $schema;
     }
@@ -116,7 +128,7 @@ class Api extends DefaultBlockApiHandler
         if (!$entryEntity instanceof Entity || (string) $entryEntity->getId() !== (string) $entity->getId()) {
             throw new UserMessageException(t('The entry named %s belongs to another entity.', $identifier));
         }
-        if (!(new Checker($entry))->canViewExpressEntry()) {
+        if (!app(EntityAccess::class)->canViewEntry($entry)) {
             throw new UserMessageException(t('You do not have access to the entry named %s.', $identifier));
         }
 
@@ -132,11 +144,12 @@ class Api extends DefaultBlockApiHandler
         if ($entityID === '') {
             return null;
         }
-        $entity = app(EntityManagerInterface::class)->find(Entity::class, $entityID);
-        if (!$entity instanceof Entity || !$entity->getIncludeInRestApi() || !$entity->isPublished()) {
+        $access = app(EntityAccess::class);
+        $entity = $access->getEntity($entityID);
+        if ($entity === null || !$access->isServed($entity)) {
             throw new UserMessageException(t('This API serves no Express entity named %s.', $entityID));
         }
-        if (!(new Checker($entity))->canViewExpressEntries()) {
+        if (!$access->canViewEntries($entity)) {
             throw new UserMessageException(t('You do not have access to the entries of %s.', $entity->getName()));
         }
 

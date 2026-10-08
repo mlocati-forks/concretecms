@@ -7,6 +7,15 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @var Concrete\Core\Routing\Router $router
  */
 
+$router->get('/express_entities', '\Concrete\Core\Api\Controller\ExpressEntities::listExpressEntities')
+    ->setScopes('definitions:read')
+;
+
+$router->get('/express_entities/{entityID}', '\Concrete\Core\Api\Controller\ExpressEntities::read')
+    ->setRequirement('entityID', '[0-9A-Fa-f-]+')
+    ->setScopes('definitions:read')
+;
+
 try {
     $list = Express::getEntities(true);
     $objects = $list->findBy(['include_in_rest_api' => true, 'is_published' => true]);
