@@ -33,5 +33,6 @@ class Resources
     const RESOURCE_TOPICS = 'topics';
     const RESOURCE_TOPIC_TREES = 'topic_trees';
     const RESOURCE_TOPIC_TREE_NODES = 'topic_tree_nodes';
+    const RESOURCE_EXPRESS_ENTITIES = 'express_entities';
 
 }
