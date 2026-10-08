@@ -38,6 +38,7 @@ use Concrete\Core\Tree\TreeType;
 use Concrete\Core\Tree\Type\Topic as TopicService;
 use Concrete\Core\User\Group\Command\AddGroupCommand;
 use Concrete\Core\User\Group\GroupRepository;
+use Concrete\Core\User\User;
 use Concrete\TestHelpers\Page\PageTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use DOMDocument;
@@ -539,7 +540,13 @@ class ImportExportTest extends PageTestCase
 
     private function importExportExpress(BlockTypeEntity $blockType, SimpleXMLElement $inputCif, array $options): string
     {
-        $generatedXml = $this->importExportBlockType($blockType, $inputCif, $options);
+        // the sample entities have no results node: only the superuser is allowed their entries
+        app()->instance(User::class, User::getByUserID(USER_SUPER_ID));
+        try {
+            $generatedXml = $this->importExportBlockType($blockType, $inputCif, $options);
+        } finally {
+            app()->forgetInstance(User::class);
+        }
 
         return strtr($generatedXml, [
             self::$expressSamples['entity1']->getId() => '1cafebab-babe-cafe-babe-1cafebabe1ca',
@@ -794,6 +801,28 @@ class ImportExportTest extends PageTestCase
                 'View File in File Manager',
                 // $pkDescription
                 'Can access the File Manager.',
+                // $pkCanTriggerWorkflow
+                false,
+                // $pkHasCustomClass
+                false
+            );
+        }
+        $expressCategory = PermissionCategory::getByHandle('express_tree_node');
+        if ($expressCategory === null) {
+            $expressCategory = PermissionCategory::add('express_tree_node');
+        }
+        $expressKeyClass = $expressCategory->getPermissionKeyClass();
+        if (PermissionKey::getByHandle('view_express_entries') === null) {
+            call_user_func(
+                [$expressKeyClass, 'add'],
+                // $pkCategoryHandle
+                $expressCategory->getPermissionKeyCategoryHandle(),
+                // $pkHandle
+                'view_express_entries',
+                // $pkName
+                'View Entries',
+                // $pkDescription
+                '',
                 // $pkCanTriggerWorkflow
                 false,
                 // $pkHasCustomClass
@@ -1068,6 +1097,8 @@ class ImportExportTest extends PageTestCase
         $samples['entity1']->setHandle('example_entity_n1');
         $samples['entity1']->setPluralHandle('example_entities_n1');
         $samples['entity1']->setEntityResultsNodeId(0); // ?
+        // the API writes a block naming an entity only when it serves its entries
+        $samples['entity1']->setIncludeInRestApi(true);
         $samples['form1'] = new Entity\Express\Form();
         $samples['form1']->setName('Example Form #1');
         $samples['form1']->setEntity($samples['entity1']);
@@ -1078,6 +1109,7 @@ class ImportExportTest extends PageTestCase
         $samples['entity2']->setHandle('example_entity_n2');
         $samples['entity2']->setPluralHandle('example_entities_n2');
         $samples['entity2']->setEntityResultsNodeId(0); // ?
+        $samples['entity2']->setIncludeInRestApi(true);
         $em->persist($samples['entity2']);
         $associator->addOneToMany($samples['entity1'], $samples['entity2']);
         $em->flush();
