@@ -57,6 +57,7 @@ class ApiRouteListTest extends TestCase
 
         static::assertContains('/ccm/api/1.0/attribute_categories', $paths);
         static::assertContains('/ccm/api/1.0/attribute_categories/{category}/keys', $paths);
+        static::assertContains('/ccm/api/1.0/attribute_types', $paths);
     }
 
     public function testTheLayoutPresetsRouteIsRegistered(): void
