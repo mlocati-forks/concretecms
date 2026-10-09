@@ -36,5 +36,6 @@ class Resources
     const RESOURCE_EXPRESS_ENTITIES = 'express_entities';
     const RESOURCE_ATTRIBUTE_CATEGORIES = 'attribute_categories';
     const RESOURCE_ATTRIBUTE_KEYS = 'attribute_keys';
+    const RESOURCE_ATTRIBUTE_TYPES = 'attribute_types';
 
 }
