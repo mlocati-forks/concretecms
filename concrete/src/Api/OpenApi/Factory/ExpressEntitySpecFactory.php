@@ -63,12 +63,13 @@ class ExpressEntitySpecFactory
         foreach ($object->getAssociations() as $association) {
             $target = $association->getTargetEntity();
             $title = t('%s, where the includes parameter asks for it', $target->getName());
+            $schema = '/components/schemas/' . $this->getEntrySchema($target);
             if ($association instanceof ManyToOneAssociation || $association instanceof OneToOneAssociation) {
                 $model->addProperty(
                     $this->buildIncludeProperty(
                         $association->getTargetPropertyName(),
                         $title,
-                        new SpecPropertyRef('/components/schemas/' . camelcase($target->getHandle()))
+                        new SpecPropertyRef($schema)
                     )
                 );
             } else {
@@ -78,7 +79,7 @@ class ExpressEntitySpecFactory
                             $association->getTargetPropertyName(),
                             $title,
                             'array',
-                            new SpecPropertyRefItems('/components/schemas/' . camelcase($target->getHandle()))
+                            new SpecPropertyRefItems($schema)
                         )
                     );
                 }
@@ -87,6 +88,20 @@ class ExpressEntitySpecFactory
         $components = new SpecComponents();
         $components->addModel($model);
         return $components;
+    }
+
+    /**
+     * Get the name of the schema that describes an entry of the entity the associated entries belong
+     * to: the entities this specification builds a schema of are the ones the API serves, and the
+     * entries of any other one carry the fields every entry has.
+     */
+    protected function getEntrySchema(Entity $target): string
+    {
+        if ($target->getIncludeInRestApi() && $target->isPublished()) {
+            return camelcase($target->getHandle());
+        }
+
+        return 'ExpressEntry';
     }
 
     /**
