@@ -8,6 +8,8 @@ use Concrete\Core\Api\Attribute\Category;
 use Concrete\Core\Api\Model\AttributeCategory as AttributeCategoryModel;
 use Concrete\Core\Attribute\Category\CategoryInterface;
 use Concrete\Core\Entity\Attribute\Category as CategoryEntity;
+use Concrete\Core\Entity\Attribute\Key\Key;
+use Doctrine\ORM\EntityManagerInterface;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -24,9 +26,15 @@ class ApiHandler
      */
     protected $category;
 
-    public function __construct(CategoryInterface $category)
+    /**
+     * @var \Doctrine\ORM\EntityManagerInterface
+     */
+    protected $entityManager;
+
+    public function __construct(CategoryInterface $category, ?EntityManagerInterface $entityManager = null)
     {
         $this->category = $category;
+        $this->entityManager = $entityManager ?? app(EntityManagerInterface::class);
     }
 
     /**
@@ -69,6 +77,24 @@ class ApiHandler
                 $this->getCategoryDescription()
             ),
         ];
+    }
+
+    /**
+     * Get the keys of one of these sets, leaving out the ones the core keeps for itself.
+     *
+     * @return \Concrete\Core\Entity\Attribute\Key\Key[]
+     */
+    public function getApiKeys(Category $category): array
+    {
+        $row = $this->getCategoryEntity();
+        if ($row === null) {
+            return [];
+        }
+
+        return $this->entityManager->getRepository(Key::class)->findBy(
+            ['category' => $row, 'akIsInternal' => false],
+            ['akHandle' => 'ASC']
+        );
     }
 
     /**
