@@ -42,11 +42,16 @@ class Api extends AttributeApiHandler
      *
      * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::createApiValue()
      */
-    public function createApiValue($json)
+    public function createApiValue($value)
     {
         // a client names an event by ID, which is what the value keeps, but the controller wants
         // the event itself
-        $id = (int) $json;
+        $id = self::extractApiIdentifier($value, 'id');
+        if ($id === false) {
+            // a request that names nothing of the kind leaves the attribute as it was
+            return null;
+        }
+        $id = (int) $id;
 
         return $this->controller->createAttributeValue($id === 0 ? null : app(EventService::class)->getByID($id));
     }
