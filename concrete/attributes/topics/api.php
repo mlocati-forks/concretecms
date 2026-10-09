@@ -50,4 +50,25 @@ class Api extends AttributeApiHandler
 
         return $model;
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * A value names the topics by the ID of their node, which is what a read of them hands over.
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::createApiValue()
+     */
+    public function createApiValue($value)
+    {
+        $ids = [];
+        foreach ((array) self::unwrapApiData($value) as $item) {
+            $id = self::extractApiIdentifier($item, 'id');
+            if ($id !== false) {
+                // the controller keeps the nodes that are there and leaves out what names none
+                $ids[] = $id;
+            }
+        }
+
+        return parent::createApiValue($ids);
+    }
 }
