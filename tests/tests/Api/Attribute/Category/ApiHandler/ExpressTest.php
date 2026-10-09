@@ -8,8 +8,11 @@ use Concrete\Core\Api\Attribute\Category;
 use Concrete\Core\Api\Attribute\Category\ApiHandler;
 use Concrete\Core\Api\Express\EntityAccess;
 use Concrete\Core\Attribute\Category\ExpressCategory;
+use Concrete\Core\Entity\Attribute\Key\ExpressKey;
 use Concrete\Core\Entity\Express\Entity;
 use Concrete\Tests\TestCase;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -57,14 +60,36 @@ class ExpressTest extends TestCase
     }
 
     /**
-     * @param \Concrete\Core\Entity\Express\Entity[] $entities the entities a client may work with
+     * The keys of a set are the ones of its entity, the ones the core keeps for itself left out.
      */
-    private function createHandler(array $entities): ApiHandler\Express
+    public function testTheKeysOfASetAreTheOnesOfItsEntity(): void
+    {
+        $entity = $this->createEntity('7b2');
+        $keys = [$this->createMock(ExpressKey::class)];
+        $repository = $this->createMock(EntityRepository::class);
+        $repository
+            ->expects(static::once())
+            ->method('findBy')
+            ->with(['entity' => $entity, 'akIsInternal' => false], ['akHandle' => 'ASC'])
+            ->willReturn($keys)
+        ;
+        $handler = $this->createHandler([$entity], $repository);
+
+        static::assertSame($keys, $handler->getApiKeys($handler->getApiCategories()[0]));
+    }
+
+    /**
+     * @param \Concrete\Core\Entity\Express\Entity[] $entities the entities a client may work with
+     * @param \Doctrine\ORM\EntityRepository|null $repository where the keys of an entity are looked for
+     */
+    private function createHandler(array $entities, $repository = null): ApiHandler\Express
     {
         $entityAccess = $this->createMock(EntityAccess::class);
         $entityAccess->method('getEntities')->willReturn($entities);
+        $entityManager = $this->createMock(EntityManagerInterface::class);
+        $entityManager->method('getRepository')->willReturn($repository ?? $this->createMock(EntityRepository::class));
 
-        return new ApiHandler\Express($this->createMock(ExpressCategory::class), $entityAccess);
+        return new ApiHandler\Express($this->createMock(ExpressCategory::class), $entityAccess, $entityManager);
     }
 
     /**
