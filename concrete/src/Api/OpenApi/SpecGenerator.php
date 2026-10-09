@@ -51,7 +51,7 @@ class SpecGenerator implements ApplicationAwareInterface
 
     private function addExpressSpec(OpenApi $openApi)
     {
-        $objects = $this->objectManager->getEntities(true)->findBy(['include_in_rest_api' => true]);
+        $objects = $this->objectManager->getEntities(true)->findBy(['include_in_rest_api' => true, 'is_published' => true]);
         foreach ($objects as $object) {
             $factory = new ExpressEntitySpecFactory();
             $spec = $factory->build($object);

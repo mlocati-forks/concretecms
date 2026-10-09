@@ -303,6 +303,11 @@ class Entities extends DashboardPageController
         if (!$this->error->has()) {
             $command = new PublishEntityCommand($entity);
             $this->app->executeCommand($command);
+            if ($this->app->make('config')->get('concrete.api.enabled')) {
+                // the API serves a published entity, so its scopes are born here
+                $command = new SynchronizeScopesCommand();
+                $this->app->executeCommand($command);
+            }
             $this->flash('success', t('Entity published successfully.'));
             return Redirect::to('/dashboard/system/express/entities', 'view_entity', $entity->getId());
         }
