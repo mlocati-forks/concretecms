@@ -6,6 +6,14 @@ class SpecProperty implements \JsonSerializable
 {
 
     /**
+     * The type of a property whose values nothing is known about: the clients of the API read no
+     * type at all, which in a schema means anything goes.
+     *
+     * @var string
+     */
+    public const TYPE_ANY = '';
+
+    /**
      * @var string
      */
     protected $propertyKey;
@@ -85,7 +93,7 @@ class SpecProperty implements \JsonSerializable
         ];
         if ($this->type instanceof SpecPropertyRef) {
             $data = array_merge($this->type->jsonSerialize());
-        } else {
+        } elseif ($this->type !== self::TYPE_ANY) {
             $data['type'] = $this->type;
         }
         if (isset($this->format)) {

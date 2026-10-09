@@ -13,12 +13,8 @@ class AttributeValueMapFactory
         foreach ($body as $key => $data) {
             $attributeKey = $category->getAttributeKeyByHandle($key);
             if ($attributeKey) {
-                $controller = $attributeKey->getController();
-                if ($controller instanceof SupportsAttributeValueFromJsonInterface) {
-                    $value = $controller->createAttributeValueFromNormalizedJson($data);
-                } else {
-                    $value = $controller->createAttributeValue((string) $data);
-                }
+                $handler = AttributeApiHandler::forController($attributeKey->getController());
+                $value = $handler->createApiValue($data);
                 if ($value) {
                     $entry = new AttributeValueMapEntry($attributeKey, $value);
                     $attributeValueMap->addEntry($entry);

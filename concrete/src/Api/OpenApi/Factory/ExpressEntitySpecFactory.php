@@ -5,7 +5,7 @@ namespace Concrete\Core\Api\OpenApi\Factory;
 use Concrete\Core\Api\OpenApi\Parameter\Parameter;
 use Concrete\Core\Api\OpenApi\SpecSchema;
 use Concrete\Core\Entity\Express\Entity;
-use Concrete\Core\Api\Attribute\OpenApiSpecifiableInterface;
+use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\OpenApi\JsonSchemaRefContent;
 use Concrete\Core\Api\OpenApi\Parameter\AfterParameter;
 use Concrete\Core\Api\OpenApi\Parameter\IncludesParameter;
@@ -110,18 +110,8 @@ class ExpressEntitySpecFactory
         $model = new SpecModel($modelName, t('%s model - New', $object->getName()));
 
         foreach ($object->getAttributes() as $attribute) {
-            $controller = $attribute->getController();
-            if ($controller instanceof OpenApiSpecifiableInterface) {
-                $attributeProperty = $controller->getOpenApiSpecProperty($attribute);
-            } else {
-                $attributeProperty = new SpecProperty(
-                    $attribute->getAttributeKeyHandle(),
-                    $attribute->getAttributeKeyDisplayName(),
-                    'string'
-                );
-            }
-
-            $model->addProperty($attributeProperty);
+            $handler = AttributeApiHandler::forController($attribute->getController());
+            $model->addProperty($handler->getApiSpecProperty($attribute));
         }
 
         foreach ($object->getAssociations() as $association) {
