@@ -33,7 +33,7 @@ class AttributeKeys extends ApiController
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Successful operation",
+     *         description="Successful operation. The type of a key and its category may each add fields of their own: the attribute types endpoint names the schema of the keys of a type in key_schema, and what a category adds comes as an object named after the category. Read the ones you know by the type and the category of the key, and leave the others alone.",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                 property="data",
