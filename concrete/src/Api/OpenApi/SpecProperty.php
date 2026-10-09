@@ -16,9 +16,13 @@ class SpecProperty implements \JsonSerializable
     protected $title;
 
     /**
-     * @var string|SpecPropertyRef
+     * The types that a value may be of, or the schema of the specification that describes it: no
+     * type at all says nothing about the values and lets anything go, while more than one travels
+     * as an anyOf, since a schema of OpenAPI 3.0 names one type at a time.
+     *
+     * @var string[]|SpecPropertyRef
      */
-    protected $type;
+    protected $type = [];
 
     /**
      * @var string|null
@@ -35,15 +39,39 @@ class SpecProperty implements \JsonSerializable
      */
     protected $objectProperties;
 
+    /**
+     * @param string|string[]|SpecPropertyRef $type the type of a value, the types it may be of, or
+     *                                              the schema that describes it
+     */
     public function __construct(string $propertyKey, string $title, $type, $format = null, $items = null, $objectProperties = null)
     {
         $this->propertyKey = $propertyKey;
         $this->title = $title;
-        $this->type = $type;
+        $this->type = $type instanceof SpecPropertyRef ? $type : self::readTypes($type);
         $this->format = $format;
         $this->items = $items;
         $this->objectProperties = $objectProperties;
 
+    }
+
+    /**
+     * Read the types a value may be of, where a type or a list of them is what was asked for.
+     *
+     * @param mixed $types
+     *
+     * @return string[]
+     */
+    private static function readTypes($types): array
+    {
+        $read = [];
+        foreach ((array) $types as $type) {
+            $type = (string) $type;
+            if ($type !== '') {
+                $read[] = $type;
+            }
+        }
+
+        return $read;
     }
 
     /**
@@ -55,11 +83,16 @@ class SpecProperty implements \JsonSerializable
     }
 
     /**
-     * @return string
+     * @return string|string[]|SpecPropertyRef the type of a value, the types it may be of where
+     *                                         more than one does, or the schema describing it
      */
-    public function getType(): string
+    public function getType()
     {
-        return $this->type;
+        if ($this->type instanceof SpecPropertyRef || count($this->type) !== 1) {
+            return $this->type;
+        }
+
+        return $this->type[0];
     }
 
     /**
@@ -79,14 +112,23 @@ class SpecProperty implements \JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
+        if ($this->type instanceof SpecPropertyRef) {
+            // a $ref is the whole schema of a value: OpenAPI 3.0 ignores whatever sits beside it
+            return $this->type->jsonSerialize();
+        }
         $data = [
             'property' => $this->getPropertyKey(),
             'title' => $this->getTitle(),
         ];
-        if ($this->type instanceof SpecPropertyRef) {
-            $data = array_merge($this->type->jsonSerialize());
-        } else {
-            $data['type'] = $this->type;
+        if (count($this->type) === 1) {
+            $data['type'] = $this->type[0];
+        } elseif ($this->type !== []) {
+            $data['anyOf'] = array_map(
+                static function (string $type): array {
+                    return ['type' => $type];
+                },
+                $this->type
+            );
         }
         if (isset($this->format)) {
             $data['format'] = $this->format;
