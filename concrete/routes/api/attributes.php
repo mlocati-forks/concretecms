@@ -13,3 +13,8 @@ $router->get('/attribute_categories', '\Concrete\Core\Api\Controller\AttributeCa
     ->setScopes('definitions:read')
 ;
 
+$router->get('/attribute_categories/{categoryHandle}/keys', '\Concrete\Core\Api\Controller\AttributeKeys::listAttributeKeys')
+    ->setRequirement('categoryHandle', '[A-Za-z0-9_@\-]+')
+    ->setScopes('definitions:read')
+;
+
