@@ -8,7 +8,10 @@ use Concrete\Core\Api\Attribute\Category\ApiHandler;
 use Concrete\Core\Attribute\Category\CategoryInterface;
 use Concrete\Core\Attribute\Category\PageCategory;
 use Concrete\Core\Entity\Attribute\Category;
+use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Tests\TestCase;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -79,6 +82,29 @@ class ApiHandlerTest extends TestCase
         $set = $handler->getApiCategories()[0];
 
         static::assertSame(['handle', 'description', 'package'], array_keys($handler->createApiCategoryModel($set)->jsonSerialize()));
+    }
+
+    /**
+     * The keys of the only set of a category are its own, the ones the core keeps for itself left out.
+     */
+    public function testTheKeysOfTheSetAreTheOnesOfTheCategory(): void
+    {
+        $row = $this->createMock(Category::class);
+        $keys = [$this->createMock(Key::class)];
+        $repository = $this->createMock(EntityRepository::class);
+        $repository
+            ->expects(static::once())
+            ->method('findBy')
+            ->with(['category' => $row, 'akIsInternal' => false], ['akHandle' => 'ASC'])
+            ->willReturn($keys)
+        ;
+        $entityManager = $this->createMock(EntityManagerInterface::class);
+        $entityManager->method('getRepository')->willReturn($repository);
+        $category = $this->createMock(PageCategory::class);
+        $category->method('getCategoryEntity')->willReturn($row);
+        $handler = new ApiHandler($category, $entityManager);
+
+        static::assertSame($keys, $handler->getApiKeys($handler->getApiCategories()[0]));
     }
 
     /**
