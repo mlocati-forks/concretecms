@@ -2,6 +2,7 @@
 
 namespace Concrete\Core\Attribute\Category;
 
+use Concrete\Core\Api\Attribute\Category\ApiHandler;
 use Concrete\Core\Application\Application;
 use Concrete\Core\Attribute\ExpressSetManager;
 use Concrete\Core\Attribute\TypeFactory;
@@ -383,5 +384,15 @@ class ExpressCategory extends AbstractStandardCategory
         $this->entityManager->flush();
 
         return $key;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Attribute\Category\CategoryInterface::getApiHandler()
+     */
+    public function getApiHandler(): ApiHandler
+    {
+        return new ApiHandler\Express($this);
     }
 }

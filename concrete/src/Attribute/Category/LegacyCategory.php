@@ -1,6 +1,7 @@
 <?php
 namespace Concrete\Core\Attribute\Category;
 
+use Concrete\Core\Api\Attribute\Category\ApiHandler;
 use Concrete\Core\Application\Application;
 use Concrete\Core\Attribute\AttributeValueInterface;
 use Concrete\Core\Attribute\Category\SearchIndexer\StandardSearchIndexerInterface;
@@ -278,6 +279,13 @@ class LegacyCategory implements CategoryInterface, StandardSearchIndexerInterfac
         return $key;
     }
 
-
-
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Attribute\Category\CategoryInterface::getApiHandler()
+     */
+    public function getApiHandler(): ApiHandler
+    {
+        return new ApiHandler($this);
+    }
 }

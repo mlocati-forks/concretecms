@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * The interface that any attribute category must implement.
+ *
+ * Every category of the core implements the method below, and a category of a package should too.
+ * Nothing breaks without it: the API just does with the keys of that category what it does by default.
+ *
+ * @method \Concrete\Core\Api\Attribute\Category\ApiHandler getApiHandler() Get what the API of this installation does with the keys of this category.
  */
 interface CategoryInterface
 {
