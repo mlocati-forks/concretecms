@@ -24,7 +24,9 @@ class AttributeTypeTransformer extends TransformerAbstract
         $model->name = (string) $type->getAttributeTypeDisplayName('text');
         $model->package = (string) $type->getPackageHandle();
         $model->categories = $this->getCategories($type);
-        $model->key_schema = AttributeApiHandler::forController($type->getController())->getApiKeySchema();
+        $handler = AttributeApiHandler::forController($type->getController());
+        $model->key_schema = $handler->getApiKeySchema();
+        $model->value_schema = $handler->getApiValueSchema();
 
         return $model->jsonSerialize();
     }
