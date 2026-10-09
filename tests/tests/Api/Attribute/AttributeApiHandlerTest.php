@@ -11,11 +11,13 @@ use Concrete\Attribute\DateTime\Controller as DateTimeController;
 use Concrete\Attribute\Express\Controller as ExpressController;
 use Concrete\Attribute\Number\Controller as NumberController;
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
+use Concrete\Core\Api\Model\AttributeKey as AttributeKeyModel;
 use Concrete\Core\Attribute\Controller as AttributeTypeController;
 use Concrete\Core\Attribute\DefaultController;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Value\Value\BooleanValue;
 use Concrete\Core\Entity\Attribute\Value\Value\NumberValue;
+use Concrete\TestHelpers\Api\SchemaFieldsTrait;
 use Concrete\Tests\TestCase;
 use Doctrine\ORM\EntityManager;
 
@@ -29,6 +31,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  */
 class AttributeApiHandlerTest extends TestCase
 {
+    use SchemaFieldsTrait;
+
     public function testATypeNeedingNothingOfItsOwnGetsTheDefaults(): void
     {
         static::assertSame(AttributeApiHandler::class, get_class($this->createHandler(NumberController::class)));
@@ -102,6 +106,15 @@ class AttributeApiHandlerTest extends TestCase
 
         static::assertInstanceOf(BooleanValue::class, $value);
         static::assertTrue($value->getValue());
+    }
+
+    public function testATypeCarryingNothingOfItsOwnIsDescribedByTheCommonModel(): void
+    {
+        $handler = $this->createHandler(NumberController::class);
+        $described = $handler->describeApiKey($this->createKey());
+
+        static::assertSame(AttributeKeyModel::class, get_class($described));
+        $this->assertFieldsAre('AttributeKey', $described->jsonSerialize());
     }
 
     /**
