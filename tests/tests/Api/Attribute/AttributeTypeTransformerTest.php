@@ -36,6 +36,7 @@ class AttributeTypeTransformerTest extends TestCase
             'package' => '',
             'categories' => ['collection', 'user'],
             'key_schema' => 'AttributeKey',
+            'value_schema' => '',
         ], $transformed);
     }
 
@@ -48,6 +49,17 @@ class AttributeTypeTransformerTest extends TestCase
         $transformed = $this->transform('select', 'Select', '', ['collection'], new SelectController($this->createMock(EntityManager::class)));
 
         static::assertSame('AttributeKeySelect', $transformed['key_schema']);
+    }
+
+    /**
+     * A value that carries more than a plain string is described by a schema of its own, and this is
+     * where a client learns which one.
+     */
+    public function testATypeNamesTheSchemaOfItsValues(): void
+    {
+        $transformed = $this->transform('select', 'Select', '', ['collection'], new SelectController($this->createMock(EntityManager::class)));
+
+        static::assertSame('AttributeValueSelect', $transformed['value_schema']);
     }
 
     public function testATypeOfAPackageNamesIt(): void

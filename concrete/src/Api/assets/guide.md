@@ -146,8 +146,14 @@ attributes of the users say where the site asks for them and where it shows them
 name of the schema that describes the attributes of that type, which is how a client reads those extra
 fields without knowing them beforehand. Leave alone the fields you don't know, since a package of this
 site brings the types it wants.
-What a value itself looks like is in the specification, among the `attributes` of the model being written:
-a date goes as text, a select as the IDs of its options, an Express attribute as the UUID of an entry.
+A type whose values are more than a plain string also names the schema of a value, so that what comes
+back can be read without guessing: a duration carries the number and the unit it counts in, while an
+attribute that names something of the site, a page or a file, carries it wrapped in a data property, the
+way an include does.
+What you write instead is in the specification, among the `attributes` of the model being written, and it
+is often shorter than what you read: a date goes as text, a select as the IDs of its options, an Express
+attribute as the UUID of an entry, and an attribute that names a user as the ID of that user, which a
+read hands over whole.
 
 ## Stacks
 

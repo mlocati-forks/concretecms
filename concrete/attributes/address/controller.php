@@ -545,7 +545,7 @@ class Controller extends AttributeTypeController implements
             $key->getAttributeKeyHandle(),
             $key->getAttributeKeyDisplayName(),
             new SpecPropertyRef(
-                '/components/schemas/AddressAttributeValue'
+                '/components/schemas/AttributeValueAddress'
             )
         );
     }

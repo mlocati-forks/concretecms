@@ -3,63 +3,18 @@
 namespace Concrete\Core\Api\Model;
 
 /**
+ * @deprecated
+ *
+ * @see \Concrete\Core\Api\Model\AttributeValue\Address
+ *
  * @OA\Schema(
- *     title="Address Attribute Value",
+ *     schema="AddressAttributeValue",
+ *     deprecated=true,
+ *     title="The address a value of an address attribute carries",
+ *     description="Deprecated: read AttributeValueAddress instead",
+ *     allOf={@OA\Schema(ref="#/components/schemas/AttributeValueAddress")}
  * )
  */
 class AddressAttributeValue
 {
-
-    /**
-     * @OA\Property(type="string", title="Address 1")
-     *
-     * @var string
-     */
-    private $address1;
-
-    /**
-     * @OA\Property(type="string", title="Address 2")
-     *
-     * @var string
-     */
-    private $address2;
-
-    /**
-     * @OA\Property(type="string", title="Address 3")
-     *
-     * @var string
-     */
-    private $address3;
-
-    /**
-     * @OA\Property(type="string", title="City")
-     *
-     * @var string
-     */
-    private $city;
-
-    /**
-     * @OA\Property(type="string", title="State/Province Code")
-     *
-     * @var string
-     */
-    private $state_province;
-
-    /**
-     * @OA\Property(type="string", title="Country Code", description="An ISO 3166-1 alpha-2 code", pattern="^([A-Z]{2})?$")
-     *
-     * @var string
-     */
-    private $country;
-
-    /**
-     * @OA\Property(type="string", title="Postal Code")
-     *
-     * @var string
-     */
-    private $postal_code;
-
-
-
-
 }
