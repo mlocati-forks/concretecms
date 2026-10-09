@@ -18,3 +18,6 @@ $router->get('/attribute_categories/{categoryHandle}/keys', '\Concrete\Core\Api\
     ->setScopes('definitions:read')
 ;
 
+$router->get('/attribute_types', '\Concrete\Core\Api\Controller\AttributeTypes::listAttributeTypes')
+    ->setScopes('definitions:read')
+;
