@@ -2,6 +2,11 @@
 
 namespace Concrete\Core\Api\Attribute;
 
+/**
+ * @deprecated an attribute type reads a value received by the API through its API handler
+ *
+ * @see \Concrete\Core\Api\Attribute\AttributeApiHandler
+ */
 interface SupportsAttributeValueFromJsonInterface
 {
 

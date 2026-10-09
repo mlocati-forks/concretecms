@@ -1,6 +1,7 @@
 <?php
 namespace Concrete\Core\Attribute;
 
+use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Attribute\Form\Control\View\View as ControlView;
 use Concrete\Core\Attribute\Value\EmptyRequestAttributeValue;
 use Concrete\Core\Attribute\View as AttributeTypeView;
@@ -54,6 +55,13 @@ class Controller extends AbstractController implements AttributeInterface
     protected $requestArray = false;
 
     /**
+     * What the API knows about the values of this attribute type, built by getApiHandler().
+     *
+     * @var \Concrete\Core\Api\Attribute\AttributeApiHandler|null
+     */
+    private $apiHandler;
+
+    /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
@@ -67,6 +75,39 @@ class Controller extends AbstractController implements AttributeInterface
     {
         unset($this->attributeKey);
         unset($this->attributeValue);
+    }
+
+    /**
+     * Get what the API knows about the values of this attribute type. It's built just once: an
+     * attribute type that needs more than the defaults comes with an Api class beside this one.
+     */
+    final public function getApiHandler(): AttributeApiHandler
+    {
+        if ($this->apiHandler === null) {
+            $this->apiHandler = $this->createApiHandler();
+        }
+
+        return $this->apiHandler;
+    }
+
+    /**
+     * Build what the API knows about the values of this attribute type: it's the Api class sitting
+     * beside this controller, or the one of the core answering with the defaults.
+     */
+    protected function createApiHandler(): AttributeApiHandler
+    {
+        $classes = [(string) preg_replace('/Controller$/', 'Api', get_class($this))];
+        $type = $this->getAttributeType();
+        if ($type !== null) {
+            $classes[] = 'Concrete\\Attribute\\' . camelcase((string) $type->getAttributeTypeHandle()) . '\\Api';
+        }
+        foreach ($classes as $class) {
+            if (is_subclass_of($class, AttributeApiHandler::class)) {
+                return new $class($this);
+            }
+        }
+
+        return new AttributeApiHandler($this);
     }
 
     /**
