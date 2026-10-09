@@ -66,7 +66,7 @@ class AttributeType implements \JsonSerializable
     /**
      * @OA\Property(
      *     title="Name of the schema a value of this type is read with",
-     *     description="Empty where a value is read as a plain string, number or boolean, and where its shape follows the key, as an Express one does. What a write takes is declared key by key in the request schemas, and is often shorter: a user_selector is read as the user and written as its ID"
+     *     description="Empty where a value is read as a plain string, number or boolean, and where its shape follows the key, as an Express one does. What a write takes is declared key by key in the request schemas, and is often shorter: a user_selector is read as the user and written as its ID; an object that carries one is taken as that ID, so what a read handed over goes back as it came"
      * )
      *
      * @var string

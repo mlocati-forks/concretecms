@@ -19,4 +19,16 @@ class Api extends AttributeApiHandler
     {
         return 'AttributeValueSocialLinks';
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * A value carries the links themselves, which a read hands over wrapped in a data property.
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::createApiValue()
+     */
+    public function createApiValue($value)
+    {
+        return parent::createApiValue(self::unwrapApiData($value));
+    }
 }

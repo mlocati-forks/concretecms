@@ -78,15 +78,16 @@ class Api extends AttributeApiHandler
      *
      * A value names the options it picks by ID, and one the key hasn't got by the text of it: a key
      * that allows a value of its own keeps it among its options, the way the form of the site does,
-     * while a key that doesn't ignores it.
+     * while a key that doesn't ignores it. What a read handed over goes as well.
      *
      * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::createApiValue()
      */
-    public function createApiValue($json)
+    public function createApiValue($value)
     {
         $options = [];
-        foreach ((array) $json as $item) {
-            $option = $this->findOption($item);
+        foreach ((array) self::unwrapApiData($value) as $item) {
+            $item = self::extractApiIdentifier($item, 'id');
+            $option = $item === false ? null : $this->findOption($item);
             if ($option !== null) {
                 $options[] = $option;
             }
