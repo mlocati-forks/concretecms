@@ -128,20 +128,55 @@ class AttributeApiHandler
     /**
      * Turn a value received by the API into the value of an attribute.
      *
-     * @param mixed $json a scalar, or the array of a more complex request body object
+     * @param mixed $value a scalar, or the array of a more complex request body object
      *
      * @return mixed the value to save, falsy where the request names none
      */
-    public function createApiValue($json)
+    public function createApiValue($value)
     {
         if ($this->controller instanceof SupportsAttributeValueFromJsonInterface) {
-            return $this->controller->createAttributeValueFromNormalizedJson($json);
+            return $this->controller->createAttributeValueFromNormalizedJson($value);
         }
-        if ($this->controller instanceof DefaultController || is_scalar($json)) {
-            return $this->controller->createAttributeValue((string) $json);
+        if ($this->controller instanceof DefaultController || is_scalar($value)) {
+            return $this->controller->createAttributeValue((string) $value);
         }
 
         // nothing is known about the values of this type, and a cast would hand it the word "Array"
-        return $this->controller->createAttributeValue($json);
+        return $this->controller->createAttributeValue($value);
+    }
+
+    /**
+     * Take the data property a read wraps a value in off what the request carries, where it is there:
+     * every resource of this API comes in one, so a value read from it goes back as it came.
+     *
+     * @param mixed $value what the request carries
+     *
+     * @return mixed what it carries inside the wrapper, or as it came
+     */
+    protected static function unwrapApiData($value)
+    {
+        return is_array($value) && array_keys($value) === ['data'] ? $value['data'] : $value;
+    }
+
+    /**
+     * Get what a value of the request names something of the site by: a write names it by its ID,
+     * while a read hands the whole thing over instead, with that ID among its fields. What an ID of
+     * that kind looks like is up to the type, which is the one asking for this and the one handing it
+     * to its controller.
+     *
+     * @param mixed $value what the request carries for one thing
+     * @param string $field the field a read of that thing names it by
+     *
+     * @return mixed the ID, as the request writes it, or FALSE where the request carries nothing of
+     *               the kind: NULL is an answer of its own, the request naming no thing at all
+     */
+    protected static function extractApiIdentifier($value, string $field)
+    {
+        $value = self::unwrapApiData($value);
+        if (!is_array($value)) {
+            return $value;
+        }
+
+        return array_key_exists($field, $value) ? $value[$field] : false;
     }
 }

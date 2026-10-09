@@ -10,7 +10,9 @@ use Concrete\Attribute\CalendarEvent\Controller as CalendarEventController;
 use Concrete\Attribute\DateTime\Controller as DateTimeController;
 use Concrete\Attribute\Express\Controller as ExpressController;
 use Concrete\Attribute\Number\Controller as NumberController;
+use Concrete\Attribute\Address\Controller as AddressController;
 use Concrete\Attribute\Select\Api as SelectApi;
+use Concrete\Attribute\UserSelector\Controller as UserSelectorController;
 use Concrete\Attribute\Select\Controller as SelectController;
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\Model\AttributeKey as AttributeKeyModel;
@@ -154,6 +156,66 @@ class AttributeApiHandlerTest extends TestCase
      *
      * @return array<string,mixed> what the specification says about a value of a key of that type
      */
+    /**
+     * @return array<string,array> the ways a request may name the user of a value, and the user it
+     *                             names, NULL for none
+     */
+    public static function provideTheWaysAUserIsNamed(): array
+    {
+        return [
+            'the ID' => [5, 5],
+            'the ID as text' => ['5', 5],
+            'no user at all' => [null, null],
+            'the ID in the wrapper of a read' => [['data' => 5], 5],
+            'the ID as text in the wrapper' => [['data' => '5'], 5],
+            'no user at all in the wrapper' => [['data' => null], null],
+            'the user a read hands over' => [['data' => ['id' => 5, 'username' => 'admin']], 5],
+            'the user with its ID as text' => [['data' => ['id' => '5']], 5],
+            'a user of none in the wrapper' => [['data' => ['id' => null]], null],
+            'the user out of its wrapper' => [['id' => 5], 5],
+        ];
+    }
+
+    /**
+     * A write names the user by ID, while a read hands the user over whole and wrapped in a data
+     * property: the type takes the ID out of either, so what was read goes back as it came, and a
+     * value that names no user empties the attribute.
+     *
+     * @dataProvider provideTheWaysAUserIsNamed
+     *
+     * @param mixed $written what the request carries
+     * @param int|null $expected the user the value ends up naming
+     */
+    public function testAUserIsNamedHoweverTheRequestWritesIt($written, ?int $expected): void
+    {
+        $value = $this->createHandler(UserSelectorController::class)->createApiValue($written);
+
+        static::assertInstanceOf(NumberValue::class, $value);
+        static::assertSame($expected, $value->getValue() === null ? null : (int) $value->getValue());
+    }
+
+    /**
+     * What names the thing a value refers to is up to the type, so a value made of fields of its own
+     * reaches its type as it came, whatever those fields are called.
+     */
+    public function testTheFieldsOfAValueReachTheTypeAsTheyCame(): void
+    {
+        $written = null;
+        $controller = $this->createMock(AddressController::class);
+        $controller->method('createAttributeValueFromNormalizedJson')->willReturnCallback(
+            static function ($json) use (&$written) {
+                $written = $json;
+
+                return null;
+            }
+        );
+        $address = ['id' => 7, 'address1' => 'Via Vai, 0', 'city' => 'Milan', 'data' => 'whatever'];
+
+        (new AttributeApiHandler($controller))->createApiValue($address);
+
+        static::assertSame($address, $written);
+    }
+
     private function describeValue(string $class): array
     {
         return $this->createHandler($class)->getApiSpecProperty($this->createKey())->jsonSerialize();

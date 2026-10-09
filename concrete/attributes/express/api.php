@@ -57,4 +57,26 @@ class Api extends AttributeApiHandler
             'uuid'
         );
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * A value names the entry by its public identifier, which is what a read of it hands over among
+     * the fields of the entry, in a list of its own: the type keeps one entry, the way the form of
+     * the site writes it.
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::createApiValue()
+     */
+    public function createApiValue($value)
+    {
+        $value = self::unwrapApiData($value);
+        if (is_array($value) && !isset($value['id'])) {
+            $value = reset($value);
+        }
+
+        $identifier = self::extractApiIdentifier($value, 'id');
+
+        // a request that names nothing of the kind leaves the attribute as it was
+        return $identifier === false ? null : parent::createApiValue($identifier);
+    }
 }

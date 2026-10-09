@@ -54,6 +54,19 @@ class DurationValueTest extends TestCase
     }
 
     /**
+     * A read hands the number over along with the unit, and that is what a write takes back.
+     */
+    public function testTheDurationGoesBackAsAReadHandedItOver(): void
+    {
+        $read = $this->read(2, 'hours');
+
+        $written = $this->createHandler('hours')->createApiValue($read);
+
+        static::assertInstanceOf(DurationValue::class, $written);
+        static::assertSame(2, (int) $written->getValue());
+    }
+
+    /**
      * @param int $number the duration the attribute keeps, in the unit of its key
      * @param string $unit the unit the key names, empty where it names none
      *

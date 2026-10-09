@@ -67,6 +67,20 @@ class SelectValueTest extends ConcreteDatabaseTestCase
         static::assertSame(['Green'], $this->getValues($handler->createApiValue(['Green'])));
     }
 
+    /**
+     * A read hands the options over wrapped in a data property, each with its ID and its text, and
+     * that is what a write takes back.
+     */
+    public function testTheOptionsGoBackAsAReadHandedThemOver(): void
+    {
+        $handler = $this->createHandler(true, false);
+        $id = (int) $this->getOption('Green')->getSelectAttributeOptionID();
+
+        $value = $handler->createApiValue(['data' => [['id' => $id, 'value' => 'Green', 'display_value' => 'Green']]]);
+
+        static::assertSame(['Green'], $this->getValues($value));
+    }
+
     public function testAKeyThatAllowsAValueOfItsOwnGainsIt(): void
     {
         $handler = $this->createHandler(true, true);
