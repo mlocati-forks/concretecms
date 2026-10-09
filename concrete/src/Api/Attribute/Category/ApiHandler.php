@@ -106,6 +106,17 @@ class ApiHandler
     }
 
     /**
+     * Get the fields this category adds to what a client reads of one of its keys, which the type of
+     * the key doesn't settle: they are named after the category, and they never replace its fields.
+     *
+     * @return array<string,mixed>
+     */
+    public function getApiKeyFields(Key $key): array
+    {
+        return [];
+    }
+
+    /**
      * Get the row that defines the category, which the handle, the package and the keys come from.
      *
      * @return \Concrete\Core\Entity\Attribute\Category|null NULL for a category that answers for no

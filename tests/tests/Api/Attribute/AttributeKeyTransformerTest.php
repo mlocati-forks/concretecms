@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Concrete\Tests\Api\Attribute;
 
+use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\Fractal\Transformer\AttributeKeyTransformer;
+use Concrete\Core\Api\Model\AttributeKey as AttributeKeyModel;
+use Concrete\Core\Api\Attribute\Category\ApiHandler;
+use Concrete\Core\Attribute\Category\PageCategory;
 use Concrete\Core\Attribute\Controller as AttributeTypeController;
+use Concrete\Core\Entity\Attribute\Category;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Type;
 use Concrete\TestHelpers\Api\SchemaFieldsTrait;
@@ -37,6 +42,23 @@ class AttributeKeyTransformerTest extends TestCase
     }
 
     /**
+     * Only the types whose value is picked out of a fixed set have options to hand over, and the
+     * handler of the type is the one that knows them.
+     */
+    public function testTheKeyIsDescribedByTheHandlerOfItsType(): void
+    {
+        $described = new AttributeKeyModel\Select();
+        $described->id = 30;
+        $described->handle = 'header_color';
+        $described->name = 'Header Color';
+        $described->type = 'select';
+        $described->options = [['id' => 18, 'value' => 'Red', 'display_value' => 'Rosso']];
+        $key = $this->createKey(30, 'header_color', 'Header Color', 'select', $this->createControllerDescribing($described));
+
+        static::assertAnswerIs($described->jsonSerialize(), $this->transform($key));
+    }
+
+    /**
      * A key whose type left with the package that brought it has no controller to ask.
      */
     public function testAKeyOfNoTypeNamesNone(): void
@@ -45,6 +67,25 @@ class AttributeKeyTransformerTest extends TestCase
 
         static::assertSame('', $transformed['type']);
         static::assertArrayNotHasKey('options', $transformed);
+    }
+
+    /**
+     * Where the site asks for an attribute belongs to the category of the key, so the category adds
+     * it to what the type of the key describes.
+     */
+    public function testTheCategoryOfTheKeyAddsWhatItKnows(): void
+    {
+        $key = $this->createKey(67, 'boxed', 'Boxed', 'boolean');
+        $key->method('getAttributeCategoryEntity')->willReturn($this->createCategoryAdding(['user' => ['required_on_register' => true]]));
+
+        static::assertSame(['required_on_register' => true], $this->transform($key)['user']);
+    }
+
+    public function testAKeyOfACategoryThatAddsNothingHandsOverNoSuchField(): void
+    {
+        $transformed = $this->transform($this->createKey(67, 'boxed', 'Boxed', 'boolean'));
+
+        static::assertArrayNotHasKey('user', $transformed);
     }
 
     public function testTheFieldsAreTheOnesTheSpecificationDescribes(): void
@@ -81,5 +122,52 @@ class AttributeKeyTransformerTest extends TestCase
         $key->method('getController')->willReturn($controller ?? new AttributeTypeController($this->createMock(EntityManager::class)));
 
         return $key;
+    }
+
+    /**
+     * @param array<string,mixed> $added what the category adds to the model of one of its keys
+     *
+     * @return \Concrete\Core\Entity\Attribute\Category&\PHPUnit\Framework\MockObject\MockObject
+     */
+    private function createCategoryAdding(array $added): Category
+    {
+        $handler = $this->createMock(ApiHandler::class);
+        $handler->method('getApiKeyFields')->willReturn($added);
+        $controller = $this->createMock(PageCategory::class);
+        $controller->method('getApiHandler')->willReturn($handler);
+        $category = $this->createMock(Category::class);
+        $category->method('getController')->willReturn($controller);
+
+        return $category;
+    }
+
+    /**
+     * @return \Concrete\Core\Attribute\Controller a controller whose handler describes a key that way
+     */
+    private function createControllerDescribing(AttributeKeyModel $described): AttributeTypeController
+    {
+        $handler = $this->createMock(AttributeApiHandler::class);
+        $handler->method('describeApiKey')->willReturn($described);
+
+        // getApiHandler() is final, and what it answers with comes from createApiHandler()
+        $controller = new class ($this->createMock(EntityManager::class)) extends AttributeTypeController {
+            /**
+             * @var \Concrete\Core\Api\Attribute\AttributeApiHandler|null
+             */
+            public $handler;
+
+            /**
+             * {@inheritdoc}
+             *
+             * @see \Concrete\Core\Attribute\Controller::createApiHandler()
+             */
+            protected function createApiHandler(): AttributeApiHandler
+            {
+                return $this->handler;
+            }
+        };
+        $controller->handler = $handler;
+
+        return $controller;
     }
 }

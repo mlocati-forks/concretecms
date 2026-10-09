@@ -46,7 +46,7 @@ class AddressAttributeValue
     private $state_province;
 
     /**
-     * @OA\Property(type="string", title="Country Code")
+     * @OA\Property(type="string", title="Country Code", description="An ISO 3166-1 alpha-2 code", pattern="^([A-Z]{2})?$")
      *
      * @var string
      */

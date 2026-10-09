@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Concrete\Core\Api\Fractal\Transformer;
 
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
+use Concrete\Core\Api\Attribute\Category\ApiHandler;
 use Concrete\Core\Api\Model\AttributeKey as AttributeKeyModel;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use League\Fractal\TransformerAbstract;
@@ -18,7 +19,8 @@ class AttributeKeyTransformer extends TransformerAbstract
      */
     public function transform(Key $key): array
     {
-        return $this->describe($key)->jsonSerialize();
+        // the fields of the type win: a category adds to what the type says, it doesn't rewrite it
+        return $this->describe($key)->jsonSerialize() + $this->getFieldsOfTheCategory($key);
     }
 
     protected function describe(Key $key): AttributeKeyModel
@@ -36,4 +38,18 @@ class AttributeKeyTransformer extends TransformerAbstract
         return $model;
     }
 
+    /**
+     * Get what the category of the key adds to what its type says.
+     *
+     * @return array<string,mixed>
+     */
+    protected function getFieldsOfTheCategory(Key $key): array
+    {
+        $category = $key->getAttributeCategoryEntity();
+        if ($category === null) {
+            return [];
+        }
+
+        return ApiHandler::forCategory($category->getController())->getApiKeyFields($key);
+    }
 }
