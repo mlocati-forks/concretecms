@@ -2,6 +2,7 @@
 
 namespace Concrete\Core\Attribute\Category;
 
+use Concrete\Core\Api\Attribute\Category\ApiHandler;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Key\PageKey;
 
@@ -129,5 +130,15 @@ class PageCategory extends AbstractStandardCategory
         ];
 
         return $this->getAttributeValueEntity($cacheKey, $parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Attribute\Category\CategoryInterface::getApiHandler()
+     */
+    public function getApiHandler(): ApiHandler
+    {
+        return new ApiHandler\Page($this);
     }
 }

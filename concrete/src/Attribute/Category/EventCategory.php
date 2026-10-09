@@ -2,6 +2,7 @@
 
 namespace Concrete\Core\Attribute\Category;
 
+use Concrete\Core\Api\Attribute\Category\ApiHandler;
 use Concrete\Core\Entity\Attribute\Key\EventKey;
 use Concrete\Core\Entity\Attribute\Key\Key;
 
@@ -67,5 +68,15 @@ class EventCategory extends AbstractStandardCategory
         ];
 
         return $this->getAttributeValueEntity($cacheKey, $parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Attribute\Category\CategoryInterface::getApiHandler()
+     */
+    public function getApiHandler(): ApiHandler
+    {
+        return new ApiHandler\Event($this);
     }
 }

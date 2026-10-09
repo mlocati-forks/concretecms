@@ -50,5 +50,6 @@ class ApiRouteList implements RouteListInterface
         $api->routes('api/thumbnail_types.php');
         $api->routes('api/topic_trees.php');
         $api->routes('api/express.php');
+        $api->routes('api/attributes.php');
     }
 }
