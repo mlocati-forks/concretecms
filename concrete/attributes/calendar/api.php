@@ -16,6 +16,16 @@ class Api extends AttributeApiHandler
     /**
      * {@inheritdoc}
      *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiValueSchema()
+     */
+    public function getApiValueSchema(): string
+    {
+        return 'AttributeValueCalendar';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiSpecProperty()
      */
     public function getApiSpecProperty(Key $key): SpecProperty

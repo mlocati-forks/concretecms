@@ -26,6 +26,16 @@ class Api extends AttributeApiHandler
     /**
      * {@inheritdoc}
      *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiValueSchema()
+     */
+    public function getApiValueSchema(): string
+    {
+        return 'AttributeValueAddress';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::describeApiKey()
      */
     public function describeApiKey(Key $key): AttributeKeyModel
