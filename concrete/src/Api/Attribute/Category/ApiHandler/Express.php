@@ -9,6 +9,8 @@ use Concrete\Core\Api\Attribute\Category\ApiHandler;
 use Concrete\Core\Api\Express\EntityAccess;
 use Concrete\Core\Api\Model\AttributeCategory as AttributeCategoryModel;
 use Concrete\Core\Attribute\Category\ExpressCategory;
+use Concrete\Core\Entity\Attribute\Key\ExpressKey;
+use Doctrine\ORM\EntityManagerInterface;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -22,9 +24,9 @@ class Express extends ApiHandler
      */
     private $entityAccess;
 
-    public function __construct(ExpressCategory $category, ?EntityAccess $entityAccess = null)
+    public function __construct(ExpressCategory $category, ?EntityAccess $entityAccess = null, ?EntityManagerInterface $entityManager = null)
     {
-        parent::__construct($category);
+        parent::__construct($category, $entityManager);
         $this->entityAccess = $entityAccess ?? app(EntityAccess::class);
     }
 
@@ -41,6 +43,23 @@ class Express extends ApiHandler
         }
 
         return $categories;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * The keys of a set belong to its entity, so they are looked for by entity and not by category.
+     *
+     * @param \Concrete\Core\Api\Attribute\Category\Express $category
+     *
+     * @see \Concrete\Core\Api\Attribute\Category\ApiHandler::getApiKeys()
+     */
+    public function getApiKeys(Category $category): array
+    {
+        return $this->entityManager->getRepository(ExpressKey::class)->findBy(
+            ['entity' => $category->getEntity(), 'akIsInternal' => false],
+            ['akHandle' => 'ASC']
+        );
     }
 
     /**

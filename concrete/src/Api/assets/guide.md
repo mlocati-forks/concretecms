@@ -126,6 +126,21 @@ A layout can also be made out of a ready-made one, and `GET /layout_presets` lis
 `theme` is empty were defined in this installation and fit any page, while the others only fit the pages
 shown with the theme they name.
 
+## Attributes
+
+Some of the objects this API serves carry attributes, and which ones they carry is up to this
+installation, since whoever builds a site adds the attributes it needs: a client asks for them instead
+of knowing them.
+`GET /attribute_categories` answers with the kinds of object that carry attributes: pages, files and
+users among them, and the entries of an Express entity, one kind per entity, because the attributes of
+an entry belong to its own entity alone. Each of them says in words what it holds, and the handle it
+goes by is what the next endpoint takes.
+`GET /attribute_categories/{category}/keys` answers with the attributes available for one of those
+kinds, each with the handle a value is written under and the type that settles what the value looks
+like.
+What a value itself looks like is in the specification, among the `attributes` of the model being written:
+a date goes as text, a select as the IDs of its options, an Express attribute as the UUID of an entry.
+
 ## Stacks
 
 A stack is a set of blocks that a page shows wherever a `core_stack_display` block puts it, and

@@ -51,9 +51,12 @@ class ApiRouteListTest extends TestCase
         static::assertContains('/ccm/api/1.0/express_entities/{entityID}', $paths);
     }
 
-    public function testTheAttributeCategoriesRouteIsRegistered(): void
+    public function testTheAttributeRoutesAreRegistered(): void
     {
-        static::assertContains('/ccm/api/1.0/attribute_categories', $this->getPaths());
+        $paths = $this->getPaths();
+
+        static::assertContains('/ccm/api/1.0/attribute_categories', $paths);
+        static::assertContains('/ccm/api/1.0/attribute_categories/{category}/keys', $paths);
     }
 
     public function testTheLayoutPresetsRouteIsRegistered(): void

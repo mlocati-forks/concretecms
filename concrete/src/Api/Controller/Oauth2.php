@@ -13,7 +13,7 @@ namespace Concrete\Core\Api\Controller;
  *         scopes={
  *             "system:info:read": "Read system information",
  *             "system:openapi:read": "Read the specification of the API",
- *             "definitions:read": "View what this installation offers: block types, page types, page templates, page themes, layout presets, containers, thumbnail types, topics, RSS feeds, Express entities, attribute categories and the guide of this API",
+ *             "definitions:read": "View what this installation offers: block types, page types, page templates, page themes, layout presets, containers, thumbnail types, topics, RSS feeds, Express entities, attribute categories and their keys, and the guide of this API",
  *             "stacks:read": "View the stacks of the site",
  *             "sites:read": "Read sites",
  *         }
@@ -50,7 +50,7 @@ namespace Concrete\Core\Api\Controller;
  *             "pages:versions:add": "Create editable page version drafts",
  *             "pages:versions:update": "Update page versions",
  *             "pages:versions:delete": "Delete page versions",
- *             "definitions:read": "View what this installation offers: block types, page types, page templates, page themes, layout presets, containers, thumbnail types, topics, RSS feeds, Express entities, attribute categories and the guide of this API",
+ *             "definitions:read": "View what this installation offers: block types, page types, page templates, page themes, layout presets, containers, thumbnail types, topics, RSS feeds, Express entities, attribute categories and their keys, and the guide of this API",
  *             "stacks:read": "View the stacks of the site",
  *             "blocks:read": "View site blocks",
  *             "blocks:update": "Update blocks",
