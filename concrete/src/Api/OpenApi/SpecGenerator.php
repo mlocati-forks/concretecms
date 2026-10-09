@@ -2,7 +2,7 @@
 
 namespace Concrete\Core\Api\OpenApi;
 
-use Concrete\Core\Api\Attribute\OpenApiSpecifiableInterface;
+use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\Events\GenerateApiSpecEvent;
 use Concrete\Core\Api\OpenApi\Factory\ExpressEntitySpecFactory;
 use Concrete\Core\Application\ApplicationAwareInterface;
@@ -85,17 +85,8 @@ class SpecGenerator implements ApplicationAwareInterface
                 }
 
                 foreach ($attributesToAdd as $attribute) {
-                    $controller = $attribute->getController();
-                    if ($controller instanceof OpenApiSpecifiableInterface) {
-                        $attributeProperty = $controller->getOpenApiSpecProperty($attribute);
-                    } else {
-                        $attributeProperty = new SpecProperty(
-                            $attribute->getAttributeKeyHandle(),
-                            $attribute->getAttributeKeyDisplayName(),
-                            'string'
-                        );
-                    }
-                    $propertiesProperty->addObjectProperty($attributeProperty);
+                    $handler = AttributeApiHandler::forController($attribute->getController());
+                    $propertiesProperty->addObjectProperty($handler->getApiSpecProperty($attribute));
                 }
                 $this->merger->mergeProperty($propertiesProperty, $schema);
             }
