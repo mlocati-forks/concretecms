@@ -120,7 +120,7 @@ class ExpressEntitySpecFactoryTest extends TestCase
         $includes = $this->getIncludes();
         $properties = $this->getSchemas()['TeamMember']['properties'];
 
-        static::assertSame(['author', 'role', 'deliverables', 'boss', 'reviewed'], $includes);
+        static::assertSame(['author', 'role', 'deliverables', 'boss', 'reviewed', 'guests'], $includes);
         foreach ($includes as $include) {
             static::assertArrayHasKey($include, $properties);
             static::assertSame(
@@ -154,6 +154,25 @@ class ExpressEntitySpecFactoryTest extends TestCase
         static::assertSame('uuid', $properties['boss']['format']);
         static::assertSame('array', $properties['deliverables']['type']);
         static::assertSame(['type' => 'string', 'format' => 'uuid'], $properties['deliverables']['items']);
+    }
+
+    /**
+     * The entries of an entity this API does not serve come along with the ones they are associated
+     * with, so they are described by the fields every entry has instead of a schema of their own,
+     * which the specification would not define.
+     */
+    public function testTheEntriesOfAnEntityThatIsNotServedAreDescribedByTheFieldsEveryEntryHas(): void
+    {
+        $properties = $this->getSchemas()['TeamMember']['properties'];
+
+        static::assertSame(
+            ['$ref' => '#/components/schemas/ExpressEntry'],
+            $properties['guests']['properties']['data']['items']
+        );
+        static::assertSame(
+            ['$ref' => '#/components/schemas/Manager'],
+            $properties['boss']['properties']['data']
+        );
     }
 
     /**
@@ -249,6 +268,7 @@ class ExpressEntitySpecFactoryTest extends TestCase
         $target->setHandle('project');
         $target->setPluralHandle('projects');
         $target->setName('Project');
+        $target->setIncludeInRestApi(true);
 
         $association = new OneToManyAssociation();
         $association->setTargetEntity($target);
@@ -258,6 +278,17 @@ class ExpressEntitySpecFactoryTest extends TestCase
         $manager->setHandle('manager');
         $manager->setPluralHandle('managers');
         $manager->setName('Manager');
+        $manager->setIncludeInRestApi(true);
+
+        // an entity the API does not serve, which a client reads only along with the entries of this one
+        $visitor = new Entity();
+        $visitor->setHandle('visitor');
+        $visitor->setPluralHandle('visitors');
+        $visitor->setName('Visitor');
+
+        $guests = new OneToManyAssociation();
+        $guests->setTargetEntity($visitor);
+        $guests->setTargetPropertyName('guests');
 
         $toOne = new ManyToOneAssociation();
         $toOne->setTargetEntity($manager);
@@ -279,7 +310,7 @@ class ExpressEntitySpecFactoryTest extends TestCase
         $entity->setPluralHandle('team_members');
         $entity->setName('Team Member');
         $entity->setAttributes(new ArrayCollection([$attribute]));
-        $entity->setAssociations(new ArrayCollection([$association, $toOne, $reviewed]));
+        $entity->setAssociations(new ArrayCollection([$association, $toOne, $reviewed, $guests]));
 
         return $entity;
     }
