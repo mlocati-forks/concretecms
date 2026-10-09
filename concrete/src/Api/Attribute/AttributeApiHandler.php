@@ -67,6 +67,17 @@ class AttributeApiHandler
     }
 
     /**
+     * Get the name of the schema that describes what a value of this type carries where it is read,
+     * which a write may take in a shorter form, the one the specification declares for the key.
+     *
+     * @return string empty where a value is read as a plain one, and where its shape follows the key
+     */
+    public function getApiValueSchema(): string
+    {
+        return '';
+    }
+
+    /**
      * Fill the fields that the key of every type has.
      */
     protected function fillApiKey(AttributeKeyModel $model, Key $key): void
