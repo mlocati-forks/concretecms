@@ -58,6 +58,15 @@ class AttributeApiHandler
     }
 
     /**
+     * Get the name of the schema that describes a key of this type, which a client reads to know
+     * what the keys of the type carry beyond the fields every key has.
+     */
+    public function getApiKeySchema(): string
+    {
+        return 'AttributeKey';
+    }
+
+    /**
      * Fill the fields that the key of every type has.
      */
     protected function fillApiKey(AttributeKeyModel $model, Key $key): void

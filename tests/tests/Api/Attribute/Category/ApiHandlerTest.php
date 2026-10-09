@@ -107,6 +107,13 @@ class ApiHandlerTest extends TestCase
         static::assertSame($keys, $handler->getApiKeys($handler->getApiCategories()[0]));
     }
 
+    public function testACategoryAddsNothingToWhatAClientReadsOfItsKeys(): void
+    {
+        $handler = new ApiHandler($this->createCategory('invoices'));
+
+        static::assertSame([], $handler->getApiKeyFields($this->createMock(Key::class)));
+    }
+
     /**
      * @return \Concrete\Core\Attribute\Category\CategoryInterface a category defined by that row
      */

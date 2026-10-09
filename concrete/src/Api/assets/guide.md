@@ -138,6 +138,10 @@ goes by is what the next endpoint takes.
 `GET /attribute_categories/{category}/keys` answers with the attributes available for one of those
 kinds, each with the handle a value is written under and the type that settles what the value looks
 like.
+Some types say more about their attributes: a select names the options to pick from and whether more
+than one of them goes, a topics attribute the tree its topics come from, an Express one the entity of
+its entries. The kind of object may add something of its own as well, as an object named after it: the
+attributes of the users say where the site asks for them and where it shows them.
 What a value itself looks like is in the specification, among the `attributes` of the model being written:
 a date goes as text, a select as the IDs of its options, an Express attribute as the UUID of an entry.
 

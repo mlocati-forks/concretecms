@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Concrete\Attribute\Select;
 
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
+use Concrete\Core\Api\Model\AttributeKey as AttributeKeyModel;
 use Concrete\Core\Api\OpenApi\SpecProperty;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Key\Settings\SelectSettings;
@@ -18,6 +19,33 @@ defined('C5_EXECUTE') or die('Access Denied.');
  */
 class Api extends AttributeApiHandler
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiKeySchema()
+     */
+    public function getApiKeySchema(): string
+    {
+        return 'AttributeKeySelect';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::describeApiKey()
+     */
+    public function describeApiKey(Key $key): AttributeKeyModel
+    {
+        $settings = $key->getAttributeKeySettings();
+        $model = new AttributeKeyModel\Select();
+        $this->fillApiKey($model, $key);
+        $model->options = $this->getOptions($key);
+        $model->allow_multiple_values = $settings instanceof SelectSettings ? (bool) $settings->getAllowMultipleValues() : false;
+        $model->allow_other_values = $settings instanceof SelectSettings ? (bool) $settings->getAllowOtherValues() : false;
+
+        return $model;
+    }
+
     /**
      * {@inheritdoc}
      *
@@ -123,6 +151,25 @@ class Api extends AttributeApiHandler
         $option->setSelectAttributeOptionValue($value);
 
         return $option;
+    }
+
+    /**
+     * Get the options a value of the key is picked out of.
+     *
+     * @return array<int,array<string,mixed>>
+     */
+    protected function getOptions(Key $key): array
+    {
+        $options = [];
+        foreach ($this->getOptionList($key) as $option) {
+            $model = new AttributeKeyModel\Select\Option();
+            $model->id = (int) $option->getSelectAttributeOptionID();
+            $model->value = (string) $option->getSelectAttributeOptionValue();
+            $model->display_value = (string) $option->getSelectAttributeOptionDisplayValue('string');
+            $options[] = $model->jsonSerialize();
+        }
+
+        return $options;
     }
 
     /**
