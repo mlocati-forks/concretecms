@@ -70,6 +70,21 @@ class Api extends AttributeApiHandler
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * A value is the number the key counts, which is what a read hands over along with the unit: the
+     * number alone goes, and so does what was read.
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::createApiValue()
+     */
+    public function createApiValue($value)
+    {
+        $number = is_array($value) && isset($value['value']) ? $value['value'] : $value;
+
+        return parent::createApiValue($number);
+    }
+
+    /**
      * Get the unit a value of the key counts in.
      *
      * @param \Concrete\Core\Entity\Attribute\Key\Key|null $key

@@ -19,4 +19,19 @@ class Api extends AttributeApiHandler
     {
         return 'AttributeValueUserSelector';
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * A value names the user by ID, which is what a read of it hands over among the fields of the user.
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::createApiValue()
+     */
+    public function createApiValue($value)
+    {
+        $id = self::extractApiIdentifier($value, 'id');
+
+        // a request that names nothing of the kind leaves the attribute as it was
+        return $id === false ? null : parent::createApiValue($id);
+    }
 }
