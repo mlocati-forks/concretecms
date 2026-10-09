@@ -1,6 +1,7 @@
 <?php
 namespace Concrete\Controller\SinglePage\Dashboard\System\Api;
 
+use Concrete\Core\Api\Command\SynchronizeScopesCommand;
 use Concrete\Core\Page\Controller\DashboardPageController;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 
@@ -54,7 +55,12 @@ class Settings extends DashboardPageController
                     $config->save($key, $enabled);
                 }
             }
-            
+
+            if ($enable_api && !$api_previously_enabled) {
+                // nothing built the scopes of the API while it was off, and its routes name them
+                $this->app->executeCommand(new SynchronizeScopesCommand());
+            }
+
             $this->flash('success', t("API Settings updated successfully."));
             return $this->redirect('/dashboard/system/api/settings');
         }
