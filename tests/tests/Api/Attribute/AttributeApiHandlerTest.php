@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace Concrete\Tests\Api\Attribute;
 
 use Concrete\Attribute\Boolean\Controller as BooleanController;
+use Concrete\Attribute\Calendar\Controller as CalendarController;
+use Concrete\Attribute\CalendarEvent\Controller as CalendarEventController;
+use Concrete\Attribute\DateTime\Controller as DateTimeController;
+use Concrete\Attribute\Express\Controller as ExpressController;
 use Concrete\Attribute\Number\Controller as NumberController;
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Attribute\Controller as AttributeTypeController;
 use Concrete\Core\Attribute\DefaultController;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Value\Value\BooleanValue;
+use Concrete\Core\Entity\Attribute\Value\Value\NumberValue;
 use Concrete\Tests\TestCase;
 use Doctrine\ORM\EntityManager;
 
@@ -39,6 +44,36 @@ class AttributeApiHandlerTest extends TestCase
     public function testATypeKeepingTextDeclaresAString(): void
     {
         static::assertSame('string', $this->describeValue(DefaultController::class)['type']);
+    }
+
+    public function testADateIsWrittenAsAString(): void
+    {
+        static::assertSame('string', $this->describeValue(DateTimeController::class)['type']);
+    }
+
+    public function testACalendarAndAnEventAreNamedByID(): void
+    {
+        static::assertSame('integer', $this->describeValue(CalendarController::class)['type']);
+        static::assertSame('integer', $this->describeValue(CalendarEventController::class)['type']);
+    }
+
+    /**
+     * Naming a calendar that isn't there leaves the attribute with no value, the way naming none does.
+     */
+    public function testNoCalendarIsAValueOfNone(): void
+    {
+        $value = $this->createHandler(CalendarController::class)->createApiValue(null);
+
+        static::assertInstanceOf(NumberValue::class, $value);
+        static::assertNull($value->getValue());
+    }
+
+    public function testAnExpressEntryIsNamedByItsPublicIdentifier(): void
+    {
+        $described = $this->describeValue(ExpressController::class);
+
+        static::assertSame('string', $described['type']);
+        static::assertSame('uuid', $described['format']);
     }
 
     /**
