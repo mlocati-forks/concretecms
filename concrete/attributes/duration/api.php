@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Concrete\Attribute\Duration;
 
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
+use Concrete\Core\Api\Model\AttributeKey as AttributeKeyModel;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Key\Settings\DurationSettings;
 use Concrete\Core\Entity\Attribute\Value\AbstractValue;
@@ -14,6 +15,30 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 class Api extends AttributeApiHandler
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiKeySchema()
+     */
+    public function getApiKeySchema(): string
+    {
+        return 'AttributeKeyDuration';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::describeApiKey()
+     */
+    public function describeApiKey(Key $key): AttributeKeyModel
+    {
+        $model = new AttributeKeyModel\Duration();
+        $this->fillApiKey($model, $key);
+        $model->unit = $this->getUnit($key);
+
+        return $model;
+    }
+
     /**
      * {@inheritdoc}
      *
