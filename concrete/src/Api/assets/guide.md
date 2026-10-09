@@ -154,6 +154,11 @@ What you write instead is in the specification, among the `attributes` of the mo
 is often shorter than what you read: a date goes as text, a select as the IDs of its options, an Express
 attribute as the UUID of an entry, and an attribute that names a user as the ID of that user, which a
 read hands over whole.
+A write wants the ID of the thing a value names, and takes as that ID any object carrying one, the
+wrapper a read puts around it included: so an attribute read from an object can be written again,
+changed or not, without being taken apart first. The attributes of an object are not written back the
+way they are read, though: a read hands them over as a list, each naming the key it belongs to, while
+a write takes an object whose properties are those keys.
 
 ## Stacks
 
