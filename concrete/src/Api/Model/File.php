@@ -84,7 +84,23 @@ class File
     private $size;
 
     /**
-     * @OA\Property(type="int", title="Folder ID")
+     * @OA\Property(
+     *     type="object",
+     *     title="Sets the file is in, where the includes parameter asks for them",
+     *     description="The ones this request may use, so a set somebody else keeps for themselves is left out",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/FileSet")
+     *     )
+     * )
+     *
+     * @var array
+     */
+    private $sets;
+
+    /**
+     * @OA\Property(type="integer", format="int64", title="Folder ID")
      *
      * @var int
      */

@@ -3,6 +3,7 @@ namespace Concrete\Core\Api\Fractal\Transformer;
 
 use Carbon\Carbon;
 use Concrete\Core\Entity\File\File as FileEntity;
+use Concrete\Core\Api\File\SetAccess;
 use Concrete\Core\Api\Resources;
 use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
@@ -12,6 +13,7 @@ class FileTransformer extends TransformerAbstract
 
     protected $availableIncludes = [
         'custom_attributes',
+        'sets',
     ];
 
     /**
@@ -49,6 +51,16 @@ class FileTransformer extends TransformerAbstract
     {
         $values = $file->getObjectAttributeCategory()->getAttributeValues($file);
         return new Collection($values, new AttributeValueTransformer(), Resources::RESOURCE_CUSTOM_ATTRIBUTES);
+    }
+
+    /**
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeSets(FileEntity $file)
+    {
+        $sets = app(SetAccess::class)->getSetsOf($file);
+
+        return new Collection($sets, new FileSetTransformer(), Resources::RESOURCE_FILE_SETS);
     }
 
 

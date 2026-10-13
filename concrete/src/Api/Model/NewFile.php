@@ -12,7 +12,7 @@ class NewFile
 {
 
     /**
-     * @OA\Property(type="int", title="Folder ID")
+     * @OA\Property(type="integer", format="int64", title="Folder ID")
      *
      * @var string
      */
