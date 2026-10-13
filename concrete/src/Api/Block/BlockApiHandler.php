@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Concrete\Core\Api\Block;
 
+use Concrete\Core\Api\ReferenceCatalog;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Block\BlockController;
-use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -19,13 +19,6 @@ defined('C5_EXECUTE') or die('Access Denied.');
 abstract class BlockApiHandler
 {
     /**
-     * How a field naming a file says which one, described to the clients of the API.
-     *
-     * @var string
-     */
-    private const FILE_FORMAT = 'Files are named by UUID, or by ID when the UUID is missing.';
-
-    /**
      * @var \Concrete\Core\Block\BlockController
      */
     protected $controller;
@@ -36,35 +29,12 @@ abstract class BlockApiHandler
     }
 
     /**
-     * @param string $reference one of the ReferenceKind::... constants
+     * @param string $reference one of the \Concrete\Core\Reference\ReferenceKind::... constants
      * @return string an empty string when the field holds no reference
      */
     protected function describeReference(string $reference): string
     {
-        switch ($reference) {
-            case ReferenceKind::CONTENT:
-                return implode("\n", [
-                    'HTML, where you can use:',
-                    '- {CCM:BASE_URL} for the URL of the site',
-                    '- {CCM:CID_<page ID>} for the URL of a page',
-                    '- {CCM:FID_<file>} for the URL of a file',
-                    '- {CCM:FID_DL_<file>} for the URL of a file, forcing its download',
-                    '- <concrete-picture fID="<file>" /> for displaying an image',
-                    self::FILE_FORMAT,
-                ]);
-            case ReferenceKind::FILE:
-                return self::FILE_FORMAT;
-            case ReferenceKind::FILE_FOLDER:
-                return 'A folder of files is named by its ID.';
-            case ReferenceKind::PAGE:
-                return 'A page is named by its ID.';
-            case ReferenceKind::PAGE_FEED:
-                return 'An RSS feed is named by its ID, and GET /page_feeds lists the feeds of this installation.';
-            case ReferenceKind::PAGE_TYPE:
-                return 'A page type is named by its ID.';
-        }
-
-        return '';
+        return app(ReferenceCatalog::class)->describe($reference);
     }
 
     /**

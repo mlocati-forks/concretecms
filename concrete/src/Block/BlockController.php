@@ -678,7 +678,7 @@ class BlockController extends \Concrete\Core\Controller\AbstractController
             // the export() method above marks a NULL with an attribute, since XML has no NULL
             return null;
         }
-        if ($reference === '') {
+        if (!ReferenceKind::isTranslatedInCif($reference)) {
             return $value;
         }
         $inspected = \Core::make('import/value_inspector')->inspect($value);

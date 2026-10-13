@@ -30,6 +30,15 @@ class ReferenceKindTest extends TestCase
         }
     }
 
+    public function testTheKindsOfReferenceACifFileTranslates(): void
+    {
+        static::assertTrue(ReferenceKind::isTranslatedInCif(ReferenceKind::PAGE));
+        static::assertTrue(ReferenceKind::isTranslatedInCif(ReferenceKind::CONTENT));
+        // the kinds that only tell the clients of the API what a field names
+        static::assertFalse(ReferenceKind::isTranslatedInCif(ReferenceKind::FILE_SET));
+        static::assertFalse(ReferenceKind::isTranslatedInCif(''));
+    }
+
     /**
      * @return string[] the value of every kind of reference
      */

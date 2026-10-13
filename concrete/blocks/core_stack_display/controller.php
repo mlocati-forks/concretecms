@@ -4,12 +4,14 @@ namespace Concrete\Block\CoreStackDisplay;
 
 use Concrete\Core\Block\Block;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Block\Traits\HasSubBlocksTrait;
 use Concrete\Core\Feature\UsesFeatureInterface;
 use Concrete\Core\Multilingual\Page\Section\Section;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Page\Stack\Stack;
 use Concrete\Core\Permission\Checker;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Statistics\UsageTracker\TrackableInterface;
 use Concrete\Core\Utility\Service\Xml;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,6 +74,18 @@ class Controller extends BlockController implements TrackableInterface, UsesFeat
     public function getBlockTypeName()
     {
         return t('Stack Display');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::STACK => ['stID'],
+        ]);
     }
 
     /**

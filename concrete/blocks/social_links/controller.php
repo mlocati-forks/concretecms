@@ -2,8 +2,10 @@
 namespace Concrete\Block\SocialLinks;
 
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Feature\Features;
 use Concrete\Core\Feature\UsesFeatureInterface;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Sharing\SocialNetwork\Link;
 use Database;
 use Core;
@@ -45,6 +47,18 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t("Social Links");
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::SOCIAL_LINK => ['slID'],
+        ]);
     }
 
     public function getRequiredFeatures(): array

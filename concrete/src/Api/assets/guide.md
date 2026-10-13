@@ -118,10 +118,14 @@ A block type that declares no schema of its own is marked `x-concrete-undescribe
 learn its fields is to read a block of that type.
 An area can also hand back a block whose type the list leaves out, one the core writes for itself: there is
 no value a client composes for it, and `GET /block_types/{handle}` answers 404 for its handle.
-A field of a value that names something of the site carries the ID of it, which the endpoint listing
-those things hands over: `GET /calendars` and `GET /calendars/{calendarID}/events` for the blocks that
-show a calendar or an event of one, `GET /file_sets` for the ones that file what is uploaded to them,
-and `GET /pages`, `GET /files` and `GET /topic_trees` for the ones naming a page, a file or a topic.
+A field of a value that names something of the site carries the ID of it, and the `x-concrete-reference`
+of the field says which kind of thing it names: `page`, `file`, `file-set`, `calendar-event` and so on.
+The description of such a field names the endpoint handing those things over, and tells when they
+travel as something else than a plain ID.
+The endpoints they name are the dictionaries of this API: `GET /calendars` and
+`GET /calendars/{calendarID}/events`, `GET /file_sets`, `GET /file_folders`, `GET /topic_trees`,
+`GET /thumbnail_types`, `GET /page_feeds`, `GET /boards` with the instances of each, and
+`GET /express_entities`. Read them to offer a choice instead of asking for an ID.
 
 To lay blocks side by side, add a block of the `core_area_layout` type: it holds columns of its own, and
 the value it gives back names the area of each of them, for the areas endpoints to fill.

@@ -56,6 +56,22 @@ final class ReferenceColumns
     }
 
     /**
+     * Get a copy of these columns with some more declared, which is how a block type adds to what
+     * its $btExport... properties say.
+     *
+     * @param array<string,string[]> $columns more declared columns, by the kind of reference they hold
+     */
+    public function with(array $columns): self
+    {
+        $merged = $this->columns;
+        foreach ($columns as $reference => $names) {
+            $merged[(string) $reference] = array_merge($merged[(string) $reference] ?? [], (array) $names);
+        }
+
+        return new self($merged);
+    }
+
+    /**
      * @return string[] the \Concrete\Core\Reference\ReferenceKind::... constants that have been declared
      */
     public function getReferences(): array
