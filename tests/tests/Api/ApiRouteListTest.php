@@ -28,6 +28,15 @@ class ApiRouteListTest extends TestCase
         static::assertContains('/ccm/api/1.0/file_sets/{fileSetID}', $paths);
     }
 
+    public function testTheBoardRoutesAreRegistered(): void
+    {
+        $paths = $this->getPaths();
+
+        static::assertContains('/ccm/api/1.0/boards', $paths);
+        static::assertContains('/ccm/api/1.0/boards/{boardID}', $paths);
+        static::assertContains('/ccm/api/1.0/boards/{boardID}/instances', $paths);
+    }
+
     public function testTheCalendarRoutesAreRegistered(): void
     {
         $paths = $this->getPaths();
