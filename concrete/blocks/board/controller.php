@@ -3,6 +3,7 @@
 namespace Concrete\Block\Board;
 
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Board\Command\CreateBoardInstanceCommand;
 use Concrete\Core\Board\Command\RegenerateBoardInstanceCommand;
 use Concrete\Core\Board\Instance\Renderer;
@@ -11,6 +12,7 @@ use Concrete\Core\Entity\Board\Instance;
 use Concrete\Core\Error\ErrorList\ErrorList;
 use Concrete\Core\Foundation\Serializer\JsonSerializer;
 use Concrete\Core\Permission\Checker;
+use Concrete\Core\Reference\ReferenceKind;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -72,6 +74,18 @@ class Controller extends BlockController
     public function getBlockTypeName()
     {
         return t('Board');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::BOARD_INSTANCE => ['boardInstanceID'],
+        ]);
     }
 
     /**

@@ -34,13 +34,6 @@ class Api extends DefaultBlockApiHandler
     ];
 
     /**
-     * Where a client reads what an entity offers, described to the clients of the API.
-     *
-     * @var string
-     */
-    private const ENTITY_FORMAT = 'GET /express_entities names the entities this API serves, each with its columns, filters, associations and forms.';
-
-    /**
      * {@inheritdoc}
      *
      * @see \Concrete\Core\Api\Block\DefaultBlockApiHandler::getApiValueSchema()
@@ -48,10 +41,6 @@ class Api extends DefaultBlockApiHandler
     public function getApiValueSchema(): array
     {
         $schema = parent::getApiValueSchema();
-        $schema['properties']['exEntityID']['description'] = implode("\n", array_filter([
-            (string) ($schema['properties']['exEntityID']['description'] ?? ''),
-            self::ENTITY_FORMAT,
-        ]));
         foreach (self::LIST_COLUMNS as $name) {
             $schema['properties'][$name] = [
                 'type' => 'array',
