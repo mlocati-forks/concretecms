@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Concrete\Core\Api\File;
 
+use Concrete\Core\Entity\File\File;
 use Concrete\Core\File\Set\Set;
 use Concrete\Core\File\Set\SetList;
 use Concrete\Core\User\User;
@@ -41,6 +42,28 @@ class SetAccess
         $list->filterByType(Set::TYPE_PUBLIC);
 
         return $list->get();
+    }
+
+    /**
+     * Get the sets a file is in, among the ones the request may use: a file starred by somebody else
+     * sits in a set of theirs, which is no business of this request.
+     *
+     * @return \Concrete\Core\File\Set\Set[]
+     */
+    public function getSetsOf(File $file): array
+    {
+        $usable = [];
+        foreach ($this->getSets() as $set) {
+            $usable[(int) $set->getFileSetID()] = true;
+        }
+        $sets = [];
+        foreach ($file->getFileSets() as $set) {
+            if (isset($usable[(int) $set->getFileSetID()])) {
+                $sets[] = $set;
+            }
+        }
+
+        return $sets;
     }
 
     /**

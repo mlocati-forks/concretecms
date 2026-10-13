@@ -60,7 +60,7 @@ class Files extends ApiController
      *         explode=false,
      *         @OA\Schema(
      *             type="array",
-     *             @OA\Items(type="string", enum={"custom_attributes"})
+     *             @OA\Items(type="string", enum={"custom_attributes", "sets"})
      *         )
      *     ),
      *     @OA\Response(
@@ -141,7 +141,7 @@ class Files extends ApiController
      *         explode=false,
      *         @OA\Schema(
      *             type="array",
-     *             @OA\Items(type="string", enum={"custom_attributes"})
+     *             @OA\Items(type="string", enum={"custom_attributes", "sets"})
      *         )
      *     ),
      *     @OA\Response(
