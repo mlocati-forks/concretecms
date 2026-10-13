@@ -4,6 +4,7 @@ namespace Concrete\Block\ExpressEntryDetail;
 
 use Concrete\Core\Attribute\Key\CollectionKey;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Entity\Express\Entity;
 use Concrete\Core\Entity\Express\Entry;
 use Concrete\Core\Entity\Express\Form;
@@ -16,6 +17,7 @@ use Concrete\Core\Feature\UsesFeatureInterface;
 use Concrete\Core\Form\Context\ContextFactory;
 use Concrete\Core\Html\Service\Seo;
 use Concrete\Core\Permission\Checker;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Support\Facade\Express;
 use Concrete\Core\Support\Facade\Facade;
 use Concrete\Core\Url\SeoCanonical;
@@ -66,6 +68,20 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t('Express Entry Detail');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::EXPRESS_ENTITY => ['exEntityID'],
+            ReferenceKind::EXPRESS_ENTRY => ['exSpecificEntryID'],
+            ReferenceKind::EXPRESS_FORM => ['exFormID'],
+        ]);
     }
 
     public function getBlockTypeInSetName()

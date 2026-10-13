@@ -5,9 +5,11 @@ namespace Concrete\Block\TopicList;
 use Concrete\Core\Backup\ContentExporter;
 use Concrete\Core\Backup\ContentImporter\ValueInspector\ValueInspectorInterface;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Feature\Features;
 use Concrete\Core\Feature\UsesFeatureInterface;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Support\Facade\Url;
 use Concrete\Core\Tree\Tree;
 use Concrete\Core\Tree\Type\Topic as TopicTree;
@@ -88,6 +90,18 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t('Topic List');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::TOPIC_TREE => ['topicTreeID'],
+        ]);
     }
 
     /**

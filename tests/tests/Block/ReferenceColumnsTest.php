@@ -46,6 +46,34 @@ class ReferenceColumnsTest extends TestCase
         static::assertSame(ReferenceKind::PAGE, $columns->getReference('cID'));
     }
 
+    public function testMoreColumnsAreDeclaredOnTopOfTheOnesAlreadyThere(): void
+    {
+        $columns = $this->createColumns()->with([
+            ReferenceKind::FILE => ['onstateID'],
+            ReferenceKind::FILE_SET => ['addFilesToSetID'],
+        ]);
+
+        static::assertSame(['fID', 'fOnstateID', 'onstateID'], $columns->getColumns(ReferenceKind::FILE));
+        static::assertSame(['addFilesToSetID'], $columns->getColumns(ReferenceKind::FILE_SET));
+        static::assertSame(ReferenceKind::PAGE, $columns->getReference('internalLinkCID'));
+    }
+
+    public function testDeclaringMoreColumnsLeavesTheOnesTheyCameFromAlone(): void
+    {
+        $columns = $this->createColumns();
+
+        $columns->with([ReferenceKind::FILE_SET => ['addFilesToSetID']]);
+
+        static::assertSame('', $columns->getReference('addFilesToSetID'));
+    }
+
+    public function testAColumnDeclaredAgainKeepsTheKindDeclaredBefore(): void
+    {
+        $columns = $this->createColumns()->with([ReferenceKind::FILE_SET => ['fID']]);
+
+        static::assertSame(ReferenceKind::FILE, $columns->getReference('fID'));
+    }
+
     public function testABlockTypeHoldingNoReference(): void
     {
         $columns = new ReferenceColumns([]);

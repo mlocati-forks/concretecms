@@ -4,6 +4,7 @@ namespace Concrete\Block\Calendar;
 
 use Concrete\Core\Attribute\Key\EventKey;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Calendar\Calendar;
 use Concrete\Core\Calendar\CalendarServiceProvider;
@@ -13,6 +14,7 @@ use Concrete\Core\Feature\Features;
 use Concrete\Core\Feature\UsesFeatureInterface;
 use Concrete\Core\Html\Object\HeadLink;
 use Concrete\Core\Permission\Checker;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Support\Facade\Url;
 use Concrete\Core\Tree\Node\Node as TreeNode;
 use Concrete\Core\Utility\Service\Xml;
@@ -125,6 +127,20 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t('Calendar');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::ATTRIBUTE_KEY => ['filterByTopicAttributeKeyID'],
+            ReferenceKind::CALENDAR => ['caID'],
+            ReferenceKind::TOPIC => ['filterByTopicID'],
+        ]);
     }
 
     /**
