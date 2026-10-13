@@ -12,7 +12,7 @@ class MoveFile
 {
     
     /**
-     * @OA\Property(type="int", title="Folder")
+     * @OA\Property(type="integer", format="int64", title="Folder")
      */
     private $folder;
     
