@@ -3,6 +3,7 @@
 namespace Concrete\Block\Image;
 
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Database\Connection\Connection;
 use Concrete\Core\Error\Error;
@@ -98,6 +99,18 @@ class Controller extends BlockController implements FileTrackableInterface, Uses
     public function getBlockTypeName()
     {
         return t('Image');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::THUMBNAIL_TYPE => ['ftTypeID'],
+        ]);
     }
 
     public function getBlockTypeDescription()

@@ -7,6 +7,7 @@ use Concrete\Core\Attribute\Category\ExpressCategory;
 use Concrete\Core\Attribute\Context\AttributeTypeSettingsContext;
 use Concrete\Core\Attribute\Type;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Entity\Attribute\Key\ExpressKey;
 use Concrete\Core\Entity\Express\Control\AttributeKeyControl;
 use Concrete\Core\Entity\Express\Control\Control;
@@ -34,6 +35,7 @@ use Concrete\Core\File\Set\Set;
 use Concrete\Core\Form\Context\ContextFactory;
 use Concrete\Core\Http\ResponseAssetGroup;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Routing\Redirect;
 use Concrete\Core\Support\Facade\Express;
 use Concrete\Core\Support\Facade\Url;
@@ -128,6 +130,20 @@ class Controller extends BlockController implements NotificationProviderInterfac
     public function getBlockTypeName()
     {
         return t('Form');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::EXPRESS_FORM => ['exFormID'],
+            ReferenceKind::EXPRESS_FORM_CONTROL => ['replyToEmailControlID'],
+            ReferenceKind::FILE_SET => ['addFilesToSet'],
+        ]);
     }
 
     public function getRequiredFeatures(): array

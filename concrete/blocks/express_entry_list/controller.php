@@ -4,6 +4,7 @@ namespace Concrete\Block\ExpressEntryList;
 use Concrete\Controller\Element\Search\Express\CustomizeResults;
 use Concrete\Controller\Element\Search\SearchFieldSelector;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Entity\Express\Association;
 use Concrete\Core\Entity\Express\Entity;
@@ -20,6 +21,7 @@ use Concrete\Core\Feature\Features;
 use Concrete\Core\Feature\UsesFeatureInterface;
 use Concrete\Core\Foundation\Serializer\SafeClassUnserializerTrait;
 use Concrete\Core\Localization\Localization;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Search\Column\AttributeKeyColumn;
 use Concrete\Core\Search\Column\Column as SearchColumn;
 use Concrete\Core\Search\Field\AttributeKeyField;
@@ -172,6 +174,18 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t("Express Entry List");
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::EXPRESS_ENTITY => ['exEntityID'],
+        ]);
     }
 
     public function getBlockTypeInSetName()
