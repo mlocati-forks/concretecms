@@ -4,12 +4,14 @@ namespace Concrete\Block\CoreConversation;
 
 use Concrete\Core\Attribute\Category\PageCategory;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Conversation\Conversation;
 use Concrete\Core\Conversation\Message\MessageList;
 use Concrete\Core\Entity\Attribute\Key\PageKey;
 use Concrete\Core\Feature\Features;
 use Concrete\Core\Feature\UsesFeatureInterface;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\User\UserInfo;
 use Concrete\Core\User\UserInfoRepository;
 use Concrete\Core\Utility\Service\Xml;
@@ -144,6 +146,18 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t('Conversation');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::ATTRIBUTE_KEY => ['reviewAggregateAttributeKey'],
+        ]);
     }
 
     /**

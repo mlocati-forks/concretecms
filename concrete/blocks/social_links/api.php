@@ -7,6 +7,7 @@ namespace Concrete\Block\SocialLinks;
 use Concrete\Core\Api\Block\BlockApiHandler;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Database\Connection\Connection;
+use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -37,7 +38,8 @@ class Api extends BlockApiHandler
                     'description' => 'The social links of the site displayed by the block, in the order they are displayed.',
                     'items' => [
                         'type' => 'integer',
-                        'description' => 'The ID of one of the social links of the site, as the social_links of a site answer give them.',
+                        'description' => 'One of the social links of the site.' . "\n" . $this->describeReference(ReferenceKind::SOCIAL_LINK),
+                        'x-concrete-reference' => ReferenceKind::SOCIAL_LINK,
                     ],
                 ],
             ],

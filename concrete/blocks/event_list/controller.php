@@ -5,12 +5,14 @@ use Concrete\Core\Attribute\Category\EventCategory;
 use Concrete\Core\Attribute\Key\CollectionKey;
 use Concrete\Core\Attribute\Key\EventKey;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Calendar\Calendar;
 use Concrete\Core\Calendar\Calendar\CalendarService;
 use Concrete\Core\Calendar\CalendarServiceProvider;
 use Concrete\Core\Calendar\Event\EventOccurrenceList;
 use Concrete\Core\Feature\Features;
 use Concrete\Core\Feature\UsesFeatureInterface;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Tree\Node\Node;
 use Concrete\Core\Utility\Service\Validation\Numbers;
 use Concrete\Core\Utility\Service\Xml;
@@ -110,6 +112,20 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t("Event List");
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::ATTRIBUTE_KEY => ['filterByTopicAttributeKeyID'],
+            ReferenceKind::CALENDAR => ['caID'],
+            ReferenceKind::TOPIC => ['filterByTopicID'],
+        ]);
     }
 
     public function add()

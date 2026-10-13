@@ -7,6 +7,7 @@ use Concrete\Attribute\Topics\Controller as TopicsController;
 use Concrete\Core\Attribute\Category\PageCategory;
 use Concrete\Core\Attribute\Key\CollectionKey;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Block\Controller\SaveMode;
 use Concrete\Core\Block\View\BlockView;
 use Concrete\Core\Feature\Features;
@@ -20,6 +21,7 @@ use Concrete\Core\Page\Search\ColumnSet\Column\DateLastModifiedColumn;
 use Concrete\Core\Page\Search\ColumnSet\Column\DatePublicColumn;
 use Concrete\Core\Page\Search\ColumnSet\Column\RandomColumn;
 use Concrete\Core\Page\Search\ColumnSet\Column\SitemapDisplayOrderColumn;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Search\Pagination\PaginationFactory;
 use Concrete\Core\Tree\Node\Node;
 use Concrete\Core\Tree\Node\Type\Topic;
@@ -258,6 +260,18 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t('Page List');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::TOPIC => ['customTopicTreeNodeID'],
+        ]);
     }
 
     public function action_preview_pane()

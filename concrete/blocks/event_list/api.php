@@ -6,6 +6,7 @@ namespace Concrete\Block\EventList;
 
 use Concrete\Core\Api\Block\DefaultBlockApiHandler;
 use Concrete\Core\Block\Block;
+use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -22,7 +23,10 @@ class Api extends DefaultBlockApiHandler
         $schema['properties']['caID'] = [
             'type' => 'array',
             'description' => $schema['properties']['caID']['description'] ?? '',
-            'items' => ['type' => 'integer'],
+            'items' => [
+                'type' => 'integer',
+                'x-concrete-reference' => ReferenceKind::CALENDAR,
+            ],
         ];
 
         return $schema;

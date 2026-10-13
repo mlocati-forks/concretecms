@@ -8,6 +8,7 @@ use Concrete\Block\Image\Api as ImageApi;
 use Concrete\Core\Api\Block\BlockApiHandler;
 use Concrete\Core\Api\Block\DefaultBlockApiHandler;
 use Concrete\Core\Block\BlockType\BlockType;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\TestHelpers\Database\ConcreteDatabaseTestCase;
 
 defined('C5_EXECUTE') or die('Access Denied.');
@@ -95,6 +96,58 @@ class DefaultBlockApiHandlerTest extends ConcreteDatabaseTestCase
         static::assertSame('file', $properties['fID']['x-concrete-reference']);
         static::assertSame('page', $properties['internalLinkCID']['x-concrete-reference']);
         static::assertArrayNotHasKey('x-concrete-reference', $properties['altText']);
+    }
+
+    /**
+     * @dataProvider provideColumnsNamingSomethingOfTheSite
+     */
+    public function testAColumnNamingSomethingOfTheSiteSaysWhatItNames(string $handle, string $column, string $reference, string $sentence): void
+    {
+        $described = $this->getHandler($handle)->getApiValueSchema()['properties'][$column];
+
+        static::assertSame($reference, $described['x-concrete-reference']);
+        static::assertStringContainsString($sentence, $described['description']);
+    }
+
+    /**
+     * @return array<array{string,string,string,string}>
+     */
+    public static function provideColumnsNamingSomethingOfTheSite(): array
+    {
+        return [
+            ['board', 'boardInstanceID', ReferenceKind::BOARD_INSTANCE, 'GET /boards/{boardID}/instances'],
+            ['calendar', 'caID', ReferenceKind::CALENDAR, 'GET /calendars'],
+            ['calendar', 'filterByTopicAttributeKeyID', ReferenceKind::ATTRIBUTE_KEY, 'GET /attribute_categories/{categoryHandle}/keys'],
+            ['calendar', 'filterByTopicID', ReferenceKind::TOPIC, 'GET /topic_trees'],
+            ['calendar_event', 'calendarID', ReferenceKind::CALENDAR, 'GET /calendars'],
+            ['calendar_event', 'eventID', ReferenceKind::CALENDAR_EVENT, 'GET /calendars/{calendarID}/events'],
+            ['core_conversation', 'reviewAggregateAttributeKey', ReferenceKind::ATTRIBUTE_KEY, 'GET /attribute_categories/{categoryHandle}/keys'],
+            ['core_stack_display', 'stID', ReferenceKind::STACK, 'GET /stacks'],
+            ['document_library', 'addFilesToSetID', ReferenceKind::FILE_SET, 'GET /file_sets'],
+            ['express_entry_detail', 'exEntityID', ReferenceKind::EXPRESS_ENTITY, 'GET /express_entities'],
+            ['express_entry_detail', 'exFormID', ReferenceKind::EXPRESS_FORM, 'GET /express_entities'],
+            ['express_entry_detail', 'exSpecificEntryID', ReferenceKind::EXPRESS_ENTRY, 'named by UUID'],
+            ['express_entry_list', 'exEntityID', ReferenceKind::EXPRESS_ENTITY, 'GET /express_entities'],
+            ['express_form', 'addFilesToSet', ReferenceKind::FILE_SET, 'GET /file_sets'],
+            ['express_form', 'exFormID', ReferenceKind::EXPRESS_FORM, 'GET /express_entities'],
+            ['express_form', 'replyToEmailControlID', ReferenceKind::EXPRESS_FORM_CONTROL, 'the field sets of its form carry'],
+            ['page_list', 'customTopicTreeNodeID', ReferenceKind::TOPIC, 'GET /topic_trees'],
+            ['topic_list', 'topicTreeID', ReferenceKind::TOPIC_TREE, 'GET /topic_trees'],
+        ];
+    }
+
+    /**
+     * A handler building a property of its own puts the kind of reference where the identifier is.
+     */
+    public function testAPropertyOfAHandlerSaysWhatItNames(): void
+    {
+        $calendars = $this->getHandler('event_list')->getApiValueSchema()['properties']['caID'];
+        $breakpoints = $this->getHandler('image')->getApiValueSchema()['properties']['breakpoints'];
+        $links = $this->getHandler('social_links')->getApiValueSchema()['properties']['links'];
+
+        static::assertSame(ReferenceKind::CALENDAR, $calendars['items']['x-concrete-reference']);
+        static::assertSame(ReferenceKind::THUMBNAIL_TYPE, $breakpoints['additionalProperties']['x-concrete-reference']);
+        static::assertSame(ReferenceKind::SOCIAL_LINK, $links['items']['x-concrete-reference']);
     }
 
     private function getHandler(string $handle): BlockApiHandler
