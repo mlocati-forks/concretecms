@@ -20,6 +20,7 @@ class Resources
     const RESOURCE_USERS = 'users';
     const RESOURCE_FILES = 'files';
     const RESOURCE_FILE_FOLDERS = 'file_folders';
+    const RESOURCE_FILE_SETS = 'file_sets';
     const RESOURCE_GROUPS = 'groups';
     const RESOURCE_SITES = 'sites';
     const RESOURCE_LOCALES = 'locales';
