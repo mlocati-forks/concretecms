@@ -120,8 +120,10 @@ An area can also hand back a block whose type the list leaves out, one the core 
 no value a client composes for it, and `GET /block_types/{handle}` answers 404 for its handle.
 A field of a value that names something of the site carries the ID of it, and the `x-concrete-reference`
 of the field says which kind of thing it names: `page`, `file`, `file-set`, `calendar-event` and so on.
-The description of such a field names the endpoint handing those things over, and tells when they
-travel as something else than a plain ID.
+`GET /system/references` lists the kinds this installation knows, each with the endpoint handing those
+things over and the sentence that the description of such a field carries, which also tells when they
+travel as something else than a plain ID. Leave alone the kinds you don't know, since new ones come
+along with the core.
 The endpoints they name are the dictionaries of this API: `GET /calendars` and
 `GET /calendars/{calendarID}/events`, `GET /file_sets`, `GET /file_folders`, `GET /topic_trees`,
 `GET /thumbnail_types`, `GET /page_feeds`, `GET /boards` with the instances of each, and
