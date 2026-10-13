@@ -3,11 +3,15 @@
 namespace Concrete\Core\Api\Controller;
 
 use Concrete\Core\Api\ApiController;
+use Concrete\Core\Api\ReferenceCatalog;
+use Concrete\Core\Api\Fractal\Transformer\ReferenceKindTransformer;
 use Concrete\Core\Api\Guide\GuideGenerator;
 use Concrete\Core\Api\OpenApi\SpecGenerator;
+use Concrete\Core\Api\Resources;
 use Concrete\Core\Http\Request;
 use Concrete\Core\System\Info;
 use Concrete\Core\System\InfoTransformer;
+use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -87,6 +91,38 @@ class System extends ApiController
         }
 
         return new Response($spec->toJson(), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/ccm/api/1.0/system/references",
+     *     tags={"system"},
+     *     operationId="getReferenceKinds",
+     *     summary="List the kinds of thing that a field of a value names, the ones x-concrete-reference carries",
+     *     security={
+     *         {"clientCredentials": {"definitions:read"}},
+     *         {"authorization": {"definitions:read"}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/ReferenceKind")
+     *             )
+     *         ),
+     *     ),
+     * )
+     *
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function references()
+    {
+        $catalog = $this->app->make(ReferenceCatalog::class);
+
+        return new Collection($catalog->getList(), new ReferenceKindTransformer(), Resources::RESOURCE_REFERENCE_KINDS);
     }
 
     /**

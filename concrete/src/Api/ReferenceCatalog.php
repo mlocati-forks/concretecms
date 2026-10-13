@@ -13,9 +13,10 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * the x-concrete-reference of a field carries.
  *
  * A kind is a plain string, so a package declares one of its own on the columns of its block types
- * without a constant for it: to have it described, the package binds a class of its own here with
- * $app->extend() or $app->bind(), answering for its kinds and calling parent for the rest.
+ * without a constant for it: to have it described and listed, the package binds a class of its own
+ * here with $app->extend() or $app->bind(), answering for its kinds and calling parent for the rest.
  *
+ * @see \Concrete\Core\Api\Controller\System::references()
  * @see \Concrete\Core\Api\Block\BlockApiHandler::describeReference()
  * @see \Concrete\Core\Block\ReferenceColumns::with()
  */
@@ -34,6 +35,52 @@ class ReferenceCatalog
      * @var string
      */
     private const ENTITY_FORMAT = 'GET /express_entities names the entities this API serves, each with its columns, filters, associations and forms.';
+
+    /**
+     * The endpoint handing over the things of every kind, by the kind: a kind whose things come
+     * inside another answer, or through a path of their own entity, has none.
+     *
+     * @var array<string,string>
+     */
+    private const ENDPOINTS = [
+        ReferenceKind::ATTRIBUTE_KEY => '/attribute_categories/{categoryHandle}/keys',
+        ReferenceKind::BOARD_INSTANCE => '/boards/{boardID}/instances',
+        ReferenceKind::CALENDAR => '/calendars',
+        ReferenceKind::CALENDAR_EVENT => '/calendars/{calendarID}/events',
+        ReferenceKind::CONTENT => '',
+        ReferenceKind::EXPRESS_ENTITY => '/express_entities',
+        ReferenceKind::EXPRESS_ENTRY => '',
+        ReferenceKind::EXPRESS_FORM => '/express_entities',
+        ReferenceKind::EXPRESS_FORM_CONTROL => '/express_entities',
+        ReferenceKind::FILE => '/files',
+        ReferenceKind::FILE_FOLDER => '/file_folders',
+        ReferenceKind::FILE_SET => '/file_sets',
+        ReferenceKind::PAGE => '/pages',
+        ReferenceKind::PAGE_FEED => '/page_feeds',
+        ReferenceKind::PAGE_TYPE => '/page_types',
+        ReferenceKind::SOCIAL_LINK => '/sites/default',
+        ReferenceKind::STACK => '/stacks',
+        ReferenceKind::THUMBNAIL_TYPE => '/thumbnail_types',
+        ReferenceKind::TOPIC => '/topic_trees',
+        ReferenceKind::TOPIC_TREE => '/topic_trees',
+    ];
+
+    /**
+     * @return string[] the kinds of reference, in the order a client is told about them
+     */
+    public function getList(): array
+    {
+        return array_keys(self::ENDPOINTS);
+    }
+
+    /**
+     * @param string $reference one of the ReferenceKind::... constants
+     * @return string an empty string where the things of the kind come inside another answer
+     */
+    public function getEndpoint(string $reference): string
+    {
+        return self::ENDPOINTS[$reference] ?? '';
+    }
 
     /**
      * @param string $reference one of the ReferenceKind::... constants
