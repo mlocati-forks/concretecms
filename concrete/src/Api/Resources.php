@@ -40,5 +40,6 @@ class Resources
     const RESOURCE_ATTRIBUTE_CATEGORIES = 'attribute_categories';
     const RESOURCE_ATTRIBUTE_KEYS = 'attribute_keys';
     const RESOURCE_ATTRIBUTE_TYPES = 'attribute_types';
+    const RESOURCE_REFERENCE_KINDS = 'reference_kinds';
 
 }
