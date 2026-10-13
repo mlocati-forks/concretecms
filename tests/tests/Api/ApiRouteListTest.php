@@ -87,6 +87,16 @@ class ApiRouteListTest extends TestCase
         static::assertContains('/ccm/api/1.0/attribute_types', $paths);
     }
 
+    public function testTheSystemRoutesAreRegistered(): void
+    {
+        $paths = $this->getPaths();
+
+        static::assertContains('/ccm/api/1.0/system/info', $paths);
+        static::assertContains('/ccm/api/1.0/system/guide', $paths);
+        static::assertContains('/ccm/api/1.0/system/openapi', $paths);
+        static::assertContains('/ccm/api/1.0/system/references', $paths);
+    }
+
     public function testTheLayoutPresetsRouteIsRegistered(): void
     {
         static::assertContains('/ccm/api/1.0/layout_presets', $this->getPaths());
