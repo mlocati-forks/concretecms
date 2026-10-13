@@ -7,6 +7,7 @@ namespace Concrete\Block\Image;
 use Concrete\Core\Api\Block\DefaultBlockApiHandler;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Database\Connection\Connection;
+use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -22,8 +23,14 @@ class Api extends DefaultBlockApiHandler
         $schema = parent::getApiValueSchema();
         $schema['properties']['breakpoints'] = [
             'type' => 'object',
-            'description' => 'The thumbnail type displayed at every breakpoint of the theme: the key is the handle of the breakpoint, as the image_breakpoints of GET /page_themes name them, the value is the ID of the thumbnail type, as GET /thumbnail_types lists them (used if sizingOption is thumbnails_configurable).',
-            'additionalProperties' => ['type' => 'integer'],
+            'description' => implode("\n", [
+                'The thumbnail type displayed at every breakpoint of the theme: the key is the handle of the breakpoint, as the image_breakpoints of GET /page_themes name them (used if sizingOption is thumbnails_configurable).',
+                $this->describeReference(ReferenceKind::THUMBNAIL_TYPE),
+            ]),
+            'additionalProperties' => [
+                'type' => 'integer',
+                'x-concrete-reference' => ReferenceKind::THUMBNAIL_TYPE,
+            ],
         ];
 
         return $schema;

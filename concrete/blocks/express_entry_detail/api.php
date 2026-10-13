@@ -17,18 +17,6 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class Api extends DefaultBlockApiHandler
 {
     /**
-     * @var string
-     */
-    private const ENTRY_FORMAT = 'Entries are named by UUID, or by ID when the UUID is missing.';
-
-    /**
-     * Where a client reads what an entity offers, described to the clients of the API.
-     *
-     * @var string
-     */
-    private const ENTITY_FORMAT = 'GET /express_entities names the entities this API serves, each with its forms.';
-
-    /**
      * {@inheritdoc}
      *
      * @see \Concrete\Core\Api\Block\DefaultBlockApiHandler::getApiValueSchema()
@@ -36,16 +24,8 @@ class Api extends DefaultBlockApiHandler
     public function getApiValueSchema(): array
     {
         $schema = parent::getApiValueSchema();
-        $described = $schema['properties']['exSpecificEntryID'];
-        $described['type'] = ['string', 'integer', 'null'];
-        $described['description'] = implode("\n", array_filter([(string) ($described['description'] ?? ''), self::ENTRY_FORMAT]));
-        $schema['properties']['exSpecificEntryID'] = $described;
-        foreach (['exEntityID', 'exFormID'] as $name) {
-            $schema['properties'][$name]['description'] = implode("\n", array_filter([
-                (string) ($schema['properties'][$name]['description'] ?? ''),
-                self::ENTITY_FORMAT,
-            ]));
-        }
+        // the API names an entry by its UUID, which the column of the block has no room for
+        $schema['properties']['exSpecificEntryID']['type'] = ['string', 'integer', 'null'];
 
         return $schema;
     }

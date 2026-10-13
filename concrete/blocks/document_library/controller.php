@@ -4,6 +4,7 @@ namespace Concrete\Block\DocumentLibrary;
 use Concrete\Core\Attribute\Category\FileCategory;
 use Concrete\Core\Attribute\Key\FileKey;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Block\ReferenceColumns;
 use Concrete\Core\Block\View\BlockView;
 use Concrete\Core\Error\UserMessageException;
 use Concrete\Core\Feature\Features;
@@ -19,6 +20,7 @@ use Concrete\Core\File\Type\Type;
 use Concrete\Core\Http\ResponseFactory;
 use Concrete\Core\Http\ResponseFactoryInterface;
 use Concrete\Core\Permission\Checker;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\Tree\Node\Node;
 use Concrete\Core\Tree\Node\Type\File;
 use Concrete\Core\Tree\Node\Type\FileFolder;
@@ -190,6 +192,18 @@ class Controller extends BlockController implements UsesFeatureInterface
     public function getBlockTypeName()
     {
         return t('Document Library');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::createReferenceColumns()
+     */
+    protected function createReferenceColumns(): ReferenceColumns
+    {
+        return parent::createReferenceColumns()->with([
+            ReferenceKind::FILE_SET => ['addFilesToSetID'],
+        ]);
     }
 
     public function getRequiredFeatures(): array
