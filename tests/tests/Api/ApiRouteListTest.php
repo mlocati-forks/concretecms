@@ -20,6 +20,16 @@ class ApiRouteListTest extends TestCase
         static::assertContains('/ccm/api/1.0/block_types/{blockTypeHandle}', $paths);
     }
 
+    public function testTheCalendarRoutesAreRegistered(): void
+    {
+        $paths = $this->getPaths();
+
+        static::assertContains('/ccm/api/1.0/calendars', $paths);
+        static::assertContains('/ccm/api/1.0/calendars/{calendarID}', $paths);
+        static::assertContains('/ccm/api/1.0/calendars/{calendarID}/events', $paths);
+        static::assertContains('/ccm/api/1.0/calendars/{calendarID}/events/{eventID}', $paths);
+    }
+
     public function testThePageTypesRouteIsRegistered(): void
     {
         static::assertContains('/ccm/api/1.0/page_types', $this->getPaths());
