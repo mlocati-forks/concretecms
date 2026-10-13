@@ -21,6 +21,7 @@ use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Attribute\AttributeValueMapFactory;
 use Concrete\Core\File\Search\ColumnSet\Column\FileVersionDateAddedColumn;
 use Concrete\Core\Api\Cursor\StringCursor;
+use Concrete\Core\Api\File\SetAccess;
 use Concrete\Core\Api\Fractal\Transformer\FileTransformer;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
@@ -121,6 +122,15 @@ class Files extends ApiController
      *         )
      *     ),
      *     @OA\Parameter(
+     *         name="set",
+     *         in="query",
+     *         description="The ID of a file set, which GET /file_sets names, to hand over the files gathered in it alone",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Parameter(
      *         name="after",
      *         in="query",
      *         description="The ID of the current object to start at."
@@ -159,6 +169,13 @@ class Files extends ApiController
         );
         if (($search = trim((string) $this->request->get('search'))) !== '') {
             $list->filterByKeywords($search);
+        }
+        if (($set = trim((string) $this->request->get('set'))) !== '') {
+            $fileSet = $this->app->make(SetAccess::class)->getSet($set);
+            if ($fileSet === null) {
+                return $this->error(t('File set not found.'), 404);
+            }
+            $list->filterBySet($fileSet);
         }
         $fileVersionColumn = new FileVersionDateAddedColumn();
         $fileVersionColumn->setColumnSortDirection('desc');
