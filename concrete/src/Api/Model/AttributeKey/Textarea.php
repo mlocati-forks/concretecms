@@ -21,7 +21,7 @@ class Textarea extends AttributeKey
     /**
      * @OA\Property(
      *     title="What the key is meant to hold",
-     *     description="A value of a rich text key is HTML, while the site shows the value of a text one as it is",
+     *     description="A value of a rich text key is HTML, with the {CCM:...} tokens that the content of a block takes and the files named by UUID, while the site shows the value of a text one as it is",
      *     enum={"text", "rich_text"}
      * )
      *
