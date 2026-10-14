@@ -8,6 +8,8 @@ use Concrete\Core\Site\SiteList;
 use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Fractal\Transformer\SiteTransformer;
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Entity\Site\Site;
+use Concrete\Core\Permission\Checker;
 use League\Fractal\Resource\Collection;
 
 class Sites extends ApiController
@@ -58,6 +60,9 @@ class Sites extends ApiController
         $siteID = (int) $siteID;
         $site = $this->siteService->getByID($siteID);
         if ($site) {
+            if (!(new Checker($site))->canViewSiteInSelector()) {
+                return $this->error(t('You do not have access to read properties about this site.'), 403);
+            }
             $siteTransformer = $this->app->make(SiteTransformer::class);
             // Include everything if we're getting a single site.
             $siteTransformer->setDefaultIncludes([Resources::RESOURCE_LOCALES, Resources::RESOURCE_CUSTOM_ATTRIBUTES, Resources::RESOURCE_SOCIAL_LINKS]);
@@ -103,7 +108,10 @@ class Sites extends ApiController
     {
         $list = new SiteList();
         $list->sortBy('siteID', 'asc');
-        $results = $list->getResults();
+        // the list of the sites answers about no permission of its own, so a site this request may not see is left out here
+        $results = array_values(array_filter($list->getResults(), static function (Site $site): bool {
+            return (bool) (new Checker($site))->canViewSiteInSelector();
+        }));
 
         $resource = new Collection($results, new SiteTransformer(), Resources::RESOURCE_SITES);
         return $resource;
@@ -140,6 +148,12 @@ class Sites extends ApiController
     public function getDefault()
     {
         $site = $this->siteService->getDefault();
+        if (!$site) {
+            return $this->error(t('Site not found.'), 404);
+        }
+        if (!(new Checker($site))->canViewSiteInSelector()) {
+            return $this->error(t('You do not have access to read properties about this site.'), 403);
+        }
         $siteTransformer = $this->app->make(SiteTransformer::class);
         return $this->transform($site, $siteTransformer, Resources::RESOURCE_SITES);
     }
