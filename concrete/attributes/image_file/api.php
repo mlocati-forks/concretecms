@@ -6,6 +6,7 @@ namespace Concrete\Attribute\ImageFile;
 
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\FileIdentifier;
+use Concrete\Core\Api\OpenApi\SpecProperty;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Reference\ReferenceKind;
 
@@ -21,6 +22,21 @@ class Api extends AttributeApiHandler
     public function getApiValueSchema(): string
     {
         return 'AttributeValueImageFile';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiSpecProperty()
+     */
+    public function getApiSpecProperty(Key $key): SpecProperty
+    {
+        return new SpecProperty(
+            (string) $key->getAttributeKeyHandle(),
+            (string) $key->getAttributeKeyDisplayName(),
+            // the UUID of the file, or its ID where the file has no UUID of its own
+            ['string', 'integer']
+        );
     }
 
     /**
