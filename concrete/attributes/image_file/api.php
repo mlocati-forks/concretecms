@@ -6,6 +6,8 @@ namespace Concrete\Attribute\ImageFile;
 
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\FileIdentifier;
+use Concrete\Core\Entity\Attribute\Key\Key;
+use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -43,5 +45,15 @@ class Api extends AttributeApiHandler
         $fileID = app(FileIdentifier::class)->fromApi($identifier);
 
         return parent::createApiValue($fileID === 0 ? null : $fileID);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiValueReference()
+     */
+    public function getApiValueReference(Key $key): string
+    {
+        return ReferenceKind::FILE;
     }
 }

@@ -8,6 +8,7 @@ use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\Model\AttributeKey as AttributeKeyModel;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Key\Settings\TopicsSettings;
+use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -70,5 +71,15 @@ class Api extends AttributeApiHandler
         }
 
         return parent::createApiValue($ids);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiValueReference()
+     */
+    public function getApiValueReference(Key $key): string
+    {
+        return ReferenceKind::TOPIC;
     }
 }
