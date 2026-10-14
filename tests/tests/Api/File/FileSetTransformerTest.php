@@ -7,6 +7,7 @@ namespace Concrete\Tests\Api\File;
 use Concrete\Core\Api\Fractal\Transformer\FileSetTransformer;
 use Concrete\Core\File\Set\Set;
 use Concrete\TestHelpers\Api\SchemaFieldsTrait;
+use Concrete\TestHelpers\Api\TokenScopesTrait;
 use Concrete\Tests\TestCase;
 
 defined('C5_EXECUTE') or die('Access Denied.');
@@ -21,6 +22,29 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class FileSetTransformerTest extends TestCase
 {
     use SchemaFieldsTrait;
+    use TokenScopesTrait;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TestCase::setUp()
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->giveTheTokenScopes(['files:read']);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TestCase::tearDown()
+     */
+    public function tearDown(): void
+    {
+        $this->takeTheTokenBack();
+        parent::tearDown();
+    }
 
     public function testASetSaysWhatItIsCalledAndWhoItBelongsTo(): void
     {

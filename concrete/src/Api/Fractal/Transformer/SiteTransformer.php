@@ -1,6 +1,7 @@
 <?php
 namespace Concrete\Core\Api\Fractal\Transformer;
 
+use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
@@ -23,6 +24,10 @@ class SiteTransformer extends TransformerAbstract
 
     public function transform(Site $site)
     {
+        if (!$this->isVisible($site)) {
+            return ['id' => $site->getSiteID()];
+        }
+
         $data = [
             'id' => $site->getSiteID(),
             'handle' => $site->getSiteHandle(),
@@ -89,4 +94,12 @@ class SiteTransformer extends TransformerAbstract
         return new Collection($values, new AttributeValueTransformer(), Resources::RESOURCE_CUSTOM_ATTRIBUTES);
     }
 
+    /**
+     * Whether the request may see the whole of a site: the scopes of its token settle
+     * it first, and then the permissions, the ones the endpoint serving these things asks about.
+     */
+    protected function isVisible(Site $site): bool
+    {
+        return app(TokenScopes::class)->has('sites:read');
+    }
 }

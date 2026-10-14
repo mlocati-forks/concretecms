@@ -4,10 +4,12 @@ namespace Concrete\Core\Api\Fractal\Transformer;
 use Carbon\Carbon;
 use Concrete\Core\Api\Fractal\Transformer\Traits\GetPageApiAreasTrait;
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Entity\File\File;
 use Concrete\Core\File\File as CoreFile;
 use Concrete\Core\File\Tracker\FileTrackableInterface;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Permission\Checker;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -43,6 +45,10 @@ class PageTransformer extends TransformerAbstract
 
     public function transform(Page $page)
     {
+        if (!$this->isVisible($page)) {
+            return ['id' => $page->getCollectionID()];
+        }
+
         $data['id'] = $page->getCollectionID();
         $data['path'] = $page->getCollectionPath();
         $data['url_slug'] = (string) $page->getCollectionHandle();
@@ -151,5 +157,15 @@ class PageTransformer extends TransformerAbstract
     public function includeContent(Page $page)
     {
         return new Item($page, new PageContentTransformer());
+    }
+
+    /**
+     * Whether the request may see the whole of a page: the scopes of its token settle
+     * it first, and then the permissions, the ones the endpoint serving these things asks about.
+     */
+    protected function isVisible(Page $page): bool
+    {
+        return app(TokenScopes::class)->has('pages:read')
+            && (bool) (new Checker($page))->canViewPage();
     }
 }
