@@ -10,6 +10,7 @@ use Concrete\Core\Api\OpenApi\SpecProperty;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Key\Settings\ExpressSettings;
 use Concrete\Core\Entity\Express\Entity;
+use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -78,5 +79,15 @@ class Api extends AttributeApiHandler
 
         // a request that names nothing of the kind leaves the attribute as it was
         return $identifier === false ? null : parent::createApiValue($identifier);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiValueReference()
+     */
+    public function getApiValueReference(Key $key): string
+    {
+        return ReferenceKind::EXPRESS_ENTRY;
     }
 }

@@ -87,6 +87,23 @@ class AttributeApiHandler
         $model->handle = (string) $key->getAttributeKeyHandle();
         $model->name = (string) $key->getAttributeKeyDisplayName('text');
         $model->type = $type === null ? '' : (string) $type->getAttributeTypeHandle();
+        $model->reference = $this->getApiValueReference($key);
+    }
+
+    /**
+     * Get the kind of thing of the site that a value of a key of this type names, or that each item
+     * of it names where a value is a list of them, which is what a field of the value of a block
+     * says with its x-concrete-reference.
+     *
+     * A value made of several fields of which only one is a reference says it in the schema of the
+     * value instead, field by field, and answers with an empty string here.
+     *
+     * @return string one of the \Concrete\Core\Reference\ReferenceKind::... constants, or an empty
+     *                string where a value holds something of its own
+     */
+    public function getApiValueReference(Key $key): string
+    {
+        return '';
     }
 
     /**
