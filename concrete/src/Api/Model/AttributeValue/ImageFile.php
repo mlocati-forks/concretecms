@@ -11,7 +11,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  *     schema="AttributeValueImageFile",
  *     type="object",
  *     title="The file a value of an image_file attribute names",
- *     description="A read hands it over wrapped in a data property, the way an include is, while a write takes what the specification declares for the key, or any object that carries the same id"
+ *     description="A read hands it over wrapped in a data property, the way an include is. A write takes the UUID of the file, or its ID when the file was added before UUIDs existed, and takes as well any object carrying one of the two: so the file a read handed over goes back as it came"
  * )
  */
 class ImageFile
