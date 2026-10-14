@@ -44,7 +44,7 @@ class Documentation extends BackendInterfaceController
         if (!$client) {
             throw new UserMessageException(t('Invalid API client.'));
         }
-        $this->set('clientKey', $client->getClientKey());
+        $this->set('client', $client);
         $this->set(
             'oauth2RedirectUrl',
             $this->app->make(RedirectUriFactory::class)->createDocumentationRedirectUri($client)

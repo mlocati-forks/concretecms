@@ -5,19 +5,22 @@ declare(strict_types=1);
 defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
- * @var string $clientKey
+ * @var Concrete\Core\Entity\OAuth\Client $client
  * @var string $oauth2RedirectUrl
  * @var string $openapiJsonUrl
  */
 ?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title><?= h($client->getName()) ?></title>
 <link rel="stylesheet" type="text/css" href="<?= ASSETS_URL ?>/api/swagger/swagger-ui.css">
-
+</head>
+<body>
 <div id="swagger-ui"></div>
-
 <script src="<?= ASSETS_URL ?>/api/swagger/swagger-ui-bundle.js" charset="UTF-8"> </script>
 <script src="<?= ASSETS_URL ?>/api/swagger/swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
-
 <script>
 window.onload = function() {
     window.ui = SwaggerUIBundle({
@@ -55,9 +58,16 @@ window.onload = function() {
         },
         oauth2RedirectUrl: <?= json_encode($oauth2RedirectUrl) ?>,
         layout: 'StandaloneLayout',
+        plugins: [
+            () => {
+                return {components: {Topbar: () => null}};
+            },
+        ],
     });
     window.ui.initOAuth({
-        clientId: <?= json_encode($clientKey) ?>,
+        clientId: <?= json_encode($client->getClientKey()) ?>,
     });
 };
 </script>
+</body>
+</html>
