@@ -50,6 +50,16 @@ class AttributeKey implements \JsonSerializable
     public $type;
 
     /**
+     * @OA\Property(
+     *     title="Kind of thing of the site that a value of this key names",
+     *     description="What the whole value names, or what each of its items names where a value is a list of them. It is empty where the value holds something of its own, and where only one field of a value made of several names something: that field says it where the value_schema of the type describes it, the way a field of the value of a block does. GET /system/references says what every kind means and where the things of it are read, and x-concrete-reference carries the same kinds"
+     * )
+     *
+     * @var string
+     */
+    public $reference;
+
+    /**
      * {@inheritdoc}
      *
      * @see \JsonSerializable::jsonSerialize()
