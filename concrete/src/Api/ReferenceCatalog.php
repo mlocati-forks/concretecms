@@ -58,11 +58,14 @@ class ReferenceCatalog
         ReferenceKind::PAGE => '/pages',
         ReferenceKind::PAGE_FEED => '/page_feeds',
         ReferenceKind::PAGE_TYPE => '/page_types',
+        ReferenceKind::SITE => '/sites',
         ReferenceKind::SOCIAL_LINK => '/sites/default',
         ReferenceKind::STACK => '/stacks',
         ReferenceKind::THUMBNAIL_TYPE => '/thumbnail_types',
         ReferenceKind::TOPIC => '/topic_trees',
         ReferenceKind::TOPIC_TREE => '/topic_trees',
+        ReferenceKind::USER => '/users',
+        ReferenceKind::USER_GROUP => '/groups',
     ];
 
     /**
@@ -127,6 +130,8 @@ class ReferenceCatalog
                 return 'An RSS feed is named by its ID, and GET /page_feeds lists the feeds of this installation.';
             case ReferenceKind::PAGE_TYPE:
                 return 'A page type is named by its ID.';
+            case ReferenceKind::SITE:
+                return 'A site is named by its ID, and GET /sites lists the sites this installation serves.';
             case ReferenceKind::SOCIAL_LINK:
                 return 'A social link is named by its ID, as the social_links of a site answer give them.';
             case ReferenceKind::STACK:
@@ -137,6 +142,10 @@ class ReferenceCatalog
                 return 'A topic is named by the ID of its node, and GET /topic_trees hands over the trees of this installation with their nodes.';
             case ReferenceKind::TOPIC_TREE:
                 return 'A tree of topics is named by its ID, and GET /topic_trees lists the trees of this installation.';
+            case ReferenceKind::USER:
+                return 'A user is named by their ID, and GET /users lists the users of this installation.';
+            case ReferenceKind::USER_GROUP:
+                return 'A group of users is named by its ID, and GET /groups lists the groups of this installation.';
         }
 
         return '';

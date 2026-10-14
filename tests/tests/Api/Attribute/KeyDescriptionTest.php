@@ -6,12 +6,19 @@ namespace Concrete\Tests\Api\Attribute;
 
 use Concrete\Attribute\Address\Controller as AddressController;
 use Concrete\Attribute\Boolean\Controller as BooleanController;
+use Concrete\Attribute\Calendar\Controller as CalendarController;
+use Concrete\Attribute\CalendarEvent\Controller as CalendarEventController;
 use Concrete\Attribute\DateTime\Controller as DateTimeController;
 use Concrete\Attribute\Duration\Controller as DurationController;
 use Concrete\Attribute\Express\Controller as ExpressController;
+use Concrete\Attribute\ImageFile\Controller as ImageFileController;
+use Concrete\Attribute\PageSelector\Controller as PageSelectorController;
 use Concrete\Attribute\Select\Controller as SelectController;
+use Concrete\Attribute\Site\Controller as SiteController;
 use Concrete\Attribute\Textarea\Controller as TextareaController;
 use Concrete\Attribute\Topics\Controller as TopicsController;
+use Concrete\Attribute\UserGroup\Controller as UserGroupController;
+use Concrete\Attribute\UserSelector\Controller as UserSelectorController;
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Key\Settings\AddressSettings;
@@ -24,6 +31,7 @@ use Concrete\Core\Entity\Attribute\Key\Settings\Settings;
 use Concrete\Core\Entity\Attribute\Key\Settings\TextareaSettings;
 use Concrete\Core\Entity\Attribute\Key\Settings\TopicsSettings;
 use Concrete\Core\Entity\Express\Entity;
+use Concrete\Core\Reference\ReferenceKind;
 use Concrete\TestHelpers\Api\SchemaFieldsTrait;
 use Concrete\Tests\TestCase;
 use Doctrine\ORM\EntityManager;
@@ -151,6 +159,48 @@ class KeyDescriptionTest extends TestCase
         $settings->method('getMode')->willReturn('');
 
         static::assertSame('date_time', $this->describe(DateTimeController::class, $settings)['mode']);
+    }
+
+    /**
+     * @param string|null $settingsClass the settings a key of the type keeps, where it keeps any
+     *
+     * @dataProvider provideTheKindsOfThingAValueNames
+     */
+    public function testAKeySaysWhichKindOfThingItsValueNames(string $controllerClass, ?string $settingsClass, string $reference): void
+    {
+        $settings = $settingsClass === null ? null : $this->createMock($settingsClass);
+
+        static::assertSame($reference, $this->describe($controllerClass, $settings)['reference']);
+    }
+
+    /**
+     * @return array<array{string,string|null,string}>
+     */
+    public static function provideTheKindsOfThingAValueNames(): array
+    {
+        return [
+            [CalendarController::class, null, ReferenceKind::CALENDAR],
+            [CalendarEventController::class, null, ReferenceKind::CALENDAR_EVENT],
+            [ExpressController::class, ExpressSettings::class, ReferenceKind::EXPRESS_ENTRY],
+            [ImageFileController::class, null, ReferenceKind::FILE],
+            [PageSelectorController::class, null, ReferenceKind::PAGE],
+            [SiteController::class, null, ReferenceKind::SITE],
+            [TopicsController::class, TopicsSettings::class, ReferenceKind::TOPIC],
+            [UserGroupController::class, null, ReferenceKind::USER_GROUP],
+            [UserSelectorController::class, null, ReferenceKind::USER],
+            // a key of these types holds something of its own
+            [SelectController::class, SelectSettings::class, ''],
+            [DateTimeController::class, DateTimeSettings::class, ''],
+            [TextareaController::class, TextareaSettings::class, ''],
+        ];
+    }
+
+    public function testARichTextKeyNamesTheHtmlThatABlockHoldsToo(): void
+    {
+        $settings = $this->createMock(TextareaSettings::class);
+        $settings->method('getMode')->willReturn(TextareaController::MODE_RICHTEXT);
+
+        static::assertSame(ReferenceKind::CONTENT, $this->describe(TextareaController::class, $settings)['reference']);
     }
 
     public function testATextareaKeySaysWhetherItTakesHtml(): void
