@@ -119,6 +119,13 @@ final class ReferenceKind
     public const PAGE_TYPE = 'page-type';
 
     /**
+     * A field holding the ID of a site of this installation.
+     *
+     * @var string
+     */
+    public const SITE = 'site';
+
+    /**
      * A field holding the ID of a social link of the site.
      *
      * @var string
@@ -152,6 +159,20 @@ final class ReferenceKind
      * @var string
      */
     public const TOPIC_TREE = 'topic-tree';
+
+    /**
+     * A field holding the ID of a user.
+     *
+     * @var string
+     */
+    public const USER = 'user';
+
+    /**
+     * A field holding the ID of a group of users.
+     *
+     * @var string
+     */
+    public const USER_GROUP = 'user-group';
 
     /**
      * The kinds of reference that a CIF file translates.
