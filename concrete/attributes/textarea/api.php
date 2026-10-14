@@ -9,6 +9,7 @@ use Concrete\Core\Api\FileIdentifier;
 use Concrete\Core\Api\Model\AttributeKey as AttributeKeyModel;
 use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Attribute\Key\Settings\TextareaSettings;
+use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -52,7 +53,8 @@ class Api extends AttributeApiHandler
     public function getApiValue()
     {
         $value = parent::getApiValue();
-        if (!is_string($value) || $value === '' || !$this->isRichText()) {
+        $key = $this->controller->getAttributeKey();
+        if (!is_string($value) || $value === '' || !$this->isRichText($key instanceof Key ? $key : null)) {
             return $value;
         }
 
@@ -60,12 +62,23 @@ class Api extends AttributeApiHandler
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * Only the HTML of a rich text key names something of the site: a plain text one holds words.
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiValueReference()
+     */
+    public function getApiValueReference(Key $key): string
+    {
+        return $this->isRichText($key) ? ReferenceKind::CONTENT : '';
+    }
+
+    /**
      * Whether the key holds HTML instead of the plain text that the site shows as it is.
      */
-    private function isRichText(): bool
+    private function isRichText(?Key $key): bool
     {
-        $key = $this->controller->getAttributeKey();
-        $settings = $key instanceof Key ? $key->getAttributeKeySettings() : null;
+        $settings = $key === null ? null : $key->getAttributeKeySettings();
 
         return $settings instanceof TextareaSettings && (string) $settings->getMode() === Controller::MODE_RICHTEXT;
     }

@@ -168,7 +168,9 @@ A write wants the ID of the thing a value names, and takes as that ID any object
 wrapper a read puts around it included: so an attribute read from an object can be written again,
 changed or not, without being taken apart first. A file is the exception every endpoint of this API
 makes, here too: it travels by UUID, and the HTML of a rich text value names the files it refers to
-by UUID as well, the way the content of a block does. The attributes of an object are not written back the
+by UUID as well, the way the content of a block does.
+Which thing a value names is in the `reference` of the key, the same kind that a field of the value of
+a block carries in its `x-concrete-reference`, and it is empty for a key holding something of its own. The attributes of an object are not written back the
 way they are read, though: a read hands them over as a list, each naming the key it belongs to, while
 a write takes an object whose properties are those keys.
 

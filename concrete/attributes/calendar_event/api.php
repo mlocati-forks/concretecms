@@ -8,6 +8,7 @@ use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\OpenApi\SpecProperty;
 use Concrete\Core\Calendar\Event\EventService;
 use Concrete\Core\Entity\Attribute\Key\Key;
+use Concrete\Core\Reference\ReferenceKind;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -54,5 +55,15 @@ class Api extends AttributeApiHandler
         $id = (int) $id;
 
         return $this->controller->createAttributeValue($id === 0 ? null : app(EventService::class)->getByID($id));
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Api\Attribute\AttributeApiHandler::getApiValueReference()
+     */
+    public function getApiValueReference(Key $key): string
+    {
+        return ReferenceKind::CALENDAR_EVENT;
     }
 }

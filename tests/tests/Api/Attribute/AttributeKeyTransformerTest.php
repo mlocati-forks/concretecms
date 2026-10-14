@@ -38,6 +38,8 @@ class AttributeKeyTransformerTest extends TestCase
             'handle' => 'boxed',
             'name' => 'Boxed',
             'type' => 'boolean',
+            // a boolean holds a flag of its own, so it names nothing of the site
+            'reference' => '',
         ], $transformed);
     }
 
