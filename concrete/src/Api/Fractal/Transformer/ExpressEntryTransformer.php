@@ -3,8 +3,10 @@ namespace Concrete\Core\Api\Fractal\Transformer;
 
 use Carbon\Carbon;
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Entity\Express\Entity;
 use Concrete\Core\Entity\Express\Entry;
+use Concrete\Core\Permission\Checker;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -43,6 +45,10 @@ class ExpressEntryTransformer extends TransformerAbstract
      */
     public function transform(Entry $entry)
     {
+        if (!$this->isVisible($entry)) {
+            return ['id' => $entry->getPublicIdentifier()];
+        }
+
         return [
             'id' => $entry->getPublicIdentifier(),
             'date_added' => Carbon::make($entry->getDateCreated())->toAtomString(),
@@ -102,5 +108,16 @@ class ExpressEntryTransformer extends TransformerAbstract
                 }
             }
         }
+    }
+
+    /**
+     * Whether the request may see the whole of an entry: the scopes of its token settle
+     * it first, and then the permissions, the ones the endpoint serving these things asks about.
+     */
+    protected function isVisible(Entry $entry): bool
+    {
+        // the entries of every entity are read with a scope of their own, named after it in the plural
+        return app(TokenScopes::class)->has((string) $this->object->getPluralHandle() . ':read')
+            && (bool) (new Checker($entry))->canViewExpressEntry();
     }
 }

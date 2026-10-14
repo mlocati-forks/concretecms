@@ -2,8 +2,11 @@
 namespace Concrete\Core\Api\Fractal\Transformer;
 
 use Carbon\Carbon;
+use Concrete\Core\Permission\Checker;
+use Concrete\Core\User\User;
 use Concrete\Core\User\UserInfo;
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Api\TokenScopes;
 use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 
@@ -23,6 +26,10 @@ class UserTransformer extends TransformerAbstract
      */
     public function transform(UserInfo $user)
     {
+        if (!$this->isVisible($user)) {
+            return ['id' => $user->getUserID()];
+        }
+
         return [
             'id' => $user->getUserID(),
             'username' => $user->getUserName(),
@@ -54,8 +61,6 @@ class UserTransformer extends TransformerAbstract
         $values = $user->getObjectAttributeCategory()->getAttributeValues($user);
         return new Collection($values, new AttributeValueTransformer(), Resources::RESOURCE_CUSTOM_ATTRIBUTES);
     }
-
-
     protected function getUserStatus(UserInfo $user)
     {
         if ($user->isActive()) {
@@ -66,5 +71,32 @@ class UserTransformer extends TransformerAbstract
             $currentStatus = 'unvalidated';
         }
         return $currentStatus;
+    }
+
+    /**
+     * Whether the request may see the whole of a user: the scopes of its token settle
+     * it first, and then the permissions, the ones the endpoint serving these things asks about.
+     */
+    protected function isVisible(UserInfo $user): bool
+    {
+        // the user the token belongs to reads their own account, whatever its scopes say: that is
+        // what GET /account hands over, with account:read alone
+        if ($this->isTheUserOfTheToken($user)) {
+            return true;
+        }
+
+        return app(TokenScopes::class)->has('users:read')
+            && (bool) (new Checker($user))->canViewUser();
+    }
+
+    /**
+     * Whether this is the user that the token belongs to, who reads their own account whatever the
+     * scopes of the token say: that is what GET /account hands over, with account:read alone.
+     */
+    private function isTheUserOfTheToken(UserInfo $user): bool
+    {
+        $userID = app(User::class)->getUserID();
+
+        return $userID && (int) $userID === (int) $user->getUserID();
     }
 }
