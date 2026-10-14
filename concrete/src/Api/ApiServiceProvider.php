@@ -5,6 +5,7 @@ namespace Concrete\Core\Api;
 use Concrete\Core\Api\OAuth\Server\IdTokenResponse;
 use Concrete\Core\Api\OAuth\Validator\DefaultValidator;
 use Concrete\Core\Api\OpenApi\SourceRegistry;
+use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Entity\OAuth\AccessToken;
 use Concrete\Core\Entity\OAuth\AuthCode;
 use Concrete\Core\Entity\OAuth\Client;
@@ -64,6 +65,8 @@ class ApiServiceProvider extends ServiceProvider
 
             return $validator;
         });
+
+        $this->app->singleton(TokenScopes::class);
 
         $this->app->singleton(SourceRegistry::class, function() {
             $sourceRegistry = new SourceRegistry();

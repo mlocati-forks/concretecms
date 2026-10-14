@@ -10,6 +10,7 @@ use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Entity\Site\Tree as SiteTree;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
+use Concrete\TestHelpers\Api\TokenScopesTrait;
 use Concrete\Tests\TestCase;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
@@ -22,7 +23,32 @@ defined('C5_EXECUTE') or die('Access Denied.');
  */
 class SiteTransformerTest extends TestCase
 {
-    public function testASiteSaysWhatItsPagesAreGivenWhenTheyAskForNothing(): void
+    use TokenScopesTrait;
+
+
+     /**
+     * {@inheritdoc}
+     *
+     * @see TestCase::setUp()
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->giveTheTokenScopes(['sites:read']);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TestCase::tearDown()
+     */
+    public function tearDown(): void
+    {
+        $this->takeTheTokenBack();
+        parent::tearDown();
+    }
+
+   public function testASiteSaysWhatItsPagesAreGivenWhenTheyAskForNothing(): void
     {
         $theme = $this->createMock(PageTheme::class);
         $theme->method('getThemeHandle')->willReturn('pixel');
