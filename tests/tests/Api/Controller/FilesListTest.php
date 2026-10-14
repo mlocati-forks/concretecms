@@ -18,6 +18,7 @@ use Concrete\Core\Permission\Key\Key as PermissionKey;
 use Concrete\Core\User\Login\LoginService;
 use Concrete\Core\User\User;
 use Concrete\Core\User\UserInfo;
+use Concrete\TestHelpers\Api\TokenScopesTrait;
 use Concrete\TestHelpers\File\FileStorageTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Fractal\Manager;
@@ -26,6 +27,30 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 class FilesListTest extends FileStorageTestCase
 {
+    use TokenScopesTrait;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see FileStorageTestCase::setUp()
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->giveTheTokenScopes(['files:read']);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see FileStorageTestCase::tearDown()
+     */
+    public function tearDown(): void
+    {
+        $this->takeTheTokenBack();
+        parent::tearDown();
+    }
+
     /**
      * The files these tests work with, in the order they are created (that is, from the oldest to the newest).
      *

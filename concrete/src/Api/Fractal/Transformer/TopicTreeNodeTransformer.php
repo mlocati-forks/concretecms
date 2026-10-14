@@ -3,6 +3,7 @@ namespace Concrete\Core\Api\Fractal\Transformer;
 
 use Concrete\Core\Api\Model\TopicTreeNode\Detail;
 use Concrete\Core\Api\Model\TopicTreeNode\Summary;
+use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Api\Tree\TreeNodes;
 use Concrete\Core\Tree\Node\Node;
 use League\Fractal\TransformerAbstract;
@@ -50,6 +51,10 @@ class TopicTreeNodeTransformer extends TransformerAbstract
      */
     public function transform(Node $node)
     {
+        if (!$this->isVisible($node)) {
+            return ['id' => $node->getTreeNodeID()];
+        }
+
         return $this->describe($node)->jsonSerialize();
     }
 
@@ -100,4 +105,12 @@ class TopicTreeNodeTransformer extends TransformerAbstract
         return $children;
     }
 
+    /**
+     * Whether the request may see the whole of a topic: the scopes of its token settle
+     * it first, and then the permissions, the ones the endpoint serving these things asks about.
+     */
+    protected function isVisible(Node $node): bool
+    {
+        return app(TokenScopes::class)->has('definitions:read');
+    }
 }

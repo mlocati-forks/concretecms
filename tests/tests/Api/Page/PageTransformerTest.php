@@ -6,8 +6,11 @@ namespace Concrete\Tests\Api\Page;
 
 use Concrete\Core\Api\Fractal\Transformer\PageTransformer;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Permission\Response\PageResponse;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
 use Concrete\Core\StyleCustomizer\Skin\SkinInterface;
+use Concrete\Core\User\User;
+use Concrete\TestHelpers\Api\TokenScopesTrait;
 use Concrete\Tests\TestCase;
 
 defined('C5_EXECUTE') or die('Access Denied.');
@@ -17,7 +20,37 @@ defined('C5_EXECUTE') or die('Access Denied.');
  */
 class PageTransformerTest extends TestCase
 {
-    public function testAPageSaysWhereItHangsAndHowItIsShown(): void
+    use TokenScopesTrait;
+
+
+     /**
+     * {@inheritdoc}
+     *
+     * @see TestCase::setUp()
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->giveTheTokenScopes(['pages:read']);
+        // with no permission key registered, only the superuser is allowed anything
+        $superUser = $this->createMock(User::class);
+        $superUser->method('isSuperUser')->willReturn(true);
+        app()->instance(User::class, $superUser);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TestCase::tearDown()
+     */
+    public function tearDown(): void
+    {
+        $this->takeTheTokenBack();
+        app()->forgetInstance(User::class);
+        parent::tearDown();
+    }
+
+   public function testAPageSaysWhereItHangsAndHowItIsShown(): void
     {
         $theme = $this->createTheme('elemental', 'midnight');
 
@@ -82,6 +115,9 @@ class PageTransformerTest extends TestCase
         $page->method('getCollectionThemeObject')->willReturn($theme);
         $page->method('getPageSkinIdentifier')->willReturn($skinIdentifier);
         $page->method('isExternalLink')->willReturn(false);
+        // a client reads the whole of a page it may view, and this one answers about its permissions
+        $page->method('getPermissionResponseClassName')->willReturn(PageResponse::class);
+        $page->method('getPermissionObjectIdentifier')->willReturn('123');
 
         return $page;
     }
