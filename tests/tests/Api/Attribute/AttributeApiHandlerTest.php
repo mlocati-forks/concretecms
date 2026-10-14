@@ -9,6 +9,7 @@ use Concrete\Attribute\Calendar\Controller as CalendarController;
 use Concrete\Attribute\CalendarEvent\Controller as CalendarEventController;
 use Concrete\Attribute\DateTime\Controller as DateTimeController;
 use Concrete\Attribute\Express\Controller as ExpressController;
+use Concrete\Attribute\ImageFile\Controller as ImageFileController;
 use Concrete\Attribute\Number\Controller as NumberController;
 use Concrete\Attribute\Address\Controller as AddressController;
 use Concrete\Attribute\Select\Api as SelectApi;
@@ -65,6 +66,15 @@ class AttributeApiHandlerTest extends TestCase
     public function testADateIsWrittenAsAString(): void
     {
         static::assertSame('string', $this->describeValue(DateTimeController::class)['type']);
+    }
+
+    public function testAFileIsNamedByItsUuidOrByItsId(): void
+    {
+        $described = $this->describeValue(ImageFileController::class);
+
+        static::assertSame([['type' => 'string'], ['type' => 'integer']], $described['anyOf']);
+        // a schema of OpenAPI 3.0 names one type at a time, so the two travel as an anyOf
+        static::assertArrayNotHasKey('type', $described);
     }
 
     public function testACalendarAndAnEventAreNamedByID(): void
