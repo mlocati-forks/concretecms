@@ -2,6 +2,8 @@
 
 namespace Concrete\Core\Http\Middleware;
 
+use Concrete\Core\Api\TokenScopes;
+use Concrete\Core\Application\Application;
 use Concrete\Core\Http\PSR7\GuzzleFactory;
 use Concrete\Core\User\User;
 use Concrete\Core\User\UserInfoRepository;
@@ -30,7 +32,12 @@ class OAuthAuthenticationMiddleware implements MiddlewareInterface
     private $foundationFactory;
 
     /**
-     * @var \Concrete\Core\Http\Middleware\Application
+     * @var \Concrete\Core\User\UserInfoRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var \Concrete\Core\Application\Application
      */
     private $app;
 
@@ -38,12 +45,14 @@ class OAuthAuthenticationMiddleware implements MiddlewareInterface
         ResourceServer $oauth,
         GuzzleFactory $psrFactory,
         UserInfoRepository $userRepository,
-        HttpFoundationFactory $foundationFactory
+        HttpFoundationFactory $foundationFactory,
+        Application $app
     ) {
         $this->oauth = $oauth;
         $this->psrFactory = $psrFactory;
         $this->foundationFactory = $foundationFactory;
         $this->userRepository = $userRepository;
+        $this->app = $app;
     }
 
     /**
@@ -65,12 +74,13 @@ class OAuthAuthenticationMiddleware implements MiddlewareInterface
         // Merge in attributes to existing request object
         $request->attributes->add($newRequest->attributes->all());
 
+        // The scopes of the token land on the request just above: be sure that TokenScopes resolves a fresh set of attributes
+        $this->app->forgetInstance(TokenScopes::class);
+
         // Handle route scope
         if ($route) {
             if ($routeScopes = $route->getOption('oauth_scopes')) {
-                $requestScopes = $request->attributes->get('oauth_scopes');
-
-                if (!array_intersect((array)$routeScopes, (array)$requestScopes)) {
+                if (!$this->app->make(TokenScopes::class)->hasAny((array) $routeScopes)) {
                     throw new OAuthServerException(
                         'Endpoint out of scope.', 1, 'invalid_request', 400, 'Try reauthorizing with the proper scope.'
                     );

@@ -9,6 +9,7 @@ use Concrete\Core\Api\Tree\TreeNodes;
 use Concrete\Core\Tree\Node\Node;
 use Concrete\Core\Tree\Type\Topic as TopicTree;
 use Concrete\TestHelpers\Api\SchemaFieldsTrait;
+use Concrete\TestHelpers\Api\TokenScopesTrait;
 use Concrete\Tests\TestCase;
 
 defined('C5_EXECUTE') or die('Access Denied.');
@@ -19,6 +20,29 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class TopicTreeNodeTransformerTest extends TestCase
 {
     use SchemaFieldsTrait;
+    use TokenScopesTrait;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TestCase::setUp()
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->giveTheTokenScopes(['definitions:read']);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TestCase::tearDown()
+     */
+    public function tearDown(): void
+    {
+        $this->takeTheTokenBack();
+        parent::tearDown();
+    }
 
     public function testATopicSaysWhichTreeAndWhichTopicHoldIt(): void
     {
