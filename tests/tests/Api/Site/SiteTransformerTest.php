@@ -10,6 +10,9 @@ use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Entity\Site\Tree as SiteTree;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
+use Concrete\Core\Permission\Response\PageResponse;
+use Concrete\Core\Permission\Response\SiteResponse;
+use Concrete\Core\User\User;
 use Concrete\TestHelpers\Api\TokenScopesTrait;
 use Concrete\Tests\TestCase;
 use League\Fractal\Manager;
@@ -35,6 +38,12 @@ class SiteTransformerTest extends TestCase
     {
         parent::setUp();
         $this->giveTheTokenScopes(['sites:read']);
+        // the permission response of a site is cached by the name of its class, which a mock shares with the one of the test before
+        app('cache/request')->flush();
+        // with no permission key registered, only the superuser is allowed anything
+        $superUser = $this->createMock(User::class);
+        $superUser->method('isSuperUser')->willReturn(true);
+        app()->instance(User::class, $superUser);
     }
 
     /**
@@ -45,6 +54,8 @@ class SiteTransformerTest extends TestCase
     public function tearDown(): void
     {
         $this->takeTheTokenBack();
+        app()->forgetInstance(User::class);
+        app()->forgetInstance(SiteResponse::class);
         parent::tearDown();
     }
 
@@ -118,6 +129,18 @@ class SiteTransformerTest extends TestCase
         static::assertSame('/', $data['data']['locales']['data'][0]['path']);
     }
 
+    public function testASiteTheRequestMayNotSeeIsNamedAndNothingElse(): void
+    {
+        // what the site selector of the dashboard asks about, answered the way a private site answers
+        $response = $this->createMock(SiteResponse::class);
+        $response->method('canViewSiteInSelector')->willReturn(false);
+        app()->instance(SiteResponse::class, $response);
+
+        $transformed = $this->transform($this->createSite(null, null), null);
+
+        static::assertSame(['id' => 1], $transformed);
+    }
+
     public function testASiteNamingAThemeThatIsGoneSaysNothing(): void
     {
         $defaults = $this->transform($this->createSite(null, null), null)['defaults'];
@@ -188,6 +211,13 @@ class SiteTransformerTest extends TestCase
     private function createSite(?string $skin, ?string $skinDark, ?array $locales = null): Site
     {
         $site = $this->createMock(Site::class);
+        // a client reads the whole of a site whose home page it may view, so both answer about their permissions
+        $site->method('getPermissionResponseClassName')->willReturn(SiteResponse::class);
+        $site->method('getPermissionObjectIdentifier')->willReturn('1');
+        $home = $this->createMock(Page::class);
+        $home->method('getPermissionResponseClassName')->willReturn(PageResponse::class);
+        $home->method('getPermissionObjectIdentifier')->willReturn('1');
+        $site->method('getSiteHomePageObject')->willReturn($home);
         $site->method('getSiteID')->willReturn(1);
         $site->method('getSiteHandle')->willReturn('default');
         $site->method('getSiteName')->willReturn('Example');

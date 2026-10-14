@@ -5,6 +5,7 @@ use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
+use Concrete\Core\Permission\Checker;
 use Concrete\Core\Sharing\SocialNetwork\Link as SocialLink;
 use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
@@ -100,6 +101,7 @@ class SiteTransformer extends TransformerAbstract
      */
     protected function isVisible(Site $site): bool
     {
-        return app(TokenScopes::class)->has('sites:read');
+        return app(TokenScopes::class)->has('sites:read')
+            && (bool) (new Checker($site))->canViewSiteInSelector();
     }
 }
