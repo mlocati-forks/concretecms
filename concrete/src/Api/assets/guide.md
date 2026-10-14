@@ -160,6 +160,13 @@ A type whose values are more than a plain string also names the schema of a valu
 back can be read without guessing: a duration carries the number and the unit it counts in, while an
 attribute that names something of the site, a page or a file, carries it wrapped in a data property, the
 way an include does.
+What comes inside that wrapper is up to the token, here as everywhere else a thing of the site travels
+inside something else: the whole thing where the token carries the scope of the endpoint serving the
+things of that kind and the account behind it is allowed to read that very thing, and its id alone where
+either is missing. So a token reading the pages and nothing else reads of a user named by an attribute
+the ID it takes to write it back, and nothing more; the same goes for the author of an entry, for the
+files of a page and for the groups of a user. Ask for the scope of what you mean to read, and the
+specification of each endpoint says which one that is, as well as the permission it asks about.
 What you write instead is in the specification, among the `attributes` of the model being written, and it
 is often shorter than what you read: a date goes as text, a select as the IDs of its options, an Express
 attribute as the UUID of an entry, and an attribute that names a user as the ID of that user, which a

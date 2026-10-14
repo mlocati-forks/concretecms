@@ -2,9 +2,11 @@
 namespace Concrete\Core\Api\Fractal\Transformer;
 
 use Carbon\Carbon;
+use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Entity\File\File as FileEntity;
 use Concrete\Core\Api\File\SetAccess;
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Permission\Checker;
 use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 
@@ -24,6 +26,10 @@ class FileTransformer extends TransformerAbstract
      */
     public function transform(FileEntity $file)
     {
+        if (!$this->isVisible($file)) {
+            return ['id' => $file->hasFileUUID() ? $file->getFileUUID() : $file->getFileID()];
+        }
+
         $version = $file->getApprovedVersion();
         $folderID = null;
         if ($fileFolder = $file->getFileFolderObject()) {
@@ -63,5 +69,13 @@ class FileTransformer extends TransformerAbstract
         return new Collection($sets, new FileSetTransformer(), Resources::RESOURCE_FILE_SETS);
     }
 
-
+    /**
+     * Whether the request may see the whole of a file: the scopes of its token settle
+     * it first, and then the permissions, the ones the endpoint serving these things asks about.
+     */
+    protected function isVisible(FileEntity $file): bool
+    {
+        return app(TokenScopes::class)->has('files:read')
+            && (bool) (new Checker($file))->canViewFileInFileManager();
+    }
 }

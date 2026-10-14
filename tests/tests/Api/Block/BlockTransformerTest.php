@@ -6,6 +6,8 @@ namespace Concrete\Tests\Api\Block;
 
 use Concrete\Core\Api\Fractal\Transformer\BaseBlockTransformer;
 use Concrete\Core\Block\Block;
+use Concrete\Core\User\User;
+use Concrete\TestHelpers\Api\TokenScopesTrait;
 use Concrete\TestHelpers\Block\BlockApiTestCase;
 
 defined('C5_EXECUTE') or die('Access Denied.');
@@ -15,6 +17,35 @@ defined('C5_EXECUTE') or die('Access Denied.');
  */
 class BlockTransformerTest extends BlockApiTestCase
 {
+    use TokenScopesTrait;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see BlockApiTestCase::setUp()
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->giveTheTokenScopes(['blocks:read']);
+        // with no permission key registered, only the superuser is allowed anything
+        $superUser = $this->createMock(User::class);
+        $superUser->method('isSuperUser')->willReturn(true);
+        app()->instance(User::class, $superUser);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see BlockApiTestCase::tearDown()
+     */
+    public function tearDown(): void
+    {
+        $this->takeTheTokenBack();
+        app()->forgetInstance(User::class);
+        parent::tearDown();
+    }
+
     public function testTheValueIsTheOneOfTheHandler(): void
     {
         $block = $this->addBlock('image', ['fID' => 0, 'altText' => 'A tiny image', 'sizingOption' => 'full_size']);
