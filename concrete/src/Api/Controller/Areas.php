@@ -7,8 +7,10 @@ use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Area\Area;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Block\BlockType\BlockType;
+use Concrete\Core\Block\BlockType\TemplateCatalog;
 use Concrete\Core\Page\AreaRefresher;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Page\Theme\Theme;
 use Concrete\Core\Permission\Checker;
 use Concrete\Core\Api\ApiController;
 use Concrete\Core\Area\Exception\AreaNotFoundException;
@@ -134,6 +136,19 @@ class Areas extends ApiController implements ApplicationAwareInterface
             return $this->error(t('You do not have permission to add this block type to this area on this page.'), 403);
         }
 
+        // a block is added with no custom template whether the request says so or says nothing
+        $customTemplate = (string) $this->getCustomTemplateToGive($content);
+        if ($customTemplate !== '') {
+            if (!$checker->canEditAreaContents()) {
+                return $this->error(t('You do not have permission to set the custom template of a block in this area.'), 403);
+            }
+            $theme = $page->getCollectionThemeObject();
+            $catalog = $this->app->make(TemplateCatalog::class);
+            if (!$catalog->isValidCustomTemplate($blockType, $theme instanceof Theme ? $theme : null, $customTemplate)) {
+                return $this->error(t('The block type does not have a custom template with that handle.'), 400);
+            }
+        }
+
         $beforeBlock = null;
         if (($content['beforeBlockID'] ?? null) !== null && $content['beforeBlockID'] !== '') {
             $beforeBlockID = filter_var($content['beforeBlockID'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
@@ -167,6 +182,9 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $command->setSaveMode(SaveMode::SAVE_MODE_IMPORT);
 
         $block = $this->app->executeCommand($command);
+        if ($customTemplate !== '') {
+            $this->giveTheCustomTemplate($block, $customTemplate);
+        }
         $block->getController()->getApiHandler()->afterApiWrite($block);
 
         $transformer = new BaseBlockTransformer();
@@ -436,6 +454,20 @@ class Areas extends ApiController implements ApplicationAwareInterface
             return $this->error(t('You do not have permission to edit this block on this page.'), 403);
         }
 
+        $customTemplate = $this->getCustomTemplateToGive($content);
+        // a request that leaves the custom template as it found it is asked nothing
+        if ($customTemplate === (string) $b->getBlockFilename()) {
+            $customTemplate = null;
+        } elseif ($customTemplate !== null) {
+            if (!$checker->canEditBlockCustomTemplate()) {
+                return $this->error(t('You do not have permission to change the custom template of this block.'), 403);
+            }
+            $catalog = $this->app->make(TemplateCatalog::class);
+            if ($customTemplate !== '' && !$catalog->isValidCustomTemplateForBlock($b, $customTemplate)) {
+                return $this->error(t('The block type does not have a custom template with that handle.'), 400);
+            }
+        }
+
         $body = $b->getController()->getApiHandler()->getSaveArgumentsFromApiValue((array) $content['value'], $b);
         $r = $this->validateBlock($b, $body);
         if ($r instanceof JsonResponse) {
@@ -451,6 +483,9 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $command->setSaveMode(SaveMode::SAVE_MODE_IMPORT);
 
         $block = $this->app->executeCommand($command);
+        if ($customTemplate !== null) {
+            $this->giveTheCustomTemplate($block, $customTemplate);
+        }
         $block->getController()->getApiHandler()->afterApiWrite($block);
 
         $transformer = new BaseBlockTransformer();
@@ -459,5 +494,27 @@ class Areas extends ApiController implements ApplicationAwareInterface
         return $this->transform($block, $transformer, Resources::RESOURCE_BLOCKS);
     }
 
+    /**
+     * @param mixed $content what the client sent, which is an array only when it sent an object
+     *
+     * @return string|null the custom template the request names, NULL when it names none
+     */
+    private function getCustomTemplateToGive($content): ?string
+    {
+        if (!is_array($content) || !array_key_exists('custom_template', $content)) {
+            return null;
+        }
 
+        return is_string($content['custom_template']) ? $content['custom_template'] : '';
+    }
+
+    /**
+     * Writing the custom template of a block does not refresh the block itself, and the answer is read
+     * from it.
+     */
+    private function giveTheCustomTemplate(Block $block, string $customTemplate): void
+    {
+        $block->setCustomTemplate($customTemplate);
+        $block->setTempFilename($customTemplate === '' ? null : $customTemplate);
+    }
 }
