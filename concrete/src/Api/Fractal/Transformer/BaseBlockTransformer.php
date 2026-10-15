@@ -36,6 +36,7 @@ class BaseBlockTransformer extends TransformerAbstract
         return [
             'id' => $block->getBlockID(),
             'type' => $block->getBlockTypeHandle(),
+            'custom_template' => (string) $block->getBlockFilename(),
             'value' => (object) $block->getController()->getApiHandler()->getApiValue($block),
         ];
     }

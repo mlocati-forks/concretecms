@@ -49,6 +49,17 @@ class BlockType implements \JsonSerializable
     public $value_schema;
 
     /**
+     * @OA\Property(
+     *     type="array",
+     *     title="Custom templates a block of this type can be shown with",
+     *     @OA\Items(ref="#/components/schemas/BlockTypeCustomTemplate")
+     * )
+     *
+     * @var \Concrete\Core\Api\Model\BlockType\CustomTemplate[]
+     */
+    public $custom_templates = [];
+
+    /**
      * {@inheritdoc}
      *
      * @see \JsonSerializable::jsonSerialize()

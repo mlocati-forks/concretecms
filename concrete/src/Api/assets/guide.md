@@ -118,6 +118,16 @@ A block type that declares no schema of its own is marked `x-concrete-undescribe
 learn its fields is to read a block of that type.
 An area can also hand back a block whose type the list leaves out, one the core writes for itself: there is
 no value a client composes for it, and `GET /block_types/{handle}` answers 404 for its handle.
+Each block type also carries the `custom_templates` its blocks can be shown with, the name of each and the themes
+that give it: an empty `only_for_themes` is a template every page can be shown with, whatever its theme,
+and the others only hold for a page shown with one of the themes they name. Two themes naming a template
+alike are one entry, since what names a template is its name and not the file behind it.
+None of them is needed: a block that names no template is shown with the default view of its block type,
+and for most block types the list is empty.
+A block carries the one it is shown with in its `custom_template`, empty for the default view, and takes
+it beside its `value` when it is added or updated: the handle of one of the `custom_templates` of its
+type, or an empty string to go back to the default view. A request that leaves it as it found it is asked
+nothing, so a client can send back what it read even on a page whose theme has changed since.
 A field of a value that names something of the site carries the ID of it, and the `x-concrete-reference`
 of the field says which kind of thing it names: `page`, `file`, `file-set`, `calendar-event` and so on.
 `GET /system/references` lists the kinds this installation knows, each with the endpoint handing those
