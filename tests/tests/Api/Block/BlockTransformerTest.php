@@ -71,6 +71,24 @@ class BlockTransformerTest extends BlockApiTestCase
         static::assertSame('{}', json_encode($value));
     }
 
+    public function testTheCustomTemplateOfABlockTravelsWithIt(): void
+    {
+        $page = self::createPage('Page with a block shown its own way');
+        $block = $this->addBlock('page_title', [], $page);
+        $block->setCustomTemplate('byline.php');
+
+        $transformed = $this->transform($this->getBlock($page));
+
+        static::assertSame('byline.php', $transformed['custom_template']);
+    }
+
+    public function testABlockShownTheUsualWayCarriesNoCustomTemplate(): void
+    {
+        $transformed = $this->transform($this->addBlock('page_title', []));
+
+        static::assertSame('', $transformed['custom_template']);
+    }
+
     /**
      * @return array<string,mixed>
      */

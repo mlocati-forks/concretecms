@@ -19,6 +19,13 @@ class UpdatedBlock
      */
     private $value;
 
+    /**
+     * @OA\Property(type="string", title="Custom template of the block", description="The handle of one of the custom_templates that GET /block_types gives for its type, empty for the default view of its type. Leave it out to keep the one the block has.")
+     *
+     * @var string
+     */
+    private $custom_template;
+
 
 
 
