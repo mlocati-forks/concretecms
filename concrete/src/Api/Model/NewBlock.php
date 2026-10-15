@@ -27,6 +27,13 @@ class NewBlock
     private $value;
 
     /**
+     * @OA\Property(type="string", title="Custom template of the block", description="The handle of one of the custom_templates that GET /block_types gives for its type: left out, or empty, the new block is shown with the default view of its type.")
+     *
+     * @var string
+     */
+    private $custom_template;
+
+    /**
      * @OA\Property(type="integer", format="int64", title="Insert before block", description="The ID of a block already in the same area: the new block is placed just before it. Without it, the new block goes at the end of the area.")
      *
      * @var int|null
