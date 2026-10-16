@@ -56,6 +56,20 @@ goes there, out of sight but still around.
 Where a workflow guards the deletion, the answer only means that the request was filed.
 The home page of a site is never deleted, and the answer says it was all the same.
 
+## The site is a tree of pages
+
+A site is a tree: one home page at the top, and every other page hanging under another one.
+`GET /pages/{pageID}/children` walks one step down, and a page is added under the parent the request
+names, which settles where it sits and what its address becomes.
+A site that speaks several languages hangs the pages of every other language under a home page of its
+own, so that their addresses begin with the path of that language (`/it/about/us`), and keeps each
+language apart all the same: the home page of a language is not a child of the home page of the site, it
+is where the pages of that language begin.
+So `GET /pages` answers with the pages of the default language alone, the ones under the home page that
+answers at the site root, and the other languages are walked from their own home page: `GET /sites` gives
+the locales of a site, each with the `path` its pages begin with and the `home_page_id` to start from.
+The `locale` of a page answer names the language it belongs to.
+
 ## The address of a page
 
 A page is served at its `path`, appended to the site root: a page whose `path` is `/about/us` answers at
