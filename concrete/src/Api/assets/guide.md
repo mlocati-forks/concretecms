@@ -152,6 +152,15 @@ The endpoints they name are the dictionaries of this API: `GET /calendars` and
 `GET /calendars/{calendarID}/events`, `GET /file_sets`, `GET /file_folders`, `GET /topic_trees`,
 `GET /thumbnail_types`, `GET /page_feeds`, `GET /boards` with the instances of each, and
 `GET /express_entities`. Read them to offer a choice instead of asking for an ID.
+A field holding rich text takes HTML, and the links in it name a page or a file of this site instead of
+carrying its address: `{CCM:CID_123}` for the page whose ID is 123, `{CCM:FID_<file>}` for a file and
+`{CCM:FID_DL_<file>}` to have it downloaded, `{CCM:BASE_URL}` for the root of the site, and
+`<concrete-picture fID="<file>" />` to show an image, where a file is named by UUID as it is everywhere
+else here.
+The site turns them into addresses while it draws the page, so write them instead of the address you read
+in a browser: a page that is renamed or moved keeps whatever points at it by ID, while an address written
+by hand stops working.
+The description of such a field lists the tokens it takes.
 
 To lay blocks side by side, add a block of the `core_area_layout` type: it holds columns of its own, and
 the value it gives back names the area of each of them, for the areas endpoints to fill.
