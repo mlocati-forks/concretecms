@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="SortedAreaBlocks model",
+ *     title="SortedAreaBlocks",
  *     description="The blocks of a page area, in the wanted display order",
  *     required={"blockIDs"}
  * )

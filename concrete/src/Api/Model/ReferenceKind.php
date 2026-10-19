@@ -10,7 +10,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="ReferenceKind",
  *     type="object",
- *     title="ReferenceKind model",
+ *     title="ReferenceKind",
  *     description="A kind of thing that a field of a value names instead of holding a value of its own."
  * )
  */

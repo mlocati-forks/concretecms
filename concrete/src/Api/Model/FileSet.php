@@ -10,7 +10,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="FileSet",
  *     type="object",
- *     title="FileSet model",
+ *     title="FileSet",
  *     description="A set files of the file manager are gathered in."
  * )
  */

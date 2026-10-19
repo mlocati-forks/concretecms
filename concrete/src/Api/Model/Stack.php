@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="Stack model",
+ *     title="Stack",
  * )
  */
 class Stack implements \JsonSerializable

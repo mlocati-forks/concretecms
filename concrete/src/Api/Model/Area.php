@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="Area model",
+ *     title="Area",
  * )
  */
 class Area

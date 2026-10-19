@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="NewPageVersion model",
+ *     title="NewPageVersion",
  *     description="Optional payload when creating an editable page version draft"
  * )
  */

@@ -7,7 +7,7 @@ namespace Concrete\Core\Api\Model;
 defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
- * @OA\Schema(title="SocialLink model", description="A social network a Concrete site is on.")
+ * @OA\Schema(title="SocialLink", description="A social network a Concrete site is on.")
  */
 class SocialLink implements \JsonSerializable
 {

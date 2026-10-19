@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeyDateTime",
  *     type="object",
- *     title="A key whose value is a moment in time",
+ *     title="AttributeKeyDateTime",
+ *     description="A key whose value is a moment in time",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeKey")}
  * )
  */
