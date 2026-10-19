@@ -28,21 +28,21 @@ class PageThemeGrid implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Number of columns the grid is divided in", description="The span and the offset of the columns of a theme-grid layout are counted in these")
+     * @OA\Property(title="Columns", description="Number of columns the grid is divided in. The span and the offset of the columns of a theme-grid layout are counted in these")
      *
      * @var int
      */
     public $columns;
 
     /**
-     * @OA\Property(title="Whether a layout can sit in the column of another layout")
+     * @OA\Property(title="Nesting supported?", description="Whether a layout can sit in the column of another layout")
      *
      * @var bool
      */
     public $supports_nesting;
 
     /**
-     * @OA\Property(title="Whether the columns of a layout can be preceded by empty ones", description="The offset of a column goes nowhere when the grid has no offsets")
+     * @OA\Property(title="Offsets supported?", description="Whether the columns of a layout can be preceded by empty ones. The offset of a column goes nowhere when the grid has no offsets")
      *
      * @var bool
      */

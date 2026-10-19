@@ -21,8 +21,8 @@ class DateTime extends AttributeKey
 {
     /**
      * @OA\Property(
-     *     title="What the key is meant to hold",
-     *     description="A key of the date modes means the time of its values to be ignored. Whatever the mode, a value is read as any date that PHP parses and comes back as Y-m-d H:i:s.",
+     *     title="Mode",
+     *     description="What the key is meant to hold. A key of the date modes means the time of its values to be ignored. Whatever the mode, a value is read as any date that PHP parses and comes back as Y-m-d H:i:s.",
      *     enum={"date_time", "date", "text", "date_text"}
      * )
      *

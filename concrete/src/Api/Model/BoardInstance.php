@@ -29,14 +29,14 @@ class BoardInstance implements \JsonSerializable
     public $id;
 
     /**
-     * @OA\Property(title="Name of the instance, as the dashboard shows it")
+     * @OA\Property(title="Name", description="Name of the instance, as the dashboard shows it")
      *
      * @var string
      */
     public $name;
 
     /**
-     * @OA\Property(format="date", title="When the instance was created")
+     * @OA\Property(format="date", title="Created", description="When the instance was created")
      *
      * @var string
      */
@@ -46,8 +46,8 @@ class BoardInstance implements \JsonSerializable
      * @OA\Property(
      *     format="date",
      *     nullable=true,
-     *     title="When the instance was last laid out",
-     *     description="NULL where it has not been laid out yet"
+     *     title="Last laid out",
+     *     description="When the instance was last laid out. NULL where it has not been laid out yet"
      * )
      *
      * @var string|null

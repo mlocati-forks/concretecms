@@ -30,7 +30,7 @@ class Site
     private $name;
 
     /**
-     * @OA\Property(ref="#/components/schemas/SiteDefaults", title="What the pages of this site are given when they ask for nothing of their own")
+     * @OA\Property(ref="#/components/schemas/SiteDefaults", title="Defaults", description="What the pages of this site are given when they ask for nothing of their own")
      *
      * @var \Concrete\Core\Api\Model\SiteDefaults
      */
@@ -39,7 +39,8 @@ class Site
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Locales of the site, the default one coming first, which every answer carries",
+     *     title="Locales",
+     *     description="Locales of the site, the default one coming first, which every answer carries",
      *     @OA\Property(
      *         property="data",
      *         type="array",
@@ -68,7 +69,8 @@ class Site
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Social networks the site is on, which the answer about a single site carries",
+     *     title="Social links",
+     *     description="Social networks the site is on, which the answer about a single site carries",
      *     @OA\Property(
      *         property="data",
      *         type="array",
@@ -83,7 +85,8 @@ class Site
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Custom attributes of the site, which the answer about a single site carries",
+     *     title="Custom attributes",
+     *     description="Custom attributes of the site, which the answer about a single site carries",
      *     @OA\Property(
      *         property="data",
      *         type="array",

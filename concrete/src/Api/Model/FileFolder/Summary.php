@@ -20,7 +20,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class Summary extends FileFolder
 {
     /**
-     * @OA\Property(title="Whether other folders are filed in this one", description="Says what the folder holds, not what the request may view of it: asking for this folder by itself hands those folders over")
+     * @OA\Property(title="Holds folders?", description="Whether other folders are filed in this one. Says what the folder holds, not what the request may view of it: asking for this folder by itself hands those folders over")
      *
      * @var bool
      */

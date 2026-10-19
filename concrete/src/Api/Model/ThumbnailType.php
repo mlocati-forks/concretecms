@@ -35,35 +35,35 @@ class ThumbnailType implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Width of the thumbnails in pixels, the maximum one where the sizing is proportional", description="NULL where the type sizes by height alone")
+     * @OA\Property(title="Width", description="Width of the thumbnails in pixels, the maximum one where the sizing is proportional. NULL where the type sizes by height alone")
      *
      * @var int|null
      */
     public $width;
 
     /**
-     * @OA\Property(title="Height of the thumbnails in pixels, the maximum one where the sizing is proportional", description="NULL where the type sizes by width alone")
+     * @OA\Property(title="Height", description="Height of the thumbnails in pixels, the maximum one where the sizing is proportional. NULL where the type sizes by width alone")
      *
      * @var int|null
      */
     public $height;
 
     /**
-     * @OA\Property(enum={"proportional", "exact"}, title="How an image is fitted in the width and the height", description="Proportional keeps the proportions of the image within them, exact crops it to them")
+     * @OA\Property(enum={"proportional", "exact"}, title="Sizing mode", description="How an image is fitted in the width and the height. Proportional keeps the proportions of the image within them, exact crops it to them")
      *
      * @var string
      */
     public $sizing_mode;
 
     /**
-     * @OA\Property(title="Whether an image smaller than these sizes is enlarged to them")
+     * @OA\Property(title="Upscaling enabled?", description="Whether an image smaller than these sizes is enlarged to them")
      *
      * @var bool
      */
     public $upscaling_enabled;
 
     /**
-     * @OA\Property(title="Whether the thumbnails of an animated image animate too")
+     * @OA\Property(title="Animations kept?", description="Whether the thumbnails of an animated image animate too")
      *
      * @var bool
      */

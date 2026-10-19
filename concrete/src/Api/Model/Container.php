@@ -28,21 +28,21 @@ class Container implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Handle of the package providing the container, empty when it belongs to none")
+     * @OA\Property(title="Package", description="Handle of the package providing the container, empty when it belongs to none")
      *
      * @var string
      */
     public $package;
 
     /**
-     * @OA\Property(title="Handles of the page themes this container can be shown with", description="A page theme is listed when its files carry the template of the container, and every one of them is when the application directory carries it")
+     * @OA\Property(title="Page themes", description="Handles of the page themes this container can be shown with. A page theme is listed when its files carry the template of the container, and every one of them is when the application directory carries it")
      *
      * @var string[]
      */
     public $page_themes;
 
     /**
-     * @OA\Property(title="Whether the template of the container is in the application directory of this installation, which shows it with every page theme")
+     * @OA\Property(title="In the application directory?", description="Whether the template of the container is in the application directory of this installation, which shows it with every page theme")
      *
      * @var bool
      */

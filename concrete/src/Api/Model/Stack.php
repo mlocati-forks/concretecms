@@ -14,7 +14,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class Stack implements \JsonSerializable
 {
     /**
-     * @OA\Property(format="int64", title="ID of the page holding the stack", description="The blocks of a stack live in the Main area of that page, which the areas endpoints work with; it is also what the core_stack_display block type takes, which falls back to it when the page it sits in speaks a language the stack has no version of")
+     * @OA\Property(format="int64", title="Page ID", description="ID of the page holding the stack. The blocks of a stack live in the Main area of that page, which the areas endpoints work with; it is also what the core_stack_display block type takes, which falls back to it when the page it sits in speaks a language the stack has no version of")
      *
      * @var int
      */
@@ -28,21 +28,21 @@ class Stack implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Folders the stack is filed in, from the root of the stacks downwards, empty when it is filed in none")
+     * @OA\Property(title="Folders", description="Folders the stack is filed in, from the root of the stacks downwards, empty when it is filed in none")
      *
      * @var string
      */
     public $folder;
 
     /**
-     * @OA\Property(type="array", nullable=true, title="Blocks of the stack, answered only where include_contents is on", description="NULL when the request may not read them, and for no other reason: either it carries no user, as a token of the client credentials flow does, or that user may not view the page listing the stacks and this stack", @OA\Items(ref="#/components/schemas/Block"))
+     * @OA\Property(type="array", nullable=true, title="Blocks", description="Blocks of the stack, answered only where include_contents is on. NULL when the request may not read them, and for no other reason: either it carries no user, as a token of the client credentials flow does, or that user may not view the page listing the stacks and this stack", @OA\Items(ref="#/components/schemas/Block"))
      *
      * @var array<string,mixed>[]|null
      */
     public $blocks;
 
     /**
-     * @OA\Property(type="array", title="Versions of the stack speaking the language of a section of the site", description="Empty where the site speaks one language only", @OA\Items(ref="#/components/schemas/LocalizedStack"))
+     * @OA\Property(type="array", title="Localized versions", description="Versions of the stack speaking the language of a section of the site. Empty where the site speaks one language only", @OA\Items(ref="#/components/schemas/LocalizedStack"))
      *
      * @var \Concrete\Core\Api\Model\LocalizedStack[]
      */

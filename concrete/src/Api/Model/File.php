@@ -86,8 +86,8 @@ class File
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Sets the file is in, where the includes parameter asks for them",
-     *     description="The ones this request may use, so a set somebody else keeps for themselves is left out",
+     *     title="Sets",
+     *     description="Sets the file is in, where the includes parameter asks for them. The ones this request may use, so a set somebody else keeps for themselves is left out",
      *     @OA\Property(
      *         property="data",
      *         type="array",
@@ -109,7 +109,8 @@ class File
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Custom attributes of the file, where the includes parameter asks for them",
+     *     title="Custom attributes",
+     *     description="Custom attributes of the file, where the includes parameter asks for them",
      *     @OA\Property(
      *         property="data",
      *         type="array",

@@ -35,35 +35,35 @@ class PageTheme implements \JsonSerializable
     public $description;
 
     /**
-     * @OA\Property(title="Handle of the package providing the page theme, empty when it belongs to none")
+     * @OA\Property(title="Package", description="Handle of the package providing the page theme, empty when it belongs to none")
      *
      * @var string
      */
     public $package;
 
     /**
-     * @OA\Property(ref="#/components/schemas/PageThemeGrid", nullable=true, title="Grid framework of the theme, NULL when it declares none")
+     * @OA\Property(ref="#/components/schemas/PageThemeGrid", nullable=true, title="Grid", description="Grid framework of the theme, NULL when it declares none")
      *
      * @var \Concrete\Core\Api\Model\PageThemeGrid|null
      */
     public $grid;
 
     /**
-     * @OA\Property(type="array", title="Widths the theme shows its responsive images at", description="What the thumbnails of an image block are keyed by", @OA\Items(ref="#/components/schemas/PageThemeImageBreakpoint"))
+     * @OA\Property(type="array", title="Image breakpoints", description="Widths the theme shows its responsive images at. What the thumbnails of an image block are keyed by", @OA\Items(ref="#/components/schemas/PageThemeImageBreakpoint"))
      *
      * @var \Concrete\Core\Api\Model\PageThemeImageBreakpoint[]
      */
     public $image_breakpoints;
 
     /**
-     * @OA\Property(type="array", title="Ready-made layouts the theme offers to the pages shown with it", @OA\Items(ref="#/components/schemas/LayoutPreset"))
+     * @OA\Property(type="array", title="Layout presets", description="Ready-made layouts the theme offers to the pages shown with it", @OA\Items(ref="#/components/schemas/LayoutPreset"))
      *
      * @var \Concrete\Core\Api\Model\LayoutPreset[]
      */
     public $presets;
 
     /**
-     * @OA\Property(type="array", title="Containers the theme carries the template of", @OA\Items(ref="#/components/schemas/Container"))
+     * @OA\Property(type="array", title="Containers", description="Containers the theme carries the template of", @OA\Items(ref="#/components/schemas/Container"))
      *
      * @var \Concrete\Core\Api\Model\Container[]
      */

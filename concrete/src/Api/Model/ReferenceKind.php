@@ -28,8 +28,8 @@ class ReferenceKind implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="How a field names a thing of this kind",
-     *     description="The same sentence that the description of such a field carries"
+     *     title="Description",
+     *     description="How a field names a thing of this kind. The same sentence that the description of such a field carries"
      * )
      *
      * @var string
@@ -38,8 +38,8 @@ class ReferenceKind implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Path of the endpoint handing over the things of this kind",
-     *     description="Without the /ccm/api/1.0 prefix, and empty where they come inside another answer: the entries of an Express entity are read through a path named after the entity, and the description says where the others are"
+     *     title="Endpoint",
+     *     description="Path of the endpoint handing over the things of this kind. Without the /ccm/api/1.0 prefix, and empty where they come inside another answer: the entries of an Express entity are read through a path named after the entity, and the description says where the others are"
      * )
      *
      * @var string

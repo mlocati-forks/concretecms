@@ -20,7 +20,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class Summary extends TopicTreeNode
 {
     /**
-     * @OA\Property(title="Whether topics, or categories of them, are held by this one", description="Says what the node holds, not what the request may view of it: asking for this node by itself hands those nodes over")
+     * @OA\Property(title="Holds nodes?", description="Whether topics, or categories of them, are held by this one. Says what the node holds, not what the request may view of it: asking for this node by itself hands those nodes over")
      *
      * @var bool
      */

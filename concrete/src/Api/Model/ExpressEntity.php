@@ -29,7 +29,7 @@ class ExpressEntity implements \JsonSerializable
     public $handle;
 
     /**
-     * @OA\Property(title="Handle of the entity in the plural, which the endpoints of its entries are named after")
+     * @OA\Property(title="Plural handle", description="Handle of the entity in the plural, which the endpoints of its entries are named after")
      *
      * @var string
      */
@@ -50,28 +50,28 @@ class ExpressEntity implements \JsonSerializable
     public $description;
 
     /**
-     * @OA\Property(type="array", title="Columns that a list of these entries can be made of", description="What the columns of an express_entry_list block name", @OA\Items(ref="#/components/schemas/ExpressEntityColumn"))
+     * @OA\Property(type="array", title="Columns", description="Columns that a list of these entries can be made of. What the columns of an express_entry_list block name", @OA\Items(ref="#/components/schemas/ExpressEntityColumn"))
      *
      * @var \Concrete\Core\Api\Model\ExpressEntity\Column[]
      */
     public $columns;
 
     /**
-     * @OA\Property(type="array", title="Filters that a list of these entries can be narrowed by", description="What the filters of an express_entry_list block name", @OA\Items(ref="#/components/schemas/ExpressEntityFilter"))
+     * @OA\Property(type="array", title="Filters", description="Filters that a list of these entries can be narrowed by. What the filters of an express_entry_list block name", @OA\Items(ref="#/components/schemas/ExpressEntityFilter"))
      *
      * @var \Concrete\Core\Api\Model\ExpressEntity\Filter[]
      */
     public $filters;
 
     /**
-     * @OA\Property(type="array", title="Entities these entries are associated with", @OA\Items(ref="#/components/schemas/ExpressEntityAssociation"))
+     * @OA\Property(type="array", title="Associations", description="Entities these entries are associated with", @OA\Items(ref="#/components/schemas/ExpressEntityAssociation"))
      *
      * @var \Concrete\Core\Api\Model\ExpressEntity\Association[]
      */
     public $associations;
 
     /**
-     * @OA\Property(type="array", title="Forms that display an entry of this entity", @OA\Items(ref="#/components/schemas/ExpressEntityForm"))
+     * @OA\Property(type="array", title="Forms", description="Forms that display an entry of this entity", @OA\Items(ref="#/components/schemas/ExpressEntityForm"))
      *
      * @var \Concrete\Core\Api\Model\ExpressEntity\Form[]
      */

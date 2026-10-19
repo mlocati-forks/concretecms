@@ -12,7 +12,7 @@ class NewFile
 {
 
     /**
-     * @OA\Property(type="integer", format="int64", title="ID of the file folder the file is added to", description="GET /file_folders lists the folders of this site: left out, the file goes to the root folder of the file manager.")
+     * @OA\Property(type="integer", format="int64", title="File folder ID", description="ID of the file folder the file is added to. GET /file_folders lists the folders of this site: left out, the file goes to the root folder of the file manager.")
      *
      * @var int
      */

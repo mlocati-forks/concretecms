@@ -14,63 +14,63 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class SystemInfo
 {
     /**
-     * @OA\Property(title="Version of Concrete CMS this installation runs")
+     * @OA\Property(title="Version", description="Version of Concrete CMS this installation runs")
      *
      * @var string
      */
     private $version;
 
     /**
-     * @OA\Property(title="Version of the core files found on disk, which differs from the installed one until the update is applied")
+     * @OA\Property(title="Code version", description="Version of the core files found on disk, which differs from the installed one until the update is applied")
      *
      * @var string
      */
     private $code_version;
 
     /**
-     * @OA\Property(title="Identifier of the last migration applied to the database")
+     * @OA\Property(title="Database version", description="Identifier of the last migration applied to the database")
      *
      * @var string
      */
     private $db_version;
 
     /**
-     * @OA\Property(title="Packages installed in this site, with their version")
+     * @OA\Property(title="Packages", description="Packages installed in this site, with their version")
      *
      * @var string
      */
     private $packages;
 
     /**
-     * @OA\Property(title="Files of this installation that take the place of the ones of the core")
+     * @OA\Property(title="Overrides", description="Files of this installation that take the place of the ones of the core")
      *
      * @var string
      */
     private $overrides;
 
     /**
-     * @OA\Property(title="How the caches of this installation are configured, one setting per line")
+     * @OA\Property(title="Cache", description="How the caches of this installation are configured, one setting per line")
      *
      * @var string
      */
     private $cache;
 
     /**
-     * @OA\Property(title="Software serving this site, as it announces itself, empty where it says nothing")
+     * @OA\Property(title="Server", description="Software serving this site, as it announces itself, empty where it says nothing")
      *
      * @var string
      */
     private $server;
 
     /**
-     * @OA\Property(title="Interface PHP is run through here")
+     * @OA\Property(title="Server API", description="Interface PHP is run through here")
      *
      * @var string
      */
     private $server_api;
 
     /**
-     * @OA\Property(title="Version of PHP running here")
+     * @OA\Property(title="PHP version", description="Version of PHP running here")
      *
      * @var string
      */
@@ -78,7 +78,8 @@ class SystemInfo
 
     /**
      * @OA\Property(
-     *     title="PHP extensions loaded here, FALSE where this installation does not let them be listed",
+     *     title="PHP extensions",
+     *     description="PHP extensions loaded here, FALSE where this installation does not let them be listed",
      *     oneOf={
      *         @OA\Schema(type="string"),
      *         @OA\Schema(type="boolean")
@@ -90,7 +91,7 @@ class SystemInfo
     private $php_extensions;
 
     /**
-     * @OA\Property(title="PHP settings of this installation, one per line")
+     * @OA\Property(title="PHP settings", description="PHP settings of this installation, one per line")
      *
      * @var string
      */

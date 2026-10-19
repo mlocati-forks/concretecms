@@ -19,7 +19,7 @@ class UpdatedPage
     private $name;
 
     /**
-     * @OA\Property(type="string", title="Last part of the path of the page", description="It is made out of the name of the page when it is missing")
+     * @OA\Property(type="string", title="URL slug", description="Last part of the path of the page. It is made out of the name of the page when it is missing")
      *
      * @var string
      */

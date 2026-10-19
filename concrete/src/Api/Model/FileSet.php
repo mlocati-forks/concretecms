@@ -29,7 +29,7 @@ class FileSet implements \JsonSerializable
     public $id;
 
     /**
-     * @OA\Property(title="Name of the set, as the file manager shows it")
+     * @OA\Property(title="Name", description="Name of the set, as the file manager shows it")
      *
      * @var string
      */
@@ -37,8 +37,8 @@ class FileSet implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Whether the set belongs to the site",
-     *     description="A set that is not public belongs to the user the request carries"
+     *     title="Public set?",
+     *     description="Whether the set belongs to the site. A set that is not public belongs to the user the request carries"
      * )
      *
      * @var bool
@@ -47,8 +47,8 @@ class FileSet implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Whether this is the set the file manager stars into",
-     *     description="A user has one of these, holding the files they starred"
+     *     title="Starred set?",
+     *     description="Whether this is the set the file manager stars into. A user has one of these, holding the files they starred"
      * )
      *
      * @var bool

@@ -32,7 +32,8 @@ class Form implements \JsonSerializable
     /**
      * @OA\Property(
      *     type="array",
-     *     title="Groups of fields the form is made of, in the order it shows them",
+     *     title="Field sets",
+     *     description="Groups of fields the form is made of, in the order it shows them",
      *     @OA\Items(ref="#/components/schemas/ExpressEntityFormFieldSet")
      * )
      *

@@ -28,21 +28,21 @@ class PageType implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Handle of the page template that pages of this type get by default, empty when it has none")
+     * @OA\Property(title="Default page template", description="Handle of the page template that pages of this type get by default, empty when it has none")
      *
      * @var string
      */
     public $default_template;
 
     /**
-     * @OA\Property(title="Handles of the page templates that pages of this type may use")
+     * @OA\Property(title="Page templates", description="Handles of the page templates that pages of this type may use")
      *
      * @var string[]
      */
     public $templates;
 
     /**
-     * @OA\Property(title="Handle of the package providing the page type, empty when it belongs to none")
+     * @OA\Property(title="Package", description="Handle of the package providing the page type, empty when it belongs to none")
      *
      * @var string
      */

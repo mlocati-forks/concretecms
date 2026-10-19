@@ -28,7 +28,7 @@ class PageTemplate implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Handle of the package providing the page template, empty when it belongs to none")
+     * @OA\Property(title="Package", description="Handle of the package providing the page template, empty when it belongs to none")
      *
      * @var string
      */

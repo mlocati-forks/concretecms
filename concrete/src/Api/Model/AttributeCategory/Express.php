@@ -21,8 +21,8 @@ class Express extends AttributeCategory
 {
     /**
      * @OA\Property(
-     *     title="ID of the Express entity holding these attributes",
-     *     description="What the Express entities endpoint names an entity by"
+     *     title="Express entity ID",
+     *     description="ID of the Express entity holding these attributes. What the Express entities endpoint names an entity by"
      * )
      *
      * @var string

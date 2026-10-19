@@ -22,8 +22,8 @@ class Topics extends AttributeKey
     /**
      * @OA\Property(
      *     format="int64",
-     *     title="ID of the topic tree a value of this key picks from",
-     *     description="What the topic trees endpoint names a tree by"
+     *     title="Topic tree ID",
+     *     description="ID of the topic tree a value of this key picks from. What the topic trees endpoint names a tree by"
      * )
      *
      * @var int
@@ -33,7 +33,8 @@ class Topics extends AttributeKey
     /**
      * @OA\Property(
      *     format="int64",
-     *     title="ID of the node a value of this key picks from, 0 for the whole tree"
+     *     title="Parent node ID",
+     *     description="ID of the node a value of this key picks from, 0 for the whole tree"
      * )
      *
      * @var int
@@ -41,7 +42,7 @@ class Topics extends AttributeKey
     public $parent_node_id;
 
     /**
-     * @OA\Property(title="Whether a value of this key may name more than one topic")
+     * @OA\Property(title="Multiple values allowed?", description="Whether a value of this key may name more than one topic")
      *
      * @var bool
      */
