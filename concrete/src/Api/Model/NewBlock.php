@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="NewBlock model",
+ *     title="NewBlock",
  *     description="A Concrete Block",
  *     required={"type"}
  * )

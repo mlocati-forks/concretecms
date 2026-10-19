@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="TopicTree model",
+ *     title="TopicTree",
  * )
  */
 class TopicTree implements \JsonSerializable

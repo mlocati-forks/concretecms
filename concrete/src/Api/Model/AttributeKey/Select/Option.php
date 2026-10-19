@@ -10,7 +10,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeySelectOption",
  *     type="object",
- *     title="One of the options a value of an attribute key is picked out of",
+ *     title="AttributeKeySelectOption",
+ *     description="One of the options a value of an attribute key is picked out of",
  * )
  */
 class Option implements \JsonSerializable

@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="CalendarEvent model",
+ *     title="CalendarEvent",
  * )
  */
 class CalendarEvent

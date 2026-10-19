@@ -3,7 +3,7 @@
 namespace Concrete\Core\Api\Model;
 
 /**
- * @OA\Schema(title="Site model", description="A Concrete Site object.")
+ * @OA\Schema(title="Site", description="A Concrete Site object.")
  */
 class Site
 {

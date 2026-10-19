@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="Container model",
+ *     title="Container",
  * )
  */
 class Container implements \JsonSerializable

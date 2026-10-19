@@ -10,7 +10,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="FileFolder",
  *     type="object",
- *     title="What every answer about a folder of files says",
+ *     title="FileFolder",
+ *     description="What every answer about a folder of files says",
  * )
  */
 abstract class FileFolder implements \JsonSerializable

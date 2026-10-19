@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="BlockType model",
+ *     title="BlockType",
  * )
  */
 class BlockType implements \JsonSerializable

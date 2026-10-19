@@ -4,7 +4,8 @@ namespace Concrete\Core\Api\Response;
 
 /**
  * @OA\Schema(
- *     title="Deletion Successful",
+ *     title="DeletedResponse",
+ *     description="What a delete answers: which thing was deleted, and that it is gone",
  * )
  */
 class DeletedResponse

@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="PageThemeImageBreakpoint model",
+ *     title="PageThemeImageBreakpoint",
  * )
  */
 class PageThemeImageBreakpoint implements \JsonSerializable

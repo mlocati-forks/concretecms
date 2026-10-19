@@ -10,8 +10,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="ExpressEntry",
  *     type="object",
- *     title="An entry of an Express entity this API does not serve on its own",
- *     description="The entries of such an entity come along with the ones they are associated with, and carry the fields every entry has"
+ *     title="ExpressEntry",
+ *     description="An entry of an Express entity this API does not serve on its own. The entries of such an entity come along with the ones they are associated with, and carry the fields every entry has"
  * )
  */
 class ExpressEntry

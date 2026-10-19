@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="ExpressEntity model",
+ *     title="ExpressEntity",
  *     description="An Express entity whose entries this API serves.",
  * )
  */

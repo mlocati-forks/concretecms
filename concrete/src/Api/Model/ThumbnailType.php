@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="ThumbnailType model",
+ *     title="ThumbnailType",
  * )
  */
 class ThumbnailType implements \JsonSerializable

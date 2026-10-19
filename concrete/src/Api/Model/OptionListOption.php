@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="OptionList Option Value",
+ *     title="OptionListOption",
  * )
  */
 class OptionListOption

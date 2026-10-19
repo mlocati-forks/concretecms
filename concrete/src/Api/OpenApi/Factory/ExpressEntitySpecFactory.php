@@ -35,7 +35,8 @@ class ExpressEntitySpecFactory
 
     protected function addReadSchema(Entity $object)
     {
-        $model = new SpecModel(camelcase($object->getHandle()), t('%s model', $object->getName()));
+        $schemaName = camelcase($object->getHandle());
+        $model = new SpecModel($schemaName, $schemaName, t('An entry of the %s entity', $object->getName()));
         $model
             ->addProperty(new SpecProperty('id', t('Entry public identifier'), 'string'))
             ->addProperty(new SpecProperty('date_added', t('Date Added'), 'string', 'date'))
@@ -122,7 +123,7 @@ class ExpressEntitySpecFactory
             t('Creating a %s object', $object->getName())
         );
 
-        $model = new SpecModel($modelName, t('%s model - New', $object->getName()));
+        $model = new SpecModel($modelName, $modelName, t('An entry to add to the %s entity', $object->getName()));
 
         foreach ($object->getAttributes() as $attribute) {
             $handler = AttributeApiHandler::forController($attribute->getController());

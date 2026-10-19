@@ -21,14 +21,28 @@ class SpecModel implements \JsonSerializable
     protected $properties = [];
 
     /**
+     * What the schema holds, in words, for whoever reads the specification.
+     *
+     * @var string
+     */
+    protected $description;
+
+    /**
      * SpecModel constructor.
      * @param string $objectName
      * @param string $name
+     * @param string $description
      */
-    public function __construct(string $objectName, string $name)
+    public function __construct(string $objectName, string $name, string $description = '')
     {
         $this->objectName = $objectName;
         $this->name = $name;
+        $this->description = $description;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
     }
 
     /**
@@ -58,6 +72,9 @@ class SpecModel implements \JsonSerializable
     {
         $data = [];
         $data['title'] = $this->getName();
+        if ($this->getDescription() !== '') {
+            $data['description'] = $this->getDescription();
+        }
         $data['properties'] = [];
         foreach ($this->properties as $property) {
             $data['properties'][$property->getPropertyKey()] = $property;
