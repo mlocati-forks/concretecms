@@ -32,6 +32,13 @@ class Block
     private $custom_template;
 
     /**
+     * @OA\Property(ref="#/components/schemas/CustomStyle", nullable=true, title="Custom style given to it beyond what the theme of the page does, NULL where it has none of its own")
+     *
+     * @var \Concrete\Core\Api\Model\CustomStyle|null
+     */
+    private $custom_style;
+
+    /**
      * @OA\Property(type="object", title="Block value")
      *
      * @var string
