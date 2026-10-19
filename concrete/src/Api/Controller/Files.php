@@ -6,13 +6,14 @@ use Concrete\Core\Attribute\Category\FileCategory;
 use Concrete\Core\File\File;
 use Concrete\Core\File\FileList;
 use Concrete\Core\File\Filesystem;
+use Concrete\Core\File\Incoming;
 use Concrete\Core\File\Import\FileImporter;
+use Concrete\Core\File\Import\ImportException;
 use Concrete\Core\File\Service\VolatileDirectory;
 use Concrete\Core\File\ValidationService;
 use Concrete\Core\File\Import\RemoteFileDownloader;
 use Concrete\Core\Error\UserMessageException;
 use Concrete\Core\File\Import\ImportOptions;
-use Concrete\Core\File\Importer;
 use Concrete\Core\Permission\Checker;
 use Concrete\Core\Search\Pagination\PagerPagination;
 use Concrete\Core\Tree\Node\Node;
@@ -25,9 +26,11 @@ use Concrete\Core\Api\File\SetAccess;
 use Concrete\Core\Api\Fractal\Transformer\FileTransformer;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
+use League\Flysystem\FileNotFoundException;
 use League\Fractal\Resource\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Throwable;
 
 class Files extends ApiController
 {
@@ -212,7 +215,8 @@ class Files extends ApiController
      *         response=200,
      *         description="Successful files operation",
      *         @OA\JsonContent(
-     *             @OA\Property(property="data", ref="#/components/schemas/File")
+     *             @OA\Property(property="data", ref="#/components/schemas/File"),
+     *             @OA\Property(property="meta", ref="#/components/schemas/NewFileMeta")
      *         ),
      *     ),
      * )
@@ -228,56 +232,86 @@ class Files extends ApiController
             return $this->error(t("You don't have the permission to upload to %s", $folder->getTreeNodeDisplayName()), 403);
         }
         $uploadedFile = $this->request->files->get('file');
-        if ($uploadedFile instanceof UploadedFile) {
-            if ($post_max_size = $this->app->make('helper/number')->getBytes(ini_get('post_max_size'))) {
-                $contentLength = (int) $this->request->server->get('CONTENT_LENGTH', 0);
-                if ($contentLength > 0 && $post_max_size < $contentLength) {
-                    return $this->error(Importer::getErrorMessage(Importer::E_FILE_EXCEEDS_POST_MAX_FILE_SIZE), 400);
+        $contents = $this->getPostedValue('contents');
+        $url = trim((string) $this->getPostedValue('url'));
+        $incomingFilename = trim((string) $this->getPostedValue('incoming_filename'));
+        $filename = trim((string) $this->getPostedValue('filename'));
+        $ways = array_keys(array_filter([
+            'file' => $uploadedFile instanceof UploadedFile,
+            'contents' => is_string($contents) && $contents !== '',
+            'url' => $url !== '',
+            'incoming_filename' => $incomingFilename !== '',
+        ]));
+        if (count($ways) > 1) {
+            return $this->error(t('A file is added in one way at a time, and this request asks for more than one: %s.', implode(', ', $ways)), 400);
+        }
+        switch ($ways[0] ?? '') {
+            case 'file':
+                if ($filename !== '') {
+                    return $this->error(t('An uploaded file keeps the name it is sent with: filename holds for the other ways of adding a file.'), 400);
                 }
-            }
-            if (!$uploadedFile->isValid()) {
-                return $this->error(Importer::getErrorMessage($uploadedFile->getError()), 400);
-            }
-            $localFilename = $uploadedFile->getPathname();
-            $concreteFilename = $uploadedFile->getClientOriginalName();
-            if (!$this->app->make(ValidationService::class)->extension($concreteFilename)) {
-                return $this->error(Importer::getErrorMessage(Importer::E_FILE_INVALID_EXTENSION), 400);
-            }
-        } elseif (is_string($contents = $this->getPostedValue('contents')) && $contents !== '') {
-            $concreteFilename = trim((string) $this->getPostedValue('filename'));
-            if ($concreteFilename === '') {
-                return $this->error(t('You must specify the name of the file.'), 400);
-            }
-            $concreteFilename = basename($concreteFilename);
-            if (!$this->app->make(ValidationService::class)->extension($concreteFilename)) {
-                return $this->error(Importer::getErrorMessage(Importer::E_FILE_INVALID_EXTENSION), 400);
-            }
-            $decoded = base64_decode($contents, true);
-            if ($decoded === false) {
-                return $this->error(t('The contents of the file must be base64-encoded.'), 400);
-            }
-            // the volatile directory must be kept alive until the file has been imported
-            $volatileDirectory = $this->app->make(VolatileDirectory::class);
-            $localFilename = $volatileDirectory->getPath() . '/upload';
-            if (@file_put_contents($localFilename, $decoded) === false) {
-                return $this->error(t('Failed to save the contents of the file.'), 500);
-            }
-        } elseif (($url = trim((string) $this->getPostedValue('url'))) !== '') {
-            // the volatile directory must be kept alive until the file has been imported
-            $volatileDirectory = $this->app->make(VolatileDirectory::class);
-            try {
-                $localFilename = $this->app->make(RemoteFileDownloader::class)->download($url, $volatileDirectory->getPath(), null, trim((string) $this->getPostedValue('filename')));
-            } catch (UserMessageException $x) {
-                return $this->error($x->getMessage(), 400);
-            }
-            // the downloader named the file after the received filename parameter, or after the URL when it's empty
-            $concreteFilename = basename($localFilename);
-        } else {
-            return $this->error(Importer::getErrorMessage(Importer::E_FILE_INVALID), 400);
+                if ($post_max_size = $this->app->make('helper/number')->getBytes(ini_get('post_max_size'))) {
+                    $contentLength = (int) $this->request->server->get('CONTENT_LENGTH', 0);
+                    if ($contentLength > 0 && $post_max_size < $contentLength) {
+                        return $this->error(ImportException::describeErrorCode(ImportException::E_FILE_EXCEEDS_POST_MAX_FILE_SIZE), 400);
+                    }
+                }
+                if (!$uploadedFile->isValid()) {
+                    return $this->error(ImportException::describeErrorCode($uploadedFile->getError()), 400);
+                }
+                $localFilename = $uploadedFile->getPathname();
+                $concreteFilename = $uploadedFile->getClientOriginalName();
+                if (!$this->app->make(ValidationService::class)->extension($concreteFilename)) {
+                    return $this->error(ImportException::describeErrorCode(ImportException::E_FILE_INVALID_EXTENSION), 400);
+                }
+                break;
+            case 'contents':
+                $concreteFilename = $filename;
+                if ($concreteFilename === '') {
+                    return $this->error(t('You must specify the name of the file.'), 400);
+                }
+                $concreteFilename = basename($concreteFilename);
+                if (!$this->app->make(ValidationService::class)->extension($concreteFilename)) {
+                    return $this->error(ImportException::describeErrorCode(ImportException::E_FILE_INVALID_EXTENSION), 400);
+                }
+                $decoded = base64_decode($contents, true);
+                if ($decoded === false) {
+                    return $this->error(t('The contents of the file must be base64-encoded.'), 400);
+                }
+                // the volatile directory must be kept alive until the file has been imported
+                $volatileDirectory = $this->app->make(VolatileDirectory::class);
+                $localFilename = $volatileDirectory->getPath() . '/upload';
+                if (@file_put_contents($localFilename, $decoded) === false) {
+                    return $this->error(t('Failed to save the contents of the file.'), 500);
+                }
+                break;
+            case 'url':
+                // the volatile directory must be kept alive until the file has been imported
+                $volatileDirectory = $this->app->make(VolatileDirectory::class);
+                try {
+                    $localFilename = $this->app->make(RemoteFileDownloader::class)->download($url, $volatileDirectory->getPath(), null, $filename);
+                } catch (UserMessageException $x) {
+                    return $this->error($x->getMessage(), 400);
+                }
+                // the downloader named the file after the received filename parameter, or after the URL when it's empty
+                $concreteFilename = basename($localFilename);
+                break;
+            case 'incoming_filename':
+                $incoming = $this->app->make(Incoming::class);
+                if (!$this->isInIncomingDirectory($incoming, $incomingFilename)) {
+                    return $this->error(t("The file \"%s\" can't be found in the incoming directory.", $incomingFilename), 400);
+                }
+                $concreteFilename = $filename === '' ? $incomingFilename : basename($filename);
+                if (!$this->app->make(ValidationService::class)->extension($concreteFilename)) {
+                    return $this->error(ImportException::describeErrorCode(ImportException::E_FILE_INVALID_EXTENSION), 400);
+                }
+                break;
+            default:
+                return $this->error(ImportException::describeErrorCode(ImportException::E_FILE_INVALID), 400);
         }
         $cf = $this->app->make('helper/file');
         if (!$fp->canAddFileType($cf->getExtension($concreteFilename))) {
-            return $this->error(Importer::getErrorMessage(Importer::E_FILE_INVALID_EXTENSION), 403);
+            return $this->error(ImportException::describeErrorCode(ImportException::E_FILE_INVALID_EXTENSION), 403);
         }
 
         /**
@@ -287,9 +321,19 @@ class Files extends ApiController
         $importer = $this->app->make(FileImporter::class);
         $importOptions = $this->app->make(ImportOptions::class);
         $importOptions->setImportToFolder($folder);
-        $file = $importer->importLocalFile($localFilename, $concreteFilename, $importOptions);
+        try {
+            $version = $incomingFilename === ''
+                ? $importer->importLocalFile($localFilename, $concreteFilename, $importOptions)
+                : $importer->importFromIncoming($incomingFilename, $concreteFilename, $importOptions);
+        } catch (ImportException $x) {
+            return $this->error($x->getMessage(), 400);
+        }
+        $resource = $this->transform($version->getFile(), new FileTransformer(), Resources::RESOURCE_FILES);
+        if ($incomingFilename !== '' && $this->getPostedValue('remove_from_incoming')) {
+            $resource->setMetaValue('removed_from_incoming', $this->removeFromIncoming($incoming, $incomingFilename));
+        }
 
-        return $this->transform($file->getFile(), new FileTransformer(), Resources::RESOURCE_FILES);
+        return $resource;
     }
 
     private function getDestinationFolder(): ?Node
@@ -300,6 +344,43 @@ class Files extends ApiController
         }
 
         return is_scalar($treeNodeID) ? Node::getByID((int) $treeNodeID) : null;
+    }
+
+    /**
+     * Take away from the incoming directory a file that has just been added to the file manager.
+     *
+     * The file is in the file manager by now, so a directory that will not let go of its copy is not
+     * worth losing the answer over: the answer says the copy is still there instead.
+     *
+     * @return bool whether the incoming directory holds that file no more
+     */
+    private function removeFromIncoming(Incoming $incoming, string $filename): bool
+    {
+        try {
+            return (bool) $incoming->getIncomingFilesystem()->delete($incoming->getIncomingPath() . '/' . $filename);
+        } catch (FileNotFoundException $x) {
+            // somebody else took it away between the import and now, which is what was asked for anyway
+            return true;
+        } catch (Throwable $x) {
+            return false;
+        }
+    }
+
+    /**
+     * Is a name one of the files sitting in the incoming directory?
+     *
+     * What a client sends is a name and not a path, so it is looked for among the names the directory
+     * holds, which is also what the dialog of the file manager offers to pick from.
+     */
+    private function isInIncomingDirectory(Incoming $incoming, string $filename): bool
+    {
+        foreach ($incoming->getIncomingFilesystem()->listContents($incoming->getIncomingPath()) as $item) {
+            if (($item['type'] ?? '') !== 'dir' && ($item['basename'] ?? '') === $filename) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
