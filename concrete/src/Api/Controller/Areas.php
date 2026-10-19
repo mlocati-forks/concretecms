@@ -5,11 +5,17 @@ namespace Concrete\Core\Api\Controller;
 use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Area\Area;
+use Concrete\Core\Area\ApiArea;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Block\BlockType\BlockType;
+use Concrete\Core\Api\Style\CustomStyleDescriber;
+use Concrete\Core\Api\Style\CustomStyleFactory;
 use Concrete\Core\Block\BlockType\TemplateCatalog;
+use Concrete\Core\Entity\StyleCustomizer\Inline\StyleSet;
+use Concrete\Core\Error\UserMessageException;
 use Concrete\Core\Page\AreaRefresher;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Page\Stack\Stack;
 use Concrete\Core\Page\Theme\Theme;
 use Concrete\Core\Permission\Checker;
 use Concrete\Core\Api\ApiController;
@@ -22,6 +28,7 @@ use Concrete\Core\Block\Command\DeleteBlockCommand;
 use Concrete\Core\Block\Command\SortAreaBlocksCommand;
 use Concrete\Core\Block\Command\UpdatePageBlockCommand;
 use Concrete\Core\Block\Controller\SaveMode;
+use Concrete\Core\Api\Fractal\Transformer\AreaTransformer;
 use Concrete\Core\Api\Fractal\Transformer\BaseBlockTransformer;
 use Concrete\Core\Api\Fractal\Transformer\CollectionVersionTransformer;
 use Concrete\Core\Api\Resources;
@@ -77,6 +84,88 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $this->app->make(AreaRefresher::class)->refresh($page);
 
         return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/ccm/api/1.0/pages/{pageID}/{areaHandle}",
+     *     tags={"areas"},
+     *     operationId="updatePageArea",
+     *     summary="Updates an area of a page.",
+     *     security={
+     *         {"authorization": {"pages:areas:update"}}
+     *     },
+     *     @OA\Parameter(
+     *         name="pageID",
+     *         in="path",
+     *         description="ID of page",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="areaHandle",
+     *         in="path",
+     *         description="Area Name",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\RequestBody(ref="#/components/requestBodies/UpdatedArea"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Area")
+     *         ),
+     *     ),
+     * )
+     */
+    public function updateArea($pageID, $areaHandle)
+    {
+        $content = json_decode($this->request->getContent(), true);
+
+        $page = Page::getByID($pageID, 'RECENT');
+        if (!$page || $page->isError()) {
+            return $this->error(t('Page not found.'), 404);
+        }
+        // an area the page has never drawn has no record of its own, and writing its style creates it
+        $area = Area::getOrCreate($page, $areaHandle);
+        $stack = null;
+        if ($area->isGlobalArea()) {
+            $stack = Stack::getByName($area->getAreaHandle());
+            if (!$stack || $stack->isError()) {
+                return $this->error(t('The stack of this global area could not be found.'), 404);
+            }
+        }
+
+        $newCustomStyle = $this->getRequestedCustomStyle($content);
+        if ($newCustomStyle === false) {
+            $newStyleSet = false;
+        } else {
+            try {
+                $newStyleSet = is_array($newCustomStyle) ? $this->app->make(CustomStyleFactory::class)->create($newCustomStyle) : null;
+            } catch (UserMessageException $x) {
+                return $this->error($x->getMessage(), 400);
+            }
+            $currentStyle = $page->getAreaCustomStyle($area);
+            $currentStyleSet = $currentStyle === null ? null : $currentStyle->getStyleSet();
+            if ($this->describeStyleSet($newStyleSet) === $this->describeStyleSet($currentStyleSet)) {
+                // a request that leaves the custom style as it found it is asked nothing
+                $newStyleSet = false;
+            } elseif (!(new Checker($area))->canEditAreaDesign()) {
+                return $this->error(t('You do not have permission to change the custom style of this area.'), 403);
+            }
+        }
+
+        if ($newStyleSet !== false) {
+            $this->setAreaCustomStyle($page, $area, $stack, $newStyleSet);
+        }
+
+        return $this->transform(new ApiArea(Page::getByID($pageID, 'RECENT'), $areaHandle), new AreaTransformer());
     }
 
     /**
@@ -149,6 +238,20 @@ class Areas extends ApiController implements ApplicationAwareInterface
             }
         }
 
+        $newCustomStyle = $this->getRequestedCustomStyle($content);
+        $newStyleSet = null;
+        if (is_array($newCustomStyle)) {
+            try {
+                $newStyleSet = $this->app->make(CustomStyleFactory::class)->create($newCustomStyle);
+            } catch (UserMessageException $x) {
+                return $this->error($x->getMessage(), 400);
+            }
+            // a custom style in which nothing holds gives the block nothing, and is asked nothing
+            if ($newStyleSet !== null && !$checker->canEditAreaContents()) {
+                return $this->error(t('You do not have permission to set the custom style of a block in this area.'), 403);
+            }
+        }
+
         $beforeBlock = null;
         if (($content['beforeBlockID'] ?? null) !== null && $content['beforeBlockID'] !== '') {
             $beforeBlockID = filter_var($content['beforeBlockID'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
@@ -184,6 +287,10 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $block = $this->app->executeCommand($command);
         if ($newCustomTemplate !== '') {
             $this->setBlockCustomTemplate($block, $newCustomTemplate);
+        }
+        if ($newStyleSet !== null) {
+            $newStyleSet->save();
+            $block->setCustomStyleSet($newStyleSet);
         }
         $block->getController()->getApiHandler()->afterApiWrite($block);
 
@@ -468,6 +575,25 @@ class Areas extends ApiController implements ApplicationAwareInterface
             }
         }
 
+        $newCustomStyle = $this->getRequestedCustomStyle($content);
+        if ($newCustomStyle === false) {
+            $newStyleSet = false;
+        } else {
+            try {
+                $newStyleSet = is_array($newCustomStyle) ? $this->app->make(CustomStyleFactory::class)->create($newCustomStyle) : null;
+            } catch (UserMessageException $x) {
+                return $this->error($x->getMessage(), 400);
+            }
+            $currentStyle = $b->getCustomStyle();
+            $currentStyleSet = $currentStyle === null ? null : $currentStyle->getStyleSet();
+            if ($this->describeStyleSet($newStyleSet) === $this->describeStyleSet($currentStyleSet)) {
+                // a request that leaves the custom style as it found it is asked nothing
+                $newStyleSet = false;
+            } elseif (!$checker->canEditBlockDesign()) {
+                return $this->error(t('You do not have permission to change the custom style of this block.'), 403);
+            }
+        }
+
         $body = $b->getController()->getApiHandler()->getSaveArgumentsFromApiValue((array) $content['value'], $b);
         $r = $this->validateBlock($b, $body);
         if ($r instanceof JsonResponse) {
@@ -485,6 +611,14 @@ class Areas extends ApiController implements ApplicationAwareInterface
         $block = $this->app->executeCommand($command);
         if ($newCustomTemplate !== null) {
             $this->setBlockCustomTemplate($block, $newCustomTemplate);
+        }
+        if ($newStyleSet !== false) {
+            if ($newStyleSet === null) {
+                $block->resetCustomStyle();
+            } else {
+                $newStyleSet->save();
+                $block->setCustomStyleSet($newStyleSet);
+            }
         }
         $block->getController()->getApiHandler()->afterApiWrite($block);
 
@@ -506,6 +640,62 @@ class Areas extends ApiController implements ApplicationAwareInterface
         }
 
         return is_string($content['custom_template']) ? $content['custom_template'] : '';
+    }
+
+    /**
+     * @param mixed $content what the client sent
+     *
+     * @return array<string,mixed>|null|false FALSE where the request says nothing of the custom style, NULL where it asks for none
+     */
+    private function getRequestedCustomStyle($content)
+    {
+        if (!is_array($content) || !array_key_exists('custom_style', $content)) {
+            return false;
+        }
+
+        return is_array($content['custom_style']) ? $content['custom_style'] : null;
+    }
+
+    /**
+     * Two custom styles are the same when a client reads the same thing of them, which is what settles
+     * a request is asking for a change at all.
+     *
+     * @return array<string,mixed>|null
+     */
+    private function describeStyleSet(?StyleSet $styleSet): ?array
+    {
+        if ($styleSet === null) {
+            return null;
+        }
+
+        return $this->app->make(CustomStyleDescriber::class)->describe($styleSet)->jsonSerialize();
+    }
+
+    /**
+     * Set on an area the custom style a request asks for, NULL to take away the one it has.
+     *
+     * The custom style of a global area belongs to the stack behind it, so the stack is what the core
+     * writes it on: a version of the page holding the area is made all the same and tied to the one of the
+     * stack, so that approving the page publishes the custom style as well.
+     *
+     * @see \Concrete\Controller\Dialog\Area\Design::submit()
+     */
+    private function setAreaCustomStyle(Page $page, Area $area, ?Stack $stack, ?StyleSet $styleSet): void
+    {
+        if ($stack === null) {
+            $version = $page->getVersionToModify();
+            $areaToStyle = $area;
+        } else {
+            $version = $stack->getVersionToModify();
+            $page->getVersionToModify()->relateVersionEdits($version);
+            $areaToStyle = Area::getOrCreate($version, STACKS_AREA_NAME);
+        }
+        if ($styleSet === null) {
+            $version->resetAreaCustomStyle($areaToStyle);
+        } else {
+            $styleSet->save();
+            $version->setCustomStyleSet($areaToStyle, $styleSet);
+        }
     }
 
     /**

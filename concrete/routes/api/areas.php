@@ -29,6 +29,11 @@ $router->delete('/pages/{pageID}/{areaHandle}/{blockID}', '\Concrete\Core\Api\Co
     ->setScopes('pages:areas:delete_block')
 ;
 
+$router->put('/pages/{pageID}/{areaHandle}', '\Concrete\Core\Api\Controller\Areas::updateArea')
+    ->setRequirement('pageID', '[0-9]+')
+    ->setScopes('pages:areas:update')
+;
+
 $router->put('/pages/{pageID}/{areaHandle}/{blockID}', '\Concrete\Core\Api\Controller\Areas::updateBlock')
     ->setRequirement('pageID', '[0-9]+')
     ->setRequirement('blockID', '[0-9]+')
