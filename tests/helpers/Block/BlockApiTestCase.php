@@ -9,6 +9,7 @@ use Concrete\Core\Area\Area;
 use Concrete\Core\Block\Block;
 use Concrete\Core\Block\BlockType\BlockType;
 use Concrete\Core\Block\Controller\SaveMode;
+use Concrete\Core\Block\CustomStyleRepository;
 use Concrete\Core\Entity\Block\BlockType\BlockType as BlockTypeEntity;
 use Concrete\Core\Entity\File\File as FileEntity;
 use Concrete\Core\File\Filesystem;
@@ -150,6 +151,8 @@ abstract class BlockApiTestCase extends PageTestCase
 
     protected function getBlock(Page $page): Block
     {
+        // the designs of a version are read once per process, and a block is read again as another request would
+        app()->forgetInstance(CustomStyleRepository::class);
         $page = Page::getByID($page->getCollectionID(), 'RECENT');
         $blocks = $page->getBlocks('Main');
 

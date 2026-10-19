@@ -86,7 +86,7 @@ class IncludedResourcesTest extends TestCase
 
         static::assertSame(['data'], array_keys($answer));
         // the blocks of an area travel with it, and come wrapped
-        static::assertSame(['name', 'blocks'], array_keys($answer['data']));
+        static::assertSame(['name', 'custom_style', 'blocks'], array_keys($answer['data']));
         static::assertSame(['data'], array_keys($answer['data']['blocks']));
         static::assertSame([], $answer['data']['blocks']['data']);
     }

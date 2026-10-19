@@ -142,6 +142,13 @@ A block carries the one it is shown with in its `custom_template`, empty for the
 it beside its `value` when it is added or updated: the handle of one of the `custom_templates` of its
 type, or an empty string to go back to the default view. A request that leaves it as it found it is asked
 nothing, so a client can send back what it read even on a page whose theme has changed since.
+An area and a block also carry the `custom_style` they are given beyond what the theme of the page does,
+and a request that sends back the one it read asks for nothing, as with the custom template.
+`PUT /pages/123/Main` writes the custom style of an area, which is the only thing of an area written that
+way, since its blocks are added, updated, sorted and deleted one by one.
+The custom style of a global area lives in the stack behind it, which is where the area of the page reads
+it from and where a write puts it: it lands in a version of that stack tied to the version of the page, so
+approving the page publishes it as well.
 A field of a value that names something of the site carries the ID of it, and the `x-concrete-reference`
 of the field says which kind of thing it names: `page`, `file`, `file-set`, `calendar-event` and so on.
 `GET /system/references` lists the kinds this installation knows, each with the endpoint handing those
