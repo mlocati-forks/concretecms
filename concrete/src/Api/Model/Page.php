@@ -23,7 +23,7 @@ class Page
     private $path;
 
     /**
-     * @OA\Property(type="string", title="Last part of the path of the page")
+     * @OA\Property(type="string", title="URL slug", description="Last part of the path of the page")
      *
      * @var string
      */
@@ -51,14 +51,14 @@ class Page
     private $template;
 
     /**
-     * @OA\Property(type="string", title="Handle of the page theme the page is shown with")
+     * @OA\Property(type="string", title="Page theme", description="Handle of the page theme the page is shown with")
      *
      * @var string
      */
     private $theme;
 
     /**
-     * @OA\Property(type="string", title="Identifier of the skin of that theme the page is shown with")
+     * @OA\Property(type="string", title="Theme skin", description="Identifier of the skin of that theme the page is shown with")
      *
      * @var string
      */
@@ -109,7 +109,8 @@ class Page
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Custom attributes of the page, where the includes parameter asks for them",
+     *     title="Custom attributes",
+     *     description="Custom attributes of the page, where the includes parameter asks for them",
      *     @OA\Property(
      *         property="data",
      *         type="array",
@@ -124,7 +125,8 @@ class Page
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Areas of the page, where the includes parameter asks for them",
+     *     title="Areas",
+     *     description="Areas of the page, where the includes parameter asks for them",
      *     @OA\Property(
      *         property="data",
      *         type="array",
@@ -139,7 +141,8 @@ class Page
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Files the page holds, where the includes parameter asks for them",
+     *     title="Files",
+     *     description="Files the page holds, where the includes parameter asks for them",
      *     @OA\Property(
      *         property="data",
      *         type="array",
@@ -154,7 +157,8 @@ class Page
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Content of the page, where the includes parameter asks for it",
+     *     title="Content",
+     *     description="Content of the page, where the includes parameter asks for it",
      *     @OA\Property(
      *         property="data",
      *         ref="#/components/schemas/Content"
@@ -168,7 +172,8 @@ class Page
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Version of the page this answer is about, which every answer carries",
+     *     title="Version",
+     *     description="Version of the page this answer is about, which every answer carries",
      *     @OA\Property(
      *         property="data",
      *         ref="#/components/schemas/PageVersion"

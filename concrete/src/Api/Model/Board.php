@@ -24,7 +24,7 @@ class Board implements \JsonSerializable
     public $id;
 
     /**
-     * @OA\Property(title="Name of the board, as the dashboard shows it")
+     * @OA\Property(title="Name", description="Name of the board, as the dashboard shows it")
      *
      * @var string
      */

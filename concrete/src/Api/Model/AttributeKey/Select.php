@@ -22,8 +22,8 @@ class Select extends AttributeKey
     /**
      * @OA\Property(
      *     type="array",
-     *     title="Options a value of this key is picked out of",
-     *     description="A value names them by ID",
+     *     title="Options",
+     *     description="Options a value of this key is picked out of. A value names them by ID",
      *     @OA\Items(ref="#/components/schemas/AttributeKeySelectOption")
      * )
      *
@@ -32,7 +32,7 @@ class Select extends AttributeKey
     public $options;
 
     /**
-     * @OA\Property(title="Whether a value of this key may name more than one option")
+     * @OA\Property(title="Multiple values allowed?", description="Whether a value of this key may name more than one option")
      *
      * @var bool
      */
@@ -40,8 +40,8 @@ class Select extends AttributeKey
 
     /**
      * @OA\Property(
-     *     title="Whether a value of this key may name an option the key hasn't got",
-     *     description="A value of its own is written as a string, and the key keeps it among its options"
+     *     title="Other values allowed?",
+     *     description="Whether a value of this key may name an option the key hasn't got. A value of its own is written as a string, and the key keeps it among its options"
      * )
      *
      * @var bool

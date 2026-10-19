@@ -17,7 +17,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class NewFileMeta
 {
     /**
-     * @OA\Property(type="boolean", title="Whether the incoming directory holds that file no more", description="It is answered only where the request asked for the file to be taken away with remove_from_incoming. FALSE says the file was added to the file manager all the same, and that the copy sitting in the incoming directory could not be deleted: adding it again would add it twice.")
+     * @OA\Property(type="boolean", title="Removed from incoming?", description="It is answered only where the request asked for the file to be taken away with remove_from_incoming. FALSE says the file was added to the file manager all the same, and that the copy sitting in the incoming directory could not be deleted: adding it again would add it twice.")
      *
      * @var bool
      */

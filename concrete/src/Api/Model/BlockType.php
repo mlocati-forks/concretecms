@@ -35,7 +35,7 @@ class BlockType implements \JsonSerializable
     public $description;
 
     /**
-     * @OA\Property(title="Handle of the package providing the block type, empty when it belongs to none")
+     * @OA\Property(title="Package", description="Handle of the package providing the block type, empty when it belongs to none")
      *
      * @var string
      */
@@ -51,7 +51,8 @@ class BlockType implements \JsonSerializable
     /**
      * @OA\Property(
      *     type="array",
-     *     title="Custom templates a block of this type can be shown with",
+     *     title="Custom templates",
+     *     description="Custom templates a block of this type can be shown with",
      *     @OA\Items(ref="#/components/schemas/BlockTypeCustomTemplate")
      * )
      *

@@ -27,7 +27,8 @@ class Calendar
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Site the calendar belongs to, where the includes parameter asks for it",
+     *     title="Site",
+     *     description="Site the calendar belongs to, where the includes parameter asks for it",
      *     @OA\Property(
      *         property="data",
      *         ref="#/components/schemas/Site"

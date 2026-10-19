@@ -18,11 +18,12 @@ defined('C5_EXECUTE') or die('Access Denied.');
  *     @OA\Property(
  *         property="cursor",
  *         type="object",
- *         title="Where the list was walked, and where to walk it on",
- *         @OA\Property(property="current", type="string", nullable=true, title="Where this answer was asked to start at, NULL for the beginning of the list"),
- *         @OA\Property(property="prev", type="string", nullable=true, title="Always NULL: this API does not walk a list backwards"),
- *         @OA\Property(property="next", type="string", nullable=true, title="UUID to ask the list after, NULL where it ends here"),
- *         @OA\Property(property="count", type="integer", title="How many objects this answer carries")
+ *         title="Cursor",
+ *         description="Where the list was walked, and where to walk it on",
+ *         @OA\Property(property="current", type="string", nullable=true, title="Current", description="Where this answer was asked to start at, NULL for the beginning of the list"),
+ *         @OA\Property(property="prev", type="string", nullable=true, title="Previous", description="Always NULL: this API does not walk a list backwards"),
+ *         @OA\Property(property="next", type="string", nullable=true, title="Next", description="UUID to ask the list after, NULL where it ends here"),
+ *         @OA\Property(property="count", type="integer", title="Count", description="How many objects this answer carries")
  *     )
  * )
  */

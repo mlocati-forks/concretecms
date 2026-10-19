@@ -29,8 +29,8 @@ class Control implements \JsonSerializable
     /**
      * @OA\Property(
      *     enum={"entity_property", "attribute_key", "association"},
-     *     title="What the control asks for",
-     *     description="A property of the entry itself, an attribute of it, or the entries it is associated with"
+     *     title="Type",
+     *     description="What the control asks for. A property of the entry itself, an attribute of it, or the entries it is associated with"
      * )
      *
      * @var string
@@ -38,14 +38,14 @@ class Control implements \JsonSerializable
     public $type;
 
     /**
-     * @OA\Property(title="Label of the control, as the form shows it")
+     * @OA\Property(title="Label", description="Label of the control, as the form shows it")
      *
      * @var string
      */
     public $label;
 
     /**
-     * @OA\Property(title="Whether the form asks for it before an entry goes in")
+     * @OA\Property(title="Required?", description="Whether the form asks for it before an entry goes in")
      *
      * @var bool
      */
@@ -53,8 +53,8 @@ class Control implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Handle of the attribute the control asks for",
-     *     description="Empty where the control asks for something else"
+     *     title="Attribute key",
+     *     description="Handle of the attribute the control asks for. Empty where the control asks for something else"
      * )
      *
      * @var string
@@ -63,8 +63,8 @@ class Control implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Name of the property the association the control asks for fills",
-     *     description="Empty where the control asks for something else"
+     *     title="Association",
+     *     description="Name of the property the association the control asks for fills. Empty where the control asks for something else"
      * )
      *
      * @var string

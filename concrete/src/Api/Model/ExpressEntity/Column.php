@@ -23,14 +23,14 @@ class Column implements \JsonSerializable
     public $key;
 
     /**
-     * @OA\Property(title="Name of the column, as the dashboard shows it")
+     * @OA\Property(title="Name", description="Name of the column, as the dashboard shows it")
      *
      * @var string
      */
     public $name;
 
     /**
-     * @OA\Property(title="Whether the entries can be sorted by this column")
+     * @OA\Property(title="Sortable?", description="Whether the entries can be sorted by this column")
      *
      * @var bool
      */

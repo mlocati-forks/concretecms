@@ -21,8 +21,8 @@ class Duration extends AttributeKey
 {
     /**
      * @OA\Property(
-     *     title="Unit a value of this key is written in",
-     *     description="One of seconds, minutes, hours, days, weeks, months, years",
+     *     title="Unit",
+     *     description="Unit a value of this key is written in. One of seconds, minutes, hours, days, weeks, months, years",
      *     enum={"seconds", "minutes", "hours", "days", "weeks", "months", "years"}
      * )
      *

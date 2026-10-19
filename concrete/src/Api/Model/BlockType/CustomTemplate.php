@@ -27,7 +27,7 @@ class CustomTemplate implements \JsonSerializable
     public $handle;
 
     /**
-     * @OA\Property(title="Name of the template, built out of its handle")
+     * @OA\Property(title="Name", description="Name of the template, built out of its handle")
      *
      * @var string
      */
@@ -36,8 +36,8 @@ class CustomTemplate implements \JsonSerializable
     /**
      * @OA\Property(
      *     type="array",
-     *     title="Handles of the themes that give this template",
-     *     description="Empty when every page can be shown with it, whatever its theme: otherwise one of these has to be the theme of the page, which GET /pages/{pageID} gives",
+     *     title="Only for themes",
+     *     description="Handles of the themes that give this template. Empty when every page can be shown with it, whatever its theme: otherwise one of these has to be the theme of the page, which GET /pages/{pageID} gives",
      *     @OA\Items(type="string")
      * )
      *

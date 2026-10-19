@@ -19,21 +19,21 @@ class SocialLink implements \JsonSerializable
     public $id;
 
     /**
-     * @OA\Property(title="Handle of the social network")
+     * @OA\Property(title="Service handle", description="Handle of the social network")
      *
      * @var string
      */
     public $service_handle;
 
     /**
-     * @OA\Property(title="Name of the social network, empty where this installation knows it no more")
+     * @OA\Property(title="Service name", description="Name of the social network, empty where this installation knows it no more")
      *
      * @var string
      */
     public $service_name;
 
     /**
-     * @OA\Property(title="Address of the site on that social network")
+     * @OA\Property(title="URL", description="Address of the site on that social network")
      *
      * @var string
      */

@@ -19,7 +19,7 @@ class PageFeed implements \JsonSerializable
     public $id;
 
     /**
-     * @OA\Property(title="Handle of the feed, which its address is built with")
+     * @OA\Property(title="Handle", description="Handle of the feed, which its address is built with")
      *
      * @var string
      */
@@ -40,63 +40,63 @@ class PageFeed implements \JsonSerializable
     public $description;
 
     /**
-     * @OA\Property(title="Address the feed is served at")
+     * @OA\Property(title="URL", description="Address the feed is served at")
      *
      * @var string
      */
     public $url;
 
     /**
-     * @OA\Property(format="int64", title="ID of the page whose children the feed publishes", description="NULL where the feed publishes the pages of the whole site")
+     * @OA\Property(format="int64", title="Parent page ID", description="ID of the page whose children the feed publishes. NULL where the feed publishes the pages of the whole site")
      *
      * @var int|null
      */
     public $parent_page_id;
 
     /**
-     * @OA\Property(title="Whether the feed publishes the pages below the children too")
+     * @OA\Property(title="All descendants included?", description="Whether the feed publishes the pages below the children too")
      *
      * @var bool
      */
     public $include_all_descendants;
 
     /**
-     * @OA\Property(title="Handle of the page type the feed is limited to, empty where it publishes every type")
+     * @OA\Property(title="Page type", description="Handle of the page type the feed is limited to, empty where it publishes every type")
      *
      * @var string
      */
     public $page_type;
 
     /**
-     * @OA\Property(title="Whether the feed publishes the pages marked as featured alone")
+     * @OA\Property(title="Featured pages only?", description="Whether the feed publishes the pages marked as featured alone")
      *
      * @var bool
      */
     public $only_featured;
 
     /**
-     * @OA\Property(title="Whether the feed publishes the aliases of a page as well")
+     * @OA\Property(title="Aliases included?", description="Whether the feed publishes the aliases of a page as well")
      *
      * @var bool
      */
     public $include_aliases;
 
     /**
-     * @OA\Property(title="Whether the feed publishes the pages the site keeps for itself, as the login one")
+     * @OA\Property(title="System pages included?", description="Whether the feed publishes the pages the site keeps for itself, as the login one")
      *
      * @var bool
      */
     public $include_system_pages;
 
     /**
-     * @OA\Property(enum={"description", "area"}, title="What every item of the feed carries", description="The description of the page, or the blocks of one of its areas")
+     * @OA\Property(enum={"description", "area"}, title="Content", description="What every item of the feed carries. The description of the page, or the blocks of one of its areas")
      *
      * @var string
      */
     public $content;
 
     /**
-     * @OA\Property(title="Handle of the area the items carry, empty where they carry the description")
+     * @OA\Property(title="Area", description="Handle of the area the items carry, empty where they carry the description")
      *
      * @var string
      */
