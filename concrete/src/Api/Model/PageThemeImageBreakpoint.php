@@ -21,7 +21,7 @@ class PageThemeImageBreakpoint implements \JsonSerializable
     public $handle;
 
     /**
-     * @OA\Property(title="Width the breakpoint starts at, as a CSS length", description="The theme shows the image of this breakpoint from this width upwards, as a min-width media query, and the breakpoints come in the order the theme declares them: the one starting at 0 is the fallback")
+     * @OA\Property(title="Minimum width", description="Width the breakpoint starts at, as a CSS length. The theme shows the image of this breakpoint from this width upwards, as a min-width media query, and the breakpoints come in the order the theme declares them: the one starting at 0 is the fallback")
      *
      * @var string
      */

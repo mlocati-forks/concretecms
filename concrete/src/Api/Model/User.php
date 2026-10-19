@@ -143,7 +143,8 @@ class User
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Custom attributes of the user, where the includes parameter asks for them",
+     *     title="Custom attributes",
+     *     description="Custom attributes of the user, where the includes parameter asks for them",
      *     @OA\Property(
      *         property="data",
      *         type="array",
@@ -158,7 +159,8 @@ class User
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Groups the user belongs to, which the answer about a single user carries",
+     *     title="Groups",
+     *     description="Groups the user belongs to, which the answer about a single user carries",
      *     @OA\Property(
      *         property="data",
      *         type="array",

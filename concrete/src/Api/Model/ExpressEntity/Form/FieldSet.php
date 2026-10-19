@@ -17,8 +17,8 @@ class FieldSet implements \JsonSerializable
 {
     /**
      * @OA\Property(
-     *     title="Title of the group, as the form shows it",
-     *     description="Empty where the group is shown without one"
+     *     title="Title",
+     *     description="Title of the group, as the form shows it. Empty where the group is shown without one"
      * )
      *
      * @var string
@@ -26,7 +26,7 @@ class FieldSet implements \JsonSerializable
     public $title;
 
     /**
-     * @OA\Property(title="What the form says about the group, under its title")
+     * @OA\Property(title="Description", description="What the form says about the group, under its title")
      *
      * @var string
      */
@@ -35,7 +35,8 @@ class FieldSet implements \JsonSerializable
     /**
      * @OA\Property(
      *     type="array",
-     *     title="Controls of the group, in the order the form shows them",
+     *     title="Controls",
+     *     description="Controls of the group, in the order the form shows them",
      *     @OA\Items(ref="#/components/schemas/ExpressEntityFormControl")
      * )
      *

@@ -35,7 +35,7 @@ class Option implements \JsonSerializable
     public $value;
 
     /**
-     * @OA\Property(title="Value of the option as it is displayed, which a translation of the site may change")
+     * @OA\Property(title="Display value", description="Value of the option as it is displayed, which a translation of the site may change")
      *
      * @var string
      */

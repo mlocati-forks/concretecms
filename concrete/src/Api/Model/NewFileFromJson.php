@@ -15,14 +15,14 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class NewFileFromJson
 {
     /**
-     * @OA\Property(type="integer", format="int64", title="ID of the file folder the file is added to", description="GET /file_folders lists the folders of this site: left out, the file goes to the root folder of the file manager.")
+     * @OA\Property(type="integer", format="int64", title="File folder ID", description="ID of the file folder the file is added to. GET /file_folders lists the folders of this site: left out, the file goes to the root folder of the file manager.")
      *
      * @var int
      */
     private $folder;
 
     /**
-     * @OA\Property(format="uri", title="URL of the file to be downloaded", description="Let Concrete download the file itself. Unless filename is specified, the name of the file is taken from the URL (or from the mime type declared by the remote server); in both the cases the extension must be one that this installation accepts.")
+     * @OA\Property(format="uri", title="URL", description="URL of the file to be downloaded. Let Concrete download the file itself. Unless filename is specified, the name of the file is taken from the URL (or from the mime type declared by the remote server); in both the cases the extension must be one that this installation accepts.")
      *
      * @var string
      */
@@ -43,14 +43,14 @@ class NewFileFromJson
     private $contents;
 
     /**
-     * @OA\Property(title="Name of a file sitting in the incoming directory", description="Take a file the administrators of this site have put in the incoming directory of its default storage location, instead of sending its contents: this is a name and not a path, and the file keeps that name unless filename says another one. This API does not say what is in that directory, so the name comes from whoever put the file there.")
+     * @OA\Property(title="Incoming file name", description="Take a file the administrators of this site have put in the incoming directory of its default storage location, instead of sending its contents: this is a name and not a path, and the file keeps that name unless filename says another one. This API does not say what is in that directory, so the name comes from whoever put the file there.")
      *
      * @var string
      */
     private $incoming_filename;
 
     /**
-     * @OA\Property(title="Whether the file is taken away from the incoming directory", description="It holds for incoming_filename alone: left out, the file stays there and can be added again.")
+     * @OA\Property(title="Remove from incoming?", description="It holds for incoming_filename alone: left out, the file stays there and can be added again.")
      *
      * @var bool
      */

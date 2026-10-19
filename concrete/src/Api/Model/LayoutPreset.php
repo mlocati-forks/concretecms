@@ -28,14 +28,14 @@ class LayoutPreset implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Number of columns the preset lays out")
+     * @OA\Property(title="Columns", description="Number of columns the preset lays out")
      *
      * @var int
      */
     public $columns;
 
     /**
-     * @OA\Property(title="Handle of the page theme offering the layout, empty when the users of this installation defined it", description="A layout of a page theme can only be given to the pages shown with that theme, while the ones defined here fit any")
+     * @OA\Property(title="Page theme", description="Handle of the page theme offering the layout, empty when the users of this installation defined it. A layout of a page theme can only be given to the pages shown with that theme, while the ones defined here fit any")
      *
      * @var string
      */

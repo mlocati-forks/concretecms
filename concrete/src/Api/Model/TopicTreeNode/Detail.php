@@ -20,21 +20,21 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class Detail extends TopicTreeNode
 {
     /**
-     * @OA\Property(format="int64", title="ID of the tree holding this node")
+     * @OA\Property(format="int64", title="Topic tree ID", description="ID of the tree holding this node")
      *
      * @var int|null
      */
     public $topic_tree_id;
 
     /**
-     * @OA\Property(format="int64", title="ID of the node holding this one, NULL for a node at the top of its tree")
+     * @OA\Property(format="int64", title="Parent node ID", description="ID of the node holding this one, NULL for a node at the top of its tree")
      *
      * @var int|null
      */
     public $parent_id;
 
     /**
-     * @OA\Property(type="array", title="Nodes this one holds directly", description="Going further down takes a request per node", @OA\Items(ref="#/components/schemas/TopicTreeNodeSummary"))
+     * @OA\Property(type="array", title="Child nodes", description="Nodes this one holds directly. Going further down takes a request per node", @OA\Items(ref="#/components/schemas/TopicTreeNodeSummary"))
      *
      * @var \Concrete\Core\Api\Model\TopicTreeNode\Summary[]
      */

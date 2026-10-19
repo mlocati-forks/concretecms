@@ -18,7 +18,7 @@ class Area
     private $name;
 
     /**
-     * @OA\Property(ref="#/components/schemas/CustomStyle", nullable=true, title="Custom style given to it beyond what the theme of the page does, NULL where it has none of its own")
+     * @OA\Property(ref="#/components/schemas/CustomStyle", nullable=true, title="Custom style", description="Custom style given to it beyond what the theme of the page does, NULL where it has none of its own")
      *
      * @var \Concrete\Core\Api\Model\CustomStyle|null
      */
@@ -27,7 +27,8 @@ class Area
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Blocks of the area, which every answer carries",
+     *     title="Blocks",
+     *     description="Blocks of the area, which every answer carries",
      *     @OA\Property(
      *         property="data",
      *         type="array",
@@ -42,7 +43,8 @@ class Area
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Content of the area, where the includes parameter asks for it",
+     *     title="Content",
+     *     description="Content of the area, where the includes parameter asks for it",
      *     @OA\Property(
      *         property="data",
      *         ref="#/components/schemas/Content"
