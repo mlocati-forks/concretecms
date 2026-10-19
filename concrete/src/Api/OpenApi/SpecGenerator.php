@@ -5,6 +5,7 @@ namespace Concrete\Core\Api\OpenApi;
 use Concrete\Core\Api\Attribute\AttributeApiHandler;
 use Concrete\Core\Api\Events\GenerateApiSpecEvent;
 use Concrete\Core\Api\OpenApi\Factory\ExpressEntitySpecFactory;
+use Concrete\Core\Api\ReferenceCatalog;
 use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Attribute\Category\FileCategory;
@@ -13,6 +14,8 @@ use Concrete\Core\Attribute\Category\UserCategory;
 use Concrete\Core\Block\Events\BlockDelete;
 use Concrete\Core\Events\EventDispatcher;
 use Concrete\Core\Express\ObjectManager;
+use Concrete\Core\Reference\ReferenceKind;
+use Concrete\Core\StyleCustomizer\Inline\StyleValues;
 use OpenApi\Annotations\OpenApi;
 use OpenApi\Generator;
 
@@ -94,11 +97,48 @@ class SpecGenerator implements ApplicationAwareInterface
         return $openApi;
     }
 
+    /**
+     * The values that a field of a custom style takes are the ones this installation offers, and whoever offers
+     * other ones puts a class of their own in place of StyleValues: so they are read from there, with the
+     * empty value of a field nobody set beside them.
+     *
+     * The field naming a file says how a file is named here with the same words a field of the value of a
+     * block uses, which is what its x-concrete-reference promises.
+     */
+    private function addCustomStyleValues(OpenApi $openApi)
+    {
+        $styleValues = $this->app->make(StyleValues::class);
+        $lists = [
+            'background_repeat' => $styleValues->getBackgroundRepeats(),
+            'background_size' => $styleValues->getBackgroundSizes(),
+            'background_position' => $styleValues->getBackgroundPositions(),
+            'border_style' => $styleValues->getBorderStyles(),
+            'alignment' => $styleValues->getAlignments(),
+        ];
+        foreach ($openApi->components->schemas as $schema) {
+            if ($schema->schema !== 'CustomStyle' || !is_array($schema->properties)) {
+                continue;
+            }
+            foreach ($schema->properties as $property) {
+                if (isset($lists[$property->property])) {
+                    $values = array_keys($lists[$property->property]);
+                    $property->enum = in_array('', $values, true) ? $values : array_merge([''], $values);
+                }
+                if ($property->property === 'background_image') {
+                    $property->description = $this->app->make(ReferenceCatalog::class)->describe(ReferenceKind::FILE);
+                }
+            }
+        }
+
+        return $openApi;
+    }
+
     public function getSpec(): OpenApi
     {
         $r = Generator::scan($this->sourceRegistry->getSources());
         $r = $this->addExpressSpec($r);
         $r = $this->addCustomAttributesToModels($r);
+        $r = $this->addCustomStyleValues($r);
 
         $event = new GenerateApiSpecEvent($r);
         $this->eventDispatcher->dispatch('on_api_spec_generate', $event);

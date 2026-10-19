@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Concrete\Core\Api\Fractal\Transformer;
 
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Api\Model\CustomStyle as CustomStyleModel;
+use Concrete\Core\Api\Style\CustomStyleDescriber;
 use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Area\Area;
 use Concrete\Core\Block\Block;
@@ -24,6 +26,11 @@ class BaseBlockTransformer extends TransformerAbstract
     ];
 
     /**
+     * @var \Concrete\Core\Api\Style\CustomStyleDescriber|null
+     */
+    private $customStyleDescriber;
+
+    /**
      * @return array<string,mixed>
      */
     public function transform(Block $block)
@@ -37,8 +44,31 @@ class BaseBlockTransformer extends TransformerAbstract
             'id' => $block->getBlockID(),
             'type' => $block->getBlockTypeHandle(),
             'custom_template' => (string) $block->getBlockFilename(),
+            'custom_style' => $this->describeCustomStyle($block),
             'value' => (object) $block->getController()->getApiHandler()->getApiValue($block),
         ];
+    }
+
+    /**
+     * Describe the custom style of a block, NULL where it has none of its own.
+     */
+    private function describeCustomStyle(Block $block): ?CustomStyleModel
+    {
+        $style = $block->getCustomStyle();
+
+        return $style === null ? null : $this->getCustomStyleDescriber()->describe($style->getStyleSet());
+    }
+
+    /**
+     * Get the describer of the custom styles: one instance for all the blocks of an answer.
+     */
+    protected function getCustomStyleDescriber(): CustomStyleDescriber
+    {
+        if ($this->customStyleDescriber === null) {
+            $this->customStyleDescriber = app(CustomStyleDescriber::class);
+        }
+
+        return $this->customStyleDescriber;
     }
 
     /**
