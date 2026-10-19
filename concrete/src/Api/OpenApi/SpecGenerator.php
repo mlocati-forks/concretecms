@@ -16,7 +16,9 @@ use Concrete\Core\Events\EventDispatcher;
 use Concrete\Core\Express\ObjectManager;
 use Concrete\Core\Reference\ReferenceKind;
 use Concrete\Core\StyleCustomizer\Inline\StyleValues;
+use OpenApi\Annotations\Components;
 use OpenApi\Annotations\OpenApi;
+use OpenApi\Annotations\Schema;
 use OpenApi\Generator;
 
 class SpecGenerator implements ApplicationAwareInterface
@@ -133,6 +135,26 @@ class SpecGenerator implements ApplicationAwareInterface
         return $openApi;
     }
 
+    /**
+     * The documentation lists the schemas in the order they are declared in, which puts the ones coming from
+     * Express and from a package last: alphabetical is easier to look through, with the deprecated ones
+     * after all the others.
+     */
+    private function sortSchemas(OpenApi $openApi): void
+    {
+        $components = $openApi->components;
+        if (!$components instanceof Components || !is_array($components->schemas)) {
+            return;
+        }
+        usort($components->schemas, function (Schema $a, Schema $b): int {
+            if (($a->deprecated === true) !== ($b->deprecated === true)) {
+                return $a->deprecated === true ? 1 : -1;
+            }
+
+            return strcasecmp($a->schema, $b->schema);
+        });
+    }
+
     public function getSpec(): OpenApi
     {
         $r = Generator::scan($this->sourceRegistry->getSources());
@@ -142,7 +164,10 @@ class SpecGenerator implements ApplicationAwareInterface
 
         $event = new GenerateApiSpecEvent($r);
         $this->eventDispatcher->dispatch('on_api_spec_generate', $event);
-        return $event->getOpenApi();
+        $openApi = $event->getOpenApi();
+        $this->sortSchemas($openApi);
+
+        return $openApi;
     }
 
 }
