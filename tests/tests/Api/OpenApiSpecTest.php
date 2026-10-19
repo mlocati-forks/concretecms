@@ -68,6 +68,25 @@ class OpenApiSpecTest extends TestCase
     }
 
     /**
+     * Swagger UI shows the title of a schema in place of its name, inside an answer as well as in the
+     * list of the schemas: a title that says something else reads as the name of the thing, and what a
+     * schema holds belongs to its description.
+     */
+    public function testEverySchemaIsTitledWithItsName(): void
+    {
+        $spec = json_decode(json_encode($this->getSpec()), true);
+        $offending = [];
+        foreach ($spec['components']['schemas'] ?? [] as $name => $schema) {
+            $title = $schema['title'] ?? null;
+            if ($title !== $name) {
+                $offending[$name] = $title;
+            }
+        }
+
+        static::assertSame([], $offending, 'the title of a schema is its name, and the rest is its description');
+    }
+
+    /**
      * The clients generated out of the specification (the MCP server is one) turn a request body into
      * the input schema of an operation, and that has to be a plain object: a body described with oneOf
      * or anyOf makes them generate something they then refuse.

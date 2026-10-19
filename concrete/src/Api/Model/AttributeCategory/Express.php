@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeCategoryExpress",
  *     type="object",
- *     title="A set of keys belonging to an Express entity",
+ *     title="AttributeCategoryExpress",
+ *     description="A set of keys belonging to an Express entity",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeCategory")}
  * )
  */

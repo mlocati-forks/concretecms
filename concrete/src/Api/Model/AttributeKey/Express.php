@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeyExpress",
  *     type="object",
- *     title="A key whose value names an Express entry",
+ *     title="AttributeKeyExpress",
+ *     description="A key whose value names an Express entry",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeKey")}
  * )
  */

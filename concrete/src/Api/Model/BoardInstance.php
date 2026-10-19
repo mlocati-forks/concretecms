@@ -10,7 +10,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="BoardInstance",
  *     type="object",
- *     title="BoardInstance model",
+ *     title="BoardInstance",
  *     description="An instance of a board, the one a board block shows: a board is laid out anew every time it is generated, and each of those layouts is an instance."
  * )
  */

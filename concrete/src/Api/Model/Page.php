@@ -3,7 +3,7 @@
 namespace Concrete\Core\Api\Model;
 
 /**
- * @OA\Schema(title="Page model", description="A Concrete Page object.")
+ * @OA\Schema(title="Page", description="A Concrete Page object.")
  */
 class Page
 {

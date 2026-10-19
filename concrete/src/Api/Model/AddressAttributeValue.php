@@ -10,8 +10,8 @@ namespace Concrete\Core\Api\Model;
  * @OA\Schema(
  *     schema="AddressAttributeValue",
  *     deprecated=true,
- *     title="The address a value of an address attribute carries",
- *     description="Deprecated: read AttributeValueAddress instead",
+ *     title="AddressAttributeValue",
+ *     description="The address a value of an address attribute carries. Deprecated: read AttributeValueAddress instead",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeValueAddress")}
  * )
  */

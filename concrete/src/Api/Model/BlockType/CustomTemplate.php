@@ -10,7 +10,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="BlockTypeCustomTemplate",
  *     type="object",
- *     title="BlockTypeCustomTemplate model",
+ *     title="BlockTypeCustomTemplate",
  *     description="A custom template that a block of a block type can be shown with, instead of the default view of its type."
  * )
  */

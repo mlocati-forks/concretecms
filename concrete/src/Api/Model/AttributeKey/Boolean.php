@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeyBoolean",
  *     type="object",
- *     title="A key whose value is checked or not",
+ *     title="AttributeKeyBoolean",
+ *     description="A key whose value is checked or not",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeKey")}
  * )
  */

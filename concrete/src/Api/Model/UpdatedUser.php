@@ -3,7 +3,7 @@
 namespace Concrete\Core\Api\Model;
 
 /**
- * @OA\Schema(title="UpdatedUser model", description="A Concrete User")
+ * @OA\Schema(title="UpdatedUser", description="A Concrete User")
  */
 class UpdatedUser
 {

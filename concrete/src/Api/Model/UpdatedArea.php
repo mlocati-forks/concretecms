@@ -10,7 +10,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="UpdatedArea",
  *     type="object",
- *     title="UpdatedArea model",
+ *     title="UpdatedArea",
  *     description="An area of a page, as a client writes it."
  * )
  */

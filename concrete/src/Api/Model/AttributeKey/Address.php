@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeyAddress",
  *     type="object",
- *     title="A key whose value is an address",
+ *     title="AttributeKeyAddress",
+ *     description="A key whose value is an address",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeKey")}
  * )
  */

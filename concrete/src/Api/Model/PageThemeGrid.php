@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="PageThemeGrid model",
+ *     title="PageThemeGrid",
  * )
  */
 class PageThemeGrid implements \JsonSerializable

@@ -13,7 +13,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="StringCursorMeta",
  *     type="object",
- *     title="What a list walked by the UUID of its objects answers besides them",
+ *     title="StringCursorMeta",
+ *     description="What a list walked by the UUID of its objects answers besides them",
  *     @OA\Property(
  *         property="cursor",
  *         type="object",

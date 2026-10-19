@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="MoveFile model",
+ *     title="MoveFile",
  *     required={"folder"}
  * )
  */

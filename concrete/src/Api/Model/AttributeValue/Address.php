@@ -10,7 +10,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeValueAddress",
  *     type="object",
- *     title="The address a value of an address attribute carries"
+ *     title="AttributeValueAddress",
+ *     description="The address a value of an address attribute carries"
  * )
  */
 class Address

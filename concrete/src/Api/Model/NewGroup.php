@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="NewGroup model",
+ *     title="NewGroup",
  *     description="A Concrete User Group",
  *     required={"name"}
  * )

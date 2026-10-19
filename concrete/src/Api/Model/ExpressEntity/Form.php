@@ -9,7 +9,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 /**
  * @OA\Schema(
  *     schema="ExpressEntityForm",
- *     title="ExpressEntityForm model",
+ *     title="ExpressEntityForm",
  *     description="A form that displays an entry of an Express entity.",
  * )
  */

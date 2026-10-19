@@ -10,7 +10,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="Board",
  *     type="object",
- *     title="Board model",
+ *     title="Board",
  *     description="A board, which the site fills with the items its data sources bring in."
  * )
  */

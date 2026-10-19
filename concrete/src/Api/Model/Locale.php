@@ -3,7 +3,7 @@
 namespace Concrete\Core\Api\Model;
 
 /**
- * @OA\Schema(title="Locale model", description="A Concrete Site Locale object.")
+ * @OA\Schema(title="Locale", description="A Concrete Site Locale object.")
  */
 class Locale
 {

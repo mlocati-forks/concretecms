@@ -3,7 +3,7 @@
 namespace Concrete\Core\Api\Model;
 
 /**
- * @OA\Schema(title="UpdatedFile model")
+ * @OA\Schema(title="UpdatedFile")
  */
 class UpdatedFile
 {

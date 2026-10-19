@@ -3,7 +3,7 @@
 namespace Concrete\Core\Api\Model;
 
 /**
- * @OA\Schema(title="File model")
+ * @OA\Schema(title="File")
  */
 class File
 {

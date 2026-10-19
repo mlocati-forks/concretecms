@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="NewFileFromJson model",
+ *     title="NewFileFromJson",
  *     description="Adding a file without sending a multipart/form-data request body: specify one of url, incoming_filename, and contents together with filename, and only one of them"
  * )
  */

@@ -10,7 +10,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="TopicTreeNode",
  *     type="object",
- *     title="What every answer about a node of a topic tree says",
+ *     title="TopicTreeNode",
+ *     description="What every answer about a node of a topic tree says",
  * )
  */
 abstract class TopicTreeNode implements \JsonSerializable

@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeyTextarea",
  *     type="object",
- *     title="A key whose value is a text of more than one line",
+ *     title="AttributeKeyTextarea",
+ *     description="A key whose value is a text of more than one line",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeKey")}
  * )
  */

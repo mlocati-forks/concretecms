@@ -13,7 +13,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeyUser",
  *     type="object",
- *     title="What the user category adds to one of its keys",
+ *     title="AttributeKeyUser",
+ *     description="What the user category adds to one of its keys",
  * )
  */
 class User implements \JsonSerializable

@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeySelect",
  *     type="object",
- *     title="A key whose value is picked out of a fixed set",
+ *     title="AttributeKeySelect",
+ *     description="A key whose value is picked out of a fixed set",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeKey")}
  * )
  */
