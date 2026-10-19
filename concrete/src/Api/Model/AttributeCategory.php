@@ -26,8 +26,8 @@ class AttributeCategory implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="What the keys of this set belong to",
-     *     description="Empty for a category that a package of this installation brought"
+     *     title="Description",
+     *     description="What the keys of this set belong to. Empty for a category that a package of this installation brought"
      * )
      *
      * @var string
@@ -36,8 +36,8 @@ class AttributeCategory implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Handle of the package that defined the category",
-     *     description="Empty for the categories of the core itself"
+     *     title="Package",
+     *     description="Handle of the package that defined the category. Empty for the categories of the core itself"
      * )
      *
      * @var string

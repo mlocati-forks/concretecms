@@ -36,14 +36,14 @@ class AttributeKey implements \JsonSerializable
     public $handle;
 
     /**
-     * @OA\Property(title="Name of the key, as the dashboard shows it")
+     * @OA\Property(title="Name", description="Name of the key, as the dashboard shows it")
      *
      * @var string
      */
     public $name;
 
     /**
-     * @OA\Property(title="Handle of the type of the key, which settles what a value of it looks like")
+     * @OA\Property(title="Type", description="Handle of the type of the key, which settles what a value of it looks like")
      *
      * @var string
      */
@@ -51,8 +51,8 @@ class AttributeKey implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Kind of thing of the site that a value of this key names",
-     *     description="What the whole value names, or what each of its items names where a value is a list of them. It is empty where the value holds something of its own, and where only one field of a value made of several names something: that field says it where the value_schema of the type describes it, the way a field of the value of a block does. GET /system/references says what every kind means and where the things of it are read, and x-concrete-reference carries the same kinds"
+     *     title="Reference",
+     *     description="Kind of thing of the site that a value of this key names. What the whole value names, or what each of its items names where a value is a list of them. It is empty where the value holds something of its own, and where only one field of a value made of several names something: that field says it where the value_schema of the type describes it, the way a field of the value of a block does. GET /system/references says what every kind means and where the things of it are read, and x-concrete-reference carries the same kinds"
      * )
      *
      * @var string

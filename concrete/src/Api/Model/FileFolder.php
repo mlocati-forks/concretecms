@@ -31,14 +31,14 @@ abstract class FileFolder implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Names of the folders down to this one, separated by slashes")
+     * @OA\Property(title="Path", description="Names of the folders down to this one, separated by slashes")
      *
      * @var string
      */
     public $path;
 
     /**
-     * @OA\Property(title="Whether files are filed in this folder itself", description="Says what the folder holds, not what the request may read of it: the file endpoints answer for the files themselves")
+     * @OA\Property(title="Holds files?", description="Whether files are filed in this folder itself. Says what the folder holds, not what the request may read of it: the file endpoints answer for the files themselves")
      *
      * @var bool
      */

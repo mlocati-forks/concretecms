@@ -20,7 +20,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class Boolean extends AttributeKey
 {
     /**
-     * @OA\Property(title="Whether an object that never had a value of this key counts as checked")
+     * @OA\Property(title="Checked by default?", description="Whether an object that never had a value of this key counts as checked")
      *
      * @var bool
      */

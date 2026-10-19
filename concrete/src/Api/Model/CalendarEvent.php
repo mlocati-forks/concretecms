@@ -27,7 +27,8 @@ class CalendarEvent
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Version of the event this answer is about, which every answer carries",
+     *     title="Version",
+     *     description="Version of the event this answer is about, which every answer carries",
      *     @OA\Property(
      *         property="data",
      *         ref="#/components/schemas/CalendarEventVersion"
@@ -41,7 +42,8 @@ class CalendarEvent
     /**
      * @OA\Property(
      *     type="object",
-     *     title="Custom attributes of the event, where the includes parameter asks for them",
+     *     title="Custom attributes",
+     *     description="Custom attributes of the event, where the includes parameter asks for them",
      *     @OA\Property(
      *         property="data",
      *         type="array",

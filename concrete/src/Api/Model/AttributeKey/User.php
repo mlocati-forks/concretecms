@@ -20,42 +20,42 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class User implements \JsonSerializable
 {
     /**
-     * @OA\Property(title="Whether the registration form of the site asks for this attribute")
+     * @OA\Property(title="Editable on register?", description="Whether the registration form of the site asks for this attribute")
      *
      * @var bool
      */
     public $editable_on_register;
 
     /**
-     * @OA\Property(title="Whether the registration form of the site insists on this attribute")
+     * @OA\Property(title="Required on register?", description="Whether the registration form of the site insists on this attribute")
      *
      * @var bool
      */
     public $required_on_register;
 
     /**
-     * @OA\Property(title="Whether a user may write this attribute of their own profile")
+     * @OA\Property(title="Editable on profile?", description="Whether a user may write this attribute of their own profile")
      *
      * @var bool
      */
     public $editable_on_profile;
 
     /**
-     * @OA\Property(title="Whether the profile form of the site insists on this attribute")
+     * @OA\Property(title="Required on profile?", description="Whether the profile form of the site insists on this attribute")
      *
      * @var bool
      */
     public $required_on_profile;
 
     /**
-     * @OA\Property(title="Whether the public profile of a user shows this attribute")
+     * @OA\Property(title="Displayed on profile?", description="Whether the public profile of a user shows this attribute")
      *
      * @var bool
      */
     public $displayed_on_profile;
 
     /**
-     * @OA\Property(title="Whether the member list of the site shows this attribute")
+     * @OA\Property(title="Displayed on member list?", description="Whether the member list of the site shows this attribute")
      *
      * @var bool
      */
