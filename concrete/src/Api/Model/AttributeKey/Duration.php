@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeyDuration",
  *     type="object",
- *     title="A key whose value is a duration",
+ *     title="AttributeKeyDuration",
+ *     description="A key whose value is a duration",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeKey")}
  * )
  */

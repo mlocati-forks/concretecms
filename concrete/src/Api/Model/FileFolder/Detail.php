@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="FileFolderDetail",
  *     type="object",
- *     title="A folder of files asked for by itself",
+ *     title="FileFolderDetail",
+ *     description="A folder of files asked for by itself",
  *     allOf={@OA\Schema(ref="#/components/schemas/FileFolder")}
  * )
  */

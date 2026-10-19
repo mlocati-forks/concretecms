@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="LayoutPreset model",
+ *     title="LayoutPreset",
  * )
  */
 class LayoutPreset implements \JsonSerializable

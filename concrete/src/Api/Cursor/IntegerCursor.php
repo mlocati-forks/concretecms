@@ -13,7 +13,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="IntegerCursorMeta",
  *     type="object",
- *     title="What a list walked by the ID of its objects answers besides them",
+ *     title="IntegerCursorMeta",
+ *     description="What a list walked by the ID of its objects answers besides them",
  *     @OA\Property(
  *         property="cursor",
  *         type="object",

@@ -9,7 +9,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 /**
  * @OA\Schema(
  *     schema="ExpressEntityColumn",
- *     title="ExpressEntityColumn model",
+ *     title="ExpressEntityColumn",
  *     description="A column that a list of the entries of an Express entity can be made of.",
  * )
  */

@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="TopicTreeNodeSummary",
  *     type="object",
- *     title="A node of a topic tree named in the answer about its tree, or about another node",
+ *     title="TopicTreeNodeSummary",
+ *     description="A node of a topic tree named in the answer about its tree, or about another node",
  *     allOf={@OA\Schema(ref="#/components/schemas/TopicTreeNode")}
  * )
  */

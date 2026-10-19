@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="NewFile model",
+ *     title="NewFile",
  *     description="Uploading a file: this request body carries the file itself, while the other ways of adding one are asked for with a JSON request body"
  * )
  */

@@ -4,7 +4,8 @@ namespace Concrete\Core\Api\Response;
 
 /**
  * @OA\Schema(
- *     title="Deletion Successful",
+ *     title="DeletedAreaBlockResponse",
+ *     description="What deleting a block of an area answers: the block is gone, and the version of the page the request worked on",
  * )
  */
 class DeletedAreaBlockResponse extends DeletedResponse

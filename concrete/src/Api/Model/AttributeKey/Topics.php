@@ -12,7 +12,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeKeyTopics",
  *     type="object",
- *     title="A key whose value names the topics of a tree",
+ *     title="AttributeKeyTopics",
+ *     description="A key whose value names the topics of a tree",
  *     allOf={@OA\Schema(ref="#/components/schemas/AttributeKey")}
  * )
  */

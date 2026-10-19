@@ -10,7 +10,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeValueDuration",
  *     type="object",
- *     title="The duration a value of a duration attribute counts"
+ *     title="AttributeValueDuration",
+ *     description="The duration a value of a duration attribute counts"
  * )
  */
 class Duration

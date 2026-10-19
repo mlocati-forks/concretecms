@@ -10,7 +10,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="NewFileMeta",
  *     type="object",
- *     title="What adding a file answers beside the file itself"
+ *     title="NewFileMeta",
+ *     description="What adding a file answers beside the file itself"
  * )
  */
 class NewFileMeta

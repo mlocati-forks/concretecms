@@ -9,7 +9,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 /**
  * @OA\Schema(
  *     schema="ExpressEntityFilter",
- *     title="ExpressEntityFilter model",
+ *     title="ExpressEntityFilter",
  *     description="A filter that the entries of an Express entity can be narrowed by.",
  * )
  */

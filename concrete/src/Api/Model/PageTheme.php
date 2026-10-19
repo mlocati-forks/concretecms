@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="PageTheme model",
+ *     title="PageTheme",
  * )
  */
 class PageTheme implements \JsonSerializable

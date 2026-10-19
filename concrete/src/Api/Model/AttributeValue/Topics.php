@@ -10,8 +10,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="AttributeValueTopics",
  *     type="object",
- *     title="The topics a value of a topics attribute names",
- *     description="A read hands it over wrapped in a data property, the way an include is, while a write takes what the specification declares for the key, or any object that carries the same id"
+ *     title="AttributeValueTopics",
+ *     description="The topics a value of a topics attribute names. A read hands it over wrapped in a data property, the way an include is, while a write takes what the specification declares for the key, or any object that carries the same id"
  * )
  */
 class Topics

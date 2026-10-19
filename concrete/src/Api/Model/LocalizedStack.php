@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="LocalizedStack model",
+ *     title="LocalizedStack",
  * )
  */
 class LocalizedStack implements \JsonSerializable

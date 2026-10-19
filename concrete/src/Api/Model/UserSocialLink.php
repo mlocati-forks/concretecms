@@ -3,7 +3,7 @@
 namespace Concrete\Core\Api\Model;
 
 /**
- * @OA\Schema(title="UserSocialLink model")
+ * @OA\Schema(title="UserSocialLink")
  */
 class UserSocialLink
 {

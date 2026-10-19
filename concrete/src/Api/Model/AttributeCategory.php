@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="AttributeCategory model",
+ *     title="AttributeCategory",
  *     description="A set of attribute keys, named as the API names the objects holding them.",
  * )
  */

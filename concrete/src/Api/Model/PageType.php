@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="PageType model",
+ *     title="PageType",
  * )
  */
 class PageType implements \JsonSerializable
