@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="Custom Attribute",
+ *     title="CustomAttribute",
  * )
  */
 class CustomAttribute

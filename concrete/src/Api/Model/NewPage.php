@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="NewPage model",
+ *     title="NewPage",
  *     description="A Concrete Page being added",
  *     required={"parent", "name", "type", "template"},
  *     allOf={@OA\Schema(ref="#/components/schemas/UpdatedPage")}

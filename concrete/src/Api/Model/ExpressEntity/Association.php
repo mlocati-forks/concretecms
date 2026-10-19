@@ -9,7 +9,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 /**
  * @OA\Schema(
  *     schema="ExpressEntityAssociation",
- *     title="ExpressEntityAssociation model",
+ *     title="ExpressEntityAssociation",
  *     description="Entries of another Express entity that an entry is associated with.",
  * )
  */

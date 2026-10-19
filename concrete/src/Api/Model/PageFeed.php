@@ -7,7 +7,7 @@ namespace Concrete\Core\Api\Model;
 defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
- * @OA\Schema(title="PageFeed model", description="An RSS feed this installation publishes pages through.")
+ * @OA\Schema(title="PageFeed", description="An RSS feed this installation publishes pages through.")
  */
 class PageFeed implements \JsonSerializable
 {

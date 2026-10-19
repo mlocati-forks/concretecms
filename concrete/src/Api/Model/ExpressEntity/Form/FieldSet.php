@@ -9,7 +9,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 /**
  * @OA\Schema(
  *     schema="ExpressEntityFormFieldSet",
- *     title="ExpressEntityFormFieldSet model",
+ *     title="ExpressEntityFormFieldSet",
  *     description="A group of fields a form of an Express entity shows together."
  * )
  */

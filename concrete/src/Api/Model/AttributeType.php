@@ -8,7 +8,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @OA\Schema(
- *     title="AttributeType model",
+ *     title="AttributeType",
  *     description="A type of attribute this installation has, which settles what the keys of that type carry and what a value of them looks like.",
  * )
  */

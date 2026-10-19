@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="UpdatedPageVersion model",
+ *     title="UpdatedPageVersion",
  *     description="A Concrete Page Version"
 *     )
  */

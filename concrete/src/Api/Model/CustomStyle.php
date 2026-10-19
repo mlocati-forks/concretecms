@@ -10,7 +10,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @OA\Schema(
  *     schema="CustomStyle",
  *     type="object",
- *     title="CustomStyle model",
+ *     title="CustomStyle",
  *     description="The custom style given to an area or to a block of a page, beyond what its theme does. A field with no value of its own is empty."
  * )
  */

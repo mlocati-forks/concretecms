@@ -4,7 +4,7 @@ namespace Concrete\Core\Api\Model;
 
 /**
  * @OA\Schema(
- *     title="Block model",
+ *     title="Block",
  * )
  */
 class Block
