@@ -28,7 +28,7 @@ class TopicTree implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(type="array", title="Nodes at the top of the tree, the topics and the categories grouping them", description="Going further down takes a request per topic", @OA\Items(ref="#/components/schemas/TopicTreeNodeSummary"))
+     * @OA\Property(type="array", title="Nodes", description="Nodes at the top of the tree, the topics and the categories grouping them. Going further down takes a request per topic", @OA\Items(ref="#/components/schemas/TopicTreeNodeSummary"))
      *
      * @var \Concrete\Core\Api\Model\TopicTreeNode\Summary[]
      */

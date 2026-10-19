@@ -20,14 +20,14 @@ defined('C5_EXECUTE') or die('Access Denied.');
 class Detail extends FileFolder
 {
     /**
-     * @OA\Property(format="int64", title="ID of the folder holding this one, NULL for the root of the file manager")
+     * @OA\Property(format="int64", title="Parent folder ID", description="ID of the folder holding this one, NULL for the root of the file manager")
      *
      * @var int|null
      */
     public $parent_id;
 
     /**
-     * @OA\Property(type="array", title="Folders this one holds directly", description="Going further down takes a request per folder", @OA\Items(ref="#/components/schemas/FileFolderSummary"))
+     * @OA\Property(type="array", title="Sub folders", description="Folders this one holds directly. Going further down takes a request per folder", @OA\Items(ref="#/components/schemas/FileFolderSummary"))
      *
      * @var \Concrete\Core\Api\Model\FileFolder\Summary[]
      */

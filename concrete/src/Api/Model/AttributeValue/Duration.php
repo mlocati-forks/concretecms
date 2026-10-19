@@ -19,7 +19,8 @@ class Duration
     /**
      * @OA\Property(
      *     type="integer",
-     *     title="How many of them the attribute counts"
+     *     title="Value",
+     *     description="How many of them the attribute counts"
      * )
      *
      * @var int
@@ -29,8 +30,8 @@ class Duration
     /**
      * @OA\Property(
      *     type="string",
-     *     title="The unit the key counts in",
-     *     description="The key of the attribute names it, and a client writes the number alone"
+     *     title="Unit",
+     *     description="The unit the key counts in. The key of the attribute names it, and a client writes the number alone"
      * )
      *
      * @var string

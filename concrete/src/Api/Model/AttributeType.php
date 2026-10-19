@@ -25,7 +25,7 @@ class AttributeType implements \JsonSerializable
     public $handle;
 
     /**
-     * @OA\Property(title="Name of the type, as the dashboard shows it")
+     * @OA\Property(title="Name", description="Name of the type, as the dashboard shows it")
      *
      * @var string
      */
@@ -33,8 +33,8 @@ class AttributeType implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Handle of the package that brought the type",
-     *     description="Empty for the types of the core itself"
+     *     title="Package",
+     *     description="Handle of the package that brought the type. Empty for the types of the core itself"
      * )
      *
      * @var string
@@ -44,8 +44,8 @@ class AttributeType implements \JsonSerializable
     /**
      * @OA\Property(
      *     type="array",
-     *     title="Handles of the categories whose keys may be of this type",
-     *     description="A set of keys of an Express entity uses the express category, whatever the attribute categories endpoint names the set",
+     *     title="Categories",
+     *     description="Handles of the categories whose keys may be of this type. A set of keys of an Express entity uses the express category, whatever the attribute categories endpoint names the set",
      *     @OA\Items(type="string")
      * )
      *
@@ -55,8 +55,8 @@ class AttributeType implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Name of the schema that describes a key of this type",
-     *     description="AttributeKey for a type whose keys carry nothing of their own"
+     *     title="Key schema",
+     *     description="Name of the schema that describes a key of this type. AttributeKey for a type whose keys carry nothing of their own"
      * )
      *
      * @var string
@@ -65,8 +65,8 @@ class AttributeType implements \JsonSerializable
 
     /**
      * @OA\Property(
-     *     title="Name of the schema a value of this type is read with",
-     *     description="Empty where a value is read as a plain string, number or boolean, and where its shape follows the key, as an Express one does. What a write takes is declared key by key in the request schemas, and is often shorter: a user_selector is read as the user and written as its ID; an object that carries one is taken as that ID, so what a read handed over goes back as it came"
+     *     title="Value schema",
+     *     description="Name of the schema a value of this type is read with. Empty where a value is read as a plain string, number or boolean, and where its shape follows the key, as an Express one does. What a write takes is declared key by key in the request schemas, and is often shorter: a user_selector is read as the user and written as its ID; an object that carries one is taken as that ID, so what a read handed over goes back as it came"
      * )
      *
      * @var string

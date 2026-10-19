@@ -21,8 +21,8 @@ class Express extends AttributeKey
 {
     /**
      * @OA\Property(
-     *     title="ID of the Express entity whose entries a value of this key names",
-     *     description="Empty where the entity is gone"
+     *     title="Express entity ID",
+     *     description="ID of the Express entity whose entries a value of this key names. Empty where the entity is gone"
      * )
      *
      * @var string

@@ -31,14 +31,14 @@ abstract class TopicTreeNode implements \JsonSerializable
     public $name;
 
     /**
-     * @OA\Property(title="Names of the nodes down to this one, separated by slashes")
+     * @OA\Property(title="Path", description="Names of the nodes down to this one, separated by slashes")
      *
      * @var string
      */
     public $path;
 
     /**
-     * @OA\Property(enum={"topic", "category"}, title="Whether a page can be filed under this one, or whether it only groups the ones it holds")
+     * @OA\Property(enum={"topic", "category"}, title="Type", description="Whether a page can be filed under this one, or whether it only groups the ones it holds")
      *
      * @var string
      */

@@ -23,14 +23,14 @@ class Filter implements \JsonSerializable
     public $key;
 
     /**
-     * @OA\Property(title="Name of the filter, as the dashboard shows it")
+     * @OA\Property(title="Name", description="Name of the filter, as the dashboard shows it")
      *
      * @var string
      */
     public $name;
 
     /**
-     * @OA\Property(title="Name of the group the dashboard shows the filter in")
+     * @OA\Property(title="Group", description="Name of the group the dashboard shows the filter in")
      *
      * @var string
      */
