@@ -7,6 +7,8 @@ use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Entity\Express\Entity;
 use Concrete\Core\Entity\Express\Entry;
 use Concrete\Core\Permission\Checker;
+use Concrete\Core\Tree\Node\Node;
+use Concrete\Core\Tree\Node\Type\ExpressEntrySiteResults;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -23,6 +25,11 @@ class ExpressEntryTransformer extends TransformerAbstract
      * @var Entity
      */
     protected $object;
+
+    /**
+     * @var array<int,int|null> the site of every results node looked up so far
+     */
+    private $siteIDs = [];
 
     /**
      * ExpressEntryTransformer constructor.
@@ -56,6 +63,7 @@ class ExpressEntryTransformer extends TransformerAbstract
                 Carbon::make($entry->getDateModified())->toAtomString() : null,
             'url' => $entry->getURL(),
             'label' => $entry->getLabel(),
+            'site_id' => $this->getSiteID($entry),
         ];
     }
 
@@ -119,5 +127,26 @@ class ExpressEntryTransformer extends TransformerAbstract
         // the entries of every entity are read with a scope of their own, named after it in the plural
         return app(TokenScopes::class)->has((string) $this->object->getPluralHandle() . ':read')
             && (bool) (new Checker($entry))->canViewExpressEntry();
+    }
+
+    /**
+     * Get the site whose entries this one is kept with, which an entity keeping them apart by site has
+     * a node of its own for.
+     *
+     * @return int|null NULL where the entity keeps the entries of every site together
+     */
+    private function getSiteID(Entry $entry): ?int
+    {
+        $nodeID = (int) $entry->getResultsNodeID();
+        if ($nodeID === 0) {
+            return null;
+        }
+        if (!array_key_exists($nodeID, $this->siteIDs)) {
+            // the entries of a list share their node, so it is looked up once
+            $node = Node::getByID($nodeID);
+            $this->siteIDs[$nodeID] = $node instanceof ExpressEntrySiteResults ? $node->getSiteID() : null;
+        }
+
+        return $this->siteIDs[$nodeID];
     }
 }

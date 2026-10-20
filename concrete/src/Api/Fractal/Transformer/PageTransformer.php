@@ -80,6 +80,7 @@ class PageTransformer extends TransformerAbstract
         }
         
         $data['locale'] = $locale;
+        $data['site_id'] = $site === null ? null : (int) $site->getSiteID();
         $data['description'] = (string) $page->getCollectionDescription();
 
         if ($page->isExternalLink()) {
