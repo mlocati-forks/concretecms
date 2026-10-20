@@ -6,6 +6,7 @@ use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Cursor\IntegerCursor;
 use Concrete\Core\Api\Fractal\Transformer\ExpressEntryTransformer;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
+use Concrete\Core\Api\Traits\SupportsSiteTrait;
 use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Express\Command\ExpressEntryCommandFactory;
@@ -22,12 +23,10 @@ class Express extends ApiController implements ApplicationAwareInterface
 
     use ApplicationAwareTrait;
     use SetListLimitFromQueryTrait;
+    use SupportsSiteTrait;
 
     public function listItems(string $objectHandle)
     {
-        /**
-         * @var $express ObjectManager
-         */
         $express = $this->app->make('express');
         $object = $express->getObjectByHandle($objectHandle);
         if (!$object) {
@@ -38,6 +37,10 @@ class Express extends ApiController implements ApplicationAwareInterface
             return $this->error(t('You do not have access to view %s entries.', $object->getName()), 403);
         }
         $list = $express->getList($objectHandle, true);
+        $site = $this->getRequestedSite();
+        if ($site !== null && $object->usesSeparateSiteResultsBuckets()) {
+            $list->filterBySite($site);
+        }
         $dateModifiedColumn = new DateLastModifiedColumn();
         $dateModifiedColumn->setColumnSortDirection('desc');
         $list->sortBySearchColumn($dateModifiedColumn);
@@ -68,9 +71,6 @@ class Express extends ApiController implements ApplicationAwareInterface
 
     protected function getEntry(string $objectHandle, $entryIdentifier)
     {
-        /**
-         * @var $express ObjectManager
-         */
         $express = $this->app->make('express');
         $object = $express->getObjectByHandle($objectHandle);
         if (!$object) {
@@ -133,8 +133,12 @@ class Express extends ApiController implements ApplicationAwareInterface
             return $this->error(t('You do not have access to add %s entries.', $object->getName()), 403);
         }
 
+        $site = $this->getRequestedSiteOrCurrent();
         $factory = $this->app->make(ExpressEntryCommandFactory::class);
         $command = $factory->createAddEntryCommand($object, $this->request);
+        if ($object->usesSeparateSiteResultsBuckets()) {
+            $command->setSite($site);
+        }
         $entry = $this->app->executeCommand($command);
 
         return new Item($entry, new ExpressEntryTransformer($object), $object->getPluralHandle());
@@ -158,10 +162,4 @@ class Express extends ApiController implements ApplicationAwareInterface
 
         return $this->deleted($object->getPluralHandle(), $entryIdentifier);
     }
-
-
-
-
-
-
 }

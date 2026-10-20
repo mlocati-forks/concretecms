@@ -21,6 +21,7 @@ use Concrete\Core\Api\Cursor\IntegerCursor;
 use Concrete\Core\Api\Fractal\Transformer\PageTransformer;
 use Concrete\Core\Api\Resources;
 use Concrete\Core\Api\Traits\SetListLimitFromQueryTrait;
+use Concrete\Core\Api\Traits\SupportsSiteTrait;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\ResourceAbstract;
 
@@ -28,6 +29,7 @@ class Pages extends ApiController
 {
 
     use SetListLimitFromQueryTrait;
+    use SupportsSiteTrait;
 
     /**
      * @return bool true where the request asks for the areas holding a block instead of every area
@@ -170,6 +172,15 @@ class Pages extends ApiController
      *             enum={"all","with_blocks"}
      *         )
      *     ),
+     *     @OA\Parameter(
+     *         name="site",
+     *         in="query",
+     *         description="ID of the site whose pages are answered, which GET /sites lists: left out, it is the site the domain of this request answers for. Either way the answer holds the pages of the default language of that site, and the pages of its other languages are walked from the home page of each, which GET /sites gives.",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -182,11 +193,24 @@ class Pages extends ApiController
      *             @OA\Property(property="meta", ref="#/components/schemas/IntegerCursorMeta")
      *         ),
      *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="This installation has no site of the ID the request names",
+     *     ),
      * )
      */
     public function listPages()
     {
         $list = new PageList();
+        $site = $this->getRequestedSite();
+        if ($site !== null) {
+            // the tree of the default language of the site, which is what the list walks of its own accord
+            $tree = $site->getSiteTreeObject();
+            if ($tree === null) {
+                return $this->error(t('This site has no pages.'), 400);
+            }
+            $list->setSiteTreeObject($tree);
+        }
 
         // Ignore external links (note: this should be the default, it's dumb that it's not.)
         $list->getQueryObject()->andWhere('cPointerExternalLink is null');

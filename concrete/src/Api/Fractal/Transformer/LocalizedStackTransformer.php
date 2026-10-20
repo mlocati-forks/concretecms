@@ -46,6 +46,8 @@ class LocalizedStackTransformer extends TransformerAbstract
 
         $model = new LocalizedStack();
         $model->locale = $section === null ? '' : (string) $section->getLocale();
+        $site = $section === null ? null : $section->getSite();
+        $model->site_id = $site === null ? null : (int) $site->getSiteID();
         $model->id = (int) $stack->getCollectionID();
         if ($this->includeContents) {
             $model->blocks = $this->getStackBlocks($stack);

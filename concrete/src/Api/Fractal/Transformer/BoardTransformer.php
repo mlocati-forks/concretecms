@@ -28,6 +28,8 @@ class BoardTransformer extends TransformerAbstract
         $model = new BoardModel();
         $model->id = (int) $board->getBoardID();
         $model->name = (string) $board->getBoardName();
+        $site = $board->getSite();
+        $model->site_id = $site === null ? null : (int) $site->getSiteID();
 
         return $model;
     }
