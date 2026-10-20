@@ -143,6 +143,17 @@ class ExpressEntitySpecFactoryTest extends TestCase
     }
 
     /**
+     * An entity can keep the entries of each site apart, so an entry says which site it is kept with.
+     */
+    public function testAnEntrySaysWhichSiteItIsKeptWith(): void
+    {
+        $properties = $this->getSchemas()['TeamMember']['properties'];
+
+        static::assertSame('integer', $properties['site_id']['type']);
+        static::assertSame('int64', $properties['site_id']['format']);
+    }
+
+    /**
      * An entry is named by its public identifier in the answers and in the paths, so a write names the
      * entries it associates the same way.
      */

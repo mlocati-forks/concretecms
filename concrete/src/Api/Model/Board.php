@@ -31,6 +31,19 @@ class Board implements \JsonSerializable
     public $name;
 
     /**
+     * @OA\Property(
+     *     type="integer",
+     *     format="int64",
+     *     nullable=true,
+     *     title="Site ID",
+     *     description="ID of the site the board belongs to, NULL for a board that belongs to every site of this installation and whose instances are laid out site by site"
+     * )
+     *
+     * @var int|null
+     */
+    public $site_id;
+
+    /**
      * {@inheritdoc}
      *
      * @see \JsonSerializable::jsonSerialize()

@@ -8,7 +8,6 @@ use Concrete\Core\Api\Fractal\Transformer\AreaTransformer;
 use Concrete\Core\Api\Fractal\Transformer\BaseBlockTransformer;
 use Concrete\Core\Api\Fractal\Transformer\BlockTransformer;
 use Concrete\Core\Api\Fractal\Transformer\CalendarEventTransformer;
-use Concrete\Core\Api\Fractal\Transformer\CalendarTransformer;
 use Concrete\Core\Api\Fractal\Transformer\FileTransformer;
 use Concrete\Core\Api\Fractal\Transformer\PageTransformer;
 use Concrete\Core\Api\Fractal\Transformer\SiteTransformer;
@@ -43,7 +42,6 @@ class IncludedResourcesTest extends TestCase
             [BaseBlockTransformer::class, 'Block'],
             [BlockTransformer::class, 'Block'],
             [CalendarEventTransformer::class, 'CalendarEvent'],
-            [CalendarTransformer::class, 'Calendar'],
             [FileTransformer::class, 'File'],
             [PageTransformer::class, 'Page'],
             [SiteTransformer::class, 'Site'],
