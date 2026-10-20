@@ -7,6 +7,8 @@ namespace Concrete\Core\Api\Controller;
 use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Fractal\Transformer\StackTransformer;
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Api\Traits\SupportsSiteTrait;
+use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Page\Stack\Stack;
 use Concrete\Core\Page\Stack\StackList;
 use League\Fractal\Resource\Collection;
@@ -15,6 +17,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 class Stacks extends ApiController
 {
+    use SupportsSiteTrait;
+
     /**
      * @OA\Get(
      *     path="/ccm/api/1.0/stacks",
@@ -31,6 +35,15 @@ class Stacks extends ApiController
      *         description="Whether the blocks of every stack and of its localized versions travel with them (default: false)",
      *         @OA\Schema(type="boolean")
      *     ),
+     *     @OA\Parameter(
+     *         name="site",
+     *         in="query",
+     *         description="ID of the site whose languages the localized versions are limited to, which GET /sites lists: left out, every localized version of every stack is answered, whatever language it was made for. A stack itself belongs to every site of this installation.",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -42,12 +55,17 @@ class Stacks extends ApiController
      *             )
      *         ),
      *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="This installation has no site of the ID the request names",
+     *     ),
      * )
      *
      * @return \League\Fractal\Resource\Collection
      */
     public function listStacks()
     {
+        $site = $this->getRequestedSite();
         $list = new StackList();
         $list
             ->setIncludeStacks(true)
@@ -55,7 +73,7 @@ class Stacks extends ApiController
             ->setIncludeGlobalAreas(false)
         ;
 
-        return new Collection($list->getResults(), $this->createTransformer(), Resources::RESOURCE_STACKS);
+        return new Collection($list->getResults(), $this->createTransformer($site), Resources::RESOURCE_STACKS);
     }
 
     /**
@@ -84,12 +102,25 @@ class Stacks extends ApiController
      *         description="Whether the blocks of the stack and of its localized versions travel with it (default: false)",
      *         @OA\Schema(type="boolean")
      *     ),
+     *     @OA\Parameter(
+     *         name="site",
+     *         in="query",
+     *         description="ID of the site whose languages the localized versions are limited to, which GET /sites lists: left out, every localized version of the stack is answered, whatever language it was made for. A stack itself belongs to every site of this installation.",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
      *             @OA\Property(property="data", ref="#/components/schemas/Stack")
      *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="This installation has no site of the ID the request names",
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -119,11 +150,11 @@ class Stacks extends ApiController
             return $this->error(t('Stack not found.'), 404);
         }
 
-        return $this->transform($stack, $this->createTransformer(), Resources::RESOURCE_STACKS);
+        return $this->transform($stack, $this->createTransformer($this->getRequestedSite()), Resources::RESOURCE_STACKS);
     }
 
-    private function createTransformer(): StackTransformer
+    private function createTransformer(?Site $site): StackTransformer
     {
-        return new StackTransformer($this->request->query->getBoolean('include_contents', false));
+        return new StackTransformer($this->request->query->getBoolean('include_contents', false), $site);
     }
 }

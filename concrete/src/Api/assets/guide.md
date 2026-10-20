@@ -70,6 +70,27 @@ answers at the site root, and the other languages are walked from their own home
 the locales of a site, each with the `path` its pages begin with and the `home_page_id` to start from.
 The `locale` of a page answer names the language it belongs to.
 
+## An installation of several sites
+
+This installation can hold several sites, each with a tree of pages of its own: `GET /sites` lists the
+ones a request may read and says which of them is the default one.
+What belongs to a single site is answered for one site at a time, and that goes for the boards and their
+instances and for the calendars.
+Which site that is follows the domain the request came to, so the same request sent to two domains of
+this installation answers with the things of two different sites, and a request that came to a domain
+this installation knows no site of is answered for the default one.
+The `site` parameter names a site instead, by the `id` that `GET /sites` gives, which is the way to ask
+for one site while calling the domain of another.
+What belongs to no site in particular belongs to every one of them and comes whatever that parameter
+says: its `site_id` is `null`.
+
+The pages are answered for one site at a time as well, and naming one answers with its pages the way
+calling its own domain does: the ones of its default language, the others being walked from the home
+page of each.
+Elsewhere that parameter only narrows what comes, and nothing is left out without it: a stack hands over
+the versions made for the languages of one site alone, and the entries of an Express entity that keeps
+them apart by site are the ones of that site.
+
 ## The address of a page
 
 A page is served at its `path`, appended to the site root: a page whose `path` is `/about/us` answers at

@@ -55,6 +55,19 @@ class BoardInstance implements \JsonSerializable
     public $date_last_generated;
 
     /**
+     * @OA\Property(
+     *     type="integer",
+     *     format="int64",
+     *     nullable=true,
+     *     title="Site ID",
+     *     description="ID of the site the instance was laid out for, NULL where it was laid out for every site of this installation"
+     * )
+     *
+     * @var int|null
+     */
+    public $site_id;
+
+    /**
      * {@inheritdoc}
      *
      * @see \JsonSerializable::jsonSerialize()

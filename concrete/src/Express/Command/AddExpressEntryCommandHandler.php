@@ -36,7 +36,7 @@ class AddExpressEntryCommandHandler
     public function __invoke(AddExpressEntryCommand $command)
     {
         $object = $command->getEntity();
-        $entry = $this->entryManager->addEntry($object);
+        $entry = $this->entryManager->addEntry($object, $command->getSite());
         $map = $command->getAttributeMap();
         if ($map) {
             $this->handleAttributeMap($map, $entry);

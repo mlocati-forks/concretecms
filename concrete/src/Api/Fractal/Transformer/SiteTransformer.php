@@ -33,6 +33,7 @@ class SiteTransformer extends TransformerAbstract
             'id' => $site->getSiteID(),
             'handle' => $site->getSiteHandle(),
             'name' => $site->getSiteName(),
+            'is_default' => (bool) $site->isDefault(),
             'defaults' => $this->getDefaults($site),
         ];
         // kept for the clients that came before the locales were handed over unasked

@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Concrete\Tests\Api\Page;
 
 use Concrete\Core\Api\Fractal\Transformer\PageTransformer;
+use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Permission\Response\PageResponse;
 use Concrete\Core\Page\Theme\Theme as PageTheme;
+use Concrete\Core\Site\Config\Liaison;
 use Concrete\Core\StyleCustomizer\Skin\SkinInterface;
 use Concrete\Core\User\User;
 use Concrete\TestHelpers\Api\TokenScopesTrait;
@@ -69,6 +71,23 @@ class PageTransformerTest extends TestCase
         static::assertSame('', $transformed['url_slug']);
     }
 
+    public function testAPageSaysWhichSiteItBelongsTo(): void
+    {
+        $page = $this->createPage('about-us', $this->createTheme('elemental', 'default'), 'default', $this->createSite(2));
+
+        static::assertSame(2, (new PageTransformer())->transform($page)['site_id']);
+    }
+
+    /**
+     * The pages holding the stacks are kept outside of the sites of the installation.
+     */
+    public function testAPageOfNoSiteSaysSo(): void
+    {
+        $page = $this->createPage('about-us', $this->createTheme('elemental', 'default'), 'default');
+
+        static::assertNull((new PageTransformer())->transform($page)['site_id']);
+    }
+
     public function testAThemeOfferingNoSkinsLeavesTheSkinOfItsPagesEmpty(): void
     {
         // the core falls back to the skin named default even where the theme has none
@@ -82,6 +101,17 @@ class PageTransformerTest extends TestCase
     /**
      * @param string $skinIdentifier the only skin the theme offers, empty when it offers none
      */
+    private function createSite(int $siteID): Site
+    {
+        $config = $this->createMock(Liaison::class);
+        $config->method('get')->willReturn('en_US');
+        $site = $this->createMock(Site::class);
+        $site->method('getSiteID')->willReturn($siteID);
+        $site->method('getConfigRepository')->willReturn($config);
+
+        return $site;
+    }
+
     private function createTheme(string $handle, string $skinIdentifier): PageTheme
     {
         $theme = $this->createMock(PageTheme::class);
@@ -99,9 +129,10 @@ class PageTransformerTest extends TestCase
      * @param \Concrete\Core\Page\Theme\Theme|null $theme the theme the page is shown with
      * @param string $skinIdentifier the skin the page is shown with
      */
-    private function createPage(string $urlSlug, ?PageTheme $theme, string $skinIdentifier): Page
+    private function createPage(string $urlSlug, ?PageTheme $theme, string $skinIdentifier, ?Site $site = null): Page
     {
         $page = $this->createMock(Page::class);
+        $page->method('getSite')->willReturn($site);
         $page->method('getCollectionID')->willReturn(123);
         $page->method('getCollectionPath')->willReturn('/about/about-us');
         $page->method('getCollectionHandle')->willReturn($urlSlug);

@@ -1,7 +1,6 @@
 <?php
 namespace Concrete\Core\Api\Fractal\Transformer;
 
-use Concrete\Core\Api\Resources;
 use Concrete\Core\Api\TokenScopes;
 use Concrete\Core\Entity\Calendar\Calendar;
 use Concrete\Core\Permission\Checker;
@@ -9,10 +8,6 @@ use League\Fractal\TransformerAbstract;
 
 class CalendarTransformer extends TransformerAbstract
 {
-
-    protected $availableIncludes = [
-        'site',
-    ];
 
     /**
      * @param Calendar $calendar
@@ -26,13 +21,9 @@ class CalendarTransformer extends TransformerAbstract
 
         $data['id'] = $calendar->getID();
         $data['name'] = $calendar->getName();
-        return $data;
-    }
-
-    public function includeSite(Calendar $calendar)
-    {
         $site = $calendar->getSite();
-        return $this->item($site, new SiteTransformer(), Resources::RESOURCE_SITES);
+        $data['site_id'] = $site === null ? null : (int) $site->getSiteID();
+        return $data;
     }
 
     /**

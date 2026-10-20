@@ -30,6 +30,17 @@ class Site
     private $name;
 
     /**
+     * @OA\Property(
+     *     type="boolean",
+     *     title="Default site?",
+     *     description="Whether this is the site that this installation answers with where the domain a request came to names none, the one that GET /sites/default hands over"
+     * )
+     *
+     * @var bool
+     */
+    private $is_default;
+
+    /**
      * @OA\Property(ref="#/components/schemas/SiteDefaults", title="Defaults", description="What the pages of this site are given when they ask for nothing of their own")
      *
      * @var \Concrete\Core\Api\Model\SiteDefaults
