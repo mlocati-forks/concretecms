@@ -93,6 +93,19 @@ class Page
     private $locale;
 
     /**
+     * @OA\Property(
+     *     type="integer",
+     *     format="int64",
+     *     nullable=true,
+     *     title="Site ID",
+     *     description="ID of the site the page belongs to, NULL for a page this installation keeps outside of its sites, as the ones holding the stacks"
+     * )
+     *
+     * @var int|null
+     */
+    private $site_id;
+
+    /**
      * @OA\Property(type="string", title="External Link URL", description="If this page node is actually an external link, the value of the link URL.")
      *
      * @var string

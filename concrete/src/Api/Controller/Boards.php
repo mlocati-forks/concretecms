@@ -8,8 +8,8 @@ use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Fractal\Transformer\BoardInstanceTransformer;
 use Concrete\Core\Api\Fractal\Transformer\BoardTransformer;
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Api\Traits\SupportsSiteTrait;
 use Concrete\Core\Entity\Board\Board;
-use Concrete\Core\Entity\Board\Instance;
 use Concrete\Core\Permission\Checker;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Fractal\Resource\Collection;
@@ -19,6 +19,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 class Boards extends ApiController
 {
+    use SupportsSiteTrait;
+
     /**
      * @OA\Get(
      *     path="/ccm/api/1.0/boards",
@@ -28,6 +30,15 @@ class Boards extends ApiController
      *     security={
      *         {"authorization": {"boards:read"}}
      *     },
+     *     @OA\Parameter(
+     *         name="site",
+     *         in="query",
+     *         description="ID of the site whose boards are answered, which GET /sites lists: left out, it is the site the domain of this request answers for. The boards that belong to no site come whatever it says.",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -39,15 +50,20 @@ class Boards extends ApiController
      *             )
      *         ),
      *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="This installation has no site of the ID the request names",
+     *     ),
      * )
      *
      * @return \League\Fractal\Resource\Collection
      */
     public function listBoards()
     {
+        $site = $this->getRequestedSiteOrCurrent();
         $boards = [];
         foreach ($this->getRepository()->findBy([], ['boardName' => 'asc']) as $board) {
-            if ($board instanceof Board && $this->canViewBoard($board)) {
+            if ($this->belongsToSite($board->getSite(), $site) && $this->canViewBoard($board)) {
                 $boards[] = $board;
             }
         }
@@ -121,6 +137,15 @@ class Boards extends ApiController
      *             format="int64"
      *         )
      *     ),
+     *     @OA\Parameter(
+     *         name="site",
+     *         in="query",
+     *         description="ID of the site whose instances are answered, which GET /sites lists: left out, it is the site the domain of this request answers for. The instances laid out for no site in particular come whatever it says.",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -131,6 +156,10 @@ class Boards extends ApiController
      *                 @OA\Items(ref="#/components/schemas/BoardInstance")
      *             )
      *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="This installation has no site of the ID the request names",
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -148,9 +177,10 @@ class Boards extends ApiController
         if ($board === null) {
             return $this->error(t('Board not found.'), 404);
         }
+        $site = $this->getRequestedSiteOrCurrent();
         $instances = [];
         foreach ($board->getInstances() as $instance) {
-            if ($instance instanceof Instance) {
+            if ($this->belongsToSite($instance->getSite(), $site)) {
                 $instances[] = $instance;
             }
         }
@@ -181,7 +211,7 @@ class Boards extends ApiController
     }
 
     /**
-     * @return \Doctrine\ORM\EntityRepository
+     * @return \Doctrine\ORM\EntityRepository<\Concrete\Core\Entity\Board\Board>
      */
     private function getRepository()
     {

@@ -8,6 +8,7 @@ use Concrete\Core\Api\ApiController;
 use Concrete\Core\Api\Fractal\Transformer\CalendarEventTransformer;
 use Concrete\Core\Api\Fractal\Transformer\CalendarTransformer;
 use Concrete\Core\Api\Resources;
+use Concrete\Core\Api\Traits\SupportsSiteTrait;
 use Concrete\Core\Calendar\Calendar\CalendarService;
 use Concrete\Core\Calendar\Event\EventList;
 use Concrete\Core\Calendar\Event\EventService;
@@ -21,6 +22,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 class Calendars extends ApiController
 {
+    use SupportsSiteTrait;
+
     /**
      * @OA\Get(
      *     path="/ccm/api/1.0/calendars",
@@ -30,6 +33,15 @@ class Calendars extends ApiController
      *     security={
      *         {"authorization": {"calendars:read"}}
      *     },
+     *     @OA\Parameter(
+     *         name="site",
+     *         in="query",
+     *         description="ID of the site whose calendars are answered, which GET /sites lists: left out, it is the site the domain of this request answers for. The calendars that belong to no site come whatever it says.",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -41,15 +53,20 @@ class Calendars extends ApiController
      *             )
      *         ),
      *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="This installation has no site of the ID the request names",
+     *     ),
      * )
      *
      * @return \League\Fractal\Resource\Collection
      */
     public function listCalendars()
     {
+        $site = $this->getRequestedSiteOrCurrent();
         $calendars = [];
         foreach ($this->app->make(CalendarService::class)->getList() as $calendar) {
-            if ($calendar instanceof Calendar && $this->canViewCalendar($calendar)) {
+            if ($this->belongsToSite($calendar->getSite(), $site) && $this->canViewCalendar($calendar)) {
                 $calendars[] = $calendar;
             }
         }

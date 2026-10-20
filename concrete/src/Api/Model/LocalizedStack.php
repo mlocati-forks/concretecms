@@ -21,6 +21,19 @@ class LocalizedStack implements \JsonSerializable
     public $locale;
 
     /**
+     * @OA\Property(
+     *     type="integer",
+     *     format="int64",
+     *     nullable=true,
+     *     title="Site ID",
+     *     description="ID of the site whose language this version speaks, NULL where that language is gone from this installation"
+     * )
+     *
+     * @var int|null
+     */
+    public $site_id;
+
+    /**
      * @OA\Property(format="int64", title="Page ID", description="ID of the page holding the blocks of this version of the stack")
      *
      * @var int

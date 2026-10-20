@@ -34,6 +34,8 @@ class BoardInstanceTransformer extends TransformerAbstract
         $model->date_last_generated = $instance->getDateLastGenerated() === null
             ? null
             : Carbon::make($instance->getDateLastGeneratedObject())->toAtomString();
+        $site = $instance->getSite();
+        $model->site_id = $site === null ? null : (int) $site->getSiteID();
 
         return $model;
     }

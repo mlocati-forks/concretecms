@@ -8,6 +8,7 @@ use Concrete\Core\Api\Fractal\Transformer\BaseBlockTransformer;
 use Concrete\Core\Api\Fractal\Transformer\LocalizedStackTransformer;
 use Concrete\Core\Api\Fractal\Transformer\StackTransformer;
 use Concrete\Core\Block\Block;
+use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Multilingual\Page\Section\Section;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Page\Stack\Stack;
@@ -96,7 +97,7 @@ class StackTransformerTest extends TestCase
         $transformed = self::asRead($this->createTransformer(false, true, [$localized])->transform($stack));
 
         static::assertSame([
-            ['locale' => 'it_IT', 'id' => 212],
+            ['locale' => 'it_IT', 'site_id' => 2, 'id' => 212],
         ], $transformed['localized']);
     }
 
@@ -302,10 +303,13 @@ class StackTransformerTest extends TestCase
         return $block;
     }
 
-    private function createSection(string $locale): Section
+    private function createSection(string $locale, int $siteID = 2): Section
     {
+        $site = $this->createMock(Site::class);
+        $site->method('getSiteID')->willReturn($siteID);
         $section = $this->createMock(Section::class);
         $section->method('getLocale')->willReturn($locale);
+        $section->method('getSite')->willReturn($site);
 
         return $section;
     }

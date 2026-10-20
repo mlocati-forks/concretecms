@@ -10,6 +10,7 @@ use Concrete\Core\Api\OpenApi\JsonSchemaRefContent;
 use Concrete\Core\Api\OpenApi\Parameter\AfterParameter;
 use Concrete\Core\Api\OpenApi\Parameter\IncludesParameter;
 use Concrete\Core\Api\OpenApi\Parameter\LimitParameter;
+use Concrete\Core\Api\OpenApi\Parameter\SiteParameter;
 use Concrete\Core\Api\OpenApi\SpecComponents;
 use Concrete\Core\Api\OpenApi\SpecFragment;
 use Concrete\Core\Api\OpenApi\SpecModel;
@@ -43,6 +44,7 @@ class ExpressEntitySpecFactory
             ->addProperty(new SpecProperty('date_last_updated', t('Date Last Updated'), 'string', 'date'))
             ->addProperty(new SpecProperty('label', t('Label'), 'string'))
             ->addProperty(new SpecProperty('url', t('URL'), 'string'))
+            ->addProperty(new SpecProperty('site_id', t('ID of the site whose entries this one is kept with, NULL where the entity keeps the entries of every site together'), 'integer', 'int64'))
             ->addProperty(
                 $this->buildIncludeProperty(
                     'author',
@@ -190,6 +192,7 @@ class ExpressEntitySpecFactory
                 ->addParameter(new LimitParameter())
                 ->addParameter(new AfterParameter())
                 ->addParameter(new IncludesParameter($includes))
+                ->addParameter(new SiteParameter())
                 ->addResponse(
                     new SpecResponse(
                         200,
@@ -246,6 +249,7 @@ class ExpressEntitySpecFactory
 
         $specPath
             ->setSecurity(new SpecSecurity('authorization', [$handle . ':add']))
+            ->addParameter(new SiteParameter())
             ->addResponse(
                 new SpecResponse(
                     200,
