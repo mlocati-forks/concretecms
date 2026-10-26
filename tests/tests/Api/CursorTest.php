@@ -9,6 +9,7 @@ use Concrete\Core\Api\Cursor\IntegerCursor;
 use Concrete\Core\Api\Cursor\StringCursor;
 use Concrete\Core\File\Search\ColumnSet\Column\FileIDColumn;
 use Concrete\Core\Http\Request;
+use Concrete\Core\Search\ItemList\Pager\Manager\PagerManagerInterface;
 use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
 use Concrete\Tests\TestCase;
 use League\Fractal\Resource\Collection;
@@ -57,7 +58,7 @@ class CursorTest extends TestCase
     public function testTheListLeavesOutWhatComesBeforeTheObjectTheRequestNames(): void
     {
         $column = $this->createMock(FileIDColumn::class);
-        $list = $this->createMock(PagerProviderInterface::class);
+        $list = $this->createList();
         $object = $this->createObject(84);
         $column->expects(static::once())->method('filterListAtOffset')->with($list, $object);
 
@@ -69,7 +70,7 @@ class CursorTest extends TestCase
     public function testTheListStartsWhereItIsWhereTheRequestNamesNoObject(): void
     {
         $column = $this->createMock(FileIDColumn::class);
-        $list = $this->createMock(PagerProviderInterface::class);
+        $list = $this->createList();
         $column->expects(static::never())->method('filterListAtOffset');
 
         (new IntegerCursor($this->getIntegerKey()))->startAfter($this->createRequest(null), $list, $column, static function (int $key): void {
@@ -80,10 +81,45 @@ class CursorTest extends TestCase
     public function testTheListStartsWhereItIsWhereTheKeyNamesNothingItHolds(): void
     {
         $column = $this->createMock(FileIDColumn::class);
-        $list = $this->createMock(PagerProviderInterface::class);
+        $list = $this->createList();
         $column->expects(static::never())->method('filterListAtOffset');
 
         (new IntegerCursor($this->getIntegerKey()))->startAfter($this->createRequest('84'), $list, $column, static function (int $key) {
+        });
+    }
+
+    /**
+     * @return array<int,array<int,string|null>>
+     */
+    public static function provideCursorsAndDirections(): array
+    {
+        return [
+            [null, 'asc'],
+            [null, 'desc'],
+            ['84', 'asc'],
+            ['84', 'desc'],
+        ];
+    }
+
+    /**
+     * The column leaves out what comes before an object by comparing the value it sorts by together with
+     * the key of that object, so the list is walked by that key as well, in the same direction: without
+     * it the objects sharing a value have no order of their own, and a page of the list leaves one out or
+     * hands it over twice.
+     *
+     * @dataProvider provideCursorsAndDirections
+     */
+    public function testTheListIsWalkedByTheKeyOfItsObjectsToo(?string $after, string $direction): void
+    {
+        $column = $this->createMock(FileIDColumn::class);
+        $column->method('getColumnSortDirection')->willReturn($direction);
+        $manager = $this->createMock(PagerManagerInterface::class);
+        $list = $this->createList($manager);
+        $object = $this->createObject(84);
+        $manager->expects(static::once())->method('sortListByCursor')->with($list, $direction);
+
+        (new IntegerCursor($this->getIntegerKey()))->startAfter($this->createRequest($after), $list, $column, static function (int $key) use ($object) {
+            return $key === 84 ? $object : null;
         });
     }
 
@@ -137,6 +173,18 @@ class CursorTest extends TestCase
         static::assertInstanceOf(\League\Fractal\Pagination\Cursor::class, $cursor);
 
         return $cursor;
+    }
+
+    /**
+     * @return \Concrete\Core\Search\ItemList\Pager\PagerProviderInterface a list that is walked a page
+     *         at a time, which answers with the pager manager that sorts it by the key of its objects
+     */
+    private function createList(?PagerManagerInterface $manager = null): PagerProviderInterface
+    {
+        $list = $this->createMock(PagerProviderInterface::class);
+        $list->method('getPagerManager')->willReturn($manager ?? $this->createMock(PagerManagerInterface::class));
+
+        return $list;
     }
 
     /**
