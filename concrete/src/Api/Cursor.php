@@ -40,14 +40,17 @@ abstract class Cursor
     abstract public function getCurrent(Request $request);
 
     /**
-     * Where the request names an object of the list, leave out what the column it is sorted by puts
-     * before that one.
+     * Walk the list by the key of its objects beside the column it is sorted by, and where the request
+     * names an object, leave out what that column puts before it.
      *
      * @param callable $getObject takes the key the request sent and answers with the object it names,
      *                            or with NULL where the list holds no such object
      */
     public function startAfter(Request $request, PagerProviderInterface $list, PagerColumnInterface $column, callable $getObject): void
     {
+        // without an order of their own, the objects sharing the value of the column are left out while
+        // the list is walked, or handed over twice
+        $list->getPagerManager()->sortListByCursor($list, $column->getColumnSortDirection());
         $current = $this->getCurrent($request);
         if ($current === null) {
             return;
