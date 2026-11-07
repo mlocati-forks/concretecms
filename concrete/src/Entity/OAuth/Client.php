@@ -203,30 +203,12 @@ class Client implements ClientEntityInterface, \JsonSerializable
          */
         $url = $this->redirectUri ? $this->redirectUri : null;
 
-        $urls = [];
-
-        if (is_string($url)) {
-            if (strpos($url, '|') !== false) {
-                $urls[] = explode('|', $url);
-            } else {
-                $urls[] = $url;
-            }
-        } else {
-            $urls[] = '';
-        }
-
+        $urls = is_string($url) ? explode('|', $url) : [''];
         if ($this->isDocumentationEnabled()) {
             $urls[] = app(RedirectUriFactory::class)->createDocumentationRedirectUri($this);
         }
 
-        if (count($urls) > 1) {
-            return $urls;
-        } else if (isset($urls[0])) {
-            // we could technically return just the array every time but this will keep tests working just as before
-            return $urls[0];
-        } else {
-            return '';
-        }
+        return count($urls) === 1 ? $urls[0] : $urls;
     }
 
     /**
