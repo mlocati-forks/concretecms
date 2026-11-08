@@ -118,7 +118,7 @@ class IdTokenResponse extends BearerTokenResponse
         }
 
         $builder = $builder
-            ->permittedFor($accessToken->getClient()->getIdentifier())
+            ->permittedFor($accessToken->getClient()->getClientKey())
             ->issuedBy($issuer ? $issuer->getSiteCanonicalURL() : 'concrete5')
             ->issuedAt($now)
             ->canOnlyBeUsedAfter($now)
