@@ -5,6 +5,7 @@ namespace Concrete\Tests\Api\OAuth\Server;
 use Concrete\Core\Api\OAuth\Server\ClaimsSetFactory;
 use Concrete\Core\Api\OAuth\Server\IdTokenResponse;
 use Concrete\Core\Api\OAuth\UserStatusValidator;
+use Concrete\Core\Entity\OAuth\Client;
 use Concrete\Core\Site\Service;
 use Concrete\Core\User\UserInfo;
 use Concrete\Core\User\UserInfoRepository;
@@ -12,7 +13,6 @@ use Concrete\Tests\TestCase;
 use DateTimeImmutable;
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
-use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OpenIdConnectClaims\ClaimsSet;
 use Mockery as M;
@@ -33,6 +33,7 @@ class IdTokenResponseTest extends TestCase
 
     const USER_ID = 42;
     const CLIENT_ID = 'client-id';
+    const CLIENT_UUID = 'client-uuid';
 
     /**
      * @var string
@@ -104,8 +105,10 @@ class IdTokenResponseTest extends TestCase
             $scopes[] = $scope;
         }
 
-        $client = M::mock(ClientEntityInterface::class);
-        $client->shouldReceive('getIdentifier')->andReturn(self::CLIENT_ID);
+        // A client has an internal identifier too: relying parties only know the client_id
+        $client = M::mock(Client::class);
+        $client->shouldReceive('getIdentifier')->andReturn(self::CLIENT_UUID);
+        $client->shouldReceive('getClientKey')->andReturn(self::CLIENT_ID);
 
         $accessToken = M::mock(AccessTokenEntityInterface::class);
         $accessToken->shouldReceive('getScopes')->andReturn($scopes);
