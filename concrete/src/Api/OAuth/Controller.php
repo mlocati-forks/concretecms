@@ -116,18 +116,34 @@ final class Controller implements LoggerAwareInterface
      */
     protected function validateScopesAgainstClient(Client $client, array $scopes)
     {
-        if ($client->hasCustomScopes()) {
-            $clientScopeIdentifiers = [];
-            foreach ($client->getScopes() as $clientScope) {
-                $clientScopeIdentifiers[] = $clientScope->getIdentifier();
-            }
-            foreach ($scopes as $scope) {
-                if (!in_array($scope->getIdentifier(), $clientScopeIdentifiers)) {
-                    return false;
-                }
+        return $this->getScopesNotAllowedByClient($client, $scopes) === [];
+    }
+
+    /**
+     * Get the identifiers of the requested scopes that the client is not allowed to use
+     * (always empty if the client can use all the scopes).
+     *
+     * @param \League\OAuth2\Server\Entities\ScopeEntityInterface[] $scopes
+     *
+     * @return string[]
+     */
+    private function getScopesNotAllowedByClient(Client $client, array $scopes)
+    {
+        if (!$client->hasCustomScopes()) {
+            return [];
+        }
+        $clientScopeIdentifiers = [];
+        foreach ($client->getScopes() as $clientScope) {
+            $clientScopeIdentifiers[] = $clientScope->getIdentifier();
+        }
+        $result = [];
+        foreach ($scopes as $scope) {
+            if (!in_array($scope->getIdentifier(), $clientScopeIdentifiers, true)) {
+                $result[] = $scope->getIdentifier();
             }
         }
-        return true;
+
+        return $result;
     }
 
     /**
@@ -145,8 +161,18 @@ final class Controller implements LoggerAwareInterface
 
             $client = $request->getClient();
             $scopes = $request->getScopes();
-            if (!$this->validateScopesAgainstClient($client, $scopes)) {
-                throw new \Exception(t('Invalid scope(s) requested. Please ensure only scopes allowed by the client are requested.'));
+            $notAllowedScopes = $this->getScopesNotAllowedByClient($client, $scopes);
+            if ($notAllowedScopes !== []) {
+                $clientRedirectUri = $client->getRedirectUri();
+                // Same error type and hint format used for unknown scopes: only the description differs
+                throw new OAuthServerException(
+                    'The requested scope is not allowed for this client',
+                    5, // invalid_scope
+                    'invalid_scope',
+                    400,
+                    sprintf('Check the `%s` scope', implode(' ', $notAllowedScopes)),
+                    $request->getRedirectUri() ?? (is_array($clientRedirectUri) ? $clientRedirectUri[0] : $clientRedirectUri)
+                );
             }
 
             // Handle login step

@@ -18,9 +18,10 @@ use Concrete\Core\Routing\Router;
 use Doctrine\ORM\EntityManagerInterface;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\AuthorizationValidators\BearerTokenValidator;
+use Concrete\Core\Api\OAuth\Grant\AuthCodeGrant;
+use Concrete\Core\Api\OAuth\Grant\ClientCredentialsGrant;
+use Concrete\Core\Api\OAuth\Grant\PasswordGrant;
 use Concrete\Core\Api\OAuth\Grant\RefreshTokenGrant;
-use League\OAuth2\Server\Grant\AuthCodeGrant;
-use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
@@ -30,7 +31,6 @@ use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use League\OAuth2\Server\ResourceServer;
 use League\OAuth2\Server\ResponseTypes\ResponseTypeInterface;
 use phpseclib3\Crypt\RSA;
-use League\OAuth2\Server\Grant\ClientCredentialsGrant;
 use League\OAuth2\Server\CryptKey;
 
 class ApiServiceProvider extends ServiceProvider
