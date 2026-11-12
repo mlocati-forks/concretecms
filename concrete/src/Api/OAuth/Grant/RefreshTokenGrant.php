@@ -12,6 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class RefreshTokenGrant extends BaseRefreshTokenGrant
 {
+    use ScopeValidationTrait;
 
     /**
      * @var \Concrete\Core\Api\OAuth\UserStatusValidator
