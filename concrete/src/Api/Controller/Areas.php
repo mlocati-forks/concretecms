@@ -50,7 +50,7 @@ class Areas extends ApiController implements ApplicationAwareInterface
      *     tags={"areas"},
      *     operationId="refreshPageAreas",
      *     summary="Draws a page, so that the areas it has are the ones its template makes.",
-     *     description="The areas of a page are the records that whatever draws it creates, so a page that nothing has drawn yet has none, and one whose template changed still carries the areas of the old one. Call this after adding a page, after changing the theme or the template of one, and whenever a page comes back with no areas at all; then read them as usual, with GET /pages/{pageID}?includes=areas.",
+     *     description="Draw a page, so that the areas it has are the ones its template makes. Call it after adding a page, after changing the theme or the template of one, and whenever a page comes back with no areas at all; then read them with GET /pages/{pageID}?includes=areas.",
      *     security={
      *         {"authorization": {"pages:add"}},
      *         {"authorization": {"pages:areas:add_block"}}
