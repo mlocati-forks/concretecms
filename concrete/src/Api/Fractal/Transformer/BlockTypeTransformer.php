@@ -6,6 +6,7 @@ namespace Concrete\Core\Api\Fractal\Transformer;
 
 use Concrete\Core\Api\Model\BlockType as BlockTypeModel;
 use Concrete\Core\Api\Model\BlockType\CustomTemplate as CustomTemplateModel;
+use Concrete\Core\Api\Model\BlockType\Detail as BlockTypeDetailModel;
 use Concrete\Core\Block\BlockType\TemplateCatalog;
 use Concrete\Core\Filesystem\TemplateFile;
 use Concrete\Core\Entity\Block\BlockType\BlockType;
@@ -27,6 +28,21 @@ class BlockTypeTransformer extends TransformerAbstract
     private $catalog;
 
     /**
+     * @var bool
+     */
+    protected $askedForByItself = false;
+
+    /**
+     * @param bool $askedForByItself whether the answer is about this block type alone, which then
+     *                               carries the schema of the value of its blocks: the list leaves it
+     *                               out, since the schemas of every block type together are large
+     */
+    public function __construct(bool $askedForByItself = false)
+    {
+        $this->askedForByItself = $askedForByItself;
+    }
+
+    /**
      * @return array<string,mixed>
      */
     public function transform(BlockType $blockType): array
@@ -38,12 +54,16 @@ class BlockTypeTransformer extends TransformerAbstract
             $description = (string) $blockType->getBlockTypeDescription();
         }
 
-        $model = new BlockTypeModel();
+        if ($this->askedForByItself) {
+            $model = new BlockTypeDetailModel();
+            $model->value_schema = $handler === null ? null : $handler->getApiValueSchema();
+        } else {
+            $model = new BlockTypeModel();
+        }
         $model->handle = (string) $blockType->getBlockTypeHandle();
         $model->name = (string) $blockType->getBlockTypeName();
         $model->description = $description;
         $model->package = (string) $blockType->getPackageHandle();
-        $model->value_schema = $handler === null ? null : $handler->getApiValueSchema();
         $model->custom_templates = $this->getCustomTemplates($blockType);
 
         return $model->jsonSerialize();
