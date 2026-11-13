@@ -9,7 +9,10 @@ defined('C5_EXECUTE') or die('Access Denied.');
 /**
  * @OA\Schema(
  *     title="BlockType",
+ *     description="What the list of the block types says about one of them",
  * )
+ *
+ * @see \Concrete\Core\Api\Model\BlockType\Detail
  */
 class BlockType implements \JsonSerializable
 {
@@ -40,13 +43,6 @@ class BlockType implements \JsonSerializable
      * @var string
      */
     public $package;
-
-    /**
-     * @OA\Property(type="object", title="Block value schema", description="The JSON Schema of the value that the areas endpoints accept for a block of this type")
-     *
-     * @var array
-     */
-    public $value_schema;
 
     /**
      * @OA\Property(

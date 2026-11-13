@@ -30,9 +30,9 @@ class BlockTypeTransformerTest extends ConcreteDatabaseTestCase
         \Concrete\Core\Entity\Package::class,
     ];
 
-    public function testABlockTypeIsDescribedWithTheSchemaOfItsValue(): void
+    public function testABlockTypeAskedForByItselfIsDescribedWithTheSchemaOfItsValue(): void
     {
-        $transformed = $this->transform('image');
+        $transformed = $this->transform('image', true);
 
         static::assertSame('image', $transformed['handle']);
         static::assertSame('Image', $transformed['name']);
@@ -40,6 +40,15 @@ class BlockTypeTransformerTest extends ConcreteDatabaseTestCase
         static::assertSame('', $transformed['package']);
         static::assertSame('object', $transformed['value_schema']['type']);
         static::assertArrayHasKey('altText', $transformed['value_schema']['properties']);
+        $this->assertFieldsAre('BlockTypeDetail', $transformed);
+    }
+
+    public function testTheListedBlockTypesLeaveTheSchemaOfTheirValueOut(): void
+    {
+        $transformed = $this->transform('image');
+
+        static::assertSame('image', $transformed['handle']);
+        static::assertArrayNotHasKey('value_schema', $transformed);
         $this->assertFieldsAre('BlockType', $transformed);
     }
 
@@ -68,7 +77,7 @@ class BlockTypeTransformerTest extends ConcreteDatabaseTestCase
     {
         $blockType = $this->getBlockType('image');
 
-        $transformed = (new BlockTypeTransformer())->transform($blockType);
+        $transformed = (new BlockTypeTransformer(true))->transform($blockType);
 
         static::assertSame($blockType->getController()->getApiHandler()->getApiValueSchema(), $transformed['value_schema']);
     }
@@ -117,11 +126,14 @@ class BlockTypeTransformerTest extends ConcreteDatabaseTestCase
     }
 
     /**
+     * @param bool $askedForByItself whether to describe the block type the way the answer about that
+     *                               one does, instead of the way the list does
+     *
      * @return array<string,mixed>
      */
-    private function transform(string $handle): array
+    private function transform(string $handle, bool $askedForByItself = false): array
     {
-        return (new BlockTypeTransformer())->transform($this->getBlockType($handle));
+        return (new BlockTypeTransformer($askedForByItself))->transform($this->getBlockType($handle));
     }
 
     /**

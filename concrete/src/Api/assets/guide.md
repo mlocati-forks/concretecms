@@ -148,9 +148,12 @@ Adding a block to an area handle that the page has never used creates that area 
 saved, but a theme that declares no such area never shows it.
 
 The fields of the `value` of a block depend on its block type, and `GET /block_types` answers with the
-block types to work with, each with the `value_schema` of the value its blocks take and give back.
+block types to work with, without the schema of their value: `GET /block_types/{handle}` adds the
+`value_schema` of the value the blocks of that one take and give back, since the schemas of every block
+type of an installation together are far larger than the one schema a client needs to compose a block.
 A block type that declares no schema of its own is marked `x-concrete-undescribed`, and the only way to
-learn its fields is to read a block of that type.
+learn its fields is to read a block of that type; a `value_schema` of `null` is an installation that has
+kept a block type whose code it no longer holds, and nothing can be said about the value of its blocks.
 An area can also hand back a block whose type the list leaves out, one the core writes for itself: there is
 no value a client composes for it, and `GET /block_types/{handle}` answers 404 for its handle.
 Each block type also carries the `custom_templates` its blocks can be shown with, the name of each and the themes

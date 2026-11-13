@@ -19,7 +19,8 @@ class BlockTypes extends ApiController
      *     path="/ccm/api/1.0/block_types",
      *     tags={"block_types"},
      *     operationId="getBlockTypes",
-     *     summary="List the block types to work with, with the schema of the value they accept",
+     *     summary="List the block types to work with, each without the schema of the value it accepts",
+     *     description="The schema of the value of a block type comes with the answer about that one block type, GET /block_types/{blockTypeHandle}: the schemas of every block type of an installation together are large, and a client composing the value of a block needs the one of its type alone.",
      *     security={
      *         {"clientCredentials": {"definitions:read"}},
      *         {"authorization": {"definitions:read"}}
@@ -69,7 +70,7 @@ class BlockTypes extends ApiController
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             @OA\Property(property="data", ref="#/components/schemas/BlockType")
+     *             @OA\Property(property="data", ref="#/components/schemas/BlockTypeDetail")
      *         ),
      *     ),
      *     @OA\Response(
@@ -87,6 +88,6 @@ class BlockTypes extends ApiController
             return $this->error(t('Block type not found'), 404);
         }
 
-        return $this->transform($blockType, new BlockTypeTransformer(), Resources::RESOURCE_BLOCK_TYPES);
+        return $this->transform($blockType, new BlockTypeTransformer(true), Resources::RESOURCE_BLOCK_TYPES);
     }
 }
