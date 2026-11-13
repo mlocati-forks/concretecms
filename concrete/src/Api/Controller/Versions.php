@@ -154,7 +154,7 @@ class Versions extends ApiController
      *     tags={"page_versions"},
      *     operationId="addPageVersionByPageId",
      *     summary="Create or return an editable RECENT draft page version.",
-     *     description="Matches Collection::getVersionToModify() semantics: if the current RECENT version is already a draft (isNew), it is returned unchanged; otherwise a new draft is cloned (blocks remain aliases until edited). After cloning, read blocks with version=recent. Approving or publishing is out of scope — use the update endpoint.",
+     *     description="Hand over the draft version of a page to edit: the RECENT version comes back as it is when it is already a draft, otherwise a new draft is made of it, whose blocks stay aliases of the ones it was made from until they are edited. Read them with version=recent. Approving the draft is what PUT /page_versions/{pageID}/{versionID} does.",
      *     security={
      *         {"authorization": {"pages:versions:add"}}
      *     },
