@@ -123,7 +123,7 @@ class Boards extends ApiController
      *     tags={"boards"},
      *     operationId="getBoardInstances",
      *     summary="List the instances of a board, the ones a board block shows",
-     *     description="A board is laid out anew every time it is generated, and each of those layouts is an instance: the newest comes first.",
+     *     description="List the instances of a board, the newest first: a board is laid out anew every time it is generated, and each of those layouts is an instance.",
      *     security={
      *         {"authorization": {"boards:read"}}
      *     },

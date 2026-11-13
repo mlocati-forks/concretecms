@@ -21,7 +21,7 @@ class FileSets extends ApiController
      *     tags={"file_sets"},
      *     operationId="getFileSets",
      *     summary="List the file sets this request may use",
-     *     description="The sets of the site come back along with the ones of the user the request carries, by name. The files of a set are read with GET /files, naming the set in its set parameter.",
+     *     description="List the file sets this request may use, by name: the ones of the site and the ones of the user it carries. The files of a set come with GET /files, naming the set in its set parameter.",
      *     security={
      *         {"authorization": {"files:read"}}
      *     },

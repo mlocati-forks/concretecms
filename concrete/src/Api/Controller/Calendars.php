@@ -126,7 +126,7 @@ class Calendars extends ApiController
      *     tags={"calendars"},
      *     operationId="getCalendarEvents",
      *     summary="List the events of a calendar",
-     *     description="Every approved event of the calendar comes back, the oldest first.",
+     *     description="List the events of a calendar: every approved event comes back, the oldest first.",
      *     security={
      *         {"authorization": {"calendar_events:read"}}
      *     },

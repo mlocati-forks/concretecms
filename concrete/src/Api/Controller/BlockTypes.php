@@ -20,7 +20,7 @@ class BlockTypes extends ApiController
      *     tags={"block_types"},
      *     operationId="getBlockTypes",
      *     summary="List the block types to work with, each without the schema of the value it accepts",
-     *     description="The schema of the value of a block type comes with the answer about that one block type, GET /block_types/{blockTypeHandle}: the schemas of every block type of an installation together are large, and a client composing the value of a block needs the one of its type alone.",
+     *     description="List the block types to work with, with the custom templates their blocks can be shown with. The schema of the value of a block type comes with GET /block_types/{blockTypeHandle}.",
      *     security={
      *         {"clientCredentials": {"definitions:read"}},
      *         {"authorization": {"definitions:read"}}
