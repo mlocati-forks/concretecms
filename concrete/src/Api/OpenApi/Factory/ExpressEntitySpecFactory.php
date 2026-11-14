@@ -188,6 +188,7 @@ class ExpressEntitySpecFactory
                 $handle,
                 t('Returns a list of %s objects, sorted by last updated descending.', $object->getName())
             ))
+                ->setOperationId('get' . camelcase($handle))
                 ->setSecurity(new SpecSecurity('authorization', [$handle . ':read']))
                 ->addParameter(new LimitParameter())
                 ->addParameter(new AfterParameter())
@@ -219,6 +220,7 @@ class ExpressEntitySpecFactory
                 $handle,
                 t('Find a %s by its public identifier.', $object->getName())
             ))
+                ->setOperationId('get' . camelcase($object->getHandle()) . 'ByUuid')
                 ->addParameter(
                     new Parameter('uuid', 'path', t('The public identifier/uuid of the entry.'), new SpecSchema('string', 'string'), true)
                 )
@@ -248,6 +250,7 @@ class ExpressEntitySpecFactory
         ));
 
         $specPath
+            ->setOperationId('add' . camelcase($object->getHandle()))
             ->setSecurity(new SpecSecurity('authorization', [$handle . ':add']))
             ->addParameter(new SiteParameter())
             ->addResponse(
@@ -279,6 +282,7 @@ class ExpressEntitySpecFactory
         ));
 
         $specPath
+            ->setOperationId('update' . camelcase($object->getHandle()) . 'ByUuid')
             ->setSecurity(new SpecSecurity('authorization', [$handle . ':update']))
             ->addParameter(new Parameter('uuid', 'path', t('The public identifier/uuid of the entry.'), new SpecSchema('string', 'string'), true))
             ->addResponse(
@@ -308,6 +312,7 @@ class ExpressEntitySpecFactory
                 $handle,
                 t('Delete a %s.', $object->getName())
             ))
+                ->setOperationId('delete' . camelcase($object->getHandle()) . 'ByUuid')
                 ->addParameter(
                     new Parameter('uuid', 'path', t('The public identifier/uuid of the entry.'), new SpecSchema('string', 'string'), true)
                 )
