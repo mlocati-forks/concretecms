@@ -28,6 +28,14 @@ class SpecPath implements \JsonSerializable
     protected $summary;
 
     /**
+     * The name of the operation, which is what the tools built out of the specification are named
+     * after: it must not be translated, or it would follow the language of the installation.
+     *
+     * @var string
+     */
+    protected $operationId = '';
+
+    /**
      * @var SpecParameter[]
      */
     protected $parameters = [];
@@ -74,10 +82,31 @@ class SpecPath implements \JsonSerializable
                 'responses' => $this->responses,
             ],
         ];
+        if ($this->operationId !== '') {
+            $data[$method]['operationId'] = $this->operationId;
+        }
         if (isset($this->requestBody)) {
             $data[$method]['requestBody'] = $this->requestBody;
         }
         return $data;
+    }
+
+    /**
+     * @param string $operationId the name of this operation, which must be unique in the whole
+     *                            specification and must not be translated
+     *
+     * @return $this
+     */
+    public function setOperationId(string $operationId)
+    {
+        $this->operationId = $operationId;
+
+        return $this;
+    }
+
+    public function getOperationId(): string
+    {
+        return $this->operationId;
     }
 
     public function addParameter(ParameterInterface $parameter)

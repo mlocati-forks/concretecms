@@ -212,6 +212,22 @@ class ExpressEntitySpecFactoryTest extends TestCase
     }
 
     /**
+     * A client that turns the specification into tools names each of them after the operation it
+     * calls, so an operation carries a name of its own: its summary goes through t(), and would make
+     * those names follow the language of the installation.
+     */
+    public function testEveryOperationIsNamedAfterTheEntity(): void
+    {
+        $paths = $this->getPaths();
+
+        static::assertSame('getTeamMembers', $paths['/ccm/api/1.0/team_members']['get']['operationId'] ?? '');
+        static::assertSame('addTeamMember', $paths['/ccm/api/1.0/team_members']['post']['operationId'] ?? '');
+        static::assertSame('getTeamMemberByUuid', $paths['/ccm/api/1.0/team_members/{uuid}']['get']['operationId'] ?? '');
+        static::assertSame('updateTeamMemberByUuid', $paths['/ccm/api/1.0/team_members/{uuid}']['put']['operationId'] ?? '');
+        static::assertSame('deleteTeamMemberByUuid', $paths['/ccm/api/1.0/team_members/{uuid}']['delete']['operationId'] ?? '');
+    }
+
+    /**
      * @return array the schema of what the operation answers with
      */
     private function getAnswerSchema(string $path, string $method): array
