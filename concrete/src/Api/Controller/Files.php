@@ -54,8 +54,14 @@ class Files extends ApiController
      *     @OA\Parameter(
      *         name="fileID",
      *         in="path",
-     *         description="ID of file to return",
-     *         required=true
+     *         description="The file to return, named by UUID, or by ID when the UUID is missing",
+     *         required=true,
+     *         @OA\Schema(
+     *             oneOf={
+     *                 @OA\Schema(type="string", format="uuid"),
+     *                 @OA\Schema(type="integer", format="int64")
+     *             }
+     *         )
      *     ),
      *     @OA\Parameter(
      *         name="includes",
@@ -136,7 +142,13 @@ class Files extends ApiController
      *     @OA\Parameter(
      *         name="after",
      *         in="query",
-     *         description="The ID of the current object to start at."
+     *         description="The current object to start at, named by UUID, or by ID when the UUID is missing",
+     *         @OA\Schema(
+     *             oneOf={
+     *                 @OA\Schema(type="string", format="uuid"),
+     *                 @OA\Schema(type="integer", format="int64")
+     *             }
+     *         )
      *     ),
      *     @OA\Parameter(
      *         name="includes",
@@ -417,8 +429,14 @@ class Files extends ApiController
      *     @OA\Parameter(
      *         name="fileID",
      *         in="path",
-     *         description="ID of file to delete",
-     *         required=true
+     *         description="The file to delete, named by UUID, or by ID when the UUID is missing",
+     *         required=true,
+     *         @OA\Schema(
+     *             oneOf={
+     *                 @OA\Schema(type="string", format="uuid"),
+     *                 @OA\Schema(type="integer", format="int64")
+     *             }
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -464,8 +482,14 @@ class Files extends ApiController
      *     @OA\Parameter(
      *         name="fileID",
      *         in="path",
-     *         description="ID of file to update",
-     *         required=true
+     *         description="The file to update, named by UUID, or by ID when the UUID is missing",
+     *         required=true,
+     *         @OA\Schema(
+     *             oneOf={
+     *                 @OA\Schema(type="string", format="uuid"),
+     *                 @OA\Schema(type="integer", format="int64")
+     *             }
+     *         )
      *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/UpdatedFile"),
      *     @OA\Response(
@@ -533,8 +557,14 @@ class Files extends ApiController
      *     @OA\Parameter(
      *         name="fileID",
      *         in="path",
-     *         description="ID of file to update",
-     *         required=true
+     *         description="The file to move, named by UUID, or by ID when the UUID is missing",
+     *         required=true,
+     *         @OA\Schema(
+     *             oneOf={
+     *                 @OA\Schema(type="string", format="uuid"),
+     *                 @OA\Schema(type="integer", format="int64")
+     *             }
+     *         )
      *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/MoveFile"),
      *     @OA\Response(
